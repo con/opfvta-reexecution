@@ -1,6 +1,4 @@
-# based on stage3 image
-# FROM gentoo/stage3:amd64-hardened-20200905
-FROM gentoo/stage3:latest
+FROM gentoo/stage3:20230424
 
 RUN emerge -v --noreplace dev-vcs/git
 RUN emerge -v1u portage
