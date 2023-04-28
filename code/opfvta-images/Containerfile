@@ -12,9 +12,6 @@ COPY code/opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
 RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
 RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
 
-# Moving gentoo repo from default rsync to git
-RUN rm /var/db/repos/gentoo -rf
-
 # Getting everything via git
 RUN emerge --sync science gentoo
 
