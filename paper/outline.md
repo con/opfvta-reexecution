@@ -34,6 +34,10 @@
         subdatasets
     - Moving opinion to top level
     - Reduce/remove user-required domain-specific knowledge 
+1. Storing the container image
+    Contribute Containerfile to original opfvta
+    OCI vs Singularity, push to OCI, use datalad for Sing
+1. Connecting to ReproMan
 
 
 ## Procedure for re-execution
