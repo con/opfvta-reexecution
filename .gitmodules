@@ -1,0 +1,3 @@
+[submodule "paper/policies"]
+	path = paper/policies
+	url = ./paper/policies
