@@ -1,4 +1,7 @@
-FROM gentoo/stage3:20230424
+FROM docker.io/gentoo/stage3:20230424
+
+# copy the entire portage volume in
+COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
 
 RUN emerge -v --noreplace dev-vcs/git
 RUN emerge -v1u portage
@@ -8,14 +11,12 @@ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
 ARG science_hash=3f2aee8f5efbcf9301c98133bf56daaf2767ded6
 ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
 
-FROM opfvta-base
-
 COPY code/opfvta /opfvta
 COPY code/opfvta/.gentoo/portage/ /etc/portage/
 COPY code/opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
 
-RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
-RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+# Moving gentoo repo from default rsync to git
+RUN rm /var/db/repos/gentoo -rf
 
 # Getting everything via git
 RUN emerge --sync science gentoo
