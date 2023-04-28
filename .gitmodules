@@ -1,6 +1,3 @@
-[submodule "paper/policies"]
-	path = paper/policies
-	url = ./paper/policies
 [submodule "inputs/opfvta_bidsdata"]
 	path = inputs/opfvta_bidsdata
 	url = https://bitbucket.org/TheChymera/opfvta_bidsdata
