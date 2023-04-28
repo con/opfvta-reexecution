@@ -26,24 +26,15 @@ push:
 	podman push ${FQDN_IMAGE}
 
 run:
-	# TODO
-	ifndef OPFVTA_SCRATCH_DIR
-	$(error OPFVTA_SCRATCH_DIR is not set)
-	endif
+	ifeq ($(OPFVTA_SCRATCH_DIR),)
+	echo "OPFVTA_SCRATCH_DIR must be set to a directory with at least 200Gb of space."
+	else
 	podman run \
 		-it \
 		--rm \
 		-v inputs/opfvta-bids:/usr/share/opfvta_bidsdata \
 		-v inputs/mouse-brain-templates-0.5.3:/usr/share/mouse_brain_atlases \
+		-v outputs/:/outputs
 		-v ${OPFVTA_SCRATCH_DIR}:/root/.scratch
 		${FQDN_IMAGE}
-
-# Use this to run a shell
-handtest:
-	podman run \
-		-it \
-		-v input_data:/usr/share/opfvta_bidsdata \
-		-v reference_data:/TODOWHEREDOESTHISGO \
-		-v output:/root/.scratch \
-		${FQDN_IMAGE} \
-		/bin/bash
+	endif
