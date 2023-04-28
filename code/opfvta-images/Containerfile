@@ -30,6 +30,3 @@ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provid
 
 RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
 RUN emerge -v opfvta --autounmask-continue
-RUN source /etc/profile
-
-ENTRYPOINT ["/opfvta/produce.sh"]
