@@ -73,13 +73,14 @@ reference analysis workflow implementation.
 
 ## OSF 
 
-* a URL to an [OSF project](https://osf.io), and to its
-* [registration](https://help.osf.io/hc/en-us/articles/360019930893) if
-* it has been performed (preferred). This OSF project should be used to
-* centralise access to all files, material, documents, and links to
-* online repositories used in the work submitted; a list of at least 3
-* potential reviewers, with contact information and a statement , and if
-* applicable a list of at most 3 people who should not be contacted for
-* review.
+OSF Project: osf://dbxpt
+
+    * a URL to an [OSF project](https://osf.io), and to its
+      [registration](https://help.osf.io/hc/en-us/articles/360019930893) if
+      it has been performed (preferred). This OSF project should be used to
+      centralise access to all files, material, documents, 
+    * links to online repositories used in the work submitted
+    * a list of at least 3 potential reviewer with contact information and a statement
+    * if applicable a list of at most 3 people who should not be contacted for review.
 
 
