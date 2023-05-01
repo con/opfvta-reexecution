@@ -27,15 +27,16 @@ push:
 	podman push ${FQDN_IMAGE}
 
 run:
-	echo ${OPFVTA_SCRATCH_DIR}
-	# $(error OPFVTA_SCRATCH_DIR must be set to a directory containing at least 200Gb)
-	# endif
-	# podman run \
+	podman run \
 		-it \
 		--rm \
-		-v inputs/opfvta-bids:/usr/share/opfvta_bidsdata \
-		-v inputs/mouse-brain-templates-0.5.3:/usr/share/mouse_brain_atlases \
-		-v outputs/:/outputs \
+		-v ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
+		-v ${PWD}/inputs/mouse-brain-templates:/usr/share/mouse_brain_atlases \
+		-v ${PWD}/outputs/:/outputs \
 		-v ${OPFVTA_SCRATCH_DIR}:/root/.scratch \
-		${FQDN_IMAGE}
-		code/produce-analysis.sh
+		-v ${PWD}/code/:/opt/src/ \
+		${FQDN_IMAGE} \
+		/bin/bash
+
+
+		# /opt/src/produce-analysis.sh
