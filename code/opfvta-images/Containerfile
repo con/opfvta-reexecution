@@ -1,3 +1,4 @@
+FROM docker.io/gentoo/portage:20230424 as portage
 FROM docker.io/gentoo/stage3:20230424
 
 # copy the entire portage volume in
