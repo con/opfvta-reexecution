@@ -1,0 +1,36 @@
+FROM docker.io/gentoo/portage:20230424 as portage
+FROM docker.io/gentoo/stage3:20230424
+
+# copy the entire portage volume in
+COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+
+RUN emerge -v --noreplace dev-vcs/git
+RUN emerge -v1u portage
+
+# Pinned commits for the dependency tree state
+ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+ARG science_hash=3f2aee8f5efbcf9301c98133bf56daaf2767ded6
+ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
+
+# This will be bound, and contents available outside of container
+RUN mkdir /outputs
+
+COPY code/opfvta /opfvta
+COPY code/opfvta/.gentoo/portage/ /etc/portage/
+COPY code/opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+
+# Moving gentoo repo from default rsync to git
+RUN rm /var/db/repos/gentoo -rf
+
+# Getting everything via git
+RUN emerge --sync science gentoo
+
+# Pinning dependency tree state via git
+RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
+RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
+
+# This is only if we distribute data separately
+RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+
+RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+RUN emerge -v opfvta --autounmask-continue
