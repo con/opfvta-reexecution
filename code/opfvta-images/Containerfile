@@ -9,7 +9,7 @@ RUN emerge -v1u portage
 
 # Pinned commits for the dependency tree state
 ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
-ARG science_hash=3f2aee8f5efbcf9301c98133bf56daaf2767ded6
+ARG science_hash=3816342c4d4ad5da753dedcdcc7a50aaa27ac9be
 ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
 
 # This will be bound, and contents available outside of container
