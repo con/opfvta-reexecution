@@ -1,5 +1,8 @@
 #!/bin/bash
-cd /opfvta
-make data
-make all
+source /etc/profile
+
+pushd /opfvta
+  make data --always-make
+  make all
+popd
 # mv /opfvta/data/* /outputs
