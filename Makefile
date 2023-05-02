@@ -27,8 +27,8 @@ push:
 	podman push ${FQDN_IMAGE}
 
 run:
-	ifndef ${OPFVTA_SCRATCH_DIR}
-	$(error OPFVTA_SCRATCH_DIR must be set to a directory containing at least 200Gb)
+	ifeq ($(OPFVTA_SCRATCH_DIR),)
+		$(error OPFVTA_SCRATCH_DIR must be set to a directory containing at least 200Gb)
 	endif
 	podman run \
 		-it \
