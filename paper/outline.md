@@ -1,8 +1,7 @@
 ## Goals of the project:
 
-- replicate the "replicable"
   The opfvta analysis was designed with replication in mind
-    - it preserved provinence
+    - it preserved provenance
     - declared dependencies
     - used portage (the gentoo package manager)
     - heavily scripted, "just press the button"
@@ -20,7 +19,7 @@
 - Explore the benefits of YODA layout
 - Practice datalad
 
-## Dataset layout, YODA, and reproducibile execution
+## Dataset layout, YODA, and reproducible execution
 
 Explanation of nested dataset layout
 
