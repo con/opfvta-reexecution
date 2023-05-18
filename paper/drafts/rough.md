@@ -13,7 +13,7 @@ an example implementation of the workflow to generate them.
 
 In this article, we share the results of an effort to reexecute,
 simplify, and preserve the workflow that uses opto-fMRI analysis to
-generate a full-brain map.
+generate a full-brain map of mouse domamenergic activation.
 
 By leveraging container technology, we have improved the portability,
 provenance, and reproducibility of the workflow, and have reduced the
