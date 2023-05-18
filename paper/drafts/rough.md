@@ -2,10 +2,53 @@
 
 ## Abstract
 
-(original)
+The study of the ascending dopaminergic projections from the Ventral
+Tegmental Area (VTA) in mice is crucial to the translational
+investigations regarding human motivation, learning, and addiction. 
+
+A prior article produced the first whole-brain opto-fMRI map of the
+VTA-originated dopamenergic activation in mice, which the authors
+believe will provide valuable reference results, but more importantly,
+an example implementation of the workflow to generate them.
+
+In this article, we share the results of an effort to reexecute,
+simplify, and preserve the workflow that uses opto-fMRI analysis to
+generate a full-brain map.
+
+By leveraging container technology, we have improved the portability,
+provenance, and reproducibility of the workflow, and have reduced the
+required knowledge of the internal workings of the software to
+re-execute. 
+
+We have verified the non-deterministic results of the original article,
+and have taken a step toward continually updated reference results by
+simplifying the re-execution and separating the code from the input
+data.
+
 ```
-Ascending dopaminergic projections from neurons located in the Ventral Tegmental Area (VTA) are key to the etiology, dysfunction, and control of motivation, learning, and addiction. Due to the evolutionary conservation of this nucleus and the extensive use of mice as disease models, establishing an assay for VTA dopaminergic signaling in the mouse brain is crucial for the translational investigation of motivational control as well as of neuronal function phenotypes for diseases and interventions. In this article we use optogenetic stimulation directed at VTA dopaminergic neurons in combination with functional Magnetic Resonance Imaging (fMRI), a method widely used in human deep brain imaging. We present a comprehensive assay producing the first whole-brain opto-fMRI map of dopaminergic activation in the mouse, and show that VTA dopaminergic system function is consistent with its structural VTA projections, diverging only in a few key aspects. While the activation map predominantly highlights target areas according to their relative projection densities (e.g., strong activation of the nucleus accumbens and low activation of the hippocampus), it also includes areas for which a structural connection is not well established (such as the dorsomedial striatum). We further detail the variability of the assay with regard to multiple experimental parameters, including stimulation protocol and implant position, and provide evidence-based recommendations for assay reuse, publishing both reference results and a reference analysis workflow implementation.
-```
+Ascending dopaminergic projections from neurons located in the Ventral
+Tegmental Area (VTA) are key to the etiology, dysfunction, and control
+of motivation, learning, and addiction. Due to the evolutionary
+conservation of this nucleus and the extensive use of mice as disease
+models, establishing an assay for VTA dopaminergic signaling in the
+mouse brain is crucial for the translational investigation of
+motivational control as well as of neuronal function phenotypes for
+diseases and interventions. In this article we use optogenetic
+stimulation directed at VTA dopaminergic neurons in combination with
+functional Magnetic Resonance Imaging (fMRI), a method widely used in
+human deep brain imaging. We present a comprehensive assay producing the
+first whole-brain opto-fMRI map of dopaminergic activation in the mouse,
+and show that VTA dopaminergic system function is consistent with its
+structural VTA projections, diverging only in a few key aspects. While
+the activation map predominantly highlights target areas according to
+their relative projection densities (e.g., strong activation of the
+nucleus accumbens and low activation of the hippocampus), it also
+includes areas for which a structural connection is not well established
+(such as the dorsomedial striatum). We further detail the variability of
+the assay with regard to multiple experimental parameters, including
+stimulation protocol and implant position, and provide evidence-based
+recommendations for assay reuse, publishing both reference results and a
+reference analysis workflow implementation.  ```
 
 ## Introduction
 
