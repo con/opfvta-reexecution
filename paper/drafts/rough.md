@@ -25,6 +25,8 @@ and have taken a step toward continually updated reference results by
 simplifying the re-execution and separating the code from the input
 data.
 
+
+TODO(Remove reference original abstract)
 ```
 Ascending dopaminergic projections from neurons located in the Ventral
 Tegmental Area (VTA) are key to the etiology, dysfunction, and control
@@ -48,9 +50,13 @@ includes areas for which a structural connection is not well established
 the assay with regard to multiple experimental parameters, including
 stimulation protocol and implant position, and provide evidence-based
 recommendations for assay reuse, publishing both reference results and a
-reference analysis workflow implementation.  ```
+reference analysis workflow implementation. 
+```
 
 ## Introduction
+
+- Explanation of reference data
+- Re-execution using containers
 
 
 ## Methods
@@ -59,6 +65,8 @@ reference analysis workflow implementation.  ```
 
 No new data was recorded, we have reused the data collected for [the
 original paper][horea-paper].
+
+TODO(Review of data collection in original paper)
 
 ### Repository Structure
 
@@ -80,6 +88,7 @@ Data conversion from the proprietary ParaVision format was performed via
 the Bruker-to-BIDS repositing pipeline [26] of the SAMRI package
 (version 0.4 [27]). Following conversion, data were dummy-scan
 corrected, registered, and subject to controlled smoothing via the SAMRI
+
 Generic registration workflow [20]. As part of this processing, the
 first 10 volumes were discarded (automatically accounting for volumes
 excluded by the scanner software). Registration was performed using the
@@ -103,7 +112,6 @@ package [version 0.5.4][samri]. We have fixed several issues that
 allowed us to upgrade of some dependencies, including `numpy` and
 `pandas`, and [now works with datalad datasets][dotfilefilter].
 
-TODO(anything from pipfreeze.txt in here?)
 
 ### Packaging
 
@@ -116,6 +124,8 @@ apparatus as an [OCI container image][oci]. This has the benefit of
 preserving the work done as a part of this re-analysis, which can be
 re-run without any knowledge of Gentoo, Python packaging, or the inner
 workings of the code.
+
+TODO(anything from pipfreeze.txt in here?)
 
 ## Discussion
 
@@ -132,6 +142,11 @@ Installation was challenging primarily because the process of installing
 software on Gentoo is very slow. Building the container image took
 about five hours, which lead to a slow development cycle where mistakes
 were expensive.
+
+### Future Work
+
+- Automation of reference results 
+- Separation of components for re-use
 
 ## Acknowledgements & Funding
 
