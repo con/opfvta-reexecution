@@ -1,17 +1,6 @@
 # Re-analysis of Whole-brain opto-fMRI map of mouse VTA dopaminergic activation reflects structural projections with small but significant deviations
 # Full Reexecution of Article Analyzing effective functional VTA connectivity
 
-## Abstract
-
-The study of ascending dopaminergic Ventral Tegmental Area (VTA) projections in mice is crucial to translational research investigating human motivation, learning, and addiction. 
-A prior article produced the first whole-brain opto-fMRI map of VTA-originating dopamenergic activation in mice, which constitutes a key reference map.
-Further, the authors argue that the article has significant value as an example implementation of a deep brain stumilation analysis workflow, and that the article is written with full reproducibility in mind.
-Herein, we share the results of an effort to reexecute, further standardize, and preserve their workflow, and compre the reexecution results to ascertain analyis reproducibility.
-By leveraging container technology and related best practices, we have improved the portability, provenance tracking, and ease of reexecution of the workflow. 
-We further ascertain the reproducibility of the original findings, in light of common non-deterministic data processing steps.
-Lastly, we update the instruction set to minimize non-deterministic behaviour, and therefore provide an even more reliable reference workflow suitable for derivation and reuse. 
-
-
 ## Introduction
 
 - Explanation of reference data
@@ -25,7 +14,8 @@ Lastly, we update the instruction set to minimize non-deterministic behaviour, a
 No new data was recorded, we have reused the data collected for [the
 original paper][horea-paper].
 
-TODO(Review of data collection in original paper)
+TODO(Brief summary of data collection methods in original paper)
+TODO(How the data was stored and how we got it)
 
 ### Repository Structure
 
@@ -88,28 +78,28 @@ TODO(anything from pipfreeze.txt in here?)
 
 ## Discussion
 
-### What was easy
+### Strengths of the original article as a reexecution target
 
 The original paper made a significant effort to encapsulate all
 components of the analysis as code, including the generation of images
 and the rendering of the final pdf. Once properly installed, the
 replication required little knowledge of the implementation details.
 
-### What was difficult
+### Challenges
 
 Installation was challenging primarily because the process of installing
 software on Gentoo is very slow. Building the container image took
 about five hours, which lead to a slow development cycle where mistakes
 were expensive.
 
-### Future Work
+### Outlook
 
 - Automation of reference results 
 - Separation of components for re-use
 
 ## Acknowledgements & Funding
 
-## Authoring
+## Authors
 
 ## References
 
