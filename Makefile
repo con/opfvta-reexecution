@@ -12,6 +12,13 @@ FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
 DISTFILE_CACHE_CMD :=
 OPFVTA_SCRATCH_DIR :=
 
+check_defined = \
+    $(strip $(foreach 1,$1, \
+        $(call __check_defined,$1,$(strip $(value 2)))))
+__check_defined = \
+    $(if $(value $1),, \
+      $(error Undefined $1$(if $2, ($2))))
+
 ifeq ($(DISTFILE_CACHE_PATH),)
     # If not set, don't add it as an option
 else
@@ -27,9 +34,7 @@ push:
 	podman push ${FQDN_IMAGE}
 
 run:
-	ifeq ($(OPFVTA_SCRATCH_DIR),)
-		$(error OPFVTA_SCRATCH_DIR must be set to a directory containing at least 200Gb)
-	endif
+	$(call check_defined, OPFVTA_SCRATCH_DIR)
 	podman run \
 		-it \
 		--rm \
