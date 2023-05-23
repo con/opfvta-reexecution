@@ -1,0 +1,33 @@
+\section{Background}
+% Things which should be skippable for anybody familiar with the field.
+% Basically just a review of the technologies we build on and extend.
+% Long commentary on methods actually goes here.
+% Explain stuff like Gentoo or containers here.
+
+\subsection{Prior Work}
+Everything that relates to the original OPFVTA paper before we updated anything goes here.
+
+\subsubsection{Data Processing}
+
+Data conversion from the proprietary ParaVision format was performed via the Bruker-to-BIDS repositing pipeline \cite{aowsis} of the SAMRI package (version \textcolor{mg}{\texttt{0.4}} \cite{samri}).
+Following conversion, data was dummy-scan corrected, registered, and subject to controlled smoothing via the SAMRI Generic registration workflow \cite{irsabi}.
+As part of this processing, the first 10 volumes were discarded (automatically accounting for volumes excluded by the scanner software).
+Registration was performed using the standard SAMRI mouse-brain-optimized parameter set for ANTs \cite{ants} (version \textcolor{mg}{\texttt{2.3.1}}).
+Data was transformed to a stereotactically oriented standard space (the DSURQEC template space, as distributed in the Mouse Brain Atlases Package \cite{atlases_generator}, version \textcolor{mg}{\texttt{0.5.3}}), which is based on a high-resolution $\mathrm{T_2}$-weighted atlas \cite{dsu1}.
+Controlled spatial smoothing was applied in the coronal plane up to \SI{250}{\micro\meter} via the AFNI package \cite{afni} (version \textcolor{mg}{\texttt{19.1.05}}).
+
+In our replication, we have used a more recent release of the SAMRI package [version 0.5.4][samri]. We have fixed several issues that allowed us to upgrade of some dependencies, including `numpy` and `pandas`, and [now works with datalad datasets][dotfilefilter].
+
+
+\subsectio{Package Management}
+
+The original analysis was performed on a [Gentoo linux][gentoo] system,
+which builds and installs packages from source code. However, due to the 
+Gentoo philosophy of rolling releases, it is difficult to ensure that
+the software and all dependencies will correctly install in the future.
+To address this problem, we have chosen to package the entire analysis
+apparatus as an [OCI container image][oci]. This has the benefit of
+preserving the work done as a part of this re-analysis, which can be
+re-run without any knowledge of Gentoo, Python packaging, or the inner
+workings of the code.
+
