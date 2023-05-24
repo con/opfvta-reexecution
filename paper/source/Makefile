@@ -27,7 +27,7 @@ metadata.tex: metadata.yaml
 # missing file reference and interactively asking you for an alternative.
 
 article.pdf: article.tex content.tex metadata.tex rescience.cls
-	sudo podman run --rm -i --net=none -v "$(PWD)":/data:Z blang/latex:ubuntu latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex
+	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" blang/latex:ubuntu latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex
 
 clean:
 	@latexmk -CA
