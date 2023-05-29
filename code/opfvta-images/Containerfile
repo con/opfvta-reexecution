@@ -40,7 +40,7 @@ RUN sed -i /etc/portage/repos.conf/{gentoo,science} -e "/sync-git-verify-commit-
 RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
 
 # Ensure Umask-safe permissions
-RUN chmod -R 755 /var/db/repos/local_opfvta/
+RUN chmod -R a+rX /var/db/repos/local_opfvta/
 
 # Prepare manifest
 RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
