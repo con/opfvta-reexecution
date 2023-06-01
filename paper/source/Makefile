@@ -5,6 +5,8 @@
 # file of the given name existing.
 .PHONY: clean
 
+LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.0-alpha
+
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
 
@@ -27,7 +29,7 @@ metadata.tex: metadata.yaml
 # missing file reference and interactively asking you for an alternative.
 
 article.pdf: article.tex content.tex metadata.tex rescience.cls
-	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" blang/latex:ubuntu latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex -f
+	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex -f
 	find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
 clean:
