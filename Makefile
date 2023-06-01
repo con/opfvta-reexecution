@@ -4,10 +4,14 @@
 REGISTRY=docker.io
 REPOSITORY=asmacdo
 
+LATEX_IMAGE_NAME=latex-biber
+LATEX_TAG=0.0.0-alpha
+
 IMAGE_NAME=opfvta
 IMAGE_TAG=2.0.0-alpha
 
 FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
+FQDN_LATEX_IMAGE=${REGISTRY}/${REPOSITORY}/${LATEX_IMAGE_NAME}:${LATEX_TAG}
 
 DISTFILE_CACHE_CMD :=
 OPFVTA_SCRATCH_DIR :=
@@ -27,8 +31,13 @@ endif
 
 build:
 	podman build . $(DISTFILE_CACHE_CMD) \
-		-f code/opfvta-images/Containerfile \
+		-f code/images/Containerfile \
 		-t ${FQDN_IMAGE}
+
+build-latex:
+	podman build . $(DISTFILE_CACHE_CMD) \
+		-f code/images/Containerfile.latex \
+		-t ${FQDN_LATEX_IMAGE}
 
 push:
 	podman push ${FQDN_IMAGE}
