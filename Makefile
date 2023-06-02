@@ -42,6 +42,9 @@ build-latex:
 push:
 	podman push ${FQDN_IMAGE}
 
+push-latex:
+	podman push ${FQDN_LATEX_IMAGE}
+
 run:
 	$(call check_defined, OPFVTA_SCRATCH_DIR)
 	podman run \
