@@ -1,0 +1,2837 @@
+commit 1667c8c021ac71c2111ca000b80a7cd7956b1f02
+Author: Horea Christian <chr@chymera.eu>
+Date:   Sun Mar 26 18:21:03 2023 -0400
+
+    Added ebuild fixes
+
+diff --git a/.gentoo/metadata/layout.conf b/.gentoo/metadata/layout.conf
+new file mode 100644
+index 0000000..0719596
+--- /dev/null
++++ b/.gentoo/metadata/layout.conf
+@@ -0,0 +1,49 @@
++# Copyright 1999-2017 Gentoo Foundation
++# Distributed under the terms of the GNU General Public License v2
++
++# For details on this file, see the layout.conf section of the
++# portage(5) man page.
++
++repo-name = science
++
++# manifest-hashes specify hashes used for new/updated entries
++# the current set went live on 2017-11-21, per 2017-11-12 Council meeting
++# https://archives.gentoo.org/gentoo-dev/message/ba2e5d9666ebd7e1bff1143485a37856
++manifest-hashes = BLAKE2B SHA512
++
++# The following hashes are required on all Manifest entries. If any
++# of them are missing, repoman will refetch and rehash old distfiles.
++# Otherwise, old distfiles will keep using their current hash set.
++manifest-required-hashes = BLAKE2B
++
++# 2013-04-09 gentoo's council says to deprecate EAPIs 1 and 2 (bug #470670).
++# 2014-02-25 council meeting deprecated EAPIs 0 and 3.
++# 2014-03-11 council meeting banned EAPI 1.
++# 2015-10-11 council meeting deprecated EAPI 4.
++# 2016-01-10 council meeting banned EAPI 3.
++# 2018-05-13 council meeting deprecated EAPI 5 for ebuilds.
++eapis-banned = 0 1 2 3 4 5 6
++
++# Bug #337853 - gentoo's council says to enable
++# --echangelog by default for the "gentoo" repo
++# INFRA NOTE 2015/08/08: No more old ChangeLogs in Git
++update-changelog = false
++
++# Make egencache generate newer (more reliable)
++# md5-dict cache format (see bug #409445).
++# NOTE: list md5-dict first so clients prefer it
++# INFRA NOTE: Format 'pms' was removed on Aug 6 2012. (Announced prior as Aug 1
++# 2012 was the removal date)
++cache-formats = md5-dict
++
++# Support for implicit masters is deprecated, so we need to explicitly
++# specify that this repo does not depend on any masters, in order
++# to distinguish it from repos that rely on the deprecated behavior.
++masters = gentoo
++
++# Use thin Manifests for Git
++thin-manifests = true
++
++# Sign Git commits, and NOT Manifests
++sign-commits = true
++sign-manifests = false
+diff --git a/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild b/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild
+index 63c1456..6e326de 100644
+--- a/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild
+@@ -1,9 +1,9 @@
+-# Copyright 1999-2019 Gentoo Foundation
++# Copyright 1999-2023 Gentoo Foundation
+ # Distributed under the terms of the GNU General Public License v2
+
+-EAPI=7
++EAPI=8
+
+OOOOO(drop/bump python versions)
+-PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
++PYTHON_COMPAT=( python3{9..11} )
+
+ DESCRIPTION="Whole-Brain Map and Assay Analysis of Mouse VTA Dopaminergic Activation"
+ HOMEPAGE="https://bitbucket.org/TheChymera/opfvta"
+
+commit c173767e58f92bb293702c77c6a2d6c517b1381c
+Merge: 1667c8c 9bd5daf
+Author: Horea Christian <chr@chymera.eu>
+Date:   Sun Mar 26 18:21:24 2023 -0400
+
+    Merge branch 'master' of bitbucket.org:TheChymera/opfvta
+
+
+commit 79590825e0fe7cbbcbed5cb6ea81bd23c0156749
+Author: Horea Christian <chr@chymera.eu>
+Date:   Sun Mar 26 18:24:23 2023 -0400
+
+    More ebuild fixes
+
+diff --git a/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild b/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild
+index 6e326de..5bc935e 100644
+--- a/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/sci-publications/opfvta/opfvta-99999.ebuild
+@@ -3,14 +3,16 @@
+
+ EAPI=8
+
+-PYTHON_COMPAT=( python3{9..11} )
++PYTHON_COMPAT=( python3_{9..11} )
++
++inherit distutils-r1
+
+ DESCRIPTION="Whole-Brain Map and Assay Analysis of Mouse VTA Dopaminergic Activation"
+ HOMEPAGE="https://bitbucket.org/TheChymera/opfvta"
+
+ LICENSE="GPL-3"
+ SLOT="0"
+-IUSE="-scanner-data"
++IUSE="scanner-data"
+ KEYWORDS=""
+
+ DEPEND=""
+
+commit 4a73f783e0608be2008fec160740e29f3eec0797
+Author: Horea Christian <chr@chymera.eu>
+Date:   Mon Mar 27 21:13:47 2023 -0400
+
+    Clarification and correction for experiment data package
+
+diff --git a/.gentoo/sci-publications/opfvta/Manifest b/.gentoo/sci-publications/opfvta/Manifest
+deleted file mode 100644
+index a9b6491..0000000
+--- a/.gentoo/sci-publications/opfvta/Manifest
++++ /dev/null
+@@ -1,2 +0,0 @@
+-EBUILD irsabi-99999.ebuild 685 BLAKE2B 0fff4ce8166355d5a29b6fd72b8247df4ce5283c7ff3037cee2499a5f0c7bfe4d565dd1998845e9c7462b1b2bc47c818fb2cec227f57b2f7b759dcaaa69ec651 SHA512 497c64a6fba6d04c951a93d83d5021053f10e4210db2de45355213cf06f4e3cc7252d61b6d7b17a1d6625144e7d3624f70178f303860d9a5464bb5cd3d8bba73
+-MISC metadata.xml 1706 BLAKE2B 5ac758f427ff93824d9fc780900d676bafc4cc650b4745c1f076901584502adfbcd9d73c1eecbad5bf8b5f09efe60c9ed66fe16bc9cbea444fd1c23848fb6bb0 SHA512 5052a59fe4b0d57ee98aee6c6040775c0d7434c852dee9397e1c5271c75ad27b2985ad47d2a682ef981d13bce3549eaebd625194f85421fa6f2158c8879aafcd
+diff --git a/README.md b/README.md
+index db5e5be..71b3d7c 100755
+--- a/README.md
++++ b/README.md
+@@ -17,10 +17,12 @@ cd .gentoo
+ ### Manual Data Download (only if automated Gentoo dependency management is unavailable)
+
+ While other dependencies will very likely be available from your distribution's own package manager, the data package of this publication is probably not.
+-You can manually install it via the following commands:
++To check you can query your distribution's package manager index for “opfvta” and see if you can spot a bidsdata package.
++On Gentoo you would find `sci-biology/opfvta_bidsdata`, which as mentioned before would be automatically pulled in as a dependency by the package ebuild found under [`.gentoo/sci-biology/opfvta`](.gentoo/sci-publications/opfvta/opfvta-99999.ebuild).
++Alternatively, you can manually install the data package via the following commands:
+
+ ```
+-wget chymera.eu/distfiles/opfvta_bidsdata-2.0.tar.xz
++wget https://zenodo.org/record/3575149/files/opfvta_bidsdata-2.0.tar.xz
+ tar xf opfvta_bidsdata-2.0.tar.xz
+ mv opfvta_bidsdata-2.0 /usr/share/opfvta_bidsdata
+ ```
+
+commit 16f70e6352be492451a199afed545e569c90e1fa
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 14:43:44 2023 -0400
+
+    New files for better image creation
+
+diff --git a/.gentoo/overlay/metadata/layout.conf b/.gentoo/overlay/metadata/layout.conf
+new file mode 100644
+index 0000000..210ac36
+--- /dev/null
++++ b/.gentoo/overlay/metadata/layout.conf
+@@ -0,0 +1,2 @@
++masters = science
++auto-sync = false
+diff --git a/.gentoo/overlay/sci-publications/opfvta/metadata.xml b/.gentoo/overlay/sci-publications/opfvta/metadata.xml
+new file mode 100644
+index 0000000..0a60309
+--- /dev/null
++++ b/.gentoo/overlay/sci-publications/opfvta/metadata.xml
+@@ -0,0 +1,34 @@
++<?xml version='1.0' encoding='UTF-8'?>
++<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
++<pkgmetadata>
++	<maintainer type="person">
++		<email>horea.christ@gmail.com</email>
++		<name>Horea Christian</name>
++	</maintainer>
++	<longdescription lang="en">
++		Given the need for inter-subject and inter-study comparability, spatial
++		map registration to a standardized space is an indispensable part of
++		Magnetic Resonance Imaging (MRI). Mouse MRI workflows commonly utilize
++		high-level interfaces optimized for human data --- and adapt the data
++		to the interface rather than vice-versa. Quality control (QC) is
++		commonly performed by interactive operator inspection, making it
++		infrequent, open to bias, slow, and unreproducible. In this paper we
++		present a novel registration workflow accessible via both Bash and
++		Python, which uses the full flexibility of low-level interfaces from
++		one of the most popular normalization toolkits (ANTs). We provide an
++		optimized set of parameters for mouse brain registration, and propose
++		a standard space suited to harmonize mouse brain data across
++		modalities. Additionally, we present QC workflows, which can
++		automatically assess the registration quality of current as well as
++		past processed datasets. With regard to both structural and functional
++		considerations, we showcase the capabilities of this novel workflow
++		compared to a legacy workflow (representative of common practices
++		--- which we detail and comment).
++	</longdescription>
++	<use>
++		<flag name="scanner-data">Use primary data in proprietary scanner format.</flag>
++	</use>
++	<upstream>
++		<remote-id type="bitbucket">TheChymera/irsabi</remote-id>
++	</upstream>
++</pkgmetadata>
+diff --git a/.gentoo/overlay/sci-publications/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-publications/opfvta/opfvta-99999.ebuild
+new file mode 100644
+index 0000000..5bc935e
+--- /dev/null
++++ b/.gentoo/overlay/sci-publications/opfvta/opfvta-99999.ebuild
+@@ -0,0 +1,31 @@
++# Copyright 1999-2023 Gentoo Foundation
++# Distributed under the terms of the GNU General Public License v2
++
++EAPI=8
++
++PYTHON_COMPAT=( python3_{9..11} )
++
++inherit distutils-r1
++
++DESCRIPTION="Whole-Brain Map and Assay Analysis of Mouse VTA Dopaminergic Activation"
++HOMEPAGE="https://bitbucket.org/TheChymera/opfvta"
++
++LICENSE="GPL-3"
++SLOT="0"
++IUSE="scanner-data"
++KEYWORDS=""
++
++DEPEND=""
++RDEPEND="
++	app-text/texlive[publishers,science,xetex]
++	dev-python/matplotlib[${PYTHON_USEDEP}]
++	dev-python/numpy[${PYTHON_USEDEP}]
++	dev-python/pandas[${PYTHON_USEDEP}]
++	>=dev-python/seaborn-0.9.0[${PYTHON_USEDEP}]
++	>=dev-python/statsmodels-0.9.0[${PYTHON_USEDEP}]
++	>=dev-tex/pythontex-0.16[${PYTHON_USEDEP}]
++	media-gfx/graphviz
++	>=sci-biology/samri-0.4[${PYTHON_USEDEP}]
++	scanner-data? ( sci-biology/opfvta_data )
++	!scanner-data? ( sci-biology/opfvta_bidsdata )
++"
+diff --git a/.gentoo/portage/package.accept_keywords/gen b/.gentoo/portage/package.accept_keywords/gen
+new file mode 100644
+index 0000000..42a4e5e
+--- /dev/null
++++ b/.gentoo/portage/package.accept_keywords/gen
+@@ -0,0 +1 @@
++*/* ~amd64
+diff --git a/.gentoo/portage/repos.conf/opfvta b/.gentoo/portage/repos.conf/opfvta
+new file mode 100644
+index 0000000..c5fd558
+--- /dev/null
++++ b/.gentoo/portage/repos.conf/opfvta
+@@ -0,0 +1,2 @@
++[opfvta]
++location = /var/db/repos/opfvta
+diff --git a/.gentoo/portage/repos.conf/science b/.gentoo/portage/repos.conf/science
+new file mode 100644
+index 0000000..3bac24e
+--- /dev/null
++++ b/.gentoo/portage/repos.conf/science
+@@ -0,0 +1,5 @@
++[science]
++location = /var/db/repos/science
++sync-type = git
++sync-uri = https://anongit.gentoo.org/git/proj/sci.git
++priority = 7777
+
+commit 1457e8f84155f6c4bfb3bc682f11370360e368ed
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 15:33:02 2023 -0400
+
+    Made local overlay name more obvious
+
+diff --git a/.gentoo/portage/repos.conf/opfvta b/.gentoo/portage/repos.conf/opfvta
+deleted file mode 100644
+index c5fd558..0000000
+--- a/.gentoo/portage/repos.conf/opfvta
++++ /dev/null
+@@ -1,2 +0,0 @@
+-[opfvta]
+-location = /var/db/repos/opfvta
+
+commit 22893a38657d9cee8a78894085c5d0b7a2459963
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 15:33:18 2023 -0400
+
+    Repo name file
+
+diff --git a/.gentoo/overlay/profiles/repo_name b/.gentoo/overlay/profiles/repo_name
+new file mode 100644
+index 0000000..ba1a541
+--- /dev/null
++++ b/.gentoo/overlay/profiles/repo_name
+@@ -0,0 +1 @@
++local_opfvta
+
+commit 6b83b601cb8f93cc0b527a9e4e7f5bc85229d003
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 15:49:08 2023 -0400
+
+    Overlay file
+
+diff --git a/.gentoo/portage/repos.conf/local_opfvta b/.gentoo/portage/repos.conf/local_opfvta
+new file mode 100644
+index 0000000..1bceaee
+--- /dev/null
++++ b/.gentoo/portage/repos.conf/local_opfvta
+@@ -0,0 +1,2 @@
++[local_opfvta]
++location = /var/db/repos/local_opfvta
+
+commit 2b37dc74f71f1979d3fc4b1fff76f58903d2ed69
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 16:19:31 2023 -0400
+
+    Improved makefile
+
+diff --git a/.gentoo/portage/make.conf b/.gentoo/portage/make.conf
+new file mode 100644
+index 0000000..ae42cfe
+--- /dev/null
++++ b/.gentoo/portage/make.conf
+@@ -0,0 +1,15 @@
++COMMON_FLAGS="-O2 -pipe"
++MAKEOPTS="--jobs 8 --load-average 9"
++CFLAGS="${COMMON_FLAGS}"
++CXXFLAGS="${COMMON_FLAGS}"
++FCFLAGS="${COMMON_FLAGS}"
++FFLAGS="${COMMON_FLAGS}"
++
++# NOTE: This stage was built with the bindist Use flag enabled
++
++# This sets the language of build output to English.
++# Please keep this setting intact when reporting bugs.
++LC_MESSAGES=C
++
++USE="${USE} latex science"
++ACCEPT_LICENSE="*"
+
+commit d661bc2bd2051beff0adf5bdc67d7040a9952a81
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 16:20:25 2023 -0400
+
+    Changed package category
+
+diff --git a/.gentoo/overlay/sci-publications/opfvta/metadata.xml b/.gentoo/overlay/sci-misc/opfvta/metadata.xml
+similarity index 100%
+rename from .gentoo/overlay/sci-publications/opfvta/metadata.xml
+rename to .gentoo/overlay/sci-misc/opfvta/metadata.xml
+diff --git a/.gentoo/overlay/sci-publications/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+similarity index 100%
+rename from .gentoo/overlay/sci-publications/opfvta/opfvta-99999.ebuild
+rename to .gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+
+commit 90d819c5eec56e822ca48f8ee9ef1380173f668b
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 16:21:02 2023 -0400
+
+    Unmasking package
+
+diff --git a/.gentoo/portage/package.accept_keywords/gen b/.gentoo/portage/package.accept_keywords/gen
+index 42a4e5e..ea54fce 100644
+--- a/.gentoo/portage/package.accept_keywords/gen
++++ b/.gentoo/portage/package.accept_keywords/gen
+@@ -1 +1,2 @@
+ */* ~amd64
++=sci-misc/opfvta-99999 **
+
+commit 54694f7ac48a8a2c98d97fd22a6976bb8b0bc484
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 16:22:11 2023 -0400
+
+OOOOO(lol)
+    Two masters are better than one
+
+diff --git a/.gentoo/overlay/metadata/layout.conf b/.gentoo/overlay/metadata/layout.conf
+index 210ac36..27705e0 100644
+--- a/.gentoo/overlay/metadata/layout.conf
++++ b/.gentoo/overlay/metadata/layout.conf
+@@ -1,2 +1,2 @@
+-masters = science
++masters = gentoo science
+ auto-sync = false
+
+commit 135dcc5d262ae7e2dbf9215c583cc1c3d772581f
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 16:57:52 2023 -0400
+
+    Added containerization script and recipes
+
+OOOO
+    Before we went to a Gentoo-base image, we attempted to create an image based on a more container-friendly base-image. However, due to the original
+    However, this approach was inherrently challenging, since we do not have a pip-freeze from the original work, and the ebuilds to not specify.
+    2 alternatives:
+	- pip-timemachine: using the date of the original publication, we could filter the pypi metadata to only packages published prior to that date. This would allow us to have a "best-guess" set of dependencies.
+	- Now that we've reconstructed this for the Gentoo image, I saved a pip-freeze. We could use this to more easily contstruct the image.
+    In particular, the original article used python 3.6(TODO horea confirm)
+    We had numerous dependency issues, frequently stemming from the updated version of python, (and on down the chain, numpy, pandas)
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+new file mode 100644
+index 0000000..8a2d200
+--- /dev/null
++++ b/.containerization/Containerfile
+@@ -0,0 +1,28 @@
++# name the portage image
++FROM gentoo/portage:latest as portage
++
++# based on stage3 image
++# FROM gentoo/stage3:amd64-hardened-20200905
++FROM gentoo/stage3:latest
++
++# copy the entire portage volume in
++COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
++
++RUN emerge --noreplace dev-vcs/git
++RUN emerge --noreplace sys-apps/portage
++
++## Remove after it works and we're no longer debugging
++RUN emerge --noreplace app-editors/vim sys-apps/the_silver_searcher app-portage/eix
++## End remove
++
++COPY . /opfvta
++
++RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
++RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
++RUN emerge --sync science
++
++RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
++#RUN echo ">=media-libs/harfbuzz-7.1.0 icu" > /etc/portage/package.use/zz-portage
++
++RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
++RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" emerge -v opfvta --autounmask-continue
+
+
+OOOOO to speed up container-build-recipe development we used a partial containerfile which is used to build the parts that we aren't currently changing
+
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+new file mode 100644
+index 0000000..4082484
+--- /dev/null
++++ b/.containerization/Containerfile.partial
+@@ -0,0 +1,28 @@
++# name the portage image
++FROM gentoo/portage:latest as portage
++
++# based on stage3 image
++# FROM gentoo/stage3:amd64-hardened-20200905
++FROM gentoo/stage3:latest
++
++# copy the entire portage volume in
++COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
++
++RUN emerge --noreplace dev-vcs/git
++RUN emerge --noreplace sys-apps/portage
++
++## Remove after it works and we're no longer debugging
++RUN emerge --noreplace app-editors/vim sys-apps/the_silver_searcher app-portage/eix
++## End remove
++
++COPY . /opfvta
++
++RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
++RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
++RUN emerge --sync science
++
++RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
++#RUN echo ">=media-libs/harfbuzz-7.1.0 icu" > /etc/portage/package.use/zz-portage
++
++RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
++#RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" emerge -v opfvta --autounmask-continue
+
+
+Note the mountpath:Z. This is for selinux, leaving this out is a common reason for permissions problems on selinux-enabled systems.
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+new file mode 100755
+index 0000000..ac8b172
+--- /dev/null
++++ b/.containerization/runcontainer.sh
+@@ -0,0 +1,25 @@
++#!/usr/bin/env bash
++
++if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
++	mkdir -p ~/.local/share/data/opfvta_bidsdata
++	pushd ~/.local/share/data/opfvta_bidsdata
++	wget "https://zenodo.org/record/3575149/files/opfvta_bidsdata-2.0.tar.xz"
++	tar xvf "opfvta_bidsdata-2.0.tar.xz"
++	mv opfvta_bidsdata-2.0/* .
++	rm opfvta_bidsdata*
++fi
++
++pushd ../
++	podman build . \
++		-f Containerfile.partial \
++		-t opfvta-gentoo
++
++	# podman build . \
++	#       -f Containerfile \
++	#       -t opfvta-gentoo
++
++	podman run -it \
++		-v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
++		--detach \
++		opfvta-gentoo /bin/bash
++popd
+
+commit 02ab44ae6285c4953d9efd5d0b9409f07bf8a4ae
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 16:58:36 2023 -0400
+
+    Dealing with relative paths
+
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index ac8b172..768fbe6 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -11,11 +11,11 @@ fi
+
+ pushd ../
+ 	podman build . \
+-		-f Containerfile.partial \
++		-f .containerization/Containerfile.partial \
+ 		-t opfvta-gentoo
+
+ 	# podman build . \
+-	#       -f Containerfile \
++	#       -f .containerization/Containerfile \
+ 	#       -t opfvta-gentoo
+
+ 	podman run -it \
+
+commit 7b6dfd1ddee6ad97a5d1ccd4ac69a843c5840581
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:02:51 2023 -0400
+
+    Removed testing bits
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index 8a2d200..b10da91 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -11,18 +11,14 @@ COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+ RUN emerge --noreplace dev-vcs/git
+ RUN emerge --noreplace sys-apps/portage
+
+-## Remove after it works and we're no longer debugging
+-RUN emerge --noreplace app-editors/vim sys-apps/the_silver_searcher app-portage/eix
+-## End remove
+-
+ COPY . /opfvta
+
+ RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
+ RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+ RUN emerge --sync science
+
++# This is only if we distribute data separately
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+-#RUN echo ">=media-libs/harfbuzz-7.1.0 icu" > /etc/portage/package.use/zz-portage
+
+ RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+ RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" emerge -v opfvta --autounmask-continue
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 4082484..dd96c51 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -21,8 +21,8 @@ RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
+ RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+ RUN emerge --sync science
+
++# This is only if we distribute data separately
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+-#RUN echo ">=media-libs/harfbuzz-7.1.0 icu" > /etc/portage/package.use/zz-portage
+
+ RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+ #RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" emerge -v opfvta --autounmask-continue
+
+commit a4a9ec7987cb274443cac07c7a658b4849bf4a06
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:07:18 2023 -0400
+
+    Git repo for ::gentoo
+
+diff --git a/.gentoo/portage/repos.conf/gentoo b/.gentoo/portage/repos.conf/gentoo
+new file mode 100644
+index 0000000..ecb240b
+--- /dev/null
++++ b/.gentoo/portage/repos.conf/gentoo
+@@ -0,0 +1,13 @@
++[gentoo]
++location = /var/db/repos/gentoo
++sync-type = git
++# Official "sync-friendly git mirror of repo/gentoo with caches and metadata"
++# Currently not suggested for production use.
++# sync-uri = https://anongit.gentoo.org/git/repo/sync/gentoo.git
++# GitHub mirror which saves the Gentoo project bandwidth. *This* sync-friendly git mirror is preferred)
++sync-uri = https://github.com/gentoo-mirror/gentoo.git
++sync-git-verify-commit-signature = yes
++
++# Default clone-depth setting does a shallow clone of the git repository.
++# For a full clone and ability to view git log/changes, set clone-depth = 0.
++# NOTE: A full clone o
+
+commit d217a6bf1db25f9b243e6a1119e5747ab8761e44
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:08:29 2023 -0400
+
+    Using git for sync
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index b10da91..c8b538e 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -15,7 +15,12 @@ COPY . /opfvta
+
+
+
+OOOOOO (horea) Why did we swich from rsync to git?
+
+
+ RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
+ RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+-RUN emerge --sync science
++
++# Moving gentoo repo from default rsync to git
++RUN rm /var/db/repos/gentoo -rf
++
++# Getting everything via git
++RUN emerge --sync science gentoo
+
+ # This is only if we distribute data separately
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index dd96c51..61b34f6 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -19,7 +19,12 @@ COPY . /opfvta
+
+ RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
+ RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+-RUN emerge --sync science
++
++# Moving gentoo repo from default rsync to git
++RUN rm /var/db/repos/gentoo -rf
++
++# Getting everything via git
++RUN emerge --sync science gentoo
+
+ # This is only if we distribute data separately
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+
+commit 2e3d4a97ebf2d26af39ad7ed697bf64301164547
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:13:53 2023 -0400
+
+    Trying to pin commits
+
+
+OOOOOO To stop the versions from shifting under our feet, we pin 2 repos with gentoo deps.
+
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 61b34f6..c1a8128 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -26,6 +26,10 @@ RUN rm /var/db/repos/gentoo -rf
+ # Getting everything via git
+ RUN emerge --sync science gentoo
+
++# Pinning dependency tree state via git
++RUN pushd /var/db/repos/science; git fetch --depth=9999; git checkout a3ee59439b944fb12f7398f587ed6aac601fb96d; popd
++RUN pushd /var/db/repos/gentoo; git fetch --depth=9999; git checkout 0f6aa0646baad09881e581250e24a4e018e14abc; popd
++
+
+
+OOOOOO A convenience of the original paper is that the input data is isntalled as a dependency of the code. This should be considered an anti-pattern though:
+    - it limits reuse of the code (with other data)
+    - when used in a container, it can add a lot of build time
+    - when used in a container, it makes a HUGE container image.
+
+    If any of the build-layers ahead of the data installation change, we have to re-download the 12 gigs (this can be avoided)
+    What hurt us is that it *also* produced many intermediate images that quickly filled up the entire hard drive.
+
+    TODO(asmacdo) Discussion of rootless podman `podman unmask` and how to clean up properly.
+
+ # This is only if we distribute data separately
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+
+
+commit 614f9fef8e2982c549d9b6cf798bb586e684d7c9
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:25:04 2023 -0400
+
+    Better commit pinning
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index c8b538e..abf88ab 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -1,3 +1,8 @@
++# Pinned commits for the dependency tree state
++ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
++ARG science_hash=a3ee59439b944fb12f7398f587ed6aac601fb96d
++
++
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+
+@@ -22,6 +27,11 @@ RUN rm /var/db/repos/gentoo -rf
+ # Getting everything via git
+ RUN emerge --sync science gentoo
+
++# Pinning dependency tree state via git
++# TODO control the history via dat
++RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
++RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
++
+ # This is only if we distribute data separately
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index c1a8128..4e6122e 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -1,3 +1,8 @@
+
+OOOOOO Now we can override in the build command
+
+
++# Pinned commits for the dependency tree state
++ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
++ARG science_hash=a3ee59439b944fb12f7398f587ed6aac601fb96d
++
++
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+
+@@ -27,8 +32,9 @@ RUN rm /var/db/repos/gentoo -rf
+ RUN emerge --sync science gentoo
+
+ # Pinning dependency tree state via git
+-RUN pushd /var/db/repos/science; git fetch --depth=9999; git checkout a3ee59439b944fb12f7398f587ed6aac601fb96d; popd
+-RUN pushd /var/db/repos/gentoo; git fetch --depth=9999; git checkout 0f6aa0646baad09881e581250e24a4e018e14abc; popd
++# TODO control the history via dat
++RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
++RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
+
+ # This is only if we distribute data separately
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+
+commit e26401c2346b1f134445496a4bde3f0959013a2e
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:27:47 2023 -0400
+
+
+OOOOOO If you see this, please tell horea to use spaces instead of tabs for python. Right or not, being an idealist causes more pain than its worth, conform to the community standard.
+
+    Whitespace
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index abf88ab..b28f7bf 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -2,7 +2,6 @@
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+ ARG science_hash=a3ee59439b944fb12f7398f587ed6aac601fb96d
+
+-
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 4e6122e..10439f6 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -2,7 +2,6 @@
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+ ARG science_hash=a3ee59439b944fb12f7398f587ed6aac601fb96d
+
+-
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+
+
+commit b215a51249c69aa57d8cb3a28379a3874fa65d8d
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:43:38 2023 -0400
+
+    Updated science commits and removed deprecated comments
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index b28f7bf..45b8d45 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=a3ee59439b944fb12f7398f587ed6aac601fb96d
++ARG science_hash=be5fc54187e2e93f78cafd5dfd9a553fe76d4642
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+@@ -27,7 +27,6 @@ RUN rm /var/db/repos/gentoo -rf
+ RUN emerge --sync science gentoo
+
+ # Pinning dependency tree state via git
+-# TODO control the history via dat
+ RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
+ RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
+
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 10439f6..2d67c1e 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=a3ee59439b944fb12f7398f587ed6aac601fb96d
++ARG science_hash=be5fc54187e2e93f78cafd5dfd9a553fe76d4642
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+
+commit 2dbc2c536e29e815adc941288f4f8f0b5b5a3963
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 17:47:55 2023 -0400
+
+    No need to operate from parent dir as far as I can tell
+
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 2d67c1e..3ad5430 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -31,8 +31,8 @@ RUN rm /var/db/repos/gentoo -rf
+ RUN emerge --sync science gentoo
+
+ # Pinning dependency tree state via git
+-# TODO control the history via dat
+-RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
++# Not pinning science since we might still want to fix things on it
++#RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
+ RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
+
+ # This is only if we distribute data separately
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index 768fbe6..6215f55 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -9,17 +9,15 @@ if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
+ 	rm opfvta_bidsdata*
+ fi
+
+-pushd ../
+-	podman build . \
+-		-f .containerization/Containerfile.partial \
+-		-t opfvta-gentoo
++podman build . \
++	-f Containerfile.partial \
++	-t opfvta-gentoo
+
+-	# podman build . \
+-	#       -f .containerization/Containerfile \
+-	#       -t opfvta-gentoo
++# podman build . \
++#       -f Containerfile \
++#       -t opfvta-gentoo
+
+-	podman run -it \
+-		-v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
+-		--detach \
+-		opfvta-gentoo /bin/bash
+-popd
++podman run -it \
++	-v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
++	--detach \
++	opfvta-gentoo /bin/bash
+
+commit 4c75767e40f72233f6d9ecdc5721e4bbb66c3f84
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 21:39:11 2023 -0400
+
+    Named container
+
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index 6215f55..c38d445 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -11,10 +11,12 @@ fi
+
+ podman build . \
+ 	-f Containerfile.partial \
++	--name opfvta \
+ 	-t opfvta-gentoo
+
+ # podman build . \
+ #       -f Containerfile \
++#	--name opfvta \
+ #       -t opfvta-gentoo
+
+ podman run -it \
+
+commit cdaf9cc427ca120812b17b1dbc2e7fbbb6ba962b
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 21:39:22 2023 -0400
+
+    Updated hash, again
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index 45b8d45..1429eb3 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=be5fc54187e2e93f78cafd5dfd9a553fe76d4642
++ARG science_hash=615b67c6f42ae6cfb951b9a5620583ffad287278
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 3ad5430..696d2ef 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=be5fc54187e2e93f78cafd5dfd9a553fe76d4642
++ARG science_hash=615b67c6f42ae6cfb951b9a5620583ffad287278
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+@@ -16,7 +16,7 @@ RUN emerge --noreplace dev-vcs/git
+ RUN emerge --noreplace sys-apps/portage
+
+ ## Remove after it works and we're no longer debugging
+-RUN emerge --noreplace app-editors/vim sys-apps/the_silver_searcher app-portage/eix
++RUN emerge --noreplace app-editors/vim sys-apps/the_silver_searcher app-portage/eix app-portage/gentoolkit
+ ## End remove
+
+ COPY . /opfvta
+
+commit 0f35ac8c92b5da0048dab57867ce3f0d023dcc85
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 21:58:48 2023 -0400
+
+    portage defaults to -j$nproc
+
+diff --git a/.gentoo/portage/make.conf b/.gentoo/portage/make.conf
+index ae42cfe..db45175 100644
+--- a/.gentoo/portage/make.conf
++++ b/.gentoo/portage/make.conf
+@@ -1,5 +1,4 @@
+ COMMON_FLAGS="-O2 -pipe"
+-MAKEOPTS="--jobs 8 --load-average 9"
+ CFLAGS="${COMMON_FLAGS}"
+ CXXFLAGS="${COMMON_FLAGS}"
+ FCFLAGS="${COMMON_FLAGS}"
+
+commit 0114fdb46daedd93e8da718b1ec2abb1672f0864
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 5 21:59:38 2023 -0400
+
+    Only update portage
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index 1429eb3..9084caa 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -13,7 +13,7 @@ FROM gentoo/stage3:latest
+ COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+
+ RUN emerge --noreplace dev-vcs/git
+-RUN emerge --noreplace sys-apps/portage
++RUN emerge -v1u portage
+
+ COPY . /opfvta
+
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 696d2ef..e8c2dc1 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -13,7 +13,7 @@ FROM gentoo/stage3:latest
+ COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+
+ RUN emerge --noreplace dev-vcs/git
+-RUN emerge --noreplace sys-apps/portage
++RUN emerge -v1u portage
+
+ ## Remove after it works and we're no longer debugging
+ RUN emerge --noreplace app-editors/vim sys-apps/the_silver_searcher app-portage/eix app-portage/gentoolkit
+
+commit 575b2665dbc11d046a56a49be0ee24e0fedd10b2
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 02:54:46 2023 -0400
+
+    No more distutils as it requires us to actually unpack and install stuff
+
+diff --git a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+index 5bc935e..fb780c2 100644
+--- a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+@@ -3,10 +3,6 @@
+
+ EAPI=8
+
+-PYTHON_COMPAT=( python3_{9..11} )
+-
+-inherit distutils-r1
+-
+ DESCRIPTION="Whole-Brain Map and Assay Analysis of Mouse VTA Dopaminergic Activation"
+ HOMEPAGE="https://bitbucket.org/TheChymera/opfvta"
+
+@@ -18,14 +14,14 @@ KEYWORDS=""
+ DEPEND=""
+ RDEPEND="
+ 	app-text/texlive[publishers,science,xetex]
+-	dev-python/matplotlib[${PYTHON_USEDEP}]
+-	dev-python/numpy[${PYTHON_USEDEP}]
+-	dev-python/pandas[${PYTHON_USEDEP}]
+-	>=dev-python/seaborn-0.9.0[${PYTHON_USEDEP}]
+-	>=dev-python/statsmodels-0.9.0[${PYTHON_USEDEP}]
+-	>=dev-tex/pythontex-0.16[${PYTHON_USEDEP}]
++	dev-python/matplotlib
++	dev-python/numpy
++	dev-python/pandas
++	>=dev-python/seaborn-0.9.0
++	>=dev-python/statsmodels-0.9.0
++	>=dev-tex/pythontex-0.16
+ 	media-gfx/graphviz
+-	>=sci-biology/samri-0.4[${PYTHON_USEDEP}]
++	sci-biology/samri
+ 	scanner-data? ( sci-biology/opfvta_data )
+ 	!scanner-data? ( sci-biology/opfvta_bidsdata )
+ "
+
+commit aadf6bf5f36932cb586fa67cebe5b9d7e899241e
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 02:55:05 2023 -0400
+
+    Updated hash
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index 9084caa..ff617ee 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+
+OOOOO Horea, In the future, instead of pinning this in the Containerfile and rebuilding, we can pass this as a buildarg for development, and pin once we are happy.
+
+-ARG science_hash=615b67c6f42ae6cfb951b9a5620583ffad287278
++ARG science_hash=a1178bdeed13a9f087da91759e2c9b8bac0f065f
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index e8c2dc1..847abe6 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=615b67c6f42ae6cfb951b9a5620583ffad287278
++ARG science_hash=a1178bdeed13a9f087da91759e2c9b8bac0f065f
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+
+commit b12e8d0e8a5b287f81e1f073ba7af3274f5bd1ac
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 02:56:06 2023 -0400
+
+    Building full image
+
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index c38d445..9669856 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -9,15 +9,15 @@ if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
+ 	rm opfvta_bidsdata*
+ fi
+
+-podman build . \
+-	-f Containerfile.partial \
+-	--name opfvta \
+-	-t opfvta-gentoo
+-
+-# podman build . \
+-#       -f Containerfile \
++#podman build . \
++#	-f Containerfile.partial \
+ #	--name opfvta \
+-#       -t opfvta-gentoo
++#	-t opfvta-gentoo
++
++podman build . \
++      -f Containerfile \
++      --name opfvta \
++      -t opfvta-gentoo
+
+ podman run -it \
+ 	-v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
+
+commit a2ecda9d81a1dcc915f3445f3fe76efe34570f43
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 03:01:54 2023 -0400
+
+    --name will not work
+
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index 9669856..7a422f4 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -11,12 +11,10 @@ fi
+
+ #podman build . \
+ #	-f Containerfile.partial \
+-#	--name opfvta \
+ #	-t opfvta-gentoo
+
+ podman build . \
+       -f Containerfile \
+-      --name opfvta \
+       -t opfvta-gentoo
+
+ podman run -it \
+
+commit 8c788e6ed5828d347e84ed50c53d5cbcfa14d466
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 03:32:46 2023 -0400
+
+    Popd since podman COPY apparently can't access parent dir
+
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index 7a422f4..3a6a87a 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -9,15 +9,17 @@ if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
+ 	rm opfvta_bidsdata*
+ fi
+
+-#podman build . \
+-#	-f Containerfile.partial \
+-#	-t opfvta-gentoo
++pushd ..
++      #podman build . \
++      #	-f .containerization/Containerfile.partial \
++      #	-t opfvta-gentoo
+
+-podman build . \
+-      -f Containerfile \
+-      -t opfvta-gentoo
++      podman build . \
++	    -f .containerization/Containerfile \
++	    -t opfvta-gentoo
+
+-podman run -it \
+-	-v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
+-	--detach \
+-	opfvta-gentoo /bin/bash
++      podman run -it \
++	      -v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
++	      --detach \
++	      opfvta-gentoo /bin/bash
++popd
+
+commit 06524601239e185ffb655135854f65a6730c0c3e
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 11:24:56 2023 -0400
+
+    Data preparation
+
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index 3a6a87a..e321377 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -1,12 +1,13 @@
+ #!/usr/bin/env bash
+
+ if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
+-	mkdir -p ~/.local/share/data/opfvta_bidsdata
+-	pushd ~/.local/share/data/opfvta_bidsdata
+-	wget "https://zenodo.org/record/3575149/files/opfvta_bidsdata-2.0.tar.xz"
+-	tar xvf "opfvta_bidsdata-2.0.tar.xz"
+-	mv opfvta_bidsdata-2.0/* .
+-	rm opfvta_bidsdata*
++      mkdir -p ~/.local/share/data/opfvta_bidsdata
++      pushd ~/.local/share/data/opfvta_bidsdata
++	    wget "https://zenodo.org/record/3575149/files/opfvta_bidsdata-2.0.tar.xz"
++	    tar xvf "opfvta_bidsdata-2.0.tar.xz"
++	    mv opfvta_bidsdata-2.0/* .
++	    rm opfvta_bidsdata*
++      popd
+ fi
+
+ pushd ..
+
+commit 334adbfae4da8c605625e0ca616fc95aeca2c7d8
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 14:49:23 2023 -0400
+
+    Updated science has and made it HEAD for the partial containerfile
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index ff617ee..6141d0d 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=a1178bdeed13a9f087da91759e2c9b8bac0f065f
++ARG science_hash=1c2d9c184a6d79f1308b5b2ce3b39bca76a8fce9
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+diff --git a/.containerization/Containerfile.partial b/.containerization/Containerfile.partial
+index 847abe6..40dbcbf 100644
+--- a/.containerization/Containerfile.partial
++++ b/.containerization/Containerfile.partial
+@@ -1,6 +1,5 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=a1178bdeed13a9f087da91759e2c9b8bac0f065f
+
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+@@ -32,7 +31,6 @@ RUN emerge --sync science gentoo
+
+ # Pinning dependency tree state via git
+ # Not pinning science since we might still want to fix things on it
+-#RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
+ RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
+
+ # This is only if we distribute data separately
+
+commit 37ba5c755a6a9694ad68315a0ac8ce59e4c23b2b
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 14:51:02 2023 -0400
+
+    Making sure subjects are in list
+
+diff --git a/prepare/preprocess.py b/prepare/preprocess.py
+index 8868964..50a03e6 100644
+--- a/prepare/preprocess.py
++++ b/prepare/preprocess.py
+@@ -10,7 +10,7 @@ bids_base = path.join(scratch_dir,'bids')
+ groups_path = path.abspath('../data/groups.csv')
+ groups = pd.read_csv(groups_path)
+ groups = groups.loc[groups['OrthogonalStereotacticTarget_depth'].notnull()]
+-subjects = groups.Subject.unique()
++subjects = list(groups.Subject.unique())
+
+ # Preprocess all of the data:
+ generic(bids_base,
+
+commit accdd55ae0ad26f8da5e453739e6079a962b326e
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 14:57:09 2023 -0400
+
+    Pandas version constraint
+
+diff --git a/.gentoo/portage/package.mask/bugs b/.gentoo/portage/package.mask/bugs
+new file mode 100644
+index 0000000..adade89
+--- /dev/null
++++ b/.gentoo/portage/package.mask/bugs
+@@ -0,0 +1,2 @@
++# Not migrated to >=pandas-2.0.0 yet
++>=dev-python/pandas-2.0.0
+
+commit 43fc63f709e915fe8d7976adca874e7127e2f315
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 15:02:45 2023 -0400
+
+    More atomized container scripts
+
+    Co-authored-by: Austin Macdonald <austin@dartmouth.edu>
+
+diff --git a/.containerization/buildimage.sh b/.containerization/buildimage.sh
+new file mode 100755
+index 0000000..5227cb6
+--- /dev/null
++++ b/.containerization/buildimage.sh
+@@ -0,0 +1,10 @@
++#!/usr/bin/env bash
++pushd ..
++       #podman build . \
++       #       -f .containerization/Containerfile.partial \
++       #       -t opfvta-gentoo
++       podman build . \
++               -f .containerization/Containerfile \
++               -t opfvta-gentoo
++
++popd
+diff --git a/.containerization/runcontainer.sh b/.containerization/runcontainer.sh
+index e321377..6bc2739 100755
+--- a/.containerization/runcontainer.sh
++++ b/.containerization/runcontainer.sh
+@@ -1,5 +1,6 @@
+ #!/usr/bin/env bash
+
++# Downloading the data separately to bind mount into container
+ if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
+       mkdir -p ~/.local/share/data/opfvta_bidsdata
+       pushd ~/.local/share/data/opfvta_bidsdata
+@@ -10,17 +11,17 @@ if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
+       popd
+ fi
+
+-pushd ..
+-      #podman build . \
+-      #	-f .containerization/Containerfile.partial \
+-      #	-t opfvta-gentoo
+-
+-      podman build . \
+-	    -f .containerization/Containerfile \
+-	    -t opfvta-gentoo
++# Directory so that analysis traces are available on the host for inspection
++mkdir -p ~/.local/share/data/opfvta_scratch
+
+-      podman run -it \
+-	      -v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
+-	      --detach \
+-	      opfvta-gentoo /bin/bash
++pushd ..
++       # Running container with host-based directories bind mounted
++       # Run an instance of the image
++       podman run -it \
++               -v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
++               -v ~/.local/share/data/opfvta_scratch:/root/.scratch/:Z \
++               --detach \
++               --name opfvta-gentoo-instance-1 \
++               opfvta-gentoo /bin/bash
+ popd
++
+
+commit ae92527d3328b2bcbf74f36970a650a994d01ff3
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 6 15:18:39 2023 -0400
+
+    Making sure new environment files are sourced
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index 6141d0d..e6eec23 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -35,3 +35,4 @@ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provid
+
+ RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+ RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" emerge -v opfvta --autounmask-continue
+
+OOOOO This was a mistake. RUN is build-context only and does not affect the runtime environment.
+
++RUN source /etc/profile
+
+commit 38f9ceab82c88afdd30b68464eace29a49e3551a
+Author: Horea Christian <chr@chymera.eu>
+Date:   Fri Apr 7 07:04:27 2023 -0400
+
+    Updated bids entity name
+
+OOOOO bugfix
+
+diff --git a/prepare/l1.py b/prepare/l1.py
+index 18bd027..43b0639 100644
+--- a/prepare/l1.py
++++ b/prepare/l1.py
+@@ -13,7 +13,7 @@ glm.l1(preprocess_base,
+ 	exclude={
+ 		'task':['rest','JPogT'],
+ 		},
+-	match={'suffix':['cbv']},
++	match={'modality':['cbv']},
+ 	invert=True,
+ 	workflow_name='l1',
+ 	out_base=scratch_dir,
+@@ -26,12 +26,12 @@ glm.seed(preprocess_base,'../data/vta_right.nii.gz',
+ 		'task':['rest','JPogT'],
+ 		},
+ 	match={
+-		'suffix':['cbv'],
++		'modality':['cbv'],
+ 		},
+ 	lowpass_sigma=2,
+ 	highpass_sigma=225,
+ 	out_base=scratch_dir,
+ 	workflow_name='seed_l1',
+ 	metric='median',
+-	top_voxel='{}/l1/sub-{{subject}}/ses-{{session}}/sub-{{subject}}_ses-{{session}}_task-{{task}}_acq-{{acquisition}}_run-{{run}}_desc-tstat_{{suffix}}.nii.gz'.format(scratch_dir),
++	top_voxel='{}/l1/sub-{{subject}}/ses-{{session}}/sub-{{subject}}_ses-{{session}}_task-{{task}}_acq-{{acquisition}}_run-{{run}}_desc-tstat_{{modality}}.nii.gz'.format(scratch_dir),
+ 	)
+
+commit 74a38c3b51a3100d469d9dbc7a7fdfe274383d24
+Author: Horea Christian <chr@chymera.eu>
+Date:   Fri Apr 7 10:29:20 2023 -0400
+
+    making sure subject identifiers are passed as strings
+
+OOOOOO bugfix
+
+diff --git a/prepare/preprocess.py b/prepare/preprocess.py
+index 50a03e6..0460e46 100644
+--- a/prepare/preprocess.py
++++ b/prepare/preprocess.py
+@@ -11,6 +11,7 @@ groups_path = path.abspath('../data/groups.csv')
+ groups = pd.read_csv(groups_path)
+ groups = groups.loc[groups['OrthogonalStereotacticTarget_depth'].notnull()]
+ subjects = list(groups.Subject.unique())
++subjects = [str(i) for i in subjects]
+
+ # Preprocess all of the data:
+ generic(bids_base,
+
+commit 453789fc5448921c315b4570a7ebdfc4e4eb6c2c
+Author: Horea Christian <chr@chymera.eu>
+Date:   Fri Apr 7 10:29:41 2023 -0400
+
+    Reminder for full timecapsule functionality
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index e6eec23..189f349 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -2,6 +2,7 @@
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+ ARG science_hash=1c2d9c184a6d79f1308b5b2ce3b39bca76a8fce9
+
++# TODO: pin gentoo and stage image as well if we want a timecapsule
+ # name the portage image
+ FROM gentoo/portage:latest as portage
+
+
+commit e9b65e53848f7089654f31fb3c2f607b7fd278de
+Author: Horea Christian <chr@chymera.eu>
+Date:   Fri Apr 7 12:52:19 2023 -0400
+
+    We need the connectivity data
+
+diff --git a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+index fb780c2..b8f57f5 100644
+--- a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+@@ -22,6 +22,7 @@ RDEPEND="
+ 	>=dev-tex/pythontex-0.16
+ 	media-gfx/graphviz
+ 	sci-biology/samri
++	sci-biology/ABI-connectivity-data
+ 	scanner-data? ( sci-biology/opfvta_data )
+ 	!scanner-data? ( sci-biology/opfvta_bidsdata )
+ "
+
+commit 8c5a7e8dd96638f22d6d506fd69482ae67686c84
+Author: Austin Macdonald <austin@dartmouth.edu>
+Date:   Fri Apr 7 14:40:20 2023 -0400
+
+    Thin the build by using localdistfiles
+
+OOOOOOOO Since we were rebuilding so frequently, we used this trick to reuse the gentoo source-download cache between builds by binding that directory outside of the container.
+    Note, as-is this didn't work correctly across users on typhon though.
+
+diff --git a/.containerization/Containerfile b/.containerization/Containerfile
+index 189f349..79ef124 100644
+--- a/.containerization/Containerfile
++++ b/.containerization/Containerfile
+@@ -1,6 +1,7 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+ ARG science_hash=1c2d9c184a6d79f1308b5b2ce3b39bca76a8fce9
++ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
+
+ # TODO: pin gentoo and stage image as well if we want a timecapsule
+ # name the portage image
+@@ -13,7 +14,7 @@ FROM gentoo/stage3:latest
+ # copy the entire portage volume in
+ COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+
+-RUN emerge --noreplace dev-vcs/git
++RUN emerge -v --noreplace dev-vcs/git
+ RUN emerge -v1u portage
+
+ COPY . /opfvta
+@@ -35,5 +36,5 @@ RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gen
+ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+
+ RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+-RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" emerge -v opfvta --autounmask-continue
++RUN emerge -v opfvta --autounmask-continue
+ RUN source /etc/profile
+diff --git a/.containerization/build-cached-image.sh b/.containerization/build-cached-image.sh
+new file mode 100755
+index 0000000..d6be57d
+--- /dev/null
++++ b/.containerization/build-cached-image.sh
+@@ -0,0 +1,12 @@
++#!/usr/bin/env bash
++pushd ..
++       #podman build . \
++       #       -f .containerization/Containerfile.partial \
++       #       -t opfvta-gentoo
++       podman build . \
++              --no-cache \
++               -f .containerization/Containerfile \
++              -v ~/.local/cache/distfiles:/var/cache/distfiles \
++               -t opfvta-distfiles-cached-gentoo
++
++popd
+
+commit 75bb430338dd8776b1518d61ada90e329a75d773
+Author: Horea Christian <chr@chymera.eu>
+Date:   Sun Apr 9 21:41:59 2023 -0400
+
+    Added dependency
+
+diff --git a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+index b8f57f5..ad70ade 100644
+--- a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+@@ -17,6 +17,7 @@ RDEPEND="
+ 	dev-python/matplotlib
+ 	dev-python/numpy
+ 	dev-python/pandas
++	dev-python/repsep_utils
+ 	>=dev-python/seaborn-0.9.0
+ 	>=dev-python/statsmodels-0.9.0
+ 	>=dev-tex/pythontex-0.16
+
+commit 587b9b2790463af7a5f4f979a5f97e1993c96eea
+Author: Horea Christian <chr@chymera.eu>
+Date:   Mon Apr 10 17:20:08 2023 -0400
+
+    Added missing bibtex dependency
+
+diff --git a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+index ad70ade..6f5bf68 100644
+--- a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+@@ -18,6 +18,7 @@ RDEPEND="
+ 	dev-python/numpy
+ 	dev-python/pandas
+ 	dev-python/repsep_utils
++	dev-tex/biblatex
+ 	>=dev-python/seaborn-0.9.0
+ 	>=dev-python/statsmodels-0.9.0
+ 	>=dev-tex/pythontex-0.16
+
+commit 7ca64a33e147fc63b2dcaee43cdbc8cdeec37058
+Author: Horea Christian <chr@chymera.eu>
+Date:   Mon Apr 10 17:27:43 2023 -0400
+
+    Seaborn API update
+
+diff --git a/scripts/features_correlation_rois.py b/scripts/features_correlation_rois.py
+index 716f4b6..527bc75 100644
+--- a/scripts/features_correlation_rois.py
++++ b/scripts/features_correlation_rois.py
+@@ -25,7 +25,9 @@ df = pd.DataFrame(
+ 	)
+
+ linewidth = mpl.rcParams['lines.linewidth']
+-g = sns.regplot('Functional Mean ROI t', 'Structural Mean ROI t',
++g = sns.regplot(
++	x='Functional Mean ROI t',
++	y='Structural Mean ROI t',
+ 	ci=99,
+ 	data=df,
+ 	color="tab:blue",
+diff --git a/scripts/features_correlation_voxels.py b/scripts/features_correlation_voxels.py
+index 096787e..d31be53 100644
+--- a/scripts/features_correlation_voxels.py
++++ b/scripts/features_correlation_voxels.py
+@@ -25,7 +25,9 @@ df = pd.DataFrame(
+ 	)
+
+ linewidth = mpl.rcParams['lines.linewidth']
+-g = sns.regplot('Functional Voxel t', 'Structural Voxel t',
++g = sns.regplot(
++	x='Functional Voxel t',
++	y='Structural Voxel t',
+ 	ci=99,
+ 	data=df,
+ 	color="tab:gray",
+
+commit 36d57f063801e92258bb6bd08ff580621d8c9692
+Author: Horea Christian <chr@chymera.eu>
+Date:   Mon Apr 10 17:28:21 2023 -0400
+
+    Updated range boundaries
+
+diff --git a/prepare/correlation_data.py b/prepare/correlation_data.py
+index 5e2207d..0f878fd 100644
+--- a/prepare/correlation_data.py
++++ b/prepare/correlation_data.py
+@@ -20,7 +20,7 @@ img1_rois, img2_rois, roi_names = rois_for_comparison(img1, img2)
+
+ correlation_data['regionwise'] = {}
+ keep=[]
+-for i in range(len(img1_rois)-1):
++for i in range(len(img1_rois)):
+ 	if math.isnan(img1_rois[i]) or math.isnan(img2_rois[i]):
+ 		keep.append(False)
+ 	keep.append(True)
+
+commit 175ef74e09b4c91a6f55ec89d9aeab97c1135335
+Author: Horea Christian <chr@chymera.eu>
+Date:   Mon Apr 10 17:29:13 2023 -0400
+
+    BIDS nomenclature (full BIDS update deferred)
+
+diff --git a/prepare/l2.py b/prepare/l2.py
+index a2c64d1..2864c82 100644
+--- a/prepare/l2.py
++++ b/prepare/l2.py
+@@ -137,8 +137,8 @@ glm.l2_controlled_effect('~/.scratch/opfvta/features_normalized',
+ 		'CogP',
+ 		],},
+ 	out_base=scratch_dir,
+-	match={'subject':filtered_animals,'datatype':[np.nan]},
+-	control_match={'datatype':['anat']},
++	match={'subject':filtered_animals,'type':[np.nan]},
++	control_match={'type':['anat']},
+ 	run_mode='fe',
+ 	)
+
+
+commit 911a88763dc9a3256a19e603dbee72cbf84dabd8
+Merge: 175ef74 8c5a7e8
+Author: Austin Macdonald <asmacdo@gmail.com>
+Date:   Tue Apr 11 02:18:29 2023 +0000
+
+    Merged in thinner-build (pull request #2)
+
+    Thin the build by using localdistfiles
+
+    Approved-by: Horea Christian
+    Approved-by: TheChymera
+
+
+commit 4f6695c5a4590e1159c40c393ef707dc688cfbd3
+Author: Austin Macdonald <austin@dartmouth.edu>
+Date:   Tue Apr 11 13:17:50 2023 -0400
+
+
+OOOOOO asmacdo soapbox
+
+    Image build should not be hidden
+
+    One important benefit of containers has been as an extension of the "black
+    box" goal. This has also been the source of a common downside when used
+    in science.
+
+    In my opinion, the "packaging" of the code is very important to share.
+    Scientists using a container should look at the `Containerfile` before
+    usage because it provides a lot of relevant information. In my opinion,
+    Containerfiles are a clear, relatively easy to read (iff[sic] the
+    skill to write Containerfiles becomes more ubiquitous in the community.)
+
+    Containerfiles should (IMVHO, seriously Im making this up. Im trying to
+        establish guidelines optimized for limiting required knowledge of
+        scientists. Enterprise doesnt really follow this pattern, they
+        often fully embrace "black box"):
+      - be the "reader entrypoint". I am advocating that containers be used
+         - for packaging and delivry
+         - for enforcable rerunability, with standard APIs so they can be
+           executed *without users requiring unnecessary knowledge of the
+        system.*.
+         - To rebuild containers that contain bugs or updates.
+      - clearly install requirements:
+          The use of the shell should be minimized, especially clever
+          tricks. it adds a lot of complexity to the reader. Containerfiles
+          should instead read more like the "procedure" section of an
+          article.
+
+    How they should look.
+
+          ```
+          # Pick the image that requires the least amount
+          # of complexity here. Put effort into creating base images that can
+          # be shared. Neurodebian opinionated offshoots, (example:
+          # preinstalled LSF[oof-nonfree]
+          FROM wellchosenbaseimage:somespecificversion # latest just the first time
+
+          # How the user will configure this container. Paths to whatever
+          # if files read(sane defaults)
+          ARGS "primary way to provide arguments to the container"
+
+          RUN apt-get onelist
+          RUN pip install requirements.txt # keep it short here
+
+          ENTRYPOINT the-script.sh
+          ```
+
+          thescript.py
+          ```
+          # This script should be high level enough that reviewers who
+          # barely know Python can read.
+          # Put the complexity in the functions instead of here.
+
+          # dataX_raw = somepython.read_my_data(the_path.fromARG)
+          # dataX_bidsified = moarpython.bidsybidsbids(raw)
+          # dataX_next_thing = yougetit.analyize(bidisfied)
+          # finish.my_data(input_data, the_output_path.fromARG)
+          ```
+
+    All this to say that the containerfile and the entrypoint script are
+    an important part of the "procedure" section of the paper, perhaps
+    even rendered straight into the paper.
+
+    ```
+
+diff --git a/.containerization/Containerfile b/containerization/Containerfile
+similarity index 100%
+rename from .containerization/Containerfile
+rename to containerization/Containerfile
+diff --git a/.containerization/Containerfile.partial b/containerization/Containerfile.partial
+similarity index 100%
+rename from .containerization/Containerfile.partial
+rename to containerization/Containerfile.partial
+diff --git a/.containerization/build-cached-image.sh b/containerization/build-cached-image.sh
+similarity index 100%
+rename from .containerization/build-cached-image.sh
+rename to containerization/build-cached-image.sh
+diff --git a/.containerization/buildimage.sh b/containerization/buildimage.sh
+similarity index 80%
+rename from .containerization/buildimage.sh
+rename to containerization/buildimage.sh
+index 5227cb6..926aec8 100755
+--- a/.containerization/buildimage.sh
++++ b/containerization/buildimage.sh
+@@ -6,5 +6,6 @@ pushd ..
+        podman build . \
+                -f .containerization/Containerfile \
+                -t opfvta-gentoo
++               -v ~/.local/cache/distfiles:/var/cache/distfiles
+
+ popd
+diff --git a/.containerization/runcontainer.sh b/containerization/runcontainer.sh
+similarity index 100%
+rename from .containerization/runcontainer.sh
+rename to containerization/runcontainer.sh
+
+commit 58df0c75c6221221a667348a63f6a86250a144b4
+Author: Austin Macdonald <austin@dartmouth.edu>
+Date:   Tue Apr 11 15:00:30 2023 -0400
+
+    Optimistic Makefile (probably broken)
+
+diff --git a/containerization/Containerfile b/containerization/Containerfile
+index 79ef124..cb6326b 100644
+--- a/containerization/Containerfile
++++ b/containerization/Containerfile
+@@ -3,19 +3,7 @@ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+ ARG science_hash=1c2d9c184a6d79f1308b5b2ce3b39bca76a8fce9
+ ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
+
+-# TODO: pin gentoo and stage image as well if we want a timecapsule
+-# name the portage image
+-FROM gentoo/portage:latest as portage
+-
+-# based on stage3 image
+-# FROM gentoo/stage3:amd64-hardened-20200905
+-FROM gentoo/stage3:latest
+-
+-# copy the entire portage volume in
+-COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+-
+-RUN emerge -v --noreplace dev-vcs/git
+-RUN emerge -v1u portage
++FROM opfvta-base
+
+ COPY . /opfvta
+
+diff --git a/containerization/Containerfile.base b/containerization/Containerfile.base
+new file mode 100644
+index 0000000..32a188e
+--- /dev/null
++++ b/containerization/Containerfile.base
+@@ -0,0 +1,13 @@
++# TODO: pin gentoo and stage image as well if we want a timecapsule
++# name the portage image
++FROM gentoo/portage:latest as portage
++
++# based on stage3 image
++# FROM gentoo/stage3:amd64-hardened-20200905
++FROM gentoo/stage3:latest
++
++# copy the entire portage volume in
++COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
++
++RUN emerge -v --noreplace dev-vcs/git
++RUN emerge -v1u portage
+diff --git a/containerization/build-cached-image.sh b/containerization/build-cached-image.sh
+deleted file mode 100755
+index d6be57d..0000000
+--- a/containerization/build-cached-image.sh
++++ /dev/null
+@@ -1,12 +0,0 @@
+-#!/usr/bin/env bash
+-pushd ..
+-       #podman build . \
+-       #       -f .containerization/Containerfile.partial \
+-       #       -t opfvta-gentoo
+-       podman build . \
+-              --no-cache \
+-               -f .containerization/Containerfile \
+-              -v ~/.local/cache/distfiles:/var/cache/distfiles \
+-               -t opfvta-distfiles-cached-gentoo
+-
+-popd
+diff --git a/containerization/buildimage.sh b/containerization/buildimage.sh
+deleted file mode 100755
+index 926aec8..0000000
+--- a/containerization/buildimage.sh
++++ /dev/null
+@@ -1,11 +0,0 @@
+-#!/usr/bin/env bash
+-pushd ..
+-       #podman build . \
+-       #       -f .containerization/Containerfile.partial \
+-       #       -t opfvta-gentoo
+-       podman build . \
+-               -f .containerization/Containerfile \
+-               -t opfvta-gentoo
+-               -v ~/.local/cache/distfiles:/var/cache/distfiles
+-
+-popd
+
+
+OOOOOOOO ALTERNATE APPROACH for data management
+    I experimented here with building an image to contain each dataset. This would allow reusablility with only docker/podman-compose and not require datalad.
+    I didn't try to get this to work for very long, the downsides became pretty obvious...
+	- Big images on dockerhub/quay
+	- i was trying to use an image as a volume. Not sure why that didnt work
+	- datalad does this cleaner, easier, and more consistent with the community and doesnt require abusing image repos
+
+diff --git a/containerization/input_data.Containerfile b/containerization/input_data.Containerfile
+new file mode 100644
+index 0000000..67fd379
+--- /dev/null
++++ b/containerization/input_data.Containerfile
+@@ -0,0 +1 @@
++FROM alpine
+diff --git a/containerization/reference_data.Containerfile b/containerization/reference_data.Containerfile
+new file mode 100644
+index 0000000..67fd379
+--- /dev/null
++++ b/containerization/reference_data.Containerfile
+@@ -0,0 +1 @@
++FROM alpine
+
+commit 2f2fc5ff8af929611eac900bfb0d0371fcff82ba
+Author: Austin Macdonald <austin@dartmouth.edu>
+Date:   Tue Apr 11 15:48:44 2023 -0400
+
+    Base works, get volumes out of it for now
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..753f7d8
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,100 @@
++# TODO this should be disabled by default. We should
++# Never assume the user wants to share any directory
++# on their machine by default.
++# DISTFILE_CACHE_PATH=~/.local/cache/distfiles
++
++# We must allow others exactly use our script without modification
++# Or its not replicable by others.
++#
++REGISTRY=docker.io
++REPOSITORY=asmacdo
++
++IMAGE_NAME=opfvta
++IMAGE_TAG=2.0.0-alpha
++
++INPUT_NAME=opfvta_bidsdata
++INPUT_TAG=2.1.0-alpha
++
++REFERENCE_NAME=mouse_templates_atlases
++REFERENCE_TAG=1.0.0-alpha
++
++FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
++FQDN_INPUT_DATA=${REGISTRY}/${REPOSITORY}/${INPUT_NAME}:${INPUT_TAG}
++FQDN_REFERENCE_DATA=${REGISTRY}/${REPOSITORY}/${REFERENCE_NAME}:${REFERENCE_TAG}
++# Build and push to both?
++# APPTAINER_REGISTRY=""
++
++build-fresh:
++		# -v ${DISTFILE_CACHE_PATH}:/var/cache/distfiles
++	podman build . \
++		--no-cache \
++		-f containerization/Containerfile \
++		-t ${FQDN_IMAGE}
++
++build-base:
++		# -v ${DISTFILE_CACHE_PATH}:/var/cache/distfiles
++	podman build . \
++		-f containerization/Containerfile.base \
++		-t opfvta-base
++
++build:
++		# -v ${DISTFILE_CACHE_PATH}:/var/cache/distfiles
++	podman build . \
++		-f containerization/Containerfile \
++		-t ${FQDN_IMAGE}
++
+
+OOOOOOOO below is the "images as volume" stuff
+
++# build-opfvta-bidsdata:
++# 	podman build . \
++# 		-f ../input_data/Containerfile \
++# 		-t ${FQDN_INPUT_DATA}
++
++# build-mouse-templates-atlases:
++# 	podman build . \
++# 		-f ../reference_data/Containerfile \
++# 		-t ${FQDN_REFERENCE_DATA}
++
++
++
++# TODO RM
++# push-dev-only:
++# 	podman push ${FQDN_IMAGE}
++# 	podman push ${FQDN_INPUT_DATA}
++# 	podman push ${FQDN_REFERENCE_DATA}
++
++push:
++	podman push ${FQDN_IMAGE}
++
++# mouse-volume: build-mouse-templates-atlases
++# 	podman volume rm input_data -f
++# 	# IDK if this hack actually works
++# 	podman volume create input_data
++# 	# Its annoying I have to run a container for this? Can i endit?
++# 	podman run \
++# 		-d \
++# 		-it \
++# 		--rm \
++# 		-v input_data:/input_volume \
++# 		${FQDN_INPUT_DATA} \
++# 		/bin/sh
++#
++scatch:
++	podman volume create output
++
++run:
++	podman run \
++		-d \
++		-it \
++		--rm \
++		-v ../input_data/opfvta-bids:/usr/share/opfvta_bidsdata \
++		-v ../reference_data/mouse-brain-templates-0.5.3:/usr/share/mouse_brain_atlases \
++		-v ../top_level_data/:/root/.scratch
++		${FQDN_IMAGE}
++
++handtest:
++	podman run \
++		-it \
++		-v input_data:/usr/share/opfvta_bidsdata \
++		-v reference_data:/TODOWHEREDOESTHISGO \
++		-v output:/root/.scratch \
++		${FQDN_IMAGE} \
++		/bin/bash
+diff --git a/containerization/Containerfile.partial b/containerization/Containerfile.partial
+deleted file mode 100644
+index 40dbcbf..0000000
+--- a/containerization/Containerfile.partial
++++ /dev/null
+@@ -1,40 +0,0 @@
+-# Pinned commits for the dependency tree state
+-ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-
+-# name the portage image
+-FROM gentoo/portage:latest as portage
+-
+-# based on stage3 image
+-# FROM gentoo/stage3:amd64-hardened-20200905
+-FROM gentoo/stage3:latest
+-
+-# copy the entire portage volume in
+-COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+-
+-RUN emerge --noreplace dev-vcs/git
+-RUN emerge -v1u portage
+-
+-## Remove after it works and we're no longer debugging
+-RUN emerge --noreplace app-editors/vim sys-apps/the_silver_searcher app-portage/eix app-portage/gentoolkit
+-## End remove
+-
+-COPY . /opfvta
+-
+-RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
+-RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+-
+-# Moving gentoo repo from default rsync to git
+-RUN rm /var/db/repos/gentoo -rf
+-
+-# Getting everything via git
+-RUN emerge --sync science gentoo
+-
+-# Pinning dependency tree state via git
+-# Not pinning science since we might still want to fix things on it
+-RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
+-
+-# This is only if we distribute data separately
+-RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+-
+-RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+-#RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" emerge -v opfvta --autounmask-continue
+diff --git a/containerization/input_data.Containerfile b/containerization/input_data.Containerfile
+deleted file mode 100644
+index 67fd379..0000000
+--- a/containerization/input_data.Containerfile
++++ /dev/null
+@@ -1 +0,0 @@
+-FROM alpine
+diff --git a/containerization/reference_data.Containerfile b/containerization/reference_data.Containerfile
+deleted file mode 100644
+index 67fd379..0000000
+--- a/containerization/reference_data.Containerfile
++++ /dev/null
+@@ -1 +0,0 @@
+-FROM alpine
+diff --git a/containerization/runcontainer.sh b/containerization/runcontainer.sh
+deleted file mode 100755
+index 6bc2739..0000000
+--- a/containerization/runcontainer.sh
++++ /dev/null
+@@ -1,27 +0,0 @@
+-#!/usr/bin/env bash
+-
+-# Downloading the data separately to bind mount into container
+-if [ ! -d ~/.local/share/data/opfvta_bidsdata ]; then
+-      mkdir -p ~/.local/share/data/opfvta_bidsdata
+-      pushd ~/.local/share/data/opfvta_bidsdata
+-	    wget "https://zenodo.org/record/3575149/files/opfvta_bidsdata-2.0.tar.xz"
+-	    tar xvf "opfvta_bidsdata-2.0.tar.xz"
+-	    mv opfvta_bidsdata-2.0/* .
+-	    rm opfvta_bidsdata*
+-      popd
+-fi
+-
+-# Directory so that analysis traces are available on the host for inspection
+-mkdir -p ~/.local/share/data/opfvta_scratch
+-
+-pushd ..
+-       # Running container with host-based directories bind mounted
+-       # Run an instance of the image
+-       podman run -it \
+-               -v ~/.local/share/data/opfvta_bidsdata:/usr/share/opfvta_bidsdata:Z \
+-               -v ~/.local/share/data/opfvta_scratch:/root/.scratch/:Z \
+-               --detach \
+-               --name opfvta-gentoo-instance-1 \
+-               opfvta-gentoo /bin/bash
+-popd
+-
+
+commit ff440983bc05fd39256cf7ae4425e134f10ddcc4
+Author: Austin Macdonald <austin@dartmouth.edu>
+Date:   Tue Apr 11 15:56:35 2023 -0400
+
+    polish
+
+diff --git a/Makefile b/Makefile
+index 753f7d8..c4c2c23 100644
+--- a/Makefile
++++ b/Makefile
+@@ -77,12 +77,12 @@ push:
+ # 		${FQDN_INPUT_DATA} \
+ # 		/bin/sh
+ #
+-scatch:
+-	podman volume create output
++# scatch:
++# 	podman volume create output
+
++# Notice this doesnt drop you into a shell and the container is deleted after use
+ run:
+ 	podman run \
+-		-d \
+ 		-it \
+ 		--rm \
+ 		-v ../input_data/opfvta-bids:/usr/share/opfvta_bidsdata \
+@@ -90,6 +90,7 @@ run:
+ 		-v ../top_level_data/:/root/.scratch
+ 		${FQDN_IMAGE}
+
++# Use this to run a shell
+ handtest:
+ 	podman run \
+ 		-it \
+diff --git a/containerization/Containerfile b/containerization/Containerfile
+index cb6326b..b6a1373 100644
+--- a/containerization/Containerfile
++++ b/containerization/Containerfile
+@@ -26,3 +26,5 @@ RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provid
+ RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+ RUN emerge -v opfvta --autounmask-continue
+ RUN source /etc/profile
++
++ENTRYPOINT ["/opfvta/produce.sh"]
+
+commit 70b0f5e3be28bde0e46c9ec43f53e01a0e9ef7c3
+Merge: 911a887 ff44098
+Author: Austin Macdonald <asmacdo@gmail.com>
+Date:   Tue Apr 11 20:41:50 2023 +0000
+
+    Merged in container-idioms (pull request #3)
+
+    Container idioms
+
+
+commit d4be98ca8fd9b753662f234ecf5e2d4d542cb2da
+Author: Horea Christian <chr@chymera.eu>
+Date:   Tue Apr 11 16:53:08 2023 -0400
+
+    Updated science hash so =samri-0.5.3 is present
+
+diff --git a/containerization/Containerfile b/containerization/Containerfile
+index b6a1373..1aa0470 100644
+--- a/containerization/Containerfile
++++ b/containerization/Containerfile
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=1c2d9c184a6d79f1308b5b2ce3b39bca76a8fce9
++ARG science_hash=b9b7ea94c0bf72b97d1313abe231d48e3ceaf440
+ ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
+
+ FROM opfvta-base
+
+commit f6b2f9b69252143891dd3574baf451d48b4ae1a2
+Author: Horea Christian <chr@chymera.eu>
+Date:   Tue Apr 11 23:51:57 2023 -0400
+
+    Requiring newest directory management from repsep_utils
+
+diff --git a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+index 6f5bf68..3dcb2e9 100644
+--- a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+@@ -17,7 +17,7 @@ RDEPEND="
+ 	dev-python/matplotlib
+ 	dev-python/numpy
+ 	dev-python/pandas
+-	dev-python/repsep_utils
++	>=dev-python/repsep_utils-0.3
+ 	dev-tex/biblatex
+ 	>=dev-python/seaborn-0.9.0
+ 	>=dev-python/statsmodels-0.9.0
+
+commit c3cea8d6d2a2fb9c35f7fd51ed434dde9b4c3be5
+Author: Horea Christian <chr@chymera.eu>
+Date:   Tue Apr 11 23:55:11 2023 -0400
+
+    Removed deprecated config file
+
+diff --git a/pythontex/matplotlibrc.conf b/pythontex/matplotlibrc.conf
+deleted file mode 100644
+index c7a0617..0000000
+--- a/pythontex/matplotlibrc.conf
++++ /dev/null
+@@ -1,34 +0,0 @@
+-font.size : 6
+-figure.titlesize : xx-small
+-axes.labelsize : xx-small
+-axes.titlesize : xx-small
+-axes.edgecolor: white
+-axes.facecolor: EEEEEE
+-axes.linewidth: 1
+-axes.grid: True
+-axes.labelcolor: 555555
+-axes.axisbelow: True       # grid/ticks are below elements (e.g., lines, text)
+-xtick.color: 555555
+-xtick.direction: out
+-ytick.color: 555555
+-ytick.direction: out
+-grid.color: white
+-grid.linestyle: -    # solid line
+-figure.edgecolor: 0.50
+-figure.facecolor: EEEEEE
+-legend.fontsize : xx-small
+-legend.markerscale : 0.5
+-lines.markersize : 5
+-legend.frameon : True
+-legend.labelspacing : 0.3
+-axes.labelcolor : 0.4
+-xtick.color : 0.4
+-ytick.color : 0.4
+-savefig.bbox : tight
+-savefig.dpi : 400
+-text.usetex : True
+-pgf.texsystem : pdflatex
+-lines.linewidth : 1.0
+-patch.edgecolor: EEEEEE
+-patch.antialiased: True
+-
+
+commit 1e2106db010472bc02281f43f34ef21ce1176db3
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 12 03:17:52 2023 -0400
+
+    RepSeP build system update
+
+diff --git a/Makefile b/Makefile
+index c4c2c23..8227d31 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,6 +3,73 @@
+ # on their machine by default.
+ # DISTFILE_CACHE_PATH=~/.local/cache/distfiles
+
++# Publishing variables
++# Ideally these should be environment variables and we should check here whether they're defined and explain upload requires them if they're not.
++SERVER=dreamarticles
++WEBSITE=articles.chymera.eu
++NAME=$(shell basename $(shell pwd))
++
++
++# Set NOCLIENT variable to not prepend hostname to published filename:
++# e.g. `NOCLIENT=1 make upload-article`
++CLIENT := $(if $(NOCLIENT),$(shell cat /dev/null),$(shell hostname)_)
++
++COMMON := bib.bib common_header.tex
++PYTHONTEX_ALL := $(wildcard lib/* pythontex/* scripts/*)
++STATIC_ALL := $(wildcard img/* *.sty)
++
++all: article.pdf poster.pdf pitch.pdf slides.pdf
++
++article.pdf:	$(wildcard article/*) $(COMMON) $(PYTHONTEX_ALL) $(STATIC_ALL) article.tex
++	rubber --pdf --unsafe article.tex
++pitch.pdf:		$(wildcard pitch/*) $(COMMON) $(PYTHONTEX_ALL) $(STATIC_ALL) pitch.tex
++	rubber --pdf --unsafe pitch.tex
++poster.pdf:	$(wildcard poster/*) $(COMMON) $(PYTHONTEX_ALL) $(STATIC_ALL) poster.tex
++	rubber --pdf --unsafe poster.tex
++review.pdf:	$(wildcard poster/*) $(COMMON)
++	rubber --pdf --unsafe review.tex
++slides.pdf:		$(wildcard slides/*) $(COMMON) $(PYTHONTEX_ALL) $(STATIC_ALL) slides.tex
++	rubber --pdf --unsafe slides.tex
++
++
++# Cleanscripts
++clean-article:
++	rubber --clean article.tex
++	rm _minted-article -rf
++clean-pitch:
++	rubber --clean pitch.tex
++	rm _minted-pitch -rf
++clean-poster:
++	rubber --clean poster.tex
++	rm _minted-poster -rf
++clean-review:
++	rubber --clean review.tex
++	rm _minted-slides -rf
++clean-slides:
++	rubber --clean slides.tex
++	rm _minted-slides -rf
++clean: clean-article clean-pitch clean-poster clean-review clean-slides
++
++# Upload scripts
++upload: upload-article
++upload-article: article.pdf
++	rsync -avP article.pdf ${SERVER}:${WEBSITE}/${CLIENT}${NAME}_article.pdf
++upload-pitch: pitch.pdf
++	rsync -avP pitch.pdf ${SERVER}:${WEBSITE}/${CLIENT}${NAME}_pitch.pdf
++upload-poster: poster.pdf
++	rsync -avP poster.pdf ${SERVER}:${WEBSITE}/${CLIENT}${NAME}_poster.pdf
++upload-slides: slides.pdf
++	rsync -avP slides.pdf ${SERVER}:${WEBSITE}/${CLIENT}${NAME}_slides.pdf
++
++
++
++# Data preparation
++
++
++
++
++######## Containerized ########
++
+ # We must allow others exactly use our script without modification
+ # Or its not replicable by others.
+ #
+diff --git a/article/header.tex b/article/header.tex
+index b78990e..bf1dcac 100755
+--- a/article/header.tex
++++ b/article/header.tex
+@@ -21,6 +21,7 @@
+ % Article-specific configuration
+ \begin{pythontexcustomcode}[begin]{py}
+ DOC_STYLE="article/main.conf"
++JOBNAME="article"
+ pytex.add_dependencies(
+ 	DOC_STYLE,
+ 	"article/1col.conf",
+@@ -41,6 +42,9 @@ pytex.add_dependencies(
+ 	)
+ \end{pythontexcustomcode}
+
++% This does not go into the common header as it needs to be imputed after the document-specific variables are defined.
++\input{/usr/share/repsep/functions.py}
++
+ %VARIABLES
+ %set up a more stable buffers (the normal ones gets blanked after the titlepage is invoked)
+ \makeatletter
+diff --git a/common_header.tex b/common_header.tex
+index 0f140cb..dd285f8 100644
+--- a/common_header.tex
++++ b/common_header.tex
+@@ -22,7 +22,8 @@
+ % PythonTeX
+ \usepackage[autoprint=false, gobble=auto, keeptemps=all, pyfuture=all]{pythontex} % create figures on-line directly from python!
+ \usepackage{pgf}
+-\input{/usr/share/repsep/functions.py}
++% The import package is needed for relative figure referencing in PGFs stored under the pythontex job directory
++\usepackage{import}
+ \begin{pythontexcustomcode}[begin]{py}
+ pytex.add_dependencies(
+ 	'lib/utils.py',
+diff --git a/pitch/header.tex b/pitch/header.tex
+index 31971a5..a2ae130 100644
+--- a/pitch/header.tex
++++ b/pitch/header.tex
+@@ -14,6 +14,7 @@
+ % Article-specific configuration
+ \begin{pythontexcustomcode}[begin]{py}
+ DOC_STYLE="pitch/main.conf"
++JOBNAME="pitch"
+ pytex.add_dependencies(
+ 	DOC_STYLE,
+ 	'pitch/2x1.conf',
+@@ -21,6 +22,9 @@ pytex.add_dependencies(
+ 	)
+ \end{pythontexcustomcode}
+
++% This does not go into the common header as it needs to be imputed after the document-specific variables are defined.
++\input{/usr/share/repsep/functions.py}
++
+ % Custom beamer styling and colors
+ \setbeamersize{text margin left=0.8em,text margin right=0.8em}
+ \setbeamertemplate{bibliography item}{\insertbiblabel}
+
+commit f63c887c6e053b506442c1eff0a8787913b8d17c
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 12 03:19:01 2023 -0400
+
+    Dropping deprecated upload script
+
+diff --git a/upload.sh b/upload.sh
+deleted file mode 100755
+index d2c66f2..0000000
+--- a/upload.sh
++++ /dev/null
+@@ -1,7 +0,0 @@
+-SERVER='dreamarticles'
+-WEBSITE='articles.chymera.eu'
+-NAME=$(basename $(pwd))
+-[[ ! -z "$HOSTNAME" ]] && HOSTNAME="${HOSTNAME}_"
+-
+-rsync -avP ${1}.pdf ${SERVER}:${WEBSITE}/${HOSTNAME}${NAME}_${1}.pdf &&\
+-	                echo "Article uploaded to http://${WEBSITE}/${HOSTNAME}${NAME}_${1}.pdf"
+
+commit fc7b0f0c1ec2da8037bf1d35ee266ae3899abb7a
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 12 04:20:06 2023 -0400
+
+    Dep update
+
+diff --git a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+index 3dcb2e9..345a756 100644
+--- a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+@@ -17,7 +17,7 @@ RDEPEND="
+ 	dev-python/matplotlib
+ 	dev-python/numpy
+ 	dev-python/pandas
+-	>=dev-python/repsep_utils-0.3
++	>=dev-python/repsep_utils-0.3.1
+ 	dev-tex/biblatex
+ 	>=dev-python/seaborn-0.9.0
+ 	>=dev-python/statsmodels-0.9.0
+
+commit be74d9e0b032235862f8331d25ba7ec0d1132db3
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 12 04:21:55 2023 -0400
+
+    Updated science hash
+
+OOOOOOOO horea, do we need to pin in the opfvta deps if we are pinning the hash? (probably this is done for non-container users?)
+
+
+diff --git a/containerization/Containerfile b/containerization/Containerfile
+index 1aa0470..b9d0ad7 100644
+--- a/containerization/Containerfile
++++ b/containerization/Containerfile
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=b9b7ea94c0bf72b97d1313abe231d48e3ceaf440
++ARG science_hash=070212d8e9c7225ad07099f12bd30c24017c5e56
+ ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
+
+ FROM opfvta-base
+
+commit caaeee9be92cf145920e7a3c3d49e78f1cf718f2
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 12 04:22:49 2023 -0400
+
+    Removed deprecated scripts
+
+diff --git a/cleanup.sh b/cleanup.sh
+deleted file mode 100755
+index 21b69b4..0000000
+--- a/cleanup.sh
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#!/usr/bin/env bash
+-
+-rm -rf auto_fig_py*.{png,pdf} *.aux *.bbl *.bcf *.blg *.log _minted-slides *.nav *.out *.pgf pythontex-files-* *.pytxcode *.snm *.toc *.vrb
+diff --git a/compile.sh b/compile.sh
+deleted file mode 100755
+index 3a91f67..0000000
+--- a/compile.sh
++++ /dev/null
+@@ -1,36 +0,0 @@
+-#!/usr/bin/env bash
+-
+-TARGET="${1}"
+-WHITELIST="
+-	article.tex
+-	poster.tex
+-	pitch.tex
+-	slides.tex
+-	review.tex
+-	"
+-
+-declare -A BIBER_LIST;
+-BIBER_LIST["pitch"]=1;
+-BIBER_LIST["slides"]=1;
+-
+-if [[ "$TARGET" = "all" ]] || [[ "$TARGET" = "" ]]; then
+-	for ITER_TARGET in *.tex; do
+-		if [[ $WHITELIST =~ (^|[[:space:]])$ITER_TARGET($|[[:space:]]) ]];then
+-			ITER_TARGET=${ITER_TARGET%".tex"}
+-			./compile.sh "${ITER_TARGET}"
+-		fi
+-	done
+-else
+-	pdflatex -shell-escape "${TARGET}.tex" || { echo "Initial pdflatex failed"; exit $ERRCODE; }
+-	pdflatex -shell-escape "${TARGET}.tex" || { echo "Initial pdflatex failed"; exit $ERRCODE; }
+-	pythontex.py ${TARGET}.tex || exit 1
+-	pdflatex -shell-escape "${TARGET}.tex" || { echo "Post-PythonTeX pdflatex failed"; exit $ERRCODE; }
+-	if ((${BIBER_LIST["$TARGET"]})); then
+-		biber "${TARGET}" || { echo "Biber failed"; exit $ERRCODE; }
+-	else
+-		bibtex "${TARGET}" || { echo "Bibtex failed"; exit $ERRCODE; }
+-	fi
+-	pdflatex -shell-escape "${TARGET}.tex" || { echo "Post-bibliography pdflatex failed"; exit $ERRCODE; }
+-	pdflatex -shell-escape "${TARGET}.tex" || { echo "Pdflatex failed"; exit $ERRCODE; }
+-	pdflatex -shell-escape "${TARGET}.tex"
+-fi
+
+commit 93d13e339f82159a060423e8edca72a418387e66
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 12 04:26:39 2023 -0400
+
+    Make target for prepared top-level data
+
+diff --git a/Makefile b/Makefile
+index 8227d31..a5ae6f8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -65,7 +65,8 @@ upload-slides: slides.pdf
+
+ # Data preparation
+
+-
++data:	$(wildcard prepare/*)
++	pushd prepare && ./run.sh
+
+
+ ######## Containerized ########
+
+commit 4acd0b48efe0259bf9240a60b8b646e8eeafa540
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 12 04:29:17 2023 -0400
+
+    added rubber dependency and reordered by name
+
+diff --git a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+index 345a756..3b1e902 100644
+--- a/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
++++ b/.gentoo/overlay/sci-misc/opfvta/opfvta-99999.ebuild
+@@ -13,18 +13,19 @@ KEYWORDS=""
+
+ DEPEND=""
+ RDEPEND="
++	>=dev-python/repsep_utils-0.3.1
++	>=dev-python/seaborn-0.9.0
++	>=dev-python/statsmodels-0.9.0
++	>=dev-tex/pythontex-0.16
+ 	app-text/texlive[publishers,science,xetex]
+ 	dev-python/matplotlib
+ 	dev-python/numpy
+ 	dev-python/pandas
+-	>=dev-python/repsep_utils-0.3.1
+ 	dev-tex/biblatex
+-	>=dev-python/seaborn-0.9.0
+-	>=dev-python/statsmodels-0.9.0
+-	>=dev-tex/pythontex-0.16
++	dev-tex/rubber
+ 	media-gfx/graphviz
+-	sci-biology/samri
+ 	sci-biology/ABI-connectivity-data
++	sci-biology/samri
+ 	scanner-data? ( sci-biology/opfvta_data )
+ 	!scanner-data? ( sci-biology/opfvta_bidsdata )
+ "
+
+commit 793234b63a44f7da474bebd0072ad25aa78206fb
+Author: Horea Christian <chr@chymera.eu>
+Date:   Thu Apr 13 15:52:19 2023 -0400
+
+    Deprecated in favour of Makefile
+
+diff --git a/produce.sh b/produce.sh
+deleted file mode 100755
+index 23dd308..0000000
+--- a/produce.sh
++++ /dev/null
+@@ -1,6 +0,0 @@
+-pushd prepare
+-	./run.sh || exit
+-popd
+-./cleanup.sh || exit
+-./compile.sh || exit
+-./upload.sh || exit
+
+commit 7b6efb6714d1c3d981f3323311be4cf0d4a5e82e
+Author: Horea Christian <chr@chymera.eu>
+Date:   Wed Apr 19 23:19:13 2023 -0400
+
+    Updated ::science hash
+
+    ITK/HDF5 linking issue:
+    * https://bugs.gentoo.org/904691
+    * https://gitweb.gentoo.org/proj/sci.git/commit/?id=3f2aee8f5efbcf9301c98133bf56daaf2767ded6
+
+diff --git a/containerization/Containerfile b/containerization/Containerfile
+index b9d0ad7..e7b0bd0 100644
+--- a/containerization/Containerfile
++++ b/containerization/Containerfile
+@@ -1,6 +1,6 @@
+ # Pinned commits for the dependency tree state
+ ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=070212d8e9c7225ad07099f12bd30c24017c5e56
++ARG science_hash=3f2aee8f5efbcf9301c98133bf56daaf2767ded6
+ ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
+
+ FROM opfvta-base
+
+commit 4a8179d750a1b3f5d6a6fff5905d6769e0b9a074
+Author: Austin Macdonald <austin@dartmouth.edu>
+Date:   Fri Apr 28 16:42:45 2023 -0400
+
+    move image build from repo
+
+OOOOO one downside of the current structure is that the containerfile copies over the entire opfvta directory into the container.
+    since the container file lived in opfvta, any change to the containerfile, (even later steps) would result in a full rebuild without using the podman cache.
+    This was expensive since it tool 5-6 hours per build.
+
+    Including the containerfile in the code repo isn't inherrently a problem, so long as the repo is set up in such a way that it isn't necessary to copy over everything.
+    ALTERNATIVE instaed of pulling it out, we could have done a COPY ^container or similar, but this starts to get ugly.
+
+
+diff --git a/Makefile b/Makefile
+index a5ae6f8..c95fdf8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -67,103 +67,3 @@ upload-slides: slides.pdf
+
+ data:	$(wildcard prepare/*)
+ 	pushd prepare && ./run.sh
+-
+-
+-######## Containerized ########
+-
+-# We must allow others exactly use our script without modification
+-# Or its not replicable by others.
+-#
+-REGISTRY=docker.io
+-REPOSITORY=asmacdo
+-
+-IMAGE_NAME=opfvta
+-IMAGE_TAG=2.0.0-alpha
+-
+-INPUT_NAME=opfvta_bidsdata
+-INPUT_TAG=2.1.0-alpha
+-
+-REFERENCE_NAME=mouse_templates_atlases
+-REFERENCE_TAG=1.0.0-alpha
+-
+-FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
+-FQDN_INPUT_DATA=${REGISTRY}/${REPOSITORY}/${INPUT_NAME}:${INPUT_TAG}
+-FQDN_REFERENCE_DATA=${REGISTRY}/${REPOSITORY}/${REFERENCE_NAME}:${REFERENCE_TAG}
+-# Build and push to both?
+-# APPTAINER_REGISTRY=""
+-
+-build-fresh:
+-		# -v ${DISTFILE_CACHE_PATH}:/var/cache/distfiles
+-	podman build . \
+-		--no-cache \
+-		-f containerization/Containerfile \
+-		-t ${FQDN_IMAGE}
+-
+-build-base:
+-		# -v ${DISTFILE_CACHE_PATH}:/var/cache/distfiles
+-	podman build . \
+-		-f containerization/Containerfile.base \
+-		-t opfvta-base
+-
+-build:
+-		# -v ${DISTFILE_CACHE_PATH}:/var/cache/distfiles
+-	podman build . \
+-		-f containerization/Containerfile \
+-		-t ${FQDN_IMAGE}
+-
+-# build-opfvta-bidsdata:
+-# 	podman build . \
+-# 		-f ../input_data/Containerfile \
+-# 		-t ${FQDN_INPUT_DATA}
+-
+-# build-mouse-templates-atlases:
+-# 	podman build . \
+-# 		-f ../reference_data/Containerfile \
+-# 		-t ${FQDN_REFERENCE_DATA}
+-
+-
+-
+-# TODO RM
+-# push-dev-only:
+-# 	podman push ${FQDN_IMAGE}
+-# 	podman push ${FQDN_INPUT_DATA}
+-# 	podman push ${FQDN_REFERENCE_DATA}
+-
+-push:
+-	podman push ${FQDN_IMAGE}
+-
+-# mouse-volume: build-mouse-templates-atlases
+-# 	podman volume rm input_data -f
+-# 	# IDK if this hack actually works
+-# 	podman volume create input_data
+-# 	# Its annoying I have to run a container for this? Can i endit?
+-# 	podman run \
+-# 		-d \
+-# 		-it \
+-# 		--rm \
+-# 		-v input_data:/input_volume \
+-# 		${FQDN_INPUT_DATA} \
+-# 		/bin/sh
+-#
+-# scatch:
+-# 	podman volume create output
+-
+-# Notice this doesnt drop you into a shell and the container is deleted after use
+-run:
+-	podman run \
+-		-it \
+-		--rm \
+-		-v ../input_data/opfvta-bids:/usr/share/opfvta_bidsdata \
+-		-v ../reference_data/mouse-brain-templates-0.5.3:/usr/share/mouse_brain_atlases \
+-		-v ../top_level_data/:/root/.scratch
+-		${FQDN_IMAGE}
+-
+-# Use this to run a shell
+-handtest:
+-	podman run \
+-		-it \
+-		-v input_data:/usr/share/opfvta_bidsdata \
+-		-v reference_data:/TODOWHEREDOESTHISGO \
+-		-v output:/root/.scratch \
+-		${FQDN_IMAGE} \
+-		/bin/bash
+diff --git a/containerization/Containerfile b/containerization/Containerfile
+deleted file mode 100644
+index e7b0bd0..0000000
+--- a/containerization/Containerfile
++++ /dev/null
+@@ -1,30 +0,0 @@
+-# Pinned commits for the dependency tree state
+-ARG gentoo_hash=0f6aa0646baad09881e581250e24a4e018e14abc
+-ARG science_hash=3f2aee8f5efbcf9301c98133bf56daaf2767ded6
+-ARG FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox"
+-
+-FROM opfvta-base
+-
+-COPY . /opfvta
+-
+-RUN rsync -avP /opfvta/.gentoo/portage/ /etc/portage/
+-RUN rsync -avP /opfvta/.gentoo/overlay/ /var/db/repos/local_opfvta/
+-
+-# Moving gentoo repo from default rsync to git
+-RUN rm /var/db/repos/gentoo -rf
+-
+-# Getting everything via git
+-RUN emerge --sync science gentoo
+-
+-# Pinning dependency tree state via git
+-RUN pushd /var/db/repos/science; git fetch origin $science_hash; git checkout $science_hash; popd
+-RUN pushd /var/db/repos/gentoo; git fetch origin $gentoo_hash; git checkout $gentoo_hash; popd
+-
+-# This is only if we distribute data separately
+-RUN echo "sci-biology/opfvta_bidsdata-2.0" > /etc/portage/profile/package.provided
+-
+-RUN pushd /var/db/repos/local_opfvta/sci-misc/opfvta; ebuild opfvta-99999.ebuild manifest; popd
+-RUN emerge -v opfvta --autounmask-continue
+-RUN source /etc/profile
+-
+-ENTRYPOINT ["/opfvta/produce.sh"]
+diff --git a/containerization/Containerfile.base b/containerization/Containerfile.base
+deleted file mode 100644
+index 32a188e..0000000
+--- a/containerization/Containerfile.base
++++ /dev/null
+@@ -1,13 +0,0 @@
+-# TODO: pin gentoo and stage image as well if we want a timecapsule
+-# name the portage image
+-FROM gentoo/portage:latest as portage
+-
+-# based on stage3 image
+-# FROM gentoo/stage3:amd64-hardened-20200905
+-FROM gentoo/stage3:latest
+-
+-# copy the entire portage volume in
+-COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+-
+-RUN emerge -v --noreplace dev-vcs/git
+-RUN emerge -v1u portage
+
+commit f4cc490284079647660230e7beea800e38c6f946
+Merge: 7b6efb6 4a8179d
+Author: Austin Macdonald <asmacdo@gmail.com>
+Date:   Mon May 1 16:32:14 2023 +0000
+
+    Merged in master (pull request #4)
+
+    move image build from repo
+
+
+commit 887471ed394e7fb9ca6fdfe09b343826d5aef660
+Author: Horea Christian <chr@chymera.eu>
+Date:   Fri May 26 00:46:01 2023 -0400
+
+    Prevent package name collision issues for rollback repository states
+
+diff --git a/.gentoo/portage/repos.conf/gentoo b/.gentoo/portage/repos.conf/gentoo
+index ecb240b..ea0d1e4 100644
+--- a/.gentoo/portage/repos.conf/gentoo
++++ b/.gentoo/portage/repos.conf/gentoo
+@@ -1,6 +1,6 @@
+ [gentoo]
+ location = /var/db/repos/gentoo
+-sync-type = git
++sync-type =
+ # Official "sync-friendly git mirror of repo/gentoo with caches and metadata"
+ # Currently not suggested for production use.
+ # sync-uri = https://anongit.gentoo.org/git/repo/sync/gentoo.git
+diff --git a/.gentoo/portage/repos.conf/science b/.gentoo/portage/repos.conf/science
+index 3bac24e..1111d16 100644
+--- a/.gentoo/portage/repos.conf/science
++++ b/.gentoo/portage/repos.conf/science
+@@ -1,5 +1,5 @@
+ [science]
+ location = /var/db/repos/science
+-sync-type = git
++sync-type =
+ sync-uri = https://anongit.gentoo.org/git/proj/sci.git
+ priority = 7777
+
+commit 6229c0992b9b9c630195f92251f7da8cba7756a6
+Author: Horea Christian <chr@chymera.eu>
+Date:   Fri May 26 00:50:45 2023 -0400
+
+    Revert "Prevent package name collision issues for rollback repository states"
+
+    This reverts commit 887471ed394e7fb9ca6fdfe09b343826d5aef660.
+
+diff --git a/.gentoo/portage/repos.conf/gentoo b/.gentoo/portage/repos.conf/gentoo
+index ea0d1e4..ecb240b 100644
+--- a/.gentoo/portage/repos.conf/gentoo
++++ b/.gentoo/portage/repos.conf/gentoo
+@@ -1,6 +1,6 @@
+ [gentoo]
+ location = /var/db/repos/gentoo
+-sync-type =
++sync-type = git
+ # Official "sync-friendly git mirror of repo/gentoo with caches and metadata"
+ # Currently not suggested for production use.
+ # sync-uri = https://anongit.gentoo.org/git/repo/sync/gentoo.git
+diff --git a/.gentoo/portage/repos.conf/science b/.gentoo/portage/repos.conf/science
+index 1111d16..3bac24e 100644
+--- a/.gentoo/portage/repos.conf/science
++++ b/.gentoo/portage/repos.conf/science
+@@ -1,5 +1,5 @@
+ [science]
+ location = /var/db/repos/science
+-sync-type =
++sync-type = git
+ sync-uri = https://anongit.gentoo.org/git/proj/sci.git
+ priority = 7777
+
+commit 0fc54f06e57c9e593d7133607f19ce993d2367ad
+Author: Horea Christian <chr@chymera.eu>
+Date:   Fri May 26 04:41:03 2023 -0400
+
+    Removed comments
+
+diff --git a/.gentoo/portage/repos.conf/gentoo b/.gentoo/portage/repos.conf/gentoo
+index ecb240b..3476ac3 100644
+--- a/.gentoo/portage/repos.conf/gentoo
++++ b/.gentoo/portage/repos.conf/gentoo
+@@ -1,13 +1,5 @@
+ [gentoo]
+ location = /var/db/repos/gentoo
+ sync-type = git
+-# Official "sync-friendly git mirror of repo/gentoo with caches and metadata"
+-# Currently not suggested for production use.
+-# sync-uri = https://anongit.gentoo.org/git/repo/sync/gentoo.git
+-# GitHub mirror which saves the Gentoo project bandwidth. *This* sync-friendly git mirror is preferred)
+ sync-uri = https://github.com/gentoo-mirror/gentoo.git
+ sync-git-verify-commit-signature = yes
+-
+-# Default clone-depth setting does a shallow clone of the git repository.
+-# For a full clone and ability to view git log/changes, set clone-depth = 0.
+-# NOTE: A full clone o
