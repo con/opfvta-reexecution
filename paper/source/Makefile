@@ -11,7 +11,6 @@ LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.0-alpha
 # should always be the "all" rule, so that "make" and "make all" are identical.
 
 all: article
-article: article.pdf
 
 
 # CUSTOM BUILD RULES
@@ -28,7 +27,7 @@ metadata.tex: metadata.yaml
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 
-article.pdf: article.tex content.tex metadata.tex rescience.cls
+article: abstract.tex  article.tex  background.tex  content.tex  discussion.tex  header.tex  metadata.tex  methods.tex  results.tex rescience.cls
 	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex -f
 	find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
