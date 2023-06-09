@@ -5,16 +5,17 @@
 % Explain stuff like Gentoo or containers here.
 
 \subsection{Prior Work}
-Everything that relates to the original OPFVTA paper before we updated anything goes here.
+
+The substrate of this
 
 \subsubsection{Data Processing}
 
-Data conversion from the proprietary ParaVision format was performed via the Bruker-to-BIDS repositing pipeline \cite{aowsis} of the SAMRI package (version \textcolor{mg}{\texttt{0.4}} \cite{samri}).
-Following conversion, data was dummy-scan corrected, registered, and subject to controlled smoothing via the SAMRI Generic registration workflow \cite{irsabi}.
+Data conversion from the proprietary ParaVision format was performed via the Bruker-to-BIDS repositing pipeline \supercite{aowsis} of the SAMRI package (version \textcolor{mg}{\texttt{0.4}} \supercite{samri}).
+Following conversion, data was dummy-scan corrected, registered, and subject to controlled smoothing via the SAMRI Generic registration workflow \supercite{irsabi}.
 As part of this processing, the first 10 volumes were discarded (automatically accounting for volumes excluded by the scanner software).
-Registration was performed using the standard SAMRI mouse-brain-optimized parameter set for ANTs \cite{ants} (version \textcolor{mg}{\texttt{2.3.1}}).
-Data was transformed to a stereotactically oriented standard space (the DSURQEC template space, as distributed in the Mouse Brain Atlases Package \cite{atlases_generator}, version \textcolor{mg}{\texttt{0.5.3}}), which is based on a high-resolution $\mathrm{T_2}$-weighted atlas \cite{dsu1}.
-Controlled spatial smoothing was applied in the coronal plane up to \SI{250}{\micro\meter} via the AFNI package \cite{afni} (version \textcolor{mg}{\texttt{19.1.05}}).
+Registration was performed using the standard SAMRI mouse-brain-optimized parameter set for ANTs \supercite{ants} (version \textcolor{mg}{\texttt{2.3.1}}).
+Data was transformed to a stereotactically oriented standard space (the DSURQEC template space, as distributed in the Mouse Brain Atlases Package \supercite{atlases_generator}, version \textcolor{mg}{\texttt{0.5.3}}), which is based on a high-resolution $\mathrm{T_2}$-weighted atlas \supercite{dsu1}.
+Controlled spatial smoothing was applied in the coronal plane up to \SI{250}{\micro\meter} via the AFNI package \supercite{afni} (version \textcolor{mg}{\texttt{19.1.05}}).
 
 In our replication, we have used a more recent release of the SAMRI package [version 0.5.4][samri]. We have fixed several issues that allowed us to upgrade of some dependencies, including `numpy` and `pandas`, and [now works with datalad datasets][dotfilefilter].
 
