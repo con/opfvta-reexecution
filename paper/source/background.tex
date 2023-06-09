@@ -4,11 +4,54 @@
 % Long commentary on methods actually goes here.
 % Explain stuff like Gentoo or containers here.
 
-\subsection{Prior Work}
+\subsection{Reexecutable Research}
 
-The substrate of this
+%TODO cite hurr-durr reproduction crisis article
+While the reproducibility of research findings (i.e. independently verifying a published result or phenomenon) has received considerable attention \supercite{TODO}, reexecutability has remained largely unexplored as a discrete phenomenon.
+While the scope of reexecution is narrower, it constitutes a more well-defined and therefore tractable issue in improving the quality and sustainability of research.
+On one hand reexecution is a prerequisite for the reproduction of any research which prominently features computational analysis — which encompasses a growing segment of modern experimental research.
+On the other hand reexecution constitutes a capability in and of itself, with ample utility in education, training, rapid-feedback development, and resource reuse for novel research purposes (colloquially, “hacking”) — which may accrue even in the absence of reproducibility of accurate reproducibility of results.
 
-\subsubsection{Data Processing}
+%TODO Is there a review of people sharing their code? If not we can cite a bunch of people who brag about putting their stuff on GH
+Free and Open Source Software \supercite{foss} has permeated the world of research to a significant extent, and it is presently not uncommon for researchers to freely and or openly publish part of the analysis instructions used in generating published results \supercite{TODO}.
+However, such instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
+Consequently, data analysis outputs are not generated in their respective contexts, and therefore disconnected from the positive claims which they support.
+This precludes automatic reexecution of the full research output, and limits their potential for re-use.
+
+In order to optimally leverage extant efforts pertaining to full article reexecution and in order to test reexecutability in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA based on author naming conventions \supercite{opfvta}.
+The 2022 article is accompanied by a programmatic workflow via which it can be fully regenerated, based solely on raw data, data analysis instructions, and natural-language commentary — and which is initiated via a simple executable script in the ubiquitous GNU Bash \supercite{bash} command language.
+The reexecution process relies on an emerging infrastructure standard, RepSeP \supercite{repsep}, which is used by additional other articles, thus providing a larger scope for conclusion drawn and standards formulated as part of this study.
+
+
+\subsection{Data Analysis}
+
+One of the hallmarks of scientific data analysis is its intricacy — resulting from the multifaceted confounds which need to be accounted for, as well as from the breadth of questions which extant tools need to be adapted in order to address.
+Data analysis, can be subdivided into data preprocessing and data evaluation.
+The former consists of data cleaning, reformatting, standardization, and sundry processes required for data to be suitable for evaluation.
+Data evaluation consists of various types of modelling, usually applied in sequence at various hierarchical steps.
+
+In the general case of stimulus-evoked neuroimaging analysis, as seen in the OPFVTA article, data evaluation is commonly subdivided into “level one” (i.e. within-subject) analysis, and “level two” (i.e. across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \supercite{Friston1995}.
+In effect, these modelling steps usually represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
+
+Computationally, the various steps of a data analysis pipeline are sharply distinguished by their time cost.
+By far the most expensive element in the aforementioned reference pipeline is a substage of data preprocessing known as registration.
+This commonly relies on iterative gradient descent and can additionally require high-density sampling depending on the feature density of the data.
+The second most costly step is the first-level GLM, the cost of which is mostly due to the high number of voxels modelled individually for each subject.
+
+The impact of these time costs on reexecution is that rapid-feedback development and debugging can be compromised if the reexecution is monolithic.
+While ascertaining the effect of changes in the registration instructions on the final result unavoidably necessitate the reexecution of the entire pipeline, editing natural-language commentary in the article text, or adapting figure styles, should not.
+To this end the reference article of this study employs a hierarchical Bash-script structure, with data preprocessing and all data evaluation steps which operate in voxel space being handled by a sub-script, and top-level (i.e. inline) statistics, figure, and TeX-based article generation in a separate sub-script.
+The nomenclature to distinguish these two phases is “high-iteration” and “low-iteration” \cite{repsep}.
+
+Analysis dependency tracking, which is to say monitoring whether files required for the next hierarchical step have changed — and thus whether that step needs to be re-executed — is handled for high-iteration analysis script via the RepSeP infrastructure, but not for the low-iteration script.
+
+
+\subsection{Software Dependency Management}
+
+
+with the latter referring to more general-purpose data manipulations as required to obtain standardization or to account for known data acquisition confounds.
+
+
 
 Data conversion from the proprietary ParaVision format was performed via the Bruker-to-BIDS repositing pipeline \supercite{aowsis} of the SAMRI package (version \textcolor{mg}{\texttt{0.4}} \supercite{samri}).
 Following conversion, data was dummy-scan corrected, registered, and subject to controlled smoothing via the SAMRI Generic registration workflow \supercite{irsabi}.
@@ -20,7 +63,7 @@ Controlled spatial smoothing was applied in the coronal plane up to \SI{250}{\mi
 In our replication, we have used a more recent release of the SAMRI package [version 0.5.4][samri]. We have fixed several issues that allowed us to upgrade of some dependencies, including `numpy` and `pandas`, and [now works with datalad datasets][dotfilefilter].
 
 
-\subsectio{Package Management}
+\subsection{Package Management}
 
 The original analysis was performed on a [Gentoo linux][gentoo] system,
 which builds and installs packages from source code. However, due to the 
