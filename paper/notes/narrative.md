@@ -25,6 +25,10 @@ of which are typical, and others which were unique to this project.
         - visualization, and even the latex pdf generation
           were all wrapped by a single command
 
+### Reproduce Environments
+
+
+
 ### Failed Approach: alpine or ubi-8
 
 Our first approach was to determine the dependencies based on the ebuild
@@ -89,6 +93,19 @@ There were some minor bugs, more version discrepancies, etc. At this
 point, the build took 5-6 hours to complete, plus however many hours
 into the analysis we got before the failure. This meant that we were
 restricted to fixing ~1 issue per day maximum.
+
+### Yoda
+
+Datalad allows arbitrary nesting of datasets, which allows a more
+modular approach. Following "Yoda principles" we can separate all of the
+independent components, while keeping all code, data, documentation, and
+results in a single top-level repository, and all can be retrieved in a
+single datalad command.
+
+We placed each dataset in its own git-annex enabled datalad repository.
+Not only does this enable separate versioning of each dataset, it also
+enables future researchers to easily substitute their own data, code, or
+reference data and repeat the analysis.
 
 We modified the Containerfile to skip the installation of data, and
 YODAfied the top-level repository, and used datalad to move the data
