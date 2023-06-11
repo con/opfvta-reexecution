@@ -41,7 +41,7 @@ The second most costly step is the first-level GLM, the cost of which is mostly 
 The impact of these time costs on reexecution is that rapid-feedback development and debugging can be compromised if the reexecution is monolithic.
 While ascertaining the effect of changes in the registration instructions on the final result unavoidably necessitate the reexecution of the entire pipeline, editing natural-language commentary in the article text, or adapting figure styles, should not.
 To this end the reference article of this study employs a hierarchical Bash-script structure, with data preprocessing and all data evaluation steps which operate in voxel space being handled by a sub-script, and top-level (i.e. inline) statistics, figure, and TeX-based article generation in a separate sub-script.
-The nomenclature to distinguish these two phases is “high-iteration” and “low-iteration” \cite{repsep}.
+The nomenclature to distinguish these two phases is “high-iteration” and “low-iteration” \supercite{repsep}.
 
 Analysis dependency tracking, which is to say monitoring whether files required for the next hierarchical step have changed — and thus whether that step needs to be re-executed — is handled for high-iteration analysis script via the RepSeP infrastructure, but not for the low-iteration script.
 
