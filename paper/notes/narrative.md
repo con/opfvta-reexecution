@@ -103,9 +103,10 @@ results in a single top-level repository, and all can be retrieved in a
 single datalad command.
 
 We placed each dataset in its own git-annex enabled datalad repository.
-Not only does this enable separate versioning of each dataset, it also
+
+[//]: # (Not only does this enable separate versioning of each dataset, it also
 enables future researchers to easily substitute their own data, code, or
-reference data and repeat the analysis.
+reference data and repeat the analysis. ——— in discussion.txt)
 
 We modified the Containerfile to skip the installation of data, and
 YODAfied the top-level repository, and used datalad to move the data
