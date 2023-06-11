@@ -48,30 +48,27 @@ Analysis dependency tracking, which is to say monitoring whether files required 
 
 \subsection{Software Dependency Management}
 
+Beyond the hierarchically evolving data dependencies, which can be considered internal to the workflow, any data analysis workflow has additional dependencies in the form of software.
+This refers to the computational tools called by the workflow — and, given the diversity of research applications, may encompass numerous and complex pieces of software.
+Complexity in this sense also refers to the fact that individual software dependencies commonly come with their own software dependencies, which may in turn have further dependencies, and so on.
+This is known as a dependency graph, which is commonly handled by a package manager.
 
-with the latter referring to more general-purpose data manipulations as required to obtain standardization or to account for known data acquisition confounds.
+The OPFVTA article in its original form relies on Portage \supercite{portage}, a package manager characterized by providing integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \supercite{ng}.
+As such, the dependencies of the workflow are summarized in a standardized format, which is called an Ebuild.
+This format is analogous to the format used to specify dependencies at all further hierarchical levels in the dependency tree.
+This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \supercite{pms}.
+Additionally, the reference article contextualizes its raw data origin point as a dependency, providing provenance tracking in the same fashion as for software.
+
+While the top-level Ebuild (i.e. the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the Ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
+These repositories are version controlled, meaning that their state at any time point is documented, and they can thus be restored to represent the environment as it would have been generated at any point in the past.
 
 
+\subsection{Containers}
 
-Data conversion from the proprietary ParaVision format was performed via the Bruker-to-BIDS repositing pipeline \supercite{aowsis} of the SAMRI package (version \textcolor{mg}{\texttt{0.4}} \supercite{samri}).
-Following conversion, data was dummy-scan corrected, registered, and subject to controlled smoothing via the SAMRI Generic registration workflow \supercite{irsabi}.
-As part of this processing, the first 10 volumes were discarded (automatically accounting for volumes excluded by the scanner software).
-Registration was performed using the standard SAMRI mouse-brain-optimized parameter set for ANTs \supercite{ants} (version \textcolor{mg}{\texttt{2.3.1}}).
-Data was transformed to a stereotactically oriented standard space (the DSURQEC template space, as distributed in the Mouse Brain Atlases Package \supercite{atlases_generator}, version \textcolor{mg}{\texttt{0.5.3}}), which is based on a high-resolution $\mathrm{T_2}$-weighted atlas \supercite{dsu1}.
-Controlled spatial smoothing was applied in the coronal plane up to \SI{250}{\micro\meter} via the AFNI package \supercite{afni} (version \textcolor{mg}{\texttt{19.1.05}}).
+Operating system virtualization is a process whereby an operating system can be installed inside another operating system, without being subject to the environment constraints of its parent, and without potentially polluting the parent environment.
+Given the complexity of scientific computing environments, such virtualization is attractive on multi-user systems, on systems with lacking package management capabilities, or in instances where the tasks to be executed are fragile and may require bespoke constraints.
 
-In our replication, we have used a more recent release of the SAMRI package [version 0.5.4][samri]. We have fixed several issues that allowed us to upgrade of some dependencies, including `numpy` and `pandas`, and [now works with datalad datasets][dotfilefilter].
+One of the prominent instantiations of virtualization are containers, a technology which focuses on portability of operating system images (i.e. containers) across parent operating systems featuring the correct container environment.
+Their relevance to open science consists in providing end-users with an accessible environment, which can be ascertained to provide the requirements of a certain top-level workflow, and which does not interfere with their parent environment.
 
-
-\subsection{Package Management}
-
-The original analysis was performed on a [Gentoo linux][gentoo] system,
-which builds and installs packages from source code. However, due to the 
-Gentoo philosophy of rolling releases, it is difficult to ensure that
-the software and all dependencies will correctly install in the future.
-To address this problem, we have chosen to package the entire analysis
-apparatus as an [OCI container image][oci]. This has the benefit of
-preserving the work done as a part of this re-analysis, which can be
-re-run without any knowledge of Gentoo, Python packaging, or the inner
-workings of the code.
-
+While the reference OPFVTA article does not leverage this technology, containers can improve its portability, as well as provide a snapshot of its functioning at a certain point in time — mitigating process fragility over evolving software dependencies.
