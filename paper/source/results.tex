@@ -1,21 +1,15 @@
 \section{Results}
-% What we accomplihesd, everything which we created, invented, etc. should preferentially go here. 
-
+% What we accomplihesd, everything which we created, invented, etc. should preferentially go here.
+% Descriptive, opinions either absent, or as objective-ish comments when facts are stated.
+% Should, could, might, etc. sparingly and ideally not here but in discussion.
 
 \subsection{Repository Structure}
-% This is the NEW bigger repository structure, do not introduce the original repo here, but we can comment on what we did in light of it.
-% For this we can assume ppl read or otherwise know the background
-We produced ... organized along the lines of ... YODA principles
+%TODO cite YODA with a DOI? It's covered in the handbook but apparently no DOI or ISBN... If not we can make a results section on yoda here and become the DOI source.
+In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository encompassing the original article (including updates resulting as part of this study), the raw data it operates on, as well as container image and container execution instructions.
+This layout type is known as YODA (a recursive acronym for “YODAs Organigram on Data Analysis”) and aims to facilitate reproducible research and good provenance tracking practices.
 
-The [opfvta-replication-2023 repository][base-repo] is a [Datalad
-Dataset][datalad] that is structured according to [YODA principals][TODO
-CITE]. In short, it has a nested structure, with [datalad
-subdatasets][subdatasets] for each of the following:
+%TODO make dotfile to show the layout, with a human-language cation describing where stuff is.
 
-[Opfvta code repository][opfvta] is the software used to perform the analysis end-to-end.
-[Opfvta data][opfvta_bidsdata] is the data collected for the original
-paper.
-[Mouse Brain Templates][mouse-brain-templates] are used as reference
-data by the [SAMRI][samri] tool. 
-
+Notably this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
+Within the context of container usage, this affords the advantage of keeping the data packages separate and not having their disk space requirements to those of the container image.
 
