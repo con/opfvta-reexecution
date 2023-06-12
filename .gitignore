@@ -6,3 +6,5 @@
 *.log
 *.out
 
+# By default no PDF, unless we force it:
+*.pdf
