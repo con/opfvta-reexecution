@@ -1,0 +1,8 @@
+# Ignore latex traces
+*.aux
+*.bcf
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+
