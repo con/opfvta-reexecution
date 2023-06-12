@@ -8,6 +8,8 @@
 # If executing in a container:
 LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.0-alpha
 
+SHELL = /bin/bash
+
 
 COMMON := $(wildcard common/*)
 TEX := $(wildcard *.tex)
