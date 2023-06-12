@@ -9,7 +9,6 @@
 LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.0-alpha
 
 
-
 COMMON := $(wildcard common/*)
 TEX := $(wildcard *.tex)
 STYLE := $(wildcard sty/* rescience.cls)
@@ -44,7 +43,7 @@ container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
 article: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
-	max_repeat=1 latexmk -shell-escape -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex -f
+	max_repeat=1 latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex -f
 
 live:
 	@rm -f data/*.pdf
