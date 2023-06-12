@@ -1,0 +1,106 @@
+digraph graphname {
+    size="14,8";
+    graph [fontname = "sans"];
+    node [fontname = "sans", style=filled];
+    edge [fontname = "sans", color=gray50];
+    Mak[label="  Makefile  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+    pro[label="produce-analysis.sh", shape=note, color="#BBBBBB", fillcolor=grey93];
+    Con[label="Containerfile", shape=note, color="#BBBBBB", fillcolor=grey93];
+    ConL[label="Containerflie.latex", shape=note, color="#BBBBBB", fillcolor=grey93];
+    opf_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93, fontcolor="#999998"];
+    mbt_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+    opb_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+    todo1[label="TODO1", shape=note, color="#BBBBBB", fillcolor=grey93];
+    Makp[label="  Makefile  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+    pap_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+    todo2[label="TODO2", shape=note, color="#BBBBBB", fillcolor=grey93];
+    inputs_[label="inputs_", style=invis]
+    paper_[label="paper_", style=invis]
+    outputs_[label="outputs_", style=invis]
+    subgraph cluster0 {
+        label = "opfvta-reexecution/";
+        fontcolor = "#00a3cc";
+        color = "#42e3dc";
+
+        Mak -> pro [style=invis];
+        Mak -> todo1 [style=invis];
+        Mak -> todo2 [style=invis];
+        Mak -> opb_ [style=invis];
+        Mak -> inputs_ [style=invis];
+        Mak -> paper_ [style=invis];
+        Mak -> outputs_ [style=invis];
+
+        subgraph cluster1 {
+            label = "code/";
+            fontcolor = "#00a3cc";
+            color = "#00a3cc";
+
+            pro -> Con [style=invis];
+            pro -> opf_ [style=invis];
+
+            subgraph cluster11 {
+                label = "images/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+                Con -> ConL [style=invis];
+            }
+            subgraph cluster12 {
+                label = "opfvta/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+                opf_;
+            }
+        }
+        subgraph cluster2 {
+            label = "inputs/";
+            fontcolor = "#00a3cc";
+            color = "#00a3cc";
+            inputs_ -> mbt_ [style=invis];
+            inputs_ -> opb_ [style=invis];
+            subgraph cluster21 {
+                label = "mouse-brain-templates/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+                mbt_;
+            }
+            subgraph cluster22 {
+                label = "opfvta_bidsdata/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+                opb_;
+            }
+        }
+        subgraph cluster3 {
+            label = "outputs/";
+            fontcolor = "#00a3cc";
+            color = "#00a3cc";
+            outputs_ -> todo1 [style=invis];
+            todo1;
+        }
+        subgraph cluster4 {
+            label = "paper/";
+            fontcolor = "#00a3cc";
+            color = "#00a3cc";
+
+            paper_ -> Makp [style=invis];
+            paper_ -> todo2 [style=invis];
+
+            subgraph cluster42 {
+                label = "source/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+
+                Makp;
+                pap_;
+            }
+            subgraph cluster41 {
+                label = "generated/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+
+                todo2;
+            }
+        }
+        //{rank=same; opf_; Con}
+    }
+}
