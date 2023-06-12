@@ -5,7 +5,15 @@
 # file of the given name existing.
 .PHONY: clean
 
+# If executing in a container:
 LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.0-alpha
+
+
+
+COMMON := $(wildcard common/*)
+TEX := $(wildcard *.tex)
+STYLE := $(wildcard sty/* rescience.cls)
+DATA := $(wildcard data/*.dot)
 
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
@@ -27,11 +35,21 @@ metadata.tex: metadata.yaml
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 
-article: abstract.tex  article.tex  background.tex  content.tex  discussion.tex  header.tex  metadata.tex  methods.tex  results.tex rescience.cls
-	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex -f
+
+data/topology.pdf: data/topology.dot
+	pushd data; dot -Tpdf topology.dot -o topology.pdf 2> topology.log
+
+container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
+	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode -shell-escape" -use-make /data/article.tex -f
 	find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
-clean:
+article: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
+	max_repeat=1 latexmk -shell-escape -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex -f
+
+live:
+	@rm -f data/*.pdf
+
+clean: live
 	@latexmk -CA
 	@rm -f *.bbl
 	@rm -f *.run.xml
