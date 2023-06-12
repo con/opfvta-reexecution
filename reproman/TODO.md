@@ -5,12 +5,21 @@ TODO work:
         datalad containers-run 
 
 TODO execute:
-    prepare to connect
+## prior to connect
+
     `globalprotect connect --portal vpn-linux.dartmouth.edu`
+
+## connect
     
-    prepare the env
+    connect 
     `ssh f006rq8@discovery.dartmouth.edu`
 
+    use interactive node for env preparation
+    `ssh x01`
+
+## installation of dependencies
+
+    Install the right version of git-annex  
     https://dbic-handbook.readthedocs.io/en/latest/mri/dataaccess.html#discovery-filesystem
     enable recent git-annex (add this to .bashrc)
     ```
@@ -27,16 +36,24 @@ TODO execute:
     enable conda
     `source /optnfs/common/miniconda3/etc/profile.d/conda.sh`
     
-    `conda info --envs | grep asmacdo-datalad` if not
-        `conda create --name asmacdo-datalad python=3 anaconda`
-        install datalad
-        install reproman
-    conda activate asmacdo-datalad
+    `conda create --name asmacdo-datalad python=3 anaconda`
+    `conda install -c conda-forge datalad -vv
+    `which git-annex`
+    ~/.conda/envs/asmacdo-datalad2/bin/git-annex
+    `source ~/.bashrc`
+    `which git-annex`
+    /dartfs/rc/lab/D/DBIC/DBIC/archive/git-annex/usr/lib/git-annex.linux/git-annex
+    install reproman
+    pip install pip install git+https://github.com/ReproNim/reproman.git
 
+## Orchestrate data
 
         orchestrata data
         datalad foreachsubdataset
             datalad get .
+
+## Execute
+
         reproman run `make singularity-run`
             -orc datalad-no-remote
             -sub slurm
