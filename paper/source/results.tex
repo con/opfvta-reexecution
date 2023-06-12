@@ -10,6 +10,16 @@ This layout type is known as YODA (a recursive acronym for “YODAs Organigram o
 
 %TODO make dotfile to show the layout, with a human-language cation describing where stuff is.
 
-Notably this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
-Within the context of container usage, this affords the advantage of keeping the data packages separate and not having their disk space requirements to those of the container image.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{data/topology}
+	\caption{
+		This is a caption
+	}
+\end{figure}
+
+Notably, this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
+Within the context of container usage, this affords the advantage of keeping the data packages separate and not adding their disk space requirements to those of the container image.
+
+In this novel repository structure, external components of the article are managed as Git submodules, with data sumbodules being handled by git-annex, a versioning technology suitable for binary files, and made accessible via datalad. 
 
