@@ -7,3 +7,6 @@
 	path = code/opfvta
 	url = https://bitbucket.org/TheChymera/opfvta
 	datalad-url = https://bitbucket.org/TheChymera/opfvta
+[submodule "inputs/mouse-brain-templates"]
+	path = inputs/mouse-brain-templates
+	url = https://gin.g-node.org/TheChymera/mouse-brain-templates.git
