@@ -45,13 +45,17 @@ push:
 push-latex:
 	podman push ${FQDN_LATEX_IMAGE}
 
+populate-mouse-brains:
+	datalad get inputs/mouse-brain-templates/mouse-brain-templates/$(*{40,200}*)
+	datalad get inputs/mouse-brain-templates/mouse-brain-templates/$(*.obj)
+
 run:
 	$(call check_defined, OPFVTA_SCRATCH_DIR)
 	podman run \
 		-it \
 		--rm \
 		-v ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
-		-v ${PWD}/inputs/mouse-brain-templates:/usr/share/mouse_brain_atlases \
+		-v ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-v ${PWD}/outputs/:/outputs \
 		-v ${OPFVTA_SCRATCH_DIR}:/root/.scratch \
 		-v ${PWD}/code/:/opt/src/ \
