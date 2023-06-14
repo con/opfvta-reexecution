@@ -1,7 +1,7 @@
 The value of experimental research articles is inextricably contingent on data analysis results which substantiate their natural language claims.
 However, the intricacy of data analysis procedures, alongside their high reliance on extrinsic tools, makes them fragile with respect to re-use and may endanger their value as a repository of procedural knowledge.
 In order to assure the robustness of data analysis, it is therefore of crucial importance for all constituent instructions to be not only recorded and accessible, but also formatted in such a way as to reliably support reexecution.
-In this study, we examine a peer-reviewed neuroimaging experiment, which already publishes automated data analysis instructions, in light of its reexecution reliability.
+In this study, we examine a peer-reviewed neuroimaging experiment, which includes automated data analysis instructions, in light of its reexecution reliability.
 We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
 To compensate for these difficulties, we formulate a novel reexecution standard which leverages mutable-state dependency management, environment isolation, as well as emerging technologies for provenance tracking.
 This novel standard consists in a general purpose resource topology with well-defined entry points, and is illustrated by a reference implementation which can fully re-execute the original article.
