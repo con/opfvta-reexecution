@@ -1,6 +1,6 @@
 The value of experimental research articles is inextricably contingent on data analysis results which substantiate their natural language claims.
 However, the intricacy of data analysis procedures, alongside their high reliance on extrinsic tools, makes them fragile with respect to re-use and may endanger their value as a repository of procedural knowledge.
-In order to assure the robustness of data analysis, it is therefore of crucial importance for all constituent instructions to be not only recorded and accessible, but also formatted in such a way as to reliably support reexecution.
+It is therefore of crucial importance for all constituent instructions to be not only recorded and accessible, but also to represent the encapsulated domain and operational knowledge as automatically executable code, in order to reliably support re-execution.
 In this study, we examine a peer-reviewed neuroimaging experiment, which already publishes automated data analysis instructions, in light of its reexecution reliability.
 We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
 To compensate for these difficulties, we formulate a novel reexecution standard which leverages mutable-state dependency management, environment isolation, as well as emerging technologies for provenance tracking.
@@ -12,3 +12,5 @@ The reproducibility analysis demonstrates that article reexecution in our novel 
 
 --- keep scraps for reuse
 Data analysis procedures encapsulate both computational and domain expertise, and therefore their codification constitutes a cornerstone element of scientific work.
+
+In order to assure the robustness of data analysis, it is therefore of crucial importance for all constituent instructions to be not only recorded and accessible, but also formatted in such a way as to reliably support reexecution.
