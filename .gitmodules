@@ -12,4 +12,4 @@
 	url = https://gin.g-node.org/TheChymera/mouse-brain-templates
 [submodule "inputs/containers/opfvta-singularity"]
 	path = code/images/opfvta-singularity
-	url = git@gin.g-node.org:/asmacdo/opfvta-singularity.git
+	url = https://git.g-node.org/asmacdo/opfvta-singularity
