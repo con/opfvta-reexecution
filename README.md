@@ -9,22 +9,19 @@ the [TODO original cite].
 This repository (and all yoda-style repos) contain.
 submodules/subdatasets.
 
-`git clone https://github.com/con/opfvta-replication-2023.git;`
-`cd opfvta-replication-2023;`
-`git submodule init;`
-`git submodule update --recursive`
+`datalad install -r https://github.com/con/opfvta-replication-2023.git`
+`cd opfvta-replication-2023`
 
 Some of the subdatasets/submodules are git-annex enabled, which means
 that we can use datalad to retrieve the files (which are just
 references, no "bits").
 
 Run `datalad get .` for each git-annex enabled repository below:
- - ./opfvta-replication-2023/
- - ./opfvta-replication-2023/code/opfvta
- - ./opfvta-replication-2023/inputs/mouse-brain-templates
- - ./opfvta-replication-2023/inputs/opfvta_bidsdata
-
-
+<!--  - /opfvta-replication-2023/ -->
+ - /opfvta-replication-2023/code/opfvta
+ - /opfvta-replication-2023/inputs/mouse-brain-templates
+ - /opfvta-replication-2023/inputs/opfvta_bidsdata
+ - TMP: opfvta-replication  use `datalad get . -s smaug`
 <!-- This will eventuall be datalad get -r . but not until the osf remote is -->
 <!-- updated. -->
 <!--  -->
