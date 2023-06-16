@@ -11,5 +11,5 @@
 	path = inputs/mouse-brain-templates
 	url = https://gin.g-node.org/TheChymera/mouse-brain-templates
 [submodule "inputs/containers/opfvta-singularity"]
-	path = inputs/containers/opfvta-singularity
+	path = code/images/opfvta-singularity
 	url = git@gin.g-node.org:/asmacdo/opfvta-singularity.git
