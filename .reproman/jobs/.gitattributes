@@ -1,0 +1,5 @@
+# Automatically created by ReproMan.
+# Do not change manually.
+status.[0-9]* annex.largefiles=nothing
+**/failed/* annex.largefiles=nothing
+idmap annex.largefiles=nothing
