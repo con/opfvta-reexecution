@@ -45,24 +45,50 @@ push:
 push-latex:
 	podman push ${FQDN_LATEX_IMAGE}
 
-reproman-run:
-	reproman run -r local --sub slurm --datalad no-remote \
-		--bp sub=TODO \
-		--jp num_processes=TODO \
-		--jp num_nodes=TODO \
-		--jp walltime=TODO \
-		--jp queue=TODO \
-		--jp launcher=true \
-		--jp job_name=TODO \
-		--jp mail_type=END \
-		--jp mail_user="austin@dartmouth.edu" \
-		--jp "container=TODO" \
-		--jp killjob_factors="TODO" \
-		?sourcedata/raw \
-		?scratchpath \
-		participant --participant-label ?? \
-		-w TODOworkdir \
-		thecommand
+rrun-sanity:
+	reproman run -r discovery --sub slurm --orc datalad-no-remote \
+		--jp num_processes=2 \
+		--jp num_nodes=1 \
+		--jp walltime=00:05:00 \
+		time python2 invert_matrix.py
+
+sing-run:
+	reproman run -r discovery --sub slurm --orc datalad-no-remote \
+		--jp num_processes=2 \
+		--jp num_nodes=1 \
+		--jp walltime=00:05:00 \
+		make hello
+
+	mkdir test
+	cd test
+	echo $(PWD)
+	echo "still here"
+	echo "$(PWD):$(PWD) "
+
+hello:
+	# $(MAKE) hello
+	echo "HELLO WORLD"
+
+
+
+# reproman-run:
+# 	reproman run -r local --sub slurm --datalad no-remote \
+# 		--bp sub=TODO \
+# 		--jp num_processes=TODO \
+# 		--jp num_nodes=TODO \
+# 		--jp walltime=TODO \
+# 		--jp queue=TODO \
+# 		--jp launcher=true \
+# 		--jp job_name=TODO \
+# 		--jp mail_type=END \
+# 		--jp mail_user="austin@dartmouth.edu" \
+# 		--jp "container=TODO" \
+# 		--jp killjob_factors="TODO" \
+# 		?sourcedata/raw \
+# 		?scratchpath \
+# 		participant --participant-label ?? \
+# 		-w TODOworkdir \
+# 		thecommand
 
 build-singularity:
 	singularity build opfvta.sing docker://${FQDN_IMAGE}
