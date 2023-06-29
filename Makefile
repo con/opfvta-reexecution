@@ -59,11 +59,8 @@ sing-run:
 		--jp walltime=00:05:00 \
 		make hello
 
-	mkdir test
-	cd test
-	echo $(PWD)
-	echo "still here"
-	echo "$(PWD):$(PWD) "
+fail:
+	try-this-it-fails
 
 hello:
 	# $(MAKE) hello
