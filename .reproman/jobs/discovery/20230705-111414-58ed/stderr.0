@@ -1,0 +1,2 @@
+FATAL:   could not open image /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata: failed to retrieve path for /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata: lstat /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/inputs/opfvta_bidsdata:: no such file or directory
+make[1]: *** [sing-run] Error 255
