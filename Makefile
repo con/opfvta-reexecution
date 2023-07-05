@@ -64,7 +64,7 @@ sing-run:
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-B ${PWD}/outputs/:/outputs \
-		-B /dartfs-hpc/scratch:~/.scratch \
+		-B /dartfs-hpc/scratch/f006rq8:/scratch \
 		-B ${PWD}/code/:/opt/src/ \
 		--pwd /opt/src/ \
 		code/images/opfvta-singularity/opfvta.sing \
