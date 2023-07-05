@@ -68,7 +68,7 @@ sing-run:
 		-B ${PWD}/code/:/opt/src/ \
 		--pwd /opt/src/ \
 		code/images/opfvta-singularity/opfvta.sing \
-		make all
+		ls -lah
 
 
 
