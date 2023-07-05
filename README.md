@@ -47,10 +47,11 @@ values are what we used). Then the image can be built with:
 make build
 ```
 
-The container can be run with:
+The container can be run with the following command.
+We require the scratch directory to be explicitly specified, as it will end up containing large amounts of data (in excess of 200 GB), and any default might accidentally clutter a difficult to locate directory.
 
 ```shell
-make run
+OPFVTA_SCRATCH_DIR="/your/cache/dir" make run
 ```
 
 The container image can be pushed to a container registry:
