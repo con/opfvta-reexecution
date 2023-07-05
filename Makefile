@@ -14,7 +14,6 @@ FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
 FQDN_LATEX_IMAGE=${REGISTRY}/${REPOSITORY}/${LATEX_IMAGE_NAME}:${LATEX_TAG}
 
 DISTFILE_CACHE_CMD :=
-OPFVTA_SCRATCH_DIR :=
 
 check_defined = \
     $(strip $(foreach 1,$1, \
@@ -72,7 +71,6 @@ populate-data:
 	datalad get inputs/opfvta_bidsdata
 	datalad get code/images/opfvta-singularity
 run:
-	$(call check_defined, OPFVTA_SCRATCH_DIR)
 	podman run \
 		-it \
 		--rm \
