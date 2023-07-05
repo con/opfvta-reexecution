@@ -82,7 +82,4 @@ run:
 		-v ${OPFVTA_SCRATCH_DIR}:/root/.scratch \
 		-v ${PWD}/code/:/opt/src/ \
 		${FQDN_IMAGE} \
-		/bin/bash
-
-
-		# /opt/src/produce-analysis.sh
+		./produce-analysis.sh
