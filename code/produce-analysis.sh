@@ -1,8 +1,14 @@
 #!/bin/bash
 source /etc/profile
 
-pushd /opfvta
+pushd /opt/src
   make data --always-make
   make all
 popd
-# mv /opfvta/data/* /outputs
+
+MYDATE=$(date +%Y%m%d%H%M%S)
+
+OUTDIR="/outputs/${MYDATE}"
+mkdir ${OUTDIR}
+
+mv /opt/src/opfvta/data/* "${OUTDIR}"
