@@ -1,0 +1,30 @@
+_command_array:
+- make sing-run
+_dataset_id: f3228117-3517-4431-823b-70956662d06f
+_extra_inputs_array:
+- []
+_head: 5f4c7f78d28c0ad1c33e88df1d71faa0e78b1e7a
+_inputs_array: []
+_jobid: 20230705-122755-a8e6
+_meta_directory: /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/.reproman/jobs/discovery/20230705-122755-a8e6
+_meta_directory_rel: .reproman/jobs/discovery/20230705-122755-a8e6
+_num_subjobs: 1
+_outputs_array: []
+_reproman_version: 0.4.1
+_resolved_batch_parameters: null
+_resolved_command_str: make sing-run
+_spec_version: '1.0'
+_submission_id: null
+command:
+- make
+- sing-run
+local_directory: /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023
+num_nodes: '1'
+num_processes: '16'
+orchestrator: datalad-no-remote
+resource_id: d937bcaa-b204-11ed-9aec-48df37094f00
+resource_name: discovery
+root_directory: /dartfs-hpc/rc/home/8/f006rq8/.reproman/run-root
+submitter: slurm
+walltime: 05:00:00
+working_directory: /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023
