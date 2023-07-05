@@ -9,6 +9,7 @@ popd
 MYDATE=$(date +%Y%m%d%H%M%S)
 
 OUTDIR="/outputs/${MYDATE}"
-mkdir ${OUTDIR}
+mkdir -p "${OUTDIR}/data"
 
-mv /opt/src/opfvta/data/* "${OUTDIR}"
+mv /opt/src/opfvta/data/* "${OUTDIR}/data"
+mv /opt/src/opfvta/article.pdf "${OUTDIR}"
