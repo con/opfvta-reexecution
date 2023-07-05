@@ -67,6 +67,7 @@ sing-run:
 		-B /dartfs-hpc/scratch:/root/.scratch \
 		-B ${PWD}/code/:/opt/src/ \
 		code/images/opfvta-singularity/opfvta.sing \
+		--pwd /opt/src/ \
 		make all
 
 
