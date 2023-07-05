@@ -57,7 +57,7 @@ rrun-sing:
 		--jp num_processes=16 \
 		--jp num_nodes=1 \
 		--jp walltime=05:00:00 \
-		sing-run
+		make sing-run
 
 sing-run:
 	apptainer run \
