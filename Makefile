@@ -52,12 +52,25 @@ rrun-sanity:
 		--jp walltime=00:05:00 \
 		time python2 invert_matrix.py
 
-sing-run:
+rrun-sing:
 	reproman run -r discovery --sub slurm --orc datalad-no-remote \
-		--jp num_processes=2 \
+		--jp num_processes=16 \
 		--jp num_nodes=1 \
-		--jp walltime=00:05:00 \
-		make hello
+		--jp walltime=05:00:00 \
+		sing-run
+
+sing-run:
+	apptainer run \
+		--no-mount \
+		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
+		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
+		-B ${PWD}/outputs/:/outputs \
+		-B ${OPFVTA_SCRATCH_DIR}:/root/.scratch \
+		-B ${PWD}/code/:/opt/src/ \
+		code/images/opfvta-singularity/ovfvta.sing \
+		make all
+
+
 
 fail:
 	try-this-it-fails
