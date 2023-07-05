@@ -61,11 +61,10 @@ rrun-sing:
 
 sing-run:
 	apptainer run \
-		--no-mount \
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-B ${PWD}/outputs/:/outputs \
-		-B ${OPFVTA_SCRATCH_DIR}:/root/.scratch \
+		-B /dartfs-hpc/scratch:/root/.scratch \
 		-B ${PWD}/code/:/opt/src/ \
 		code/images/opfvta-singularity/ovfvta.sing \
 		make all
