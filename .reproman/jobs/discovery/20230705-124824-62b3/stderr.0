@@ -1,0 +1,6 @@
+INFO:    underlay of /usr/share/opfvta_bidsdata required more than 50 (115) bind mounts
+make[2]: *** [Makefile:69: data] Error 1
+compiling article.tex
+executing: pdflatex --shell-escape \nonstopmode \input{article.tex}
+running: pythontex article
+slurmstepd: error: *** JOB 6751707 ON n13 CANCELLED AT 2023-07-05T12:52:43 ***
