@@ -1,0 +1,4 @@
+INFO:    underlay of /usr/share/opfvta_bidsdata required more than 50 (115) bind mounts
+set: invalid option: "--"
+FATAL:   "--pwd": executable file not found in $PATH
+make[1]: *** [sing-run] Error 255
