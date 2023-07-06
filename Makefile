@@ -56,7 +56,7 @@ rrun-sing:
 	reproman run -r discovery --sub slurm --orc datalad-no-remote \
 		--jp num_processes=16 \
 		--jp num_nodes=1 \
-		--jp walltime=05:00:00 \
+		--jp walltime=120:00:00 \
 		make sing-run
 
 sing-run:
