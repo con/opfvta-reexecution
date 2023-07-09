@@ -12,4 +12,6 @@ if [[ ! -f  ${REEXECUTION1} ]]; then
 fi
 
 echo "diff-pdf --output-diff=comparison.pdf ${HISTORICAL} ${REEXECUTION1}"
-diff-pdf -v ${HISTORICAL} ${REEXECUTION1} 2> ../data/paperdiff.log
+
+# Command returns error code 1 if the pages are different, which makes sense, except it's the opposite of what we're looking for here.
+diff-pdf -v ${HISTORICAL} ${REEXECUTION1} 2> ../data/paperdiff.log || exit 0
