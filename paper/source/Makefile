@@ -36,6 +36,8 @@ metadata.tex: metadata.yaml
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 
+data/paperdiff.log:
+	cd prepare; ./paperdiff.sh
 
 data/topology.pdf: data/topology.dot
 	pushd data; dot -Tpdf topology.dot -o topology.pdf 2> topology.log
