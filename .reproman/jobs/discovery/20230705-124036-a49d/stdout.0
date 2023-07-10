@@ -1,0 +1,23 @@
+[ReproMan] pre-command...
+[ReproMan] executing command make sing-run
+[ReproMan] ... within /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023
+make[1]: Entering directory `/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023'
+apptainer run \
+	-B /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
+	-B /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
+	-B /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/outputs/:/outputs \
+	-B /dartfs-hpc/scratch:/root/.scratch \
+	-B /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/code/:/opt/src/ \
+	--pwd /opt/src/ \
+	code/images/opfvta-singularity/opfvta.sing \
+	ls -lah
+total 128K
+drwxrwx---  4 f006rq8 nobody    85 Jun 21 10:47 .
+drwxr-xr-x  3 f006rq8 rc-users  60 Jul  5 12:40 ..
+drwxrwx---  3 f006rq8 nobody   104 Jun 21 10:47 images
+drwxrwx--- 13 f006rq8 nobody   577 Jun 21 10:49 opfvta
+-rwxrwx---  1 f006rq8 nobody   118 Jun 21 10:47 produce-analysis.sh
+make[1]: Leaving directory `/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023'
+[ReproMan] waiting for all jobs to complete before running post-command...
+[ReproMan] post-command...
+Using DataLad version datalad 0.18.4

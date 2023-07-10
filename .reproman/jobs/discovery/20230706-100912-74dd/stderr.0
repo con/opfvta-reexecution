@@ -1,0 +1,53 @@
+INFO:    underlay of /usr/share/opfvta_bidsdata required more than 50 (115) bind mounts
+Failed to import duecredit due to No module named 'duecredit'
+/usr/lib/python3.10/site-packages/bids/grabbids/__init__.py:6: FutureWarning: grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8
+  warnings.warn("grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8", FutureWarning)
+/usr/lib/python3.10/site-packages/nilearn/input_data/__init__.py:27: FutureWarning: The import path 'nilearn.input_data' is deprecated in version 0.9. Importing from 'nilearn.input_data' will be possible at least until release 0.13.0. Please import from 'nilearn.maskers' instead.
+  warnings.warn(message, FutureWarning)
+/usr/lib/python3.10/site-packages/bids/layout/bids_layout.py:116: UserWarning: 'dataset_description.json' file is missing from project root. You may want to set the root path to a valid BIDS project.
+  warnings.warn("'dataset_description.json' file is missing from "
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:283: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/bids/layout/bids_layout.py:116: UserWarning: 'dataset_description.json' file is missing from project root. You may want to set the root path to a valid BIDS project.
+  warnings.warn("'dataset_description.json' file is missing from "
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:283: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+Failed to import duecredit due to No module named 'duecredit'
+/usr/lib/python3.10/site-packages/bids/grabbids/__init__.py:6: FutureWarning: grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8
+  warnings.warn("grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8", FutureWarning)
+/usr/lib/python3.10/site-packages/nilearn/input_data/__init__.py:27: FutureWarning: The import path 'nilearn.input_data' is deprecated in version 0.9. Importing from 'nilearn.input_data' will be possible at least until release 0.13.0. Please import from 'nilearn.maskers' instead.
+  warnings.warn(message, FutureWarning)
+/usr/lib/python3.10/site-packages/bids/layout/bids_layout.py:116: UserWarning: 'dataset_description.json' file is missing from project root. You may want to set the root path to a valid BIDS project.
+  warnings.warn("'dataset_description.json' file is missing from "
+/usr/lib/python3.10/site-packages/nilearn/input_data/__init__.py:27: FutureWarning: The import path 'nilearn.input_data' is deprecated in version 0.9. Importing from 'nilearn.input_data' will be possible at least until release 0.13.0. Please import from 'nilearn.maskers' instead.
+  warnings.warn(message, FutureWarning)
+Failed to import duecredit due to No module named 'duecredit'
+/usr/lib/python3.10/site-packages/bids/grabbids/__init__.py:6: FutureWarning: grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8
+  warnings.warn("grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8", FutureWarning)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3802, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 138, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 165, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5745, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 5753, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'VTA t'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/src/opfvta/prepare/implant_coordinates.py", line 69, in <module>
+    make_summary(df, i)
+  File "/opt/src/opfvta/prepare/implant_coordinates.py", line 30, in make_summary
+    values = coordinates['VTA t'].values
+  File "/usr/lib/python3.10/site-packages/pandas/core/frame.py", line 3807, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3804, in get_loc
+    raise KeyError(key) from err
+KeyError: 'VTA t'
+make[2]: *** [Makefile:69: data] Error 1
+running: pythontex article
+execution of pythontex failed
+There were errors compiling article.tex: Recipe for pythontex-files-article/article.pytxmcr failed.
+error: Stopping because of compilation errors.
+make[2]: *** [Makefile:24: article.pdf] Error 2

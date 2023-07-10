@@ -1,7 +1,7 @@
 #!/bin/bash
 source /etc/profile
 
-pushd /opt/src
+pushd /opt/src/opfvta
   make data --always-make
   make all
 popd

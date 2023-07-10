@@ -1,0 +1,70 @@
+#!/bin/sh
+
+set -eu
+
+jobid=20230705-131650-82ac
+subjob=$1
+num_subjobs=1
+
+metadir=/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/.reproman/jobs/discovery/20230705-131650-82ac
+rootdir=/dartfs-hpc/rc/home/8/f006rq8/.reproman/run-root
+workdir=/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023
+
+_reproman_cmd_idx=$(($subjob + 1))
+export _reproman_cmd_idx
+
+echo "submitted" >"$metadir/status.$subjob"
+echo "[ReproMan] pre-command..."
+
+cd "$workdir"
+
+get_command () {
+    perl -n0e \
+         '$idx=$ENV{_reproman_cmd_idx}; print "$_" if $. == $idx;' \
+         "$metadir/command-array"
+}
+
+cmd=$(get_command)
+if test -z "$cmd"
+then
+    echo "[ReproMan] failed getting command at position $_reproman_cmd_idx" >&2
+    echo "pre-command failure" >"$metadir/status.$subjob"
+    exit 1
+fi
+
+echo "running" >"$metadir/status.$subjob"
+echo "[ReproMan] executing command $cmd"
+echo "[ReproMan] ... within $PWD"
+/bin/sh -c "$cmd" && \
+    echo "succeeded" >"$metadir/status.$subjob" || \
+    (echo "failed: $?" >"$metadir/status.$subjob";
+     mkdir -p "$metadir/failed" && touch "$metadir/failed/$subjob")
+
+if test $num_subjobs -eq $_reproman_cmd_idx
+then
+# Not all jobs should do the cleanup. Ideally none of them should and there
+# should be some post-job cleanup triggered through the batch system. But, at
+# least for now, below is a brittle solution were the last job waits until it
+# sees that all other jobs have exited and then runs the post-command stuff.
+nstatus () {
+    grep -E '^(succeed|fail)' "$metadir"/status.* | wc -l
+}
+
+echo "[ReproMan] waiting for all jobs to complete before running post-command..."
+while test $(nstatus) -lt $num_subjobs
+do
+    sleep 1
+done
+
+echo "[ReproMan] post-command..."
+
+
+
+echo "Using DataLad version $(datalad --version)"  # for debugging
+msg="[ReproMan] save results for $jobid"
+datalad save --recursive -m"$msg" . .reproman >/dev/null 2>&1
+git update-ref refs/reproman/$jobid HEAD
+
+mkdir -p "$rootdir/completed/"
+touch "$rootdir/completed/$jobid"
+fi

@@ -1,0 +1,72 @@
+INFO:    underlay of /usr/share/opfvta_bidsdata required more than 50 (115) bind mounts
+Failed to import duecredit due to No module named 'duecredit'
+/usr/lib/python3.10/site-packages/bids/grabbids/__init__.py:6: FutureWarning: grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8
+  warnings.warn("grabbids has been renamed to layout in version 0.6.5, and will be removed in version 0.8", FutureWarning)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:283: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:296: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+/usr/lib/python3.10/site-packages/samri/pipelines/utils.py:335: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  res_df = res_df.append(_df)
+slurmstepd: error: poll(): Bad address
+slurmstepd: error: *** JOB 6751768 ON n01 CANCELLED AT 2023-07-05T18:17:23 DUE TO TIME LIMIT ***

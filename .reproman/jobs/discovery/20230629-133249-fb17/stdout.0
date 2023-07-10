@@ -1,0 +1,11 @@
+[ReproMan] pre-command...
+[ReproMan] executing command make hello
+[ReproMan] ... within /dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023
+make[1]: Entering directory `/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023'
+# make hello
+echo "HELLO WORLD"
+HELLO WORLD
+make[1]: Leaving directory `/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023'
+[ReproMan] waiting for all jobs to complete before running post-command...
+[ReproMan] post-command...
+Using DataLad version datalad 0.18.4
