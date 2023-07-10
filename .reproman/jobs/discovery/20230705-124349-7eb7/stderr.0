@@ -1,0 +1,8 @@
+INFO:    underlay of /usr/share/opfvta_bidsdata required more than 50 (115) bind mounts
+make[2]: *** [Makefile:69: data] Error 1
+compiling article.tex
+executing: pdflatex --shell-escape \nonstopmode \input{article.tex}
+Running pdflatex resulted in a non-zero exit status.
+There were errors compiling article.tex: Recipe for article.pdf failed.
+error: Stopping because of compilation errors.
+make[2]: *** [Makefile:24: article.pdf] Error 2

@@ -1,0 +1,3 @@
+INFO:    Cleanup error: while unmounting /var/apptainer/mnt/session/final directory: no such file or directory, while unmounting /var/apptainer/mnt/session/rootfs directory: no such file or directory
+FATAL:   container creation failed: unable to add /dartfs-hpc/scratch to mount list: destination must be an absolute path
+make[1]: *** [sing-run] Error 255

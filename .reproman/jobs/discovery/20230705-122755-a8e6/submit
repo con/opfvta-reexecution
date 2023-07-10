@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#SBATCH --output=/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/.reproman/jobs/discovery/20230705-122755-a8e6/stdout.%a
+#SBATCH --error=/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/.reproman/jobs/discovery/20230705-122755-a8e6/stderr.%a
+
+#SBATCH --nodes=1
+#SBATCH --ntasks=16
+#SBATCH --time=05:00:00
+#SBATCH --array=0
+
+/dartfs/rc/lab/D/DBIC/DBIC/CON/asmacdo/opfvta-replication-2023/.reproman/jobs/discovery/20230705-122755-a8e6/runscript $SLURM_ARRAY_TASK_ID
