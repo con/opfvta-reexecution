@@ -39,6 +39,9 @@ metadata.tex: metadata.yaml
 data/paperdiff.log:
 	cd prepare; ./paperdiff.sh
 
+data/paperdiff.csv: data/paperdiff.log
+	cd prepare; python paperdiff_parse.py
+
 data/topology.pdf: data/topology.dot
 	pushd data; dot -Tpdf topology.dot -o topology.pdf 2> topology.log
 
