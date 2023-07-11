@@ -27,14 +27,17 @@ Host smaug smaug.dartmouth.edu
   user <username>
 ```
 
-` git remote add smaug smaug:/mnt/btrfs/datasets/incoming/con/opfvta-replication-2023.git`
+<!-- TODO: should be publicly available  -->
+`git remote add smaug smaug:/mnt/btrfs/datasets/incoming/con/opfvta-replication-2023.git`
+`datalad get . -s smaug`
+
+`git remote add gin https://gin.g-node.org/TheChymera/mouse-brain-templates`
+`datalad get . -s gin`
 
 Run `datalad get .` for each git-annex enabled repository below:
 <!--  - /opfvta-replication-2023/ -->
  - /opfvta-replication-2023/code/opfvta
- - /opfvta-replication-2023/inputs/mouse-brain-templates
  - /opfvta-replication-2023/inputs/opfvta_bidsdata
- - TMP: opfvta-replication  use `datalad get . -s smaug`
 <!-- This will eventuall be datalad get -r . but not until the osf remote is -->
 <!-- updated. -->
 <!--  -->
