@@ -29,20 +29,20 @@ else
 endif
 
 oci-build:
-	podman build . $(DISTFILE_CACHE_CMD) \
+	docker build . $(DISTFILE_CACHE_CMD) \
 		-f code/images/Containerfile \
 		-t ${FQDN_IMAGE}
 
 build-latex:
-	podman build . $(DISTFILE_CACHE_CMD) \
+	docker build . $(DISTFILE_CACHE_CMD) \
 		-f code/images/Containerfile.latex \
 		-t ${FQDN_LATEX_IMAGE}
 
 push:
-	podman push ${FQDN_IMAGE}
+	docker push ${FQDN_IMAGE}
 
 push-latex:
-	podman push ${FQDN_LATEX_IMAGE}
+	docker push ${FQDN_LATEX_IMAGE}
 
 reproman-run-apptainer:
 	reproman run -r discovery --sub slurm --orc datalad-no-remote \
@@ -70,8 +70,8 @@ populate-data:
 	datalad get inputs/opfvta_bidsdata
 	datalad get code/images/opfvta-singularity
 
-podman-run:
-	podman run \
+oci-run:
+	docker run \
 		-it \
 		--rm \
 		-v ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
