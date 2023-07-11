@@ -16,6 +16,19 @@ Some of the subdatasets/submodules are git-annex enabled, which means
 that we can use datalad to retrieve the files (which are just
 references, no "bits").
 
+TMP: Add smaug remote (need access):
+
+SshConfig
+```bash
+Host smaug smaug.dartmouth.edu
+  Hostname smaug.dartmouth.edu
+  AddKeysToAgent yes
+  port 11110
+  user <username>
+```
+
+` git remote add smaug smaug:/mnt/btrfs/datasets/incoming/con/opfvta-replication-2023.git`
+
 Run `datalad get .` for each git-annex enabled repository below:
 <!--  - /opfvta-replication-2023/ -->
  - /opfvta-replication-2023/code/opfvta
@@ -41,24 +54,26 @@ This container executes all parts of the original work:
     - latex rendering into original article with updated data
 
 Configure the variables at the top of the root level makefile (provided
-values are what we used). Then the image can be built with:
+values are what we used). Then the OCI image can be built with:
 
-```shell
-make build
-```
+`make oci-build`
 
-The container can be run with the following command.
+The OCI container can be run with the following command.
 We require the scratch directory to be explicitly specified, as it will end up containing large amounts of data (in excess of 200 GB), and any default might accidentally clutter a difficult to locate directory.
 
-```shell
-OPFVTA_SCRATCH_DIR="/your/cache/dir" make run
-```
+`OPFVTA_SCRATCH_DIR="/your/cache/dir" make podman-run`
 
 The container image can be pushed to a container registry:
 
-```shell
-make push
-```
+`make push`
+
+You may need to build a singularity/apptainer image with the following
+command:
+
+`make apptainer-build`
+
+After the apptainer image is built, it will need to be committed and the
+new bits pushed to a git annex enabled repository.
 
 ### LaTeX builder image
 
