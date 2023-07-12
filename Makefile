@@ -29,7 +29,7 @@ else
 endif
 
 oci-build:
-	docker build . $(DISTFILE_CACHE_CMD) \
+	podman build . $(DISTFILE_CACHE_CMD) \
 		-f code/images/Containerfile \
 		-t ${FQDN_IMAGE}
 
@@ -39,7 +39,7 @@ build-latex:
 		-t ${FQDN_LATEX_IMAGE}
 
 push:
-	docker push ${FQDN_IMAGE}
+	podman push ${FQDN_IMAGE}
 
 push-latex:
 	docker push ${FQDN_LATEX_IMAGE}
@@ -52,7 +52,7 @@ reproman-run-apptainer:
 		make sing-run
 
 apptainer-run:
-	apptainer run \
+	singularity run \
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-B ${PWD}/outputs/:/outputs \
@@ -63,7 +63,7 @@ apptainer-run:
 		./produce-analysis.sh
 
 apptainer-build:
-	apptainer build opfvta.sing docker://${FQDN_IMAGE}
+	singularity build opfvta.sing docker://${FQDN_IMAGE}
 
 populate-data:
 	datalad get inputs/mouse-brain-templates/mouse-brain-templates/abi2dsurqec_40micron_annotation.nii inputs/mouse-brain-templates/mouse-brain-templates/abi2dsurqec_40micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/abi_40micron_annotation.nii inputs/mouse-brain-templates/mouse-brain-templates/abi_40micron_average.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_40micron.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron_labels.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_40micron.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_40micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/abi_200micron_average.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_200micron.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_200micron.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_200micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc2dsurqec_15micron_masked.obj
