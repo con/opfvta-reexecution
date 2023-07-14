@@ -1,0 +1,30 @@
+ame: Build Container Article
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Podman
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y upgrade
+          sudo apt-get -y install podman
+
+      - name: Install Make
+        run: sudo apt-get -y install make
+
+      - name: Build container article
+        working-directory: paper/source
+        run: make container-article
