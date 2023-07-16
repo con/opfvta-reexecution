@@ -43,7 +43,7 @@ data/paperdiff.csv: data/paperdiff.log
 	cd prepare; python paperdiff_parse.py
 
 data/topology.pdf: data/topology.dot
-	pushd data; dot -Tpdf topology.dot -o topology.pdf 2> topology.log
+	cd data; dot -Tpdf topology.dot -o topology.pdf 2>| topology.log
 
 container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode -shell-escape" -use-make /data/article.tex -f
