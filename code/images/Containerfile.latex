@@ -1,12 +1,14 @@
-FROM docker.io/blang/latex:ubuntu
+FROM docker.io/pandoc/latex:3-ubuntu
 
 RUN apt-get update
-RUN apt-get install \
+RUN apt-get install -y \
 	biber \
 	graphviz \
+	python3-pip
+
+RUN pip3 install --user \
 	matplotlib \
 	seaborn \
 	pandas \
-	python-sklearn \
-	statsmodels \
-	-y
+	scikit-learn \
+	statsmodels

@@ -5,7 +5,7 @@ REGISTRY=docker.io
 REPOSITORY=asmacdo
 
 LATEX_IMAGE_NAME=latex-biber
-LATEX_TAG=0.0.0-alpha
+LATEX_TAG=0.0.1-alpha
 
 IMAGE_NAME=opfvta
 IMAGE_TAG=2.0.0-alpha

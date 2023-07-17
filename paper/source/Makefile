@@ -6,7 +6,7 @@
 .PHONY: clean
 
 # If executing in a container:
-LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.0-alpha
+LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.1-alpha
 
 SHELL = /bin/bash
 
