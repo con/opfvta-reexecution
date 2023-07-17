@@ -2,17 +2,14 @@ FROM registry.gitlab.com/islandoftex/images/texlive:latest-full
 
 RUN apt-get update -q && apt-get install -qy \
 	graphviz \
-	python3-pip
+	python3-matplotlib \
+	python3-seaborn \
+	python3-pandas \
+	python3-sklearn \
+	python3-statsmodels
 
-#  RUN pip3 install --user \
-# 	matplotlib \
-# 	seaborn \
-# 	pandas \
-# 	scikit-learn \
-# 	statsmodels
 RUN tlmgr install \
 	sourceserifpro
-
 
 ENV HOME /data
 WORKDIR /data
