@@ -20,7 +20,8 @@ with open("../data/paperdiff.log") as f:
             continue
         pixels_differ_percent = int(m["pixels"]) / pixels_total
         pixels_differ_percent = float("{:.5f}".format(pixels_differ_percent))
-        parsed_list.append([m["page"], m["pixels"], pixels_differ_percent])
+        # Adding 1 to the page number to obtain the same numbering as in the document itself.
+        parsed_list.append([int(m["page"])+1, m["pixels"], pixels_differ_percent])
 
 with open("../data/paperdiff.csv", "w", newline="") as f:
     writer = csv.writer(f)
