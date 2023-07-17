@@ -42,6 +42,9 @@ data/paperdiff.log:
 data/paperdiff.csv: data/paperdiff.log
 	cd prepare; python paperdiff_parse.py
 
+figs/paperdiff_pages.pdf: data/paperdiff.csv
+	cd scripts; python paperdiff_pages.py
+
 data/topology.pdf: data/topology.dot
 	cd data; dot -Tpdf topology.dot -o topology.pdf 2>| topology.log
 
