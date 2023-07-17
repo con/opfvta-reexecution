@@ -42,11 +42,14 @@ data/paperdiff.log data/paperdiff.pdf:
 data/paperdiff.csv: data/paperdiff.log
 	cd prepare; python paperdiff_parse.py
 
-figs/diff_text.pdf: data/paperdiff.pdf
-	cd scripts; ./diff_text.sh
-
 figs/diff_date.pdf: data/paperdiff.pdf
 	cd scripts; ./diff_date.sh
+
+figs/diff_fig.pdf: data/paperdiff.pdf
+	cd scripts; ./diff_fig.sh
+
+figs/diff_text.pdf: data/paperdiff.pdf
+	cd scripts; ./diff_text.sh
 
 figs/paperdiff_pages.pdf: data/paperdiff.csv
 	cd scripts; python paperdiff_pages.py
