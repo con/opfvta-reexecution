@@ -42,6 +42,9 @@ data/paperdiff.log data/paperdiff.pdf:
 data/paperdiff.csv: data/paperdiff.log
 	cd prepare; python paperdiff_parse.py
 
+figs/diff_text.pdf: data/paperdiff.pdf
+	cd scripts; ./diff_text.sh
+
 figs/diff_date.pdf: data/paperdiff.pdf
 	cd scripts; ./diff_date.sh
 
@@ -64,6 +67,7 @@ article: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
 
 live:
 	@rm -f data/*.pdf
+	@rm -f figs/*.pdf
 
 clean: live
 	@latexmk -CA
