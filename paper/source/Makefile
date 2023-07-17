@@ -36,11 +36,14 @@ metadata.tex: metadata.yaml
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 
-data/paperdiff.log:
+data/paperdiff.log data/paperdiff.pdf:
 	cd prepare; ./paperdiff.sh
 
 data/paperdiff.csv: data/paperdiff.log
 	cd prepare; python paperdiff_parse.py
+
+figs/diff_date.pdf: data/paperdiff.pdf
+	cd scripts; ./diff_date.sh
 
 figs/paperdiff_pages.pdf: data/paperdiff.csv
 	cd scripts; python paperdiff_pages.py
