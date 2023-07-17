@@ -1,4 +1,4 @@
-FROM blang/latex:ubuntu
+FROM docker.io/blang/latex:ubuntu
 
 RUN apt-get update
 RUN apt-get install \
