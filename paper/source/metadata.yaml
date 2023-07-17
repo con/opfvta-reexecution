@@ -10,45 +10,26 @@ title: "Full Reexecution of Article Analyzing effective functional VTA connectiv
 # List of authors with name, orcid number, email and affiliation
 # Affiliation "*" means contact author
 authors:
- - name: Yaroslav O. Halchenko  # 626 commits, issues: opened 81 participated in 146
-   orcid: 0000-0003-3456-2493
-   affiliation: 1
- - name: Horea-Ioan Ioanas   # 17 commits, issues: opened 1 participated in 1
+ - name: Horea-Ioan Ioanas
    orcid: 0000-0001-7037-2449
-   affiliation: 1
- - name: Austin Macdonald  # 2 commits, issues: opened 1 participated in 1 + 1 commit in paper repo
+   email: uni@chymera.eu
+   affiliations: 1,*
+ - name: Austin Macdonald
    orcid: 0000-0002-8124-807X
-   affiliation: 1
-affiliations:
- - name: Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, Hanover, NH, USA
-   index: 1
+   email: austin@dartmouth.edu
+   affiliations: 1,*
+ - name: Yaroslav O. Halchenko
+   orcid: 0000-0003-3456-2493
+   email: yoh@dartmouth.edu
+   affiliations: 1
 
 # List of affiliations with code (corresponding to author affiliations), name
 # and address. You can also use these affiliations to add text such as "Equal
 # contributions" as name (with no address).
 affiliations:
-  - code:    1
-    name:    Centre de Biophysique Moléculaire, CNRS UPR4301
-    address: Orléans, France
-
-  - code:    2
-    name:    Synchrotron SOLEIL, Division Expériences
-    address: Gif sur Yvette, France
-
-  - code:    3
-    name:    INRIA Bordeaux Sud-Ouest
-    address: Bordeaux, France
-
-  - code:    4
-    name:    LaBRI, Université de Bordeaux, Institut Polytechnique de Bordeaux,
-             Centre National de la Recherche Scientifique, UMR 5800
-    address: Talence, France
-
-  - code:    5
-    name:    Institut des Maladies Neurodégénératives, Université  de Bordeaux,
-             Centre National de la Recherche Scientifique, UMR 5293
-    address: Bordeaux, France
-
+ - code: 1
+   name: Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College
+   address: Hanover, NH, USA
 
 # List of keywords (adding the programming language might be a good idea)
 keywords: rescience c, rescience x
