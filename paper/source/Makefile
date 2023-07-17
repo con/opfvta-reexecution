@@ -56,7 +56,7 @@ container-article-interactive: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 
 
 container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
-	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode -shell-escape" -use-make /data/article.tex -f
+	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex -f
 	find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
 article: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
