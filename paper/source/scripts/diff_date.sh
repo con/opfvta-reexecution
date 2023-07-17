@@ -1,6 +1,6 @@
 # Cropbox is:
 #  - left boundary (from left)
-#  - vertical boundary (from bottom)
+#  - lower boundary (from bottom)
 #  - right boundary (from left)
 #  - top boundary (from bottom)
 
