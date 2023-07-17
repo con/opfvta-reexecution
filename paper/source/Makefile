@@ -51,6 +51,10 @@ figs/paperdiff_pages.pdf: data/paperdiff.csv
 figs/topology.pdf: data/topology.dot
 	cd data; dot -Tpdf topology.dot -o ../figs/topology.pdf 2>| topology.log
 
+container-article-interactive: $(COMMON) $(TEX) $(STYLE) $(DATA) live
+	podman run --rm -it -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
+
+
 container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode -shell-escape" -use-make /data/article.tex -f
 	find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
