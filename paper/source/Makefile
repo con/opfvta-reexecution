@@ -12,7 +12,7 @@ SHELL = /bin/bash
 
 
 COMMON := $(wildcard common/*)
-TEX := $(wildcard *.tex)
+TEX := $(wildcard *.tex) metadata.tex
 STYLE := $(wildcard sty/* rescience.cls)
 DATA := $(wildcard data/*.dot)
 
