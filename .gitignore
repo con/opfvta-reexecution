@@ -11,3 +11,6 @@
 *.pdf
 
 .nfs*
+article.bbl
+article.blg
+article.run.xml
