@@ -66,6 +66,7 @@ article: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
 	max_repeat=1 latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex -f
 
 live:
+	rm article.pdf
 	@rm -f data/*.pdf
 	@rm -f figs/*.pdf
 
