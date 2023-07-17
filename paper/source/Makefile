@@ -8,6 +8,9 @@
 # If executing in a container:
 LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.1-alpha
 
+# Common options for podman invocations
+PODMAN_ARGS = --rm  -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
+
 SHELL = /bin/bash
 
 
@@ -64,11 +67,11 @@ figs/topology.pdf: data/topology.dot
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
 container-article-interactive: $(COMMON) $(TEX) $(STYLE) $(DATA) live
-	podman run --rm -it -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
+	podman run -it $(PODMAN_ARGS)
 
 .PHONY: container-article
 container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
-	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" \
+	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article
 
 article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA)
