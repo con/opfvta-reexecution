@@ -71,7 +71,7 @@ container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" \
 		$(MAKE) article
 
-article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA) live
+article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA)
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
 	# find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
