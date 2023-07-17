@@ -34,7 +34,7 @@ oci-build:
 		-t ${FQDN_IMAGE}
 
 build-latex:
-	docker build . $(DISTFILE_CACHE_CMD) \
+	podman build . $(DISTFILE_CACHE_CMD) \
 		-f code/images/Containerfile.latex \
 		-t ${FQDN_LATEX_IMAGE}
 
@@ -42,7 +42,7 @@ push:
 	podman push ${FQDN_IMAGE}
 
 push-latex:
-	docker push ${FQDN_LATEX_IMAGE}
+	podman push ${FQDN_LATEX_IMAGE}
 
 reproman-run-apptainer:
 	reproman run -r discovery --sub slurm --orc datalad-no-remote \
