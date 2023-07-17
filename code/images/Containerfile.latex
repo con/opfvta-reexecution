@@ -1,4 +1,4 @@
-FROM docker.io/pandoc/latex:3-ubuntu
+FROM docker.io/pandoc/latex:2-ubuntu
 
 RUN apt-get update
 RUN apt-get install -y \
