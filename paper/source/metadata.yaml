@@ -10,15 +10,18 @@ title: "Full Reexecution of Article Analyzing effective functional VTA connectiv
 # List of authors with name, orcid number, email and affiliation
 # Affiliation "*" means contact author
 authors:
-  - name: Konrad Hinsen
-    orcid: 0000-0003-0330-9428
-    email: konrad.hinsen@cnrs.fr
-    affiliations: 1,2
-    
-  - name: Nicolas P. Rougier
-    orcid: 0000-0002-6972-589X
-    email: Nicolas.Rougier@inria.fr
-    affiliations: 3,4,5,*      # * is for contact author
+ - name: Yaroslav O. Halchenko  # 626 commits, issues: opened 81 participated in 146
+   orcid: 0000-0003-3456-2493
+   affiliation: 1
+ - name: Horea-Ioan Ioanas   # 17 commits, issues: opened 1 participated in 1
+   orcid: 0000-0001-7037-2449
+   affiliation: 1
+ - name: Austin Macdonald  # 2 commits, issues: opened 1 participated in 1 + 1 commit in paper repo
+   orcid: 0000-0002-8124-807X
+   affiliation: 1
+affiliations:
+ - name: Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College, Hanover, NH, USA
+   index: 1
 
 # List of affiliations with code (corresponding to author affiliations), name
 # and address. You can also use these affiliations to add text such as "Equal
@@ -27,20 +30,20 @@ affiliations:
   - code:    1
     name:    Centre de Biophysique Moléculaire, CNRS UPR4301
     address: Orléans, France
-    
+
   - code:    2
     name:    Synchrotron SOLEIL, Division Expériences
     address: Gif sur Yvette, France
-    
+
   - code:    3
     name:    INRIA Bordeaux Sud-Ouest
     address: Bordeaux, France
-    
+
   - code:    4
     name:    LaBRI, Université de Bordeaux, Institut Polytechnique de Bordeaux,
              Centre National de la Recherche Scientifique, UMR 5800
     address: Talence, France
-    
+
   - code:    5
     name:    Institut des Maladies Neurodégénératives, Université  de Bordeaux,
              Centre National de la Recherche Scientifique, UMR 5293
@@ -55,7 +58,7 @@ keywords: rescience c, rescience x
 #   see https://guides.github.com/activities/citable-code/
 code:
   - url: https://github.com/rescience-c/template
-  - doi: 
+  - doi:
 
 # Date URL and DOI (optional if no data)
 data:
@@ -83,7 +86,7 @@ abstract: "Three years have passed since ReScience published its first article
 
 # Bibliography file (yours)
 bibliography: bibliography.bib
-  
+
 # Type of the article
 # Type can be:
 #  * Editorial
@@ -93,22 +96,22 @@ type: Editorial
 
 # Scientific domain of the article (e.g. Computational Neuroscience)
 #  (one domain only & try to be not overly specific)
-domain: 
+domain:
 
 # Coding language (main one only if several)
 language:
 
-  
+
 # To be filled by the author(s) after acceptance
 # -----------------------------------------------------------------------------
 
 # For example, the URL of the GitHub issue where review actually occured
-review: 
-  - url: 
+review:
+  - url:
 
 contributors:
   - name:
-    orcid: 
+    orcid:
     role: editor
   - name:
     orcid:
@@ -121,7 +124,7 @@ contributors:
 dates:
   - received:  November 1, 2018
   - accepted:
-  - published: 
+  - published:
 
 # This information will be provided by the editor
 article:
