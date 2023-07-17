@@ -19,7 +19,11 @@ DATA := $(wildcard data/*.dot)
 # The first rule in a Makefile is the one executed by default ("make"). It
 # should always be the "all" rule, so that "make" and "make all" are identical.
 
+.PHONY: all
+.PHONY: article
+
 all: article
+article: article.pdf
 
 
 # CUSTOM BUILD RULES
@@ -28,14 +32,9 @@ metadata.tex: metadata.yaml
 	./yaml-to-latex.py -i $< -o $@
 
 
-# MAIN LATEXMK RULE
+#
+# FIGURES GENERATION RULES
 # -----------------------------------------------------------------------------
-# -pdf tells latexmk to generate PDF directly (instead of DVI).
-# -pdflatex="" tells latexmk to call a specific backend with specific options.
-# -use-make tells latexmk to call make for generating missing files.
-# -interaction=nonstopmode keeps the pdflatex backend from stopping at a
-# missing file reference and interactively asking you for an alternative.
-
 data/paperdiff.log data/paperdiff.pdf:
 	cd prepare; ./paperdiff.sh
 
@@ -57,16 +56,24 @@ figs/paperdiff_pages.pdf: data/paperdiff.csv
 figs/topology.pdf: data/topology.dot
 	cd data; dot -Tpdf topology.dot -o ../figs/topology.pdf 2>| topology.log
 
+# MAIN LATEXMK RULE
+# -----------------------------------------------------------------------------
+# -pdf tells latexmk to generate PDF directly (instead of DVI).
+# -pdflatex="" tells latexmk to call a specific backend with specific options.
+# -use-make tells latexmk to call make for generating missing files.
+# -interaction=nonstopmode keeps the pdflatex backend from stopping at a
+# missing file reference and interactively asking you for an alternative.
 container-article-interactive: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	podman run --rm -it -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
 
-
+.PHONY: container-article
 container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
-	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make /data/article.tex -f
-	find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
+	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" \
+		$(MAKE) article
 
-article: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
-	max_repeat=1 latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex -f
+article.pdf: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
+	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
+	# find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
 live:
 	rm -f article.pdf
