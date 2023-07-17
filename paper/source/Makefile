@@ -71,17 +71,9 @@ container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	podman run --rm -i --net=none -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)" \
 		$(MAKE) article
 
-<<<<<<< HEAD
-article.pdf: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
+article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
 	# find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
-||||||| 0073915
-article: $(COMMON) $(TEX_ALL) $(STYLE) $(DATA) live
-	max_repeat=1 latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex -f
-=======
-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
-	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex -f
->>>>>>> a6ca2478d197870d497876ffce4d9c30befc80f3
 
 live:
 	rm -f article.pdf
