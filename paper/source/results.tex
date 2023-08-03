@@ -17,29 +17,38 @@ We compare the difference between the Historical Manuscript Record — a product
 
 \begin{figure}
 	\centering
-	\begin{subfigure}
-		\includegraphics[clip,width=0.48\textwidth]{figs/diff_date}
+	\begin{subfigure}{0.4\textwidth}
+		\tcbox{
+			\includegraphics[clip,width=0.48\textwidth]{figs/diff_date}
+			}
 		\caption{
 			Subcaption 1
 		}
 		\label{fig:diff_date}
 	\end{subfigure}
-	\begin{subfigure}
-		\includegraphics[clip,width=0.48\textwidth]{figs/diff_text}
+	\hfill
+	\begin{subfigure}{0.4\textwidth}
+		\tcbox{
+			\includegraphics[clip,width=0.48\textwidth]{figs/diff_text}
+			}
 		\caption{
 			Subcaption 2
 		}
 		\label{fig:diff_text}
 	\end{subfigure}
-	\begin{subfigure}
-		\includegraphics[clip,width=0.48\textwidth]{figs/diff_fig}
+	\\
+	\vspace{1em}
+	\begin{subfigure}{0.99\textwidth}
+		\tcbox{
+			\includegraphics[clip,width=0.8\textwidth]{figs/diff_fig}
+			}
 		\caption{
 			Subcaption 3
 		}
 		\label{fig:diff_fig}
 	\end{subfigure}
 	\caption{
-		Caption
+		\textbf{The article difference showcases }
 	}
 \end{figure}
 

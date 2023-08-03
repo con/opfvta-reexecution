@@ -22,6 +22,12 @@
 \RequirePackage[american]{babel}
 
 
+% --- Chymeric Section --------------------------------------------------------
+\RequirePackage{subcaption}
+\RequirePackage{graphicx}
+\usepackage[most]{tcolorbox}
+
+
 % --- Various packages --------------------------------------------------------
 \RequirePackage{ifthen}
 \RequirePackage{tabularx}
