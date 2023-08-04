@@ -5,20 +5,27 @@
 
 \section{Reproduction}
 
-We compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and the Novel Workflow Reexecution, and find strong overall coherence at the qualitative but not at the quantitative level.
+We compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and the Novel Workflow Reexecution.
+Reproduction differences between the article versions can best be inspected at a glance by evaluating the page-wise PDF difference (\ref{fig:diff_pages}).
+This overview shows a consistent minimum baseline of differences, around $10^-4$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 9.
+When examined closely \ref{fig:diff_date}, this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the Novel Workflow Reexecution (2023-..).
+While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
+The linear colour map of \ref{fig_diff_pages}
+
+Overall, inspecting the differences reveals a strong coherence at the qualitative but not at the quantitative level.
 This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
 Quantitative incoherence is in the form of numerical variability of automatically generated metrics in the article text (\ref{fig:diff_text}), variability of sample distributions (\ref{fig:diff_fig}), as well as expected and predictable metadata changes (\ref{fig:diff_date}).
 
 
 \begin{figure}
 	\centering
-	\includegraphics[clip,width=0.99\textwidth]{figs/paperdiff_pages}
+	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages}
 	\caption{
 		\textbf{Page-wise visual differences between the Historical Manuscript Record and the Novel Workflow Reexecution help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
 		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
 		The scale is logarithmic, and the hue color map is linear.
 	}
-	\label{fig:paperdiff_pages}
+	\label{fig:diff_pages}
 \end{figure}
 
 \begin{figure}
@@ -77,9 +84,19 @@ This layout type is known as YODA (a recursive acronym for “YODAs Organigram o
 	}
 	\label{fig:topology}
 \end{figure}
+%TODO: add colors to showcase what's actually a git submodule from somewhere else.
 
 Notably, this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
 Within the context of container usage, this affords the advantage of keeping the data packages separate and not adding their disk space requirements to those of the container image.
 
-In this novel repository structure, external components of the article are managed as Git submodules, with data sumbodules being handled by git-annex, a versioning technology suitable for binary files, and made accessible via datalad. 
+In this novel repository structure, external components of the reexecution study are managed as Git submodules, with data sumbodules being handled by git-annex, a versioning technology suitable for binary files, and made accessible via DataLad.
+Notably, the article source code itself is not duplicated or furhter edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repostitory.
 
+%TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
+
+\subsection{Resource Refinement}
+
+As a notable step in our automated full article reproduction effort, we have updated resources previously only available as tarballs (i.e. compressed \texttt{tar} archives), to DataLad.
+This refinement permits both easier integration with the parent article reproduction repository for version tracking purposes.
+In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05}  `Make` system.
+In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Templates now publishes tarballs, as well as DataLad-accessible unarchived individual template files.

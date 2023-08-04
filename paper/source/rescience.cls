@@ -25,7 +25,7 @@
 % --- Chymeric Section --------------------------------------------------------
 \RequirePackage{subcaption}
 \RequirePackage{graphicx}
-\usepackage[most]{tcolorbox}
+\RequirePackage{siunitx}
 
 
 % --- Various packages --------------------------------------------------------

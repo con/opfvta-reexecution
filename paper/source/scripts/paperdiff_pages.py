@@ -25,9 +25,9 @@ def colors_from_values(df, column, palette_name):
 
 sns.barplot(data=df,
 	x='Page',
-	y='Pixels Differ [%]',
+	y='Differing Pixels Proportion',
 	palette=colors_from_values(df,
-			    'Pixels Differ [%]',
+			    'Differing Pixels Proportion',
 			    'flare',
 			    ),
 	)

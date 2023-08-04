@@ -5,38 +5,36 @@
 % Describe the containerfile
 % pip freeze
 
-yoh: this could be the section to mention approaches tried but which
-were not taken to lead to what is presented in the results.
-
-that is where to mention/refer to
-
-repronim 5 steps  https://www.repronim.org/5steps.html and
-https://www.sciencedirect.com/science/article/pii/S1053811922007388
+%yoh: this could be the section to mention approaches tried but which were not taken to lead to what is presented in the results.
+% repronim 5 steps  https://www.repronim.org/5steps.html and
+% https://www.sciencedirect.com/science/article/pii/S1053811922007388
+%chr: I think that would be better mentioned in the discussion.
 
 \subsection{Data Acquisition}
 
-No new data was recorded, we have reused the data collected for [the
-original paper][horea-paper].
-
-TODO(Brief summary of data collection methods in original paper)
-yoh: I would not bother -- just refer to original paper
-
-TODO(How the data was stored and how we got it)
-yoh: exactly -- let's describe how we acquired'' data from original
-resources: tarballs etc, placed into datalad datasets.  refer where
-possible to the handbook.
+No new animal data was recorded.
+The data forming the substrate for the reproduction analysis was produced by extracting the output \texttt{article.pdf} file from the Novel Worlflow Reexecution.
 
 \subsection{Computing Environments}
+Article reexecution was performed on a Debian 6.1.8-1 (2023-01-29) system using the \texttt{x86\_64} architecture, inside containers handled by Podman version \texttt{4.3.1}.
+%TODO Things other than Podman we should mention?
 
-\subsection{YODA}
+\subsection{Data Sources}
+The raw data for the article was sourced in BIDS form from Zenodo, an open data repository, via the identifier specified by the original publication \cite{opfvta_bidsdata}.
+Mouse brain templates were sourced via a Git repository, “Mouse Brain Templates”, which was updated to allow individual file fetching as part of this study \cite{mbt10}.
 
-yoh: to bind it all up
+%\subsection{YODA}
+%yoh: to bind it all up
+%TODO: not sure what we should do with YODA here, if it's an established concept, better introduce it in the background, or if we made a contribution by implementing it at the whole-article level, it should go under results.
 
-\subsection{Provenance}
 
-datalad run/containers-run
+% TODO(How the data was stored and how we got it)
+% yoh: exactly -- let's describe how we acquired'' data from original
+% resources: tarballs etc, placed into datalad datasets.  refer where
+% possible to the handbook.
 
-\subsection{Paper figure reproducibility aspects}
 
-pointers to the Horea's setups etc. How used here... containers for
-the paper etc, github etc
+%\subsection{Provenance}
+%
+%datalad run/containers-run
+%TODO: not sure what to do with this — is this anything beyond what we cover in Data Sources
