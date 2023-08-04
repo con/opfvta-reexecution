@@ -53,8 +53,8 @@ figs/diff_fig.pdf: data/paperdiff.pdf
 figs/diff_text.pdf: data/paperdiff.pdf
 	cd scripts; ./diff_text.sh
 
-figs/paperdiff_pages.pdf: data/paperdiff.csv
-	cd scripts; python paperdiff_pages.py
+figs/diff_pages.pdf: data/paperdiff.csv
+	cd scripts; python diff_pages.py
 
 figs/topology.pdf: data/topology.dot
 	cd data; dot -Tpdf topology.dot -o ../figs/topology.pdf 2>| topology.log
