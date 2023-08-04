@@ -98,7 +98,9 @@ analysis-oci-image:
 		-t ${FQDN_IMAGE}
 
 analysis-singularity-image:
-	$(SING_BINARY) build opfvta.sing docker://${FQDN_IMAGE}
+	datalad install code/images/opfvta-singularity
+	rm code/images/opfvta-singularity/opfvta.sing
+	$(SING_BINARY) build code/images/opfvta-singularity/opfvta.sing docker://${FQDN_IMAGE}
 
 # Build latex environment container
 latex-oci-image:
