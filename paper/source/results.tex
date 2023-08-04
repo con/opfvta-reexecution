@@ -21,7 +21,13 @@ Reproduction differences between the article versions can best be inspected at a
 This overview shows a consistent minimum baseline of differences, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 9.
 When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the Novel Workflow Reexecution (2023-..).
 While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
-The linear colour map of \cref{fig:diff_pages}.
+The perceptually uniform linear colour map of \cref{fig:diff_pages} further indicates a natural categorization of pages by difference — orange as opposed to purple ranges.
+Upon inspection these categories reveal themselves as corresponding to text differences (orange, e.g. the aforementioned \cref{fig:diff_date} and \cref{fig:diff_text}) and image differences (purple, e.g. \cref{fig:diff_fig}).
+
+We individually examined the highest-difference pages in both categories, 4 and 14, and showcase excerpts of article elements driving the difference in \cref{fig:diff_text} and \cref{fig:diff_fig}, respectively.
+Notably, we find that text differences are well localized, as a function of fixed decimal rounding for statistical outputs, whereby changes in the value do not significantly impact text length and do not get recorded as false positives on subsequent lines.
+In particular, this is also true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements, as long as magnitude notation is used.
+
 
 Overall, inspecting the differences reveals a strong coherence at the qualitative but not at the quantitative level.
 This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
@@ -36,7 +42,7 @@ Quantitative incoherence is in the form of numerical variability of automaticall
 			\includegraphics[width=0.48\textwidth]{figs/diff_date}
 			}
 		\caption{
-			The date change is correctly identified throughout the document.
+			The date change is correctly identified throughout the document, as seen in this example from page 1 of the article.
 		}
 		\label{fig:diff_date}
 	\end{subfigure}
@@ -47,7 +53,7 @@ Quantitative incoherence is in the form of numerical variability of automaticall
 			\includegraphics[width=0.48\textwidth]{figs/diff_text}
 			}
 		\caption{
-			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds.
+			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds, as seen in this example from page 4 of the article.
 		}
 		\label{fig:diff_text}
 	\end{subfigure}
@@ -59,7 +65,7 @@ Quantitative incoherence is in the form of numerical variability of automaticall
 			\includegraphics[width=0.8\textwidth]{figs/diff_fig}
 			}
 		\caption{
-			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance.
+			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance, as seen in this example from page 14 of the article.
 		}
 		\label{fig:diff_fig}
 	\end{subfigure}
