@@ -13,6 +13,12 @@ IMAGE_TAG=2.0.0-alpha
 FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
 FQDN_LATEX_IMAGE=${REGISTRY}/${REPOSITORY}/${LATEX_IMAGE_NAME}:${LATEX_TAG}
 
+# PATH for scratch directory for intermidiate results etc
+SCRATCH_PATH=/dartfs-hpc/scratch/${USER}
+
+OCI_BINARY=docker
+SING_BINARY=singularity
+
 DISTFILE_CACHE_CMD :=
 
 check_defined = \
@@ -33,58 +39,37 @@ endif
 all:
 	@echo "Invoking default rule, which will just attempt to build the paper "
 	@echo "without redoing the analysis.  If you would like to redo the entire "
-	@echo "analysis, run  make oci-run  or make apptainer-run.  Please check "
-	@echo "README.md for more information."
+	@echo "analysis, run  make analysis-oci or some other analysis-* flavor (check Makefile). "
+	@echo "See README.md for more information."
 	$(MAKE) article
 
-.PHONY: article
-article:
-	$(MAKE) -C paper/source
-
-oci-build:
-	podman build . $(DISTFILE_CACHE_CMD) \
-		-f code/images/Containerfile \
-		-t ${FQDN_IMAGE}
-
-build-latex:
-	podman build . $(DISTFILE_CACHE_CMD) \
-		-f code/images/Containerfile.latex \
-		-t ${FQDN_LATEX_IMAGE}
-
-push:
-	podman push ${FQDN_IMAGE}
-
-push-latex:
-	podman push ${FQDN_LATEX_IMAGE}
-
-reproman-run-apptainer:
-	reproman run -r discovery --sub slurm --orc datalad-no-remote \
+#
+# Data analysis
+#
+analysis-reproman:
+	reproman run \
+		-r discovery --sub slurm --orc datalad-no-remote \
 		--jp num_processes=16 \
 		--jp num_nodes=1 \
 		--jp walltime=120:00:00 \
-		make sing-run
+		make analysis-singularity
 
-apptainer-run:
-	singularity run \
+analysis-singularity:
+	set -eu
+	[ -n "${USER}" ]  # ATM SCRATCH_PATH above relies on $USER being defined 
+	mkdir -p $(SCRATCH_PATH)
+	$(SING_BINARY) run \
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-B ${PWD}/outputs/:/outputs \
-		-B /dartfs-hpc/scratch/f006rq8:/scratch \
+		-B $(SCRATCH_PATH):/scratch \
 		-B ${PWD}/code/:/opt/src/ \
 		--pwd /opt/src/ \
 		code/images/opfvta-singularity/opfvta.sing \
 		./produce-analysis.sh
 
-apptainer-build:
-	singularity build opfvta.sing docker://${FQDN_IMAGE}
-
-populate-data:
-	datalad get inputs/mouse-brain-templates/mouse-brain-templates/abi2dsurqec_40micron_annotation.nii inputs/mouse-brain-templates/mouse-brain-templates/abi2dsurqec_40micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/abi_40micron_annotation.nii inputs/mouse-brain-templates/mouse-brain-templates/abi_40micron_average.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_40micron.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron_labels.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_40micron.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_40micron.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_40micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_40micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/abi_200micron_average.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_200micron.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron.nii inputs/mouse-brain-templates/mouse-brain-templates/dsurqec_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_200micron.nii inputs/mouse-brain-templates/mouse-brain-templates/lambmc_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_200micron_masked.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_200micron_mask.nii inputs/mouse-brain-templates/mouse-brain-templates/ldsurqec_200micron_roi-dr.nii inputs/mouse-brain-templates/mouse-brain-templates/ambmc2dsurqec_15micron_masked.obj
-	datalad get inputs/opfvta_bidsdata
-	datalad get code/images/opfvta-singularity
-
-oci-run:
-	docker run \
+analysis-oci:
+	$(OCI_BINARY) run \
 		-it \
 		--rm \
 		-v ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
@@ -94,3 +79,46 @@ oci-run:
 		-v ${PWD}/code/:/opt/src/ \
 		${FQDN_IMAGE} \
 		./produce-analysis.sh
+
+#
+# Paper build
+#
+.PHONY: article
+article:
+	$(MAKE) -C paper/source
+
+
+#
+# Containers management. oci- for Open Container Initiative
+#
+# Build data analysis container
+analysis-oci-image:
+	$(OCI_BINARY) build . $(DISTFILE_CACHE_CMD) \
+		-f code/images/Containerfile \
+		-t ${FQDN_IMAGE}
+
+analysis-singularity-image:
+	$(SING_BINARY) build opfvta.sing docker://${FQDN_IMAGE}
+
+# Build latex environment container
+latex-oci-image:
+	$(OCI_BINARY) build . $(DISTFILE_CACHE_CMD) \
+		-f code/images/Containerfile.latex \
+		-t ${FQDN_LATEX_IMAGE}
+
+# Push containers
+analysis-oci-push:
+	$(OCI_BINARY) push ${FQDN_IMAGE}
+
+latex-oci-push:
+	$(OCI_BINARY) push ${FQDN_LATEX_IMAGE}
+
+
+#
+# Aux rules
+#
+get-data:
+	cat inputs.txt | xargs datalad get
+	datalad get inputs/opfvta_bidsdata
+	datalad get code/images/opfvta-singularity
+
