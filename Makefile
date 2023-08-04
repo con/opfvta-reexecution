@@ -28,6 +28,19 @@ else
     DISTFILE_CACHE_CMD =-v $(DISTFILE_CACHE_PATH):/var/cache/distfiles 
 endif
 
+
+.PHONY: all
+all:
+	@echo "Invoking default rule, which will just attempt to build the paper "
+	@echo "without redoing the analysis.  If you would like to redo the entire "
+	@echo "analysis, run  make oci-run  or make apptainer-run.  Please check "
+	@echo "README.md for more information."
+	$(MAKE) article
+
+.PHONY: article
+article:
+	$(MAKE) -C paper/source
+
 oci-build:
 	podman build . $(DISTFILE_CACHE_CMD) \
 		-f code/images/Containerfile \
