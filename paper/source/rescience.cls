@@ -26,6 +26,7 @@
 \RequirePackage{subcaption}
 \RequirePackage{graphicx}
 \RequirePackage{siunitx}
+\RequirePackage{cleveref}
 
 
 % --- Various packages --------------------------------------------------------

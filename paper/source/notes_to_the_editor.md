@@ -7,4 +7,5 @@ We would like to recommend a few improvements in your template which we feel wou
 
 1. Consider importing the `siunitx` package by default. Inlining measurement units in text mode provides inadequate spacing and can lead to chaotic unit assignments withing (and perhaps of greater concern for you) between articles.
 2. Consider providing an `article.tex` file which simply includes other `*.tex` files for respective sections. This allows authors to more easily compartmentalize their work, and also allows you to better encourage authors to use predefined sections.
+3. Consider changing the citation style to either numbered, or auto-generated superscript. Currently vanilla `supercite` uses the bibliography shorthand, which, particularly in the world of software, and particularly for references authors might use often, is frequently just a shorthand or the name of the package, as opposed to AuthorYear, and thus looks either crypthic or repetitive, barring authors editing their bibliography shorthands.
 99. For points not otherwise mentioned, please inspect the sections in `rescience.cls` and `header/common.tex` labelled “Chymeric”.
