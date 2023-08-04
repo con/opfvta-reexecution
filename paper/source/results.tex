@@ -5,18 +5,6 @@
 
 \section{Reproduction}
 
-We compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and the Novel Workflow Reexecution.
-Reproduction differences between the article versions can best be inspected at a glance by evaluating the page-wise PDF difference (\ref{fig:diff_pages}).
-This overview shows a consistent minimum baseline of differences, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 9.
-When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the Novel Workflow Reexecution (2023-..).
-While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
-The linear colour map of \cref{fig:diff_pages}
-
-Overall, inspecting the differences reveals a strong coherence at the qualitative but not at the quantitative level.
-This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
-Quantitative incoherence is in the form of numerical variability of automatically generated metrics in the article text (\ref{fig:diff_text}), variability of sample distributions (\ref{fig:diff_fig}), as well as expected and predictable metadata changes (\ref{fig:diff_date}).
-
-
 \begin{figure}
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages}
@@ -27,6 +15,18 @@ Quantitative incoherence is in the form of numerical variability of automaticall
 	}
 	\label{fig:diff_pages}
 \end{figure}
+
+We compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and the Novel Workflow Reexecution.
+Reproduction differences between the article versions can best be inspected at a glance by evaluating the page-wise PDF difference (\ref{fig:diff_pages}).
+This overview shows a consistent minimum baseline of differences, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 9.
+When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the Novel Workflow Reexecution (2023-..).
+While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
+The linear colour map of \cref{fig:diff_pages}.
+
+Overall, inspecting the differences reveals a strong coherence at the qualitative but not at the quantitative level.
+This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
+Quantitative incoherence is in the form of numerical variability of automatically generated metrics in the article text (\ref{fig:diff_text}), variability of sample distributions (\ref{fig:diff_fig}), as well as expected and predictable metadata changes (\ref{fig:diff_date}).
+
 
 \begin{figure}
 	\centering

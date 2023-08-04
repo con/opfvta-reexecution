@@ -22,13 +22,6 @@
 \RequirePackage[american]{babel}
 
 
-% --- Chymeric Section --------------------------------------------------------
-\RequirePackage{subcaption}
-\RequirePackage{graphicx}
-\RequirePackage{siunitx}
-\RequirePackage{cleveref}
-
-
 % --- Various packages --------------------------------------------------------
 \RequirePackage{ifthen}
 \RequirePackage{tabularx}
@@ -40,6 +33,7 @@
 % --- Mathematics -------------------------------------------------------------
 \RequirePackage{amsmath}
 \RequirePackage{mathtools}
+
 
 % --- Page layout -------------------------------------------------------------
 \RequirePackage[a4paper]{geometry}
@@ -296,6 +290,12 @@
 \cfoot{}
 \rfoot{\scriptsize \sffamily \thepage}
 
+
+% --- Chymeric Section --------------------------------------------------------
+\RequirePackage{subcaption}
+\RequirePackage{graphicx}
+\RequirePackage{siunitx}
+\RequirePackage{cleveref}
 
 % --- Bibliography ------------------------------------------------------------
 \RequirePackage[
