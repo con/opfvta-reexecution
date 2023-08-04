@@ -2,7 +2,13 @@
 % What we accomplihesd, everything which we created, invented, etc. should preferentially go here.
 % Descriptive, opinions either absent, or as objective-ish comments when facts are stated.
 % Should, could, might, etc. sparingly and ideally not here but in discussion.
-We compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and the Novel Workflow Reexecution, and find strong overall coherence.
+
+\section{Reproduction}
+
+We compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and the Novel Workflow Reexecution, and find strong overall coherence at the qualitative but not at the quantitative level.
+This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
+Quantitative incoherence is in the form of numerical variability of automatically generated metrics in the article text (\ref{fig:diff_text}), variability of sample distributions (\ref{fig:diff_fig}), as well as expected and predictable metadata changes (\ref{fig:diff_date}).
+
 
 \begin{figure}
 	\centering
@@ -17,39 +23,44 @@ We compare the difference between the Historical Manuscript Record — a product
 
 \begin{figure}
 	\centering
-	\begin{subfigure}{0.4\textwidth}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 		\tcbox{
-			\includegraphics[clip,width=0.48\textwidth]{figs/diff_date}
+			\includegraphics[width=0.48\textwidth]{figs/diff_date}
 			}
 		\caption{
-			Subcaption 1
+			The date change is correctly identified throughout the document.
 		}
 		\label{fig:diff_date}
 	\end{subfigure}
 	\hfill
-	\begin{subfigure}{0.4\textwidth}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
 		\tcbox{
-			\includegraphics[clip,width=0.48\textwidth]{figs/diff_text}
+			\includegraphics[width=0.48\textwidth]{figs/diff_text}
 			}
 		\caption{
-			Subcaption 2
+			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds.
 		}
 		\label{fig:diff_text}
 	\end{subfigure}
 	\\
 	\vspace{1em}
 	\begin{subfigure}{0.99\textwidth}
+		\centering
 		\tcbox{
-			\includegraphics[clip,width=0.8\textwidth]{figs/diff_fig}
+			\includegraphics[width=0.8\textwidth]{figs/diff_fig}
 			}
 		\caption{
-			Subcaption 3
+			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance.
 		}
 		\label{fig:diff_fig}
 	\end{subfigure}
 	\caption{
-		\textbf{The article difference showcases }
+		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
+		The figures are extracted from a full article \texttt{diff}, with hue-shifted highlighting (red for the Historical Manuscript Record, and blue for the Novel Workflow Reexecution).
 	}
+	\label{fig:diff}
 \end{figure}
 
 
