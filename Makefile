@@ -14,7 +14,7 @@ FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
 FQDN_LATEX_IMAGE=${REGISTRY}/${REPOSITORY}/${LATEX_IMAGE_NAME}:${LATEX_TAG}
 
 # PATH for scratch directory for intermidiate results etc
-SCRATCH_PATH=/dartfs-hpc/scratch/${USER}
+SCRATCH_PATH := $(shell echo $(SCRATCH_PATH))
 
 OCI_BINARY=docker
 SING_BINARY=singularity
@@ -46,6 +46,7 @@ all:
 #
 # Data analysis
 #
+#SCRATCH_PATH?=/dartfs-hpc/scratch/$(USER)
 analysis-reproman:
 	reproman run \
 		-r discovery --sub slurm --orc datalad-no-remote \
@@ -54,9 +55,15 @@ analysis-reproman:
 		--jp walltime=120:00:00 \
 		make analysis-singularity
 
+#$(eval if [[ -z "$SCRATCH_PATH" ]]; then SCRATCH_PATH="/home/user/$(USER)/.scratch"; fi)
+#$(eval SCRATCH_PATH?="/home/user/$(USER)/.scratch")
+#$(eval SCRATCH_PATH ?= "/home/user/$(USER)/.scratch")
+#SCRATCH_PATH ?= "/home/user/$(USER)/.scratch"
+#SCRATCH_PATH = $(if $(SCRATCH_PATH),$(SCRATCH_PATH),"/home/user/$(USER)/.scratch")
 analysis-singularity:
 	set -eu
-	[ -n "${USER}" ]  # ATM SCRATCH_PATH above relies on $USER being defined 
+	$(if $(USER),,$(error USER is not defined and currently required for the SCRATCH_PATH variable))
+	@echo "Selected SCRATCH_PATH $(SCRATCH_PATH)"
 	mkdir -p $(SCRATCH_PATH)
 	$(SING_BINARY) run \
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
