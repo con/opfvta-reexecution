@@ -6,11 +6,12 @@ the [TODO original cite].
 
 ## How to clone this repository
 
-This repository (and all yoda-style repos) contain.
-submodules/subdatasets.
+This repository (and all yoda-style repos) contain submodules/subdatasets, which should be installed alongside the parent repository:
 
-`datalad install -r https://github.com/con/opfvta-replication-2023.git`
-`cd opfvta-replication-2023`
+```console
+datalad install -r https://github.com/con/opfvta-replication-2023.git
+cd opfvta-replication-2023
+```
 
 Some of the subdatasets/submodules are git-annex enabled, which means
 that we can use datalad to retrieve the files (which are just
