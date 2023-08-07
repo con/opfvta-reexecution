@@ -29,17 +29,17 @@ The reexecution process in this effort relies on an emerging infrastructure stan
 \subsection{Data Analysis}
 
 One of the hallmarks of scientific data analysis is its intricacy — resulting from the multifaceted confounds which need to be accounted for, as well as from the breadth of questions which extant tools need to be adapted in order to address.
-Data analysis, can be subdivided into data preprocessing and data evaluation.
+Data analysis, can be subdivided into \emph{data preprocessing} and \emph{data evaluation}.
 The former consists of data cleaning, reformatting, standardization, and sundry processes required for data to be suitable for evaluation.
-Data evaluation consists of various types of modelling, usually applied in sequence at various hierarchical steps.
+Data evaluation consists of various types of modeling, usually applied in sequence at various hierarchical steps.
 
-In the general case of stimulus-evoked neuroimaging analysis, as seen in the OPFVTA article, data evaluation is commonly subdivided into “level one” (i.e. within-subject) analysis, and “level two” (i.e. across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \supercite{Friston1995}.
-In effect, these modelling steps usually represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
+In the general case of stimulus-evoked neuroimaging analysis, as seen in the OPFVTA article, data evaluation is commonly subdivided into “level one” (i.e., within-subject) analysis, and “level two” (i.e., across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \supercite{Friston1995}.
+In effect, these modeling steps usually represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
 
 Computationally, the various steps of a data analysis pipeline are sharply distinguished by their time cost.
 By far the most expensive element in the aforementioned reference pipeline is a substage of data preprocessing known as registration.
 This commonly relies on iterative gradient descent and can additionally require high-density sampling depending on the feature density of the data.
-The second most costly step is the first-level GLM, the cost of which is mostly due to the high number of voxels modelled individually for each subject.
+The second most costly step is the first-level GLM, the cost of which is mostly due to the high number of voxels modeled individually for each subject.
 
 The impact of these time costs on reexecution is that rapid-feedback development and debugging can be compromised if the reexecution is monolithic.
 While ascertaining the effect of changes in the registration instructions on the final result unavoidably necessitate the reexecution of the entire pipeline, editing natural-language commentary in the article text, or adapting figure styles, should not.
@@ -47,6 +47,8 @@ To this end the reference article of this study employs a hierarchical Bash-scri
 The nomenclature to distinguish these two phases is “high-iteration” and “low-iteration” \supercite{repsep}.
 
 Analysis dependency tracking, which is to say monitoring whether files required for the next hierarchical step have changed — and thus whether that step needs to be re-executed — is handled for high-iteration analysis script via the RepSeP infrastructure, but not for the low-iteration script.
+
+\textbf{TODO: concentrate on specifics of this study.  May be state why some existing more popular apps, like fmriprep, were not used; What was used instead}
 
 
 \subsection{Software Dependency Management}
@@ -62,7 +64,7 @@ This format is analogous to the format used to specify dependencies at all furth
 This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \supercite{pms}.
 Additionally, the reference article contextualizes its raw data origin point as a dependency, providing provenance tracking in the same fashion as for software.
 
-While the top-level Ebuild (i.e. the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the Ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
+While the top-level Ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the Ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
 These repositories are version controlled, meaning that their state at any time point is documented, and they can thus be restored to represent the environment as it would have been generated at any point in the past.
 
 \subsection{Containers}
