@@ -13,8 +13,11 @@ IMAGE_TAG=2.0.0-alpha
 FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
 FQDN_LATEX_IMAGE=${REGISTRY}/${REPOSITORY}/${LATEX_IMAGE_NAME}:${LATEX_TAG}
 
-# PATH for scratch directory for intermidiate results etc
-SCRATCH_PATH := $(shell echo $(SCRATCH_PATH))
+# PATH for scratch directory storing intermidiate results etc; sensible default if unset:
+ifeq ($(SCRATCH_PATH),)
+	SCRATCH_PATH = /home/$(USER)/.scratch
+endif
+
 
 OCI_BINARY=docker
 SING_BINARY=singularity
@@ -46,7 +49,6 @@ all:
 #
 # Data analysis
 #
-#SCRATCH_PATH?=/dartfs-hpc/scratch/$(USER)
 analysis-reproman:
 	reproman run \
 		-r discovery --sub slurm --orc datalad-no-remote \
@@ -55,15 +57,18 @@ analysis-reproman:
 		--jp walltime=120:00:00 \
 		make analysis-singularity
 
+# These don't work:
+#SCRATCH_PATH?=/dartfs-hpc/scratch/$(USER)
 #$(eval if [[ -z "$SCRATCH_PATH" ]]; then SCRATCH_PATH="/home/user/$(USER)/.scratch"; fi)
 #$(eval SCRATCH_PATH?="/home/user/$(USER)/.scratch")
 #$(eval SCRATCH_PATH ?= "/home/user/$(USER)/.scratch")
 #SCRATCH_PATH ?= "/home/user/$(USER)/.scratch"
 #SCRATCH_PATH = $(if $(SCRATCH_PATH),$(SCRATCH_PATH),"/home/user/$(USER)/.scratch")
+
 analysis-singularity:
 	set -eu
 	$(if $(USER),,$(error USER is not defined and currently required for the SCRATCH_PATH variable))
-	@echo "Selected SCRATCH_PATH $(SCRATCH_PATH)"
+	@echo "Selected \`SCRATCH_PATH\` $(SCRATCH_PATH). You may want to customize this by setting it on the command line, after the make command, i.e. \`make SCRATCH_PATH=... target\`."
 	mkdir -p $(SCRATCH_PATH)
 	$(SING_BINARY) run \
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
