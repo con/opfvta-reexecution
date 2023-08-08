@@ -50,6 +50,19 @@ Run `datalad get .` for each git-annex enabled repository below:
 <!-- `pip install datalad-osf` -->
 <!-- `datalad clone https://finalpushtoOSF -->
 
+## How to re-run
+
+**Note:** if `SCRATCH_PATH` variable is not provided to `make` invocation,
+the folder `scratch/` will contain all intermediate results (around 400GB) but they would
+not be committed to git or git-annex due to `scratch/.gitignore`.  If you do not have
+sufficient space locally, point it somewhere else.
+
+### Everything including paper building
+
+```bash
+make all
+```
+
 ## How to build and use the images
 
 ### Analysis image
@@ -68,7 +81,7 @@ values are what we used). Then the OCI image can be built with:
 The OCI container can be run with the following command.
 We require the scratch directory to be explicitly specified, as it will end up containing large amounts of data (in excess of 200 GB), and any default might accidentally clutter a difficult to locate directory.
 
-`OPFVTA_SCRATCH_DIR="/your/cache/dir" make oci-run`
+`make oci-run`
 
 The container image can be pushed to a container registry:
 

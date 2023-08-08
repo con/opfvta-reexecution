@@ -13,11 +13,11 @@ IMAGE_TAG=2.0.0-alpha
 FQDN_IMAGE=${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}:${IMAGE_TAG}
 FQDN_LATEX_IMAGE=${REGISTRY}/${REPOSITORY}/${LATEX_IMAGE_NAME}:${LATEX_TAG}
 
-# PATH for scratch directory storing intermidiate results etc; sensible default if unset:
+# PATH for scratch directory storing intermidiate results etc;
+# By default -- all data including intermediate results are under this folder (YODA!)
 ifeq ($(SCRATCH_PATH),)
-	SCRATCH_PATH = /home/$(USER)/.scratch
+	SCRATCH_PATH = $(PWD)/scratch
 endif
-
 
 OCI_BINARY=docker
 SING_BINARY=singularity
@@ -87,7 +87,7 @@ analysis-oci:
 		-v ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-v ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-v ${PWD}/outputs/:/outputs \
-		-v ${OPFVTA_SCRATCH_DIR}:/root/.scratch \
+		-v ${SCRATCH_PATH}:/root/.scratch \
 		-v ${PWD}/code/:/opt/src/ \
 		${FQDN_IMAGE} \
 		./produce-analysis.sh
