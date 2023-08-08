@@ -131,9 +131,15 @@ latex-oci-push:
 #
 # Aux rules
 #
+# Fix and test this
 submodule-data:
+	datalad get inputs/mouse-brain-templates
 	cat inputs.txt | xargs datalad get
 	datalad get inputs/opfvta_bidsdata
+	datalad get inputs/opfvta_bidsdata/*
 	datalad get code/images/opfvta-singularity
+	datalad get code/images/opfvta-singularity/*
 	datalad get code/opfvta
+	datalad get code/opfvta/*
+
 
