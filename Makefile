@@ -74,7 +74,7 @@ analysis-singularity:
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-B ${PWD}/outputs/:/outputs \
-		-B $(SCRATCH_PATH):/scratch \
+		-B $(SCRATCH_PATH):/home/$(USER)/.scratch/ \
 		-B ${PWD}/code/:/opt/src/ \
 		--pwd /opt/src/ \
 		code/images/opfvta-singularity/opfvta.sing \
