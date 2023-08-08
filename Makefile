@@ -90,6 +90,7 @@ analysis-oci:
 		-v ${PWD}/outputs/:/outputs \
 		-v ${SCRATCH_PATH}:/root/.scratch \
 		-v ${PWD}/code/:/opt/src/ \
+		--workdir /opt/src \
 		${FQDN_IMAGE} \
 		./produce-analysis.sh
 
