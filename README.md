@@ -13,9 +13,12 @@ datalad install -r https://github.com/con/opfvta-replication-2023.git
 cd opfvta-replication-2023
 ```
 
-Some of the subdatasets/submodules are git-annex enabled, which means
-that we can use datalad to retrieve the files (which are just
-references, no "bits").
+Additionally, for OPFVTA article re-execution, the data contained in the submodules needs to be fetched:
+
+```console
+make submodule-data
+```
+
 
 TMP: Add smaug remote (need access):
 
