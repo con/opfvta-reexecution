@@ -71,10 +71,11 @@ analysis-singularity:
 	@echo "Selected \`SCRATCH_PATH\` $(SCRATCH_PATH). You may want to customize this by setting it on the command line, after the make command, i.e. \`make SCRATCH_PATH=... target\`."
 	mkdir -p $(SCRATCH_PATH)
 	$(SING_BINARY) run \
+		-e --no-home \
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
 		-B ${PWD}/outputs/:/outputs \
-		-B $(SCRATCH_PATH):/home/$(USER)/.scratch/ \
+		-B $(SCRATCH_PATH):$(HOME)/.scratch/ \
 		-B ${PWD}/code/:/opt/src/ \
 		--pwd /opt/src/ \
 		code/images/opfvta-singularity/opfvta.sing \
