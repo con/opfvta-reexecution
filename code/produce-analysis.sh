@@ -9,7 +9,7 @@ OUTDIR="../outputs/${MYDATE}"
 # For some reason entering the image we have doesn't load them automagically.
 source /etc/profile
 
-cd $(dirname $0)
+cd "$(dirname "$0")"
 pushd opfvta
   make data --always-make
   # This would build the original paper, not our paper
