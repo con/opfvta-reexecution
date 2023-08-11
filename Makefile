@@ -72,13 +72,12 @@ analysis-singularity:
 	mkdir -p $(SCRATCH_PATH)
 	$(SING_BINARY) run \
 		-e --no-home \
+		-B ${PWD}:/opt \
 		-B ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-B ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
-		-B ${PWD}/outputs/:/outputs \
 		-B $(SCRATCH_PATH):$(HOME)/.scratch/ \
-		-B ${PWD}/code/:/opt/src/ \
 		-B ${PWD}/code/empty:/opfvta/ \
-		--pwd /opt/src/ \
+		--pwd /opt/code \
 		code/images/opfvta-singularity/opfvta.sing \
 		./produce-analysis.sh
 
@@ -86,13 +85,12 @@ analysis-oci:
 	$(OCI_BINARY) run \
 		-it \
 		--rm \
+		-v ${PWD}:/opt \
 		-v ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
 		-v ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
-		-v ${PWD}/outputs/:/outputs \
 		-v ${SCRATCH_PATH}:/root/.scratch \
-		-v ${PWD}/code/:/opt/src/ \
 		-v ${PWD}/code/empty:/opfvta/ \
-		--workdir /opt/src \
+		--workdir /opt/code \
 		${FQDN_IMAGE} \
 		./produce-analysis.sh
 
