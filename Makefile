@@ -77,6 +77,7 @@ analysis-singularity:
 		-B ${PWD}/outputs/:/outputs \
 		-B $(SCRATCH_PATH):$(HOME)/.scratch/ \
 		-B ${PWD}/code/:/opt/src/ \
+		-B ${PWD}/code/empty:/opfvta/ \
 		--pwd /opt/src/ \
 		code/images/opfvta-singularity/opfvta.sing \
 		./produce-analysis.sh
@@ -90,6 +91,7 @@ analysis-oci:
 		-v ${PWD}/outputs/:/outputs \
 		-v ${SCRATCH_PATH}:/root/.scratch \
 		-v ${PWD}/code/:/opt/src/ \
+		-v ${PWD}/code/empty:/opfvta/ \
 		--workdir /opt/src \
 		${FQDN_IMAGE} \
 		./produce-analysis.sh
