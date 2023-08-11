@@ -1,0 +1,1 @@
+Just to have "empty" folder which we will bind mount to ensure masking out of the contained in the container stuff.
