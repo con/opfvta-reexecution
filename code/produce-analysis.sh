@@ -2,18 +2,20 @@
 
 set -eu
 
+MYDATE=$(date +%Y%m%d%H%M%S)
+OUTDIR="../outputs/${MYDATE}"
+
+# To ensure that we have all environment variables from neuroscience packages loaded.
+# For some reason entering the image we have doesn't load them automagically.
 source /etc/profile
 
-pushd /opt/src/opfvta
+cd $(dirname $0)
+pushd opfvta
   make data --always-make
   # This would build the original paper, not our paper
   make all
 popd
 
-MYDATE=$(date +%Y%m%d%H%M%S)
-
-OUTDIR="/outputs/${MYDATE}"
 mkdir -p "${OUTDIR}/data"
-
-mv /opt/src/opfvta/data/* "${OUTDIR}/data"
-mv /opt/src/opfvta/article.pdf "${OUTDIR}"
+mv opfvta/data/* "${OUTDIR}/data"
+mv opfvta/article.pdf "${OUTDIR}"
