@@ -12,8 +12,8 @@ source /etc/profile
 cd "$(dirname "$0")"
 pushd opfvta
   make data --always-make
-  # This would build the original paper, not our paper
-  make all
+  # This would build the original article, not our article
+  make article.pdf
 popd
 
 mkdir -p "${OUTDIR}/data"
