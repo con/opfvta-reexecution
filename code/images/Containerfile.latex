@@ -11,5 +11,8 @@ RUN apt-get update -q && apt-get install -qy \
 RUN tlmgr install \
 	sourceserifpro
 
+RUN wget https://github.com/vslavik/diff-pdf.git
+RUN cd diff-pdf; ./bootstrap; ./configure; make; make install
+
 ENV HOME /data
 WORKDIR /data
