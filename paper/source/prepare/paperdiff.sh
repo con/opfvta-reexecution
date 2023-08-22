@@ -19,4 +19,3 @@ for i in "${SINGULARITY_LAST_REEXECUTIONS[@]}"; do
 	diff-pdf --output-diff="../data/paperdiff_${this_execution}.pdf" -v ../../../outputs/original/article.pdf "${i}" > "../data/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
 
 done
-
