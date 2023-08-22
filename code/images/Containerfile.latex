@@ -11,8 +11,14 @@ RUN apt-get update -q && apt-get install -qy \
 RUN tlmgr install \
 	sourceserifpro
 
-RUN wget https://github.com/vslavik/diff-pdf.git
-RUN cd diff-pdf; ./bootstrap; ./configure; make; make install
+#RUN apt-get install -qy \
+#	automake \
+#	wget \
+#	zathura-pdf-poppler
+# RUN git clone https://github.com/vslavik/diff-pdf.git
+#RUN wget https://github.com/vslavik/diff-pdf/archive/refs/tags/v0.5.1.tar.gz; tar xvf v0.5.1.tar.gz
+#RUN cd diff-pdf-0.5.1; ./bootstrap; ./configure; make; make install
+COPY code/bindist/diff-pdf /usr/bin/diff-pdf
 
 ENV HOME /data
 WORKDIR /data
