@@ -97,6 +97,10 @@ analysis-oci:
 #
 # Paper build
 #
+.PHONY: container-article
+container-article:
+	$(MAKE) container-article -C paper/source
+
 .PHONY: article
 article:
 	$(MAKE) -C paper/source

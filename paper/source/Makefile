@@ -9,7 +9,7 @@
 LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.1-alpha
 
 # Common options for podman invocations
-PODMAN_ARGS = --rm  -v "$(PWD)":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
+PODMAN_ARGS = --rm  -v "$()../../":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
 
 SHELL = /bin/bash
 
@@ -74,16 +74,17 @@ container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
 	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article
 
-article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA)
+article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA) data/paperdiff.csv figs/diff_pages.pdf
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
 	# find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
 live:
-	rm -f article.pdf
+	@rm -f article.pdf
+	@rm -f data/paperdiff.log
 	@rm -f data/*.pdf
 	@rm -f figs/*.pdf
 
 clean: live
-	@latexmk -CA
 	@rm -f *.bbl
 	@rm -f *.run.xml
+	@latexmk -CA
