@@ -79,7 +79,7 @@ analysis-singularity:
 		-B ${PWD}/code/empty:/opfvta/ \
 		--pwd /opt/code \
 		code/images/opfvta-singularity/opfvta.sing \
-		./produce-analysis.sh
+		./produce-analysis.sh singularity
 
 analysis-oci:
 	$(OCI_BINARY) run \
@@ -92,7 +92,7 @@ analysis-oci:
 		-v ${PWD}/code/empty:/opfvta/ \
 		--workdir /opt/code \
 		${FQDN_IMAGE} \
-		./produce-analysis.sh
+		./produce-analysis.sh ${OCI_BINARY}
 
 #
 # Paper build
