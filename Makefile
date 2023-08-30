@@ -2,7 +2,7 @@
 # Or its not replicable by others.
 #
 REGISTRY=docker.io
-REPOSITORY=asmacdo
+REPOSITORY=centerforopenneuroscience
 
 LATEX_IMAGE_NAME=latex-biber
 LATEX_TAG=0.0.1-alpha
