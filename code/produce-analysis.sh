@@ -15,9 +15,12 @@ source /etc/profile
 
 cd "$(dirname "$0")"
 pushd opfvta
-  make data --always-make
-  # This would build the original article, not our article
-  make article.pdf
+	# We need to clean the code, because we mount the local copy of the repository.
+	# Thus, re-execution will be blocked by a pre-existing rubber cache from the previous execution.
+	make clean
+	make data --always-make
+	# This would build the original article, not our article
+	make article.pdf
 popd
 
 mkdir -p "${OUTDIR}/data"
