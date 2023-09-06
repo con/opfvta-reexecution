@@ -24,5 +24,8 @@ pushd opfvta
 popd
 
 mkdir -p "${OUTDIR}/data"
-mv opfvta/data/* "${OUTDIR}/data"
+
+# Do not `mv` the contents of “data” since this will lead for missing files for the next re-execution
+# data/features_structural.csv in particular is an operator-specified assignment which should not be removed.
+rsync -avP opfvta/data "${OUTDIR}/data"
 mv opfvta/article.pdf "${OUTDIR}"
