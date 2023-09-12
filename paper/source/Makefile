@@ -39,7 +39,7 @@ metadata.tex: metadata.yaml
 # FIGURES GENERATION RULES
 # -----------------------------------------------------------------------------
 data/paperdiff.log data/paperdiff.pdf:
-	cd prepare; ./paperdiff.sh
+	prepare/paperdiff.sh
 
 data/paperdiff.csv: data/paperdiff.log
 	cd prepare; python paperdiff_parse.py
