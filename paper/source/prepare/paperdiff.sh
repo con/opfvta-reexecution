@@ -1,21 +1,26 @@
 #!/usr/bin/env bash
 
+cd "$(dirname "$0")"
+
 # We can't have `set -eu` since `diff-pdf` returns a non-zero output code for differing PDFs
 set -eu -o pipefail
 
-PODMAN_LAST_REEXECUTIONS=($(ls ../../../outputs/podman_*/article.pdf | tail -2))
-SINGULARITY_LAST_REEXECUTIONS=($(ls ../../../outputs/singularity_*/article.pdf | tail -2))
+OUTPUT_PATH=${OUTPUT_PATH}
+DATA_PATH=${DATA_PATH}
+
+PODMAN_LAST_REEXECUTIONS=($(ls ${OUTPUT_PATH}/podman_*/article.pdf | tail -2))
+SINGULARITY_LAST_REEXECUTIONS=($(ls ${OUTPUT_PATH}/singularity_*/article.pdf | tail -2))
 
 
 for i in "${PODMAN_LAST_REEXECUTIONS[@]}"; do
 	echo "GENERATING DIFF FOR EXECUTION in ${i}:"
 	this_execution=$(echo ${i} | grep -Po '.*outputs/\K[^/]*')
-	diff-pdf --output-diff="../data/paperdiff_${this_execution}.pdf" -v ../../../outputs/original/article.pdf "${i}" > "../data/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
+	diff-pdf --output-diff="${DATA_PATH}/paperdiff_${this_execution}.pdf" -v ${OUTPUT_PATH}/original/article.pdf "${i}" > "${DATA_PATH}/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
 done
 
 for i in "${SINGULARITY_LAST_REEXECUTIONS[@]}"; do
 	echo "GENERATING DIFF FOR EXECUTION in ${i}:"
 	this_execution=$(echo ${i} | grep -Po '.*outputs/\K[^/]*')
-	diff-pdf --output-diff="../data/paperdiff_${this_execution}.pdf" -v ../../../outputs/original/article.pdf "${i}" > "../data/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
+	diff-pdf --output-diff="${DATA_PATH}/paperdiff_${this_execution}.pdf" -v ${OUTPUT_PATH}/original/article.pdf "${i}" > "${DATA_PATH}/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
 
 done
