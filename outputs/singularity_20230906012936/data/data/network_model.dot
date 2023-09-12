@@ -1,0 +1,26 @@
+digraph graphname {
+    newrank=true;
+    rankdir="LR";
+    splines=ortho;
+    graph [fontname = "sans", pad="0.07"];
+    node [fontname = "sans", style=filled];
+    edge [fontname = "sans", color=gray50];
+    a[label="Laser", shape=diamond, fontcolor="#4AA5E0", color="#4AA5E0", fillcolor="#AEEEEE"];
+    b[label="VTA", shape=circle, fontcolor="#FFFFFF", color="#ff6600ff", fillcolor="#ff6600ff"];
+    c[label="\nNucleus Accumbens\n ", shape=box, style="rounded,filled", fontcolor="#000000", color="#ff66006e", fillcolor="#ff66006e"];
+    d[label="\n        medial PFC       \n ", shape=box, style="rounded,filled", fontcolor="#000000", color="#ff66006e", fillcolor="#ff66006e"];
+    e[label="\n      Hippocampus     \n ", shape=box, style="rounded,filled", fontcolor="#000000", color="#ff66006e", fillcolor="#ff66006e"];
+    f[label="\n             ...            \n ", shape=box, style="rounded,filled", fontcolor="#000000", color="#ff66006e", fillcolor="#ff66006e"];
+    a -> b [headlabel=<     u<SUB>1</SUB>>, fontcolor="#4AA5E0", penwidth=2, color="#4AA5E0", labeldistance="2.2"];
+    subgraph cluster1 {
+        b:s -> c:w [headlabel=<u<SUB>2d</SUB>>, penwidth=2, color="#ff6600ff", fontcolor="#ff6600ff"];
+        b -> d [headlabel=<u<SUB>2c</SUB>>, penwidth=2, color="#ff6600ff", fontcolor="#ff6600ff"];
+        b -> e [headlabel=<      u<SUB>2b</SUB>>, penwidth=2, color="#ff6600ff", fontcolor="#ff6600ff", labeldistance="2.9"];
+        b -> f [headlabel=<u<SUB>2a</SUB> >, penwidth=2, color="#ff6600ff", fontcolor="#ff6600ff"];
+        label = "Brain";
+        fontcolor = "#808080ff";
+        color = "#808080ff";
+    style=rounded;
+    }
+    {rank=same; b; f}
+}
