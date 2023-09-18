@@ -68,6 +68,13 @@ were expensive.
       \item Easier and faster to debug and iterate.
       \item Ideally, use images created by the projects with no modifications, i.e., for fmriprep use fmriprep container.
       \item Each container should have a well-defined "input" and "output" so it can be easily spotted which steps have failed.
+      \item Pay attention to user used for invocation of container
+
+        docker -- by default might be root, resultant files would be owned by root, not be able to move etc.
+
+        -e "UID=$(id -u)" -e "GID=$(id -g)"
+
+        and may be `-u` `-g` if used with ``docker''.
     \end{itemize}
   
   \item Separate jobs by participant where possible.
