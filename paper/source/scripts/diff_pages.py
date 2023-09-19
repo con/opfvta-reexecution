@@ -12,6 +12,7 @@ df = pd.read_csv('../data/paperdiff.csv',
 	parse_dates=True,
 	)
 
+df['Environment'] = df['Environment'].str.capitalize()
 
 def colors_from_values(df, column, palette_name):
     values = df[column]
@@ -23,13 +24,27 @@ def colors_from_values(df, column, palette_name):
     palette = sns.color_palette(palette_name, len(values))
     return np.array(palette).take(indices, axis=0)
 
-sns.barplot(data=df,
+#sns.barplot(data=df,
+#	x='Page',
+#	y='Differing Pixels Proportion',
+#	palette=colors_from_values(df,
+#			    'Differing Pixels Proportion',
+#			    'flare',
+#			    ),
+#	)
+
+#sns.stripplot(data=df,
+#	x='Page',
+#	y='Differing Pixels Proportion',
+#	hue='Environment',
+#	dodge=False,
+#	)
+
+sns.pointplot(data=df,
 	x='Page',
 	y='Differing Pixels Proportion',
-	palette=colors_from_values(df,
-			    'Differing Pixels Proportion',
-			    'flare',
-			    ),
+	hue='Environment',
+	dodge=.2,
 	)
 plt.yscale('log')
 
