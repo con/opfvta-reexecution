@@ -8,8 +8,9 @@
 *.out
 __pycache__
 
-# By default no PDF, unless we force it:
+# By default no PDF. List explicitly the ones we like to see committed below
 *.pdf
+!article.pdf
 
 .nfs*
 article.bbl
