@@ -29,6 +29,9 @@ jobs:
       - name: Install Make
         run: sudo apt-get -y install make
 
+      - name: Install Datalad
+        uses: datalad/datalad-action/install@main
+
       - name: Get data from datalad
         run: datalad get outputs/
 
