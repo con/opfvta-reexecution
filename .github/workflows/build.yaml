@@ -38,6 +38,9 @@ jobs:
       - name: Get data from datalad
         run: datalad get outputs/*/article.pdf
 
+      - name: Install pyyaml
+        run: pip install pyyaml
+
       - name: Build container article
         working-directory: paper/source
         run: make container-article
