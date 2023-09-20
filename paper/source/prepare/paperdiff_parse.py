@@ -15,10 +15,11 @@ PARSED_LIST = [
 pixels_total = 8699840
 
 for i in os.listdir(DATADIR):
-    if not i[-3:] == 'log':
+    try:
+        execution_metadata = re.match('^paperdiff_(?P<environment>.+)_(?P<date>.+)\.log$', i).groupdict()
+    except AttributeError:
         continue
     print(f'Processing paperdiff log file `{i}`...')
-    execution_metadata = re.match('^paperdiff_(?P<environment>.+)_(?P<date>.+)\..*$', i).groupdict()
     with open(os.path.join(DATADIR,i)) as f:
         for line in f:
             try:
