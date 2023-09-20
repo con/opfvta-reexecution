@@ -29,6 +29,9 @@ jobs:
       - name: Install Make
         run: sudo apt-get -y install make
 
+      - name: Get data from datalad
+        run: datalad get outputs/
+
       - name: Build container article
         working-directory: paper/source
         run: make container-article
