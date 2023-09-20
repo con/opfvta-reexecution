@@ -6,7 +6,7 @@
 .PHONY: clean
 
 # If executing in a container:
-LATEX_IMAGE=docker.io/asmacdo/latex-biber:0.0.1-alpha
+LATEX_IMAGE=docker.io/centerforopenneuroscience/latex-biber:0.0.1-alpha
 
 # Common options for podman invocations
 PODMAN_ARGS = --rm  -v "$()../../":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
