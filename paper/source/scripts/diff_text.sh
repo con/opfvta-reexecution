@@ -8,7 +8,7 @@ gs \
   -o ../figs/diff_text.pdf \
   -dFirstPage=4 -dLastPage=4 \
   -sDEVICE=pdfwrite \
-  -c "[/CropBox [290 500 560 880]" \
+  -c "[/CropBox [290 540 560 870]" \
   -c " /PAGES pdfmark" \
-  -f ../data/paperdiff.pdf
+  -f ../data/paperdiff_podman_20230906053037.pdf
 
