@@ -25,8 +25,8 @@ make submodule-data
 They will not be committed to git-annex due to being ignored in `scratch/.gitignore`, however this might go beyond the available space on the respective partition, crashing the workflow and possibly outer programs.
 It is advisable to check space availability on your partition before full reexecution, and if sufficient space is unavailable specify a `SCRATCH_PATH` on a partition with more available space.*
 
-There are 2 distinct phases of re-running this study.
-They differ strongly in both time and space requirements; while they are hierarchically related, but the results of the first step are version tracked, meaning that you can choose to only run the latter.
+There are 2 distinct phases of re-running this study, which differ strongly in both time and space requirements.
+while they are hierarchically related, the results of the first step are version tracked, meaning that you can choose to only run the latter.
 
 ### I. Reexecuting the OPFVTA Article
 
