@@ -5,7 +5,7 @@ REGISTRY=docker.io
 REPOSITORY=centerforopenneuroscience
 
 LATEX_IMAGE_NAME=latex-biber
-LATEX_TAG=0.0.1-alpha
+LATEX_TAG=0.0.1-beta
 
 IMAGE_NAME=opfvta
 IMAGE_TAG=2.0.0-alpha
