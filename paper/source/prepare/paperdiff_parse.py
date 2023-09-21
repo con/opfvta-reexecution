@@ -27,7 +27,7 @@ for i in os.listdir(DATADIR):
             except AttributeError:
                 continue
             pixels_differ_proportion = int(m['pixels']) / pixels_total
-            pixels_differ_proportion = float('{:.5f}'.format(pixels_differ_proportion))
+            pixels_differ_proportion = float('{:.6f}'.format(pixels_differ_proportion))
             #pixels_differ_percent = pixels_differ_proportion * 100
             # Adding 1 to the page number to obtain the same numbering as in the document itself.
             PARSED_LIST.append([
