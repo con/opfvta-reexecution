@@ -66,11 +66,11 @@ figs/topology.pdf: data/topology.dot
 # -use-make tells latexmk to call make for generating missing files.
 # -interaction=nonstopmode keeps the pdflatex backend from stopping at a
 # missing file reference and interactively asking you for an alternative.
-container-article-interactive: $(COMMON) $(TEX) $(STYLE) $(DATA) live
+container-article-interactive: live
 	podman run -it $(PODMAN_ARGS)
 
 .PHONY: container-article
-container-article: $(COMMON) $(TEX) $(STYLE) $(DATA) live
+container-article: live
 	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article
 
