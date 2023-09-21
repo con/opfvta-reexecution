@@ -36,10 +36,12 @@ jobs:
         run: git remote add gin https://gin.g-node.org/TheChymera/opfvta-replication-2023.git
 
       - name: Get data from datalad
-        run: datalad get outputs/*/article.pdf
-
-      - name: Install pyyaml
-        run: pip install pyyaml
+        run: |
+          datalad get outputs/*/article.pdf
+          pwd
+          ls -lah
+          ls -lah outputs/
+          tree -L 2 outputs/
 
       - name: Build container article
         working-directory: paper/source
