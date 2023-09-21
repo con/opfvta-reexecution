@@ -74,7 +74,7 @@ Trusted collaborators may instead prefer to use the `smaug.dartmouth.edu` remote
 
 To use this remote you should:
 
-1. Make sure you have ssh access to `smaug.dartmouth.edu`, and add it to your SSH config file, e.g. via:
+1. Make sure you have SSH access to `smaug.dartmouth.edu`, and have configured the host via your config file; you can do so by running:
 
 ```console
 cat >> ~/.ssh/config<< EOF
