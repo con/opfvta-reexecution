@@ -7,7 +7,7 @@
 
 \begin{figure}
 	\centering
-	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages}
+	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
 	\caption{
 		\textbf{Page-wise visual differences between the Historical Manuscript Record and the Novel Workflow Reexecution help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
 		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
@@ -88,6 +88,7 @@ This layout type is known as YODA (a recursive acronym for “YODAs Organigram o
 
 \begin{figure}
 	\centering
+	
 	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
 	\caption{
 		This is a caption
@@ -98,6 +99,7 @@ This layout type is known as YODA (a recursive acronym for “YODAs Organigram o
 
 Notably, this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
 Within the context of container usage, this affords the advantage of keeping the data packages separate and not adding their disk space requirements to those of the container image.
+
 
 In this novel repository structure, external components of the reexecution study are managed as Git submodules, with data sumbodules being handled by git-annex, a versioning technology suitable for binary files, and made accessible via DataLad.
 Notably, the article source code itself is not duplicated or furhter edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repostitory.
