@@ -79,10 +79,10 @@ To use this remote you should:
 ```console
 cat >> ~/.ssh/config<< EOF
 Host smaug
-  Hostname smaug.dartmouth.edu
-  AddKeysToAgent yes
-  port 11110
-  user <your_username_for_which_smaug_has_your_SSH_public_key>
+	Hostname smaug.dartmouth.edu
+	AddKeysToAgent yes
+	port 11110
+	user <your_username_for_which_smaug_has_your_SSH_public_key>
 EOF
 ```
 
