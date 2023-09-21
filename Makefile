@@ -105,6 +105,10 @@ container-article:
 article:
 	$(MAKE) -C paper/source
 
+.PHONY: article-clean
+article-clean:
+	$(MAKE) article-clean -C paper/source
+
 
 #
 # Containers management. oci- for Open Container Initiative
