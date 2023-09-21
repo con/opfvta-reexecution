@@ -73,7 +73,7 @@ container-article-interactive: live
 .PHONY: container-article
 container-article:
 	podman run --net=none $(PODMAN_ARGS) \
-		$(MAKE) deep-clean; $(MAKE) article
+		"$(MAKE) deep-clean; $(MAKE) article"
 
 article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA) data/paperdiff.csv figs/diff_pages.pdf
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
