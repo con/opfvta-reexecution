@@ -25,10 +25,6 @@ DATA := $(wildcard data/*.dot)
 .PHONY: all
 all: article
 
-.PHONY: article
-article: article.pdf
-
-
 #
 # CUSTOM BUILD RULES
 # -----------------------------------------------------------------------------
@@ -77,9 +73,9 @@ container-article:
 	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article
 
-article.pdf: $(COMMON) $(TEX) $(STYLE) $(DATA)
+.PHONY: container-article
+article: $(COMMON) $(TEX) $(STYLE) $(DATA)
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
-	# find . -type f -name 'article*' ! -name '*.py' ! -name '*.tex' -exec mv -f {} ../generated/ \;
 
 # Target to specifically remove LaTeX traces.
 .PHONY: article-clean
