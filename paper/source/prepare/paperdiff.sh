@@ -8,8 +8,8 @@ set -eu -o pipefail
 OUTPUT_PATH="../../../outputs"
 DATA_PATH="../data"
 
-PODMAN_LAST_REEXECUTIONS=($(ls ${OUTPUT_PATH}/podman_*/article.pdf | tail -2))
-SINGULARITY_LAST_REEXECUTIONS=($(ls ${OUTPUT_PATH}/singularity_*/article.pdf | tail -2))
+PODMAN_LAST_REEXECUTIONS=($(ls ${OUTPUT_PATH}/podman_*/article.pdf | tail -4))
+SINGULARITY_LAST_REEXECUTIONS=($(ls ${OUTPUT_PATH}/singularity_*/article.pdf | tail -4))
 
 for i in "${PODMAN_LAST_REEXECUTIONS[@]}"; do
 	echo "GENERATING DIFF FOR EXECUTION in ${i}:"
