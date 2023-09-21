@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Podman
         run: |
@@ -42,6 +42,7 @@ jobs:
           ls -lah ../
           ls -lah outputs/
           tree -L 2 outputs/
+          git annex init
           git-annex get outputs/*/article.pdf
           git pull gin master
           git fetch gin
