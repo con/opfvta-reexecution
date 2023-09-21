@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "$0")"
+
+set -eu
+
 # Cropbox is:
 #  - left boundary (from left)
 #  - lower boundary (from bottom)
