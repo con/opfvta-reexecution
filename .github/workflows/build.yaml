@@ -39,6 +39,7 @@ jobs:
 
       - name: Get data from datalad
         run: |
+          git fetch gin
           datalad get outputs/*/article.pdf
 
       - name: Build container article
