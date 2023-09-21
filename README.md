@@ -13,11 +13,6 @@ datalad install -r https://gin.g-node.org/TheChymera/opfvta-replication-2023.git
 cd opfvta-replication-2023
 ```
 
-Additionally, for OPFVTA article re-execution, the data contained in the submodules needs to be fetched:
-
-```console
-make submodule-data
-```
 
 ## How to re-run
 
@@ -31,11 +26,13 @@ while they are hierarchically related, the results of the first step are version
 ### I. Reexecuting the OPFVTA Article
 
 This is by far the most time consuming and resource-intensive step as it re-computes all work that was required to generate the original article, starting from the bare raw data.
+The requirements of this step are therefore the raw data (study data and mouse brain templates), and the article code, which are included in this repository as submodules and whose content can be fetched via a dedicated `make` target:
 
-This produces a PDF article and its associated elements (mainly volumetric binary data, `.nii.gz` files) which will be stored in a datestamped and annotated directory under `outputs/`.
-A number of outputs are recorded via `git-annex` and therefore present in this repository, and your output can also be saved and recorded.
+```console
+make submodule-data
+```
 
-You can do this by either of the following commands, depending on the desired platform:
+Once the required content is fetched, you can reexecute the OPFVTA article via either of the following commands, depending on the desired platform:
 
 ```console
 make analysis-singularity
@@ -44,6 +41,11 @@ make analysis-singularity
 ```console
 make analysis-oci
 ```
+
+This produces a PDF article and its associated elements (mainly volumetric binary data, `.nii.gz` files) which will be stored in a datestamped and annotated directory under `outputs/`.
+A number of outputs are recorded via `git-annex` and therefore present in this repository, and your output can also be saved and recorded.
+
+
 
 ### II. Reexecuting the Meta-Article
 
