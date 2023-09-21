@@ -40,16 +40,6 @@ jobs:
       - name: Get data from datalad
         run: |
           datalad get outputs/*/article.pdf
-          pwd
-          ls -lah ../
-          ls -lah outputs/
-          tree -L 2 outputs/
-          git annex init
-          git-annex get outputs/*/article.pdf
-          git pull gin master
-          git fetch gin
-          datalad get outputs/*/article.pdf
-
 
       - name: Build container article
         working-directory: paper/source
