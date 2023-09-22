@@ -7,20 +7,23 @@
 \subsection{Reexecutable Research}
 
 %TODO cite hurr-durr reproduction crisis article
-While the reproducibility of research findings (i.e. independently verifying a published result or phenomenon) has received considerable attention \supercite{TODO}, reexecutability has remained largely unexplored as a discrete phenomenon.
+The reproducibility of research findings — i.e. independently verifying a published result or phenomenon — is a issue of considerable scientific interest \supercite{TODO}.
+Reexecutability — i.e. the basic feasibility of \textit{de novo} research output generation from the earliest recorded provenance — has remained largely unexplored as a discrete phenomenon.
 While the scope of reexecution is narrower, it constitutes a more well-defined and therefore tractable issue in improving the quality and sustainability of research.
-On one hand reexecution is a prerequisite for the reproduction of any research which prominently features computational analysis — which encompasses a growing segment of modern experimental research.
-On the other hand reexecution constitutes a capability in and of itself, with ample utility in education, training, rapid-feedback development, and resource reuse for novel research purposes (colloquially, “hacking”) — which may accrue even in the absence of reproducibility of accurate reproducibility of results.
+Reexecution is a prerequisite for the reproduction of any research analysis process, and therefore in its absence reproducibility research itself is a matter open to variability in results.
+Further, reexecution constitutes a capability in and of itself, with ample utility in education, training, rapid-feedback development, and resource reuse for novel research purposes (colloquially, “hacking”) — which may accrue even in the absence of accurate result reproduction.
 
 %TODO Is there a review of people sharing their code? If not we can cite a bunch of people who brag about putting their stuff on GH
-Free and Open Source Software \supercite{foss} has permeated the world of research to a significant extent, and it is presently not uncommon for researchers to freely and or openly publish part of the analysis instructions used in generating published results \supercite{TODO}.
-However, such instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
-Consequently, data analysis outputs are not generated in their respective contexts, and therefore disconnected from the positive claims which they support.
+Free and Open Source Software \supercite{foss} has permeated the world of research to a significant extent, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results \supercite{TODO} under free and open licenses.
+However, such analysis instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
 This precludes automatic reexecution of the full research output, and limits their potential for re-use.
+Additionally, this means that, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
 
 In order to optimally leverage extant efforts pertaining to full article reexecution and in order to test reexecutability in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA based on author naming conventions \supercite{opfvta}.
-The 2022 article is accompanied by a programmatic workflow via which it can be fully regenerated, based solely on raw data, data analysis instructions, and natural-language commentary — and which is initiated via a simple executable script in the ubiquitous GNU Bash \supercite{bash} command language.
-The reexecution process in this effort relies on an emerging infrastructure standard, RepSeP \supercite{repsep}, which is used by additional other articles, thus providing a larger scope for conclusion drawn and standards formulated as part of this study.
+Due to the high task complexity of integrating all data analysis into a coherent and reliable workflow, extant efforts pertaining to full article reexecution are scant and not suitably stress-tested at a larger scale.
+One example is a novel neuroimaging study, identified as “OPFVTA” \cite{opfvta} based on author resource naming.
+The 2022 article is accompanied by a programmatic workflow via which it can be fully regenerated — based solely on raw data, data analysis instructions, and the natural-language manuscript text — and which is initiated via a simple executable script in the ubiquitous GNU Bash \supercite{bash} command language.
+The reexecution process in this effort relies on an emerging infrastructure standard, RepSeP \supercite{repsep}, which is used by additional other articles, thus providing a larger scope for conclusions that can be drawn from its study.
 
 % TODO - make proper latex etc:
 %  Additional aspects which were not foreseeing in the original execution making it impossible to reexecute to the identical result - no randomization seed was provided or recorded.
@@ -28,51 +31,60 @@ The reexecution process in this effort relies on an emerging infrastructure stan
 
 \subsection{Data Analysis}
 
-One of the hallmarks of scientific data analysis is its intricacy — resulting from the multifaceted confounds which need to be accounted for, as well as from the breadth of questions which extant tools need to be adapted in order to address.
-Data analysis, can be subdivided into \emph{data preprocessing} and \emph{data evaluation}.
-The former consists of data cleaning, reformatting, standardization, and sundry processes required for data to be suitable for evaluation.
-Data evaluation consists of various types of modeling, usually applied in sequence at various hierarchical steps.
+One of the hallmarks of scientific data analysis is its intricacy — resulting from the manifold confounds which need to be accounted for, as well as from the breadth of questions which researchers may want to address.
+Data analysis can be subdivided into \emph{data preprocessing} and \emph{data evaluation}.
+The former consists of data cleaning, reformatting, standardization, and sundry processes which aim to make data suitable for evaluation.
+Data evaluation consists of various types of statistical modeling, commonly applied in sequence at various hierarchical steps.
 
-In the general case of stimulus-evoked neuroimaging analysis, as seen in the OPFVTA article, data evaluation is commonly subdivided into “level one” (i.e., within-subject) analysis, and “level two” (i.e., across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \supercite{Friston1995}.
-In effect, these modeling steps usually represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
+The OPFVTA article, which this study uses as an example, primarily studies effective connectivity, which is resolved via stimulus-evoked neuroimaging analysis.
+Stimulus-evoked neuroimaging analysis is one of the more widespread applications, and thus the data analysis workflow (both in terms of \emph{data processing} and \emph{data evaluation}) provides significant analogy to numerous neuroimaging studies.
+The data evaluation step for this sort of study is subdivided into “level one” (i.e., within-subject) analysis, and “level two” (i.e., across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \supercite{Friston1995}.
+In the simplest terms, these modeling steps represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
 
-Computationally, the various steps of a data analysis pipeline are sharply distinguished by their time cost.
-By far the most expensive element in the aforementioned reference pipeline is a substage of data preprocessing known as registration.
+Computationally, in the case of the OPFVTA article as well as the general case, the various data analysis workflow steps are sharply distinguished by their time cost.
+By far the most expensive element is a substage of data preprocessing known as registration.
 This commonly relies on iterative gradient descent and can additionally require high-density sampling depending on the feature density of the data.
-The second most costly step is the first-level GLM, the cost of which is mostly due to the high number of voxels modeled individually for each subject.
+The second most costly step is the first-level GLM, the cost of which emerges from to the high number of voxels modeled individually for each subject.
 
 The impact of these time costs on reexecution is that rapid-feedback development and debugging can be compromised if the reexecution is monolithic.
-While ascertaining the effect of changes in the registration instructions on the final result unavoidably necessitate the reexecution of the entire pipeline, editing natural-language commentary in the article text, or adapting figure styles, should not.
-To this end the reference article of this study employs a hierarchical Bash-script structure, with data preprocessing and all data evaluation steps which operate in voxel space being handled by a sub-script, and top-level (i.e. inline) statistics, figure, and TeX-based article generation in a separate sub-script.
-The nomenclature to distinguish these two phases is “high-iteration” and “low-iteration” \supercite{repsep}.
+While ascertaining the effect of changes in the registration instructions on the final result unavoidably necessitate the reexecution of the entire pipeline — editing natural-language commentary in the article text, or adapting figure styles, should not.
+To this end the reference article of this study employs a hierarchical Bash-script structure, consisting of two steps.
+The first step, consisting in data preprocessing and all data evaluation steps which operate in voxel space, is handled by one dedicated sub-script.
+The second step handles document-specific element generation, i.e. inline statistics, figure, and TeX-based article generation.
+The nomenclature to distinguish these two phases introduced by the authors is “high-iteration” and “low-iteration” \supercite{repsep}.
 
-Analysis dependency tracking, which is to say monitoring whether files required for the next hierarchical step have changed — and thus whether that step needs to be re-executed — is handled for high-iteration analysis script via the RepSeP infrastructure, but not for the low-iteration script.
-
-\textbf{TODO: concentrate on specifics of this study.  May be state why some existing more popular apps, like fmriprep, were not used; What was used instead}
+Analysis dependency tracking, which is to say monitoring whether files required for the next hierarchical step have changed — and thus whether that step needs to be re-executed — is handled for the high-iteration analysis script via the RepSeP infrastructure, but not for the low-iteration script.
 
 
 \subsection{Software Dependency Management}
 
-Beyond the hierarchically evolving data dependencies, which can be considered internal to the workflow, any data analysis workflow has additional dependencies in the form of software.
-This refers to the computational tools called by the workflow — and, given the diversity of research applications, may encompass numerous and complex pieces of software.
+Beyond the hierarchically chained data dependencies, which can be considered internal to the workflow, any data analysis workflow has additional dependencies in the form of software.
+This refers to the computational tools called by the workflow — which, given the diversity of research applications, may encompass numerous and complex pieces of software.
 Complexity in this sense also refers to the fact that individual software dependencies commonly come with their own software dependencies, which may in turn have further dependencies, and so on.
-This is known as a dependency graph, which is commonly handled by a package manager.
+The resulting network of prerequisites is known as a “dependency graph”, and its resolution is commonly handled by a package manager.
 
-The OPFVTA article in its original form relies on Portage \supercite{portage}, a package manager characterized by providing integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \supercite{ng}.
+The OPFVTA article in its original form relies on Portage \supercite{portage} — a package manager characterized by providing integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \supercite{ng}.
 As such, the dependencies of the workflow are summarized in a standardized format, which is called an Ebuild.
 This format is analogous to the format used to specify dependencies at all further hierarchical levels in the dependency tree.
 This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \supercite{pms}.
-Additionally, the reference article contextualizes its raw data origin point as a dependency, providing provenance tracking in the same fashion as for software.
+Additionally, the reference article contextualizes its raw data resource as a dependency, integrating data provision in the same network as software provision.
 
 While the top-level Ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the Ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
 These repositories are version controlled, meaning that their state at any time point is documented, and they can thus be restored to represent the environment as it would have been generated at any point in the past.
 
+
+\subsection{Software Dependencies}
+
+The aforementioned infrastructure is relied upon to provide a full set of widely adopted neuroimaging tools, including but not limited to ANTs \supercite{ants}, nipype \supercite{nipype}, FSL \supercite{fsl}, AFNI \supercit{afni}, and nilearn \supercite{nilearn}.
+Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \supercite{samri,irsabi}, which provides workflows optimized for the preprocessing and evaluation of animal neuroimaging data.
+
+
 \subsection{Containers}
 
 Operating system virtualization is a process whereby an operating system can be installed inside another operating system, without being subject to the environment constraints of its parent, and without potentially polluting the parent environment.
-Given the complexity of scientific computing environments, such virtualization is attractive on multi-user systems, on systems with lacking package management capabilities, or in instances where the tasks to be executed are fragile and may require bespoke constraints.
+Given the complexity of scientific computing environments, such virtualization is attractive on multi-user systems, on systems lacking adequate package management capabilities, or in instances where the tasks to be executed are fragile and may require bespoke constraints.
 
-One of the prominent instantiations of virtualization are containers, a technology which focuses on portability of operating system images (i.e. containers) across parent operating systems featuring the correct container environment.
+A prominent instantiation of virtualization is container technology, which focuses on portability of operating system images (the eponymous “containers”) across parent operating systems contingent only on the presence of a container running service.
 Their relevance to open science consists in providing end-users with an accessible environment, which can be ascertained to provide the requirements of a certain top-level workflow, and which does not interfere with their parent environment.
 
-While the reference OPFVTA article does not leverage this technology, containers can improve its portability, as well as provide a snapshot of its functioning at a certain point in time — mitigating process fragility over evolving software dependencies.
+While the reference OPFVTA article does not leverage this technology, containers can improve its portability, as well as provide a snapshot of its functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
