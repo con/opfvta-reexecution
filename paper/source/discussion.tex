@@ -51,8 +51,8 @@ were expensive.
         \end{itemize}
       \item Establish your reproducible base container environment.
         In case of Gentoo: Pin the Gentoo repo as soon as dependencies are working; this will allow some use of the cache.
-        In case of Debian-based: use NeuroDebian tool nd\_freeze and call it early in the recipe~\supercite{TODO}.
-        NeuroDocker~\supercite{TODO} could be used to streamline creation of 
+        In case of Debian-based: use NeuroDebian tool nd\_freeze and call it early in the recipe~\cite{TODO}.
+        NeuroDocker~\cite{TODO} could be used to streamline creation of 
       \item Copy as little into the image as possible - bind mount what is needed
         \begin{itemize}
         \item Each unnecessary thing copied in may force a rebuild if it changes.
