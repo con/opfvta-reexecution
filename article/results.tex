@@ -4,13 +4,12 @@
 % Should, could, might, etc. sparingly and ideally not here but in discussion.
 
 \subsection{Repository Structure}
-%TODO cite YODA with a DOI? It's covered in the handbook but apparently no DOI or ISBN... If not we can make a results section on yoda here and become the DOI source.
-In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which dynamically links all elements required for the reexecution using Git.
-This leverages Git submodules for resource cross-referencing, and datalad \cite{datalad} in order to permit Git integration with data resources.
+In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which leverages Git to link all reexecution requirements.
+This framework leverages Git submodules for resource referencing, and datalad \cite{datalad} in order to permit Git integration with data resources.
 
-This super-repository includes the original article, the raw data it operates on, and the reference mouse brain templates package used by the study, as submodules.
-Additionally, it directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of this article.
-This encompasses container image generation and container execution instructions, a \texttt{Make} system for process coordination, scripts which dynamically generate the graphical elements of this article based on the OPFVTA reexecution results, and this document's LaTeX source code.
+These resources include the original article, the raw data it operates on, and a reference mouse brain templates package, as submodules.
+Additionally, it directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of \emph{this} article.
+This code consists of container image generation and container execution instructions, a \texttt{Make} system for process initiation, scripts which dynamically generate the graphical elements of this article based on the OPFVTA reexecution results, and this document's human-readable text in \TeX{} format.
 
 % Can we get a DOI/ISBN for the following YODA reference? https://handbook.datalad.org/en/latest/basics/101-127-yoda.html
 The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis”).
@@ -19,7 +18,7 @@ The layout constructed for this study thus provides robust provenance tracking a
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
 	\caption{
-		This is a caption
+		Directory tree topology of the repository coordinating OPFVTA re-execution.
 	}
 	\label{fig:topology}
 \end{figure}

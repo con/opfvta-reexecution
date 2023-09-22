@@ -49,5 +49,5 @@ jobs:
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v2
         with:
-          name: paper-pdf
-          path: paper/source/article.pdf
+          name: article-pdf
+          path: article/article.pdf

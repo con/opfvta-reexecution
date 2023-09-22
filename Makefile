@@ -99,15 +99,15 @@ analysis-oci:
 #
 .PHONY: container-article
 container-article:
-	$(MAKE) container-article -C paper/source
+	$(MAKE) container-article -C article/
 
 .PHONY: article
 article:
-	$(MAKE) -C paper/source
+	$(MAKE) -C article/
 
 .PHONY: article-clean
 article-clean:
-	$(MAKE) article-clean -C paper/source
+	$(MAKE) article-clean -C article/
 
 
 #

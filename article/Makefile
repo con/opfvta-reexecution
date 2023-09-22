@@ -10,7 +10,7 @@
 LATEX_IMAGE=docker.io/centerforopenneuroscience/latex-biber:0.0.1-beta
 
 # Common options for podman invocations
-PODMAN_ARGS = --rm  -v "$()../../":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
+PODMAN_ARGS = --rm  -v "$()../":/data:Z --user="$(id -u):$(id -g)" "$(LATEX_IMAGE)"
 
 SHELL = /bin/bash
 
@@ -80,16 +80,17 @@ article: $(COMMON) $(TEX) $(STYLE) $(DATA)
 # Target to specifically remove LaTeX traces.
 .PHONY: article-clean
 article-clean:
+	@latexmk -CA
 	@rm -f *.bbl
 	@rm -f *.run.xml
-	@latexmk -CA
 	@rm -f data/paperdiff_*.{log,csv,pdf}
 	@rm -f data/topology.log
 	@rm -f figs/diff_date.pdf
 	@rm -f figs/diff_fig.pdf
-	@rm -f figs/diff_text.pdf
 	@rm -f figs/diff_pages.pdf
+	@rm -f figs/diff_text.pdf
 	@rm -f figs/topology.pdf
+	@rm -f metadata.tex
 
 # Upload target
 .PHONY: upload

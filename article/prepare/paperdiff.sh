@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 # We can't have `set -eu` since `diff-pdf` returns a non-zero output code for differing PDFs
 set -eu -o pipefail
 
-OUTPUT_PATH="../../../outputs"
+OUTPUT_PATH="../../outputs"
 DATA_PATH="../data"
 
 PODMAN_LAST_REEXECUTIONS=($(ls ${OUTPUT_PATH}/podman_*/article.pdf | tail -4))
