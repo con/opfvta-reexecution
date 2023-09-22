@@ -3,10 +3,54 @@
 % Descriptive, opinions either absent, or as objective-ish comments when facts are stated.
 % Should, could, might, etc. sparingly and ideally not here but in discussion.
 
+\subsection{Repository Structure}
+%TODO cite YODA with a DOI? It's covered in the handbook but apparently no DOI or ISBN... If not we can make a results section on yoda here and become the DOI source.
+In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which dynamically links all elements required for the reexecution using Git.
+This leverages Git submodules for resource cross-referencing, and datalad \supercite{datalad} in order to permit Git integration with data resources.
+
+This super-repository includes the original article, the raw data it operates on, and the reference mouse brain templates package used by the study, as submodules.
+Additionally, it directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of this article.
+This encompasses container image generation and container execution instructions, a \texttt{Make} system for process coordination, scripts which dynamically generate the graphical elements of this article based on the OPFVTA reexecution results, and this document's LaTeX source code.
+
+% Can we get a DOI/ISBN for the following YODA reference? https://handbook.datalad.org/en/latest/basics/101-127-yoda.html
+The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis”).
+
+\begin{figure}
+	\centering
+	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
+	\caption{
+		This is a caption
+	}
+	\label{fig:topology}
+\end{figure}
+%TODO: add colors to showcase what's actually a git submodule from somewhere else.
+
+Notably, this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
+Within the context of container usage, this affords the advantage of keeping the data packages separate and not adding their disk space requirements to those of the container image.
+
+
+In this novel repository structure, external components of the reexecution study are managed as Git submodules, with data sumbodules being handled by git-annex, a versioning technology suitable for binary files, and made accessible via DataLad.
+Notably, the article source code itself is not duplicated or furhter edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repostitory.
+
+%TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
+
+\subsection{Resource Refinement}
+
+As a notable step in our automated full article reproduction effort, we have updated resources previously only available as tarballs (i.e. compressed \texttt{tar} archives), to DataLad.
+This refinement permits both easier integration with the parent article reproduction repository for version tracking purposes.
+In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05}  `Make` system.
+In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Templates now publishes tarballs, as well as DataLad-accessible unarchived individual template files.
+
+\subsection{Best Practice Guidelines}
+
+\texttt{set -eu} is an invaluable
+
+
+\section{Reproduction}
+
 % TODO - make proper latex etc:
 %  Additional aspects which were not foreseeing in the original execution making it impossible to reexecute to the identical result - no randomization seed was provided or recorded.
 
-\section{Reproduction}
 
 \begin{figure}
 	\centering
@@ -80,42 +124,3 @@ Quantitative incoherence is in the form of numerical variability of automaticall
 \end{figure}
 
 
-\subsection{Repository Structure}
-%TODO cite YODA with a DOI? It's covered in the handbook but apparently no DOI or ISBN... If not we can make a results section on yoda here and become the DOI source.
-In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository encompassing the original article (including updates resulting as part of this study), the raw data it operates on, as well as container image and container execution instructions.
-This layout type is known as YODA (a recursive acronym for “YODAs Organigram on Data Analysis”) and aims to facilitate reproducible research and good provenance tracking practices.
-
-%TODO expand YODA blurb:
-% Original scripts relied on unix FS organization, we remapped the filesystem hierarchy structutre to container mount points etc.
-
-
-\begin{figure}
-	\centering
-	
-	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
-	\caption{
-		This is a caption
-	}
-	\label{fig:topology}
-\end{figure}
-%TODO: add colors to showcase what's actually a git submodule from somewhere else.
-
-Notably, this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
-Within the context of container usage, this affords the advantage of keeping the data packages separate and not adding their disk space requirements to those of the container image.
-
-
-In this novel repository structure, external components of the reexecution study are managed as Git submodules, with data sumbodules being handled by git-annex, a versioning technology suitable for binary files, and made accessible via DataLad.
-Notably, the article source code itself is not duplicated or furhter edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repostitory.
-
-%TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
-
-\subsection{Resource Refinement}
-
-As a notable step in our automated full article reproduction effort, we have updated resources previously only available as tarballs (i.e. compressed \texttt{tar} archives), to DataLad.
-This refinement permits both easier integration with the parent article reproduction repository for version tracking purposes.
-In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05}  `Make` system.
-In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Templates now publishes tarballs, as well as DataLad-accessible unarchived individual template files.
-
-\subsection{Best Practice Guidelines}
-
-\texttt{set -eu} is an invaluable
