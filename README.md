@@ -56,10 +56,14 @@ This step generates intermediate results in the scratch directory and are not pr
 The final result is a PDF article and its associated elements (mainly volumetric binary data, `.nii.gz` files) which will be stored in a datestamped and annotated directory under `outputs/`.
 Most large files, including the results are stored and versioned via `git-annex` and therefore present in this repository, and your output can also be saved and recorded.
 
+For apptainer/singularity:
+
 ```console
 make analysis-singularity
 ```
 _or_
+
+For OCI containers you can run with docker (default) or podman by setting the environment variable `OCI_BINARY=podman`
 
 ```console
 make analysis-oci
