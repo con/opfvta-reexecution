@@ -1,4 +1,5 @@
 # OPFVTA Reexecution Study
+[![PDF document](https://badgen.net/badge/PDF/manual%20record/yellow)](https://articles.chymera.eu/fraaef.pdf)
 
 This repository contains code, data, and prose as required to:
 * re-execute the OPFVTA article in a container environment.

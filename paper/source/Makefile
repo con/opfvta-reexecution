@@ -90,3 +90,8 @@ article-clean:
 	@rm -f figs/diff_text.pdf
 	@rm -f figs/diff_pages.pdf
 	@rm -f figs/topology.pdf
+
+# Upload target
+.PHONY: upload
+upload: article
+	rsync -avP article.pdf dreamarticles:articles.chymera.eu/fraaef.pdf
