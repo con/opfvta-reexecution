@@ -73,7 +73,7 @@ container-article:
 	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article
 
-.PHONY: container-article
+.PHONY: article
 article: $(COMMON) $(TEX) $(STYLE) $(DATA)
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
 
