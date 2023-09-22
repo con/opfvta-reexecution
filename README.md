@@ -18,7 +18,7 @@ cd opfvta-replication-2023
 ## How to re-run
 
 **Note:** *If the `SCRATCH_PATH` variable is not defined for the `make` invocation, all intermediary results (approx. 400GB) will be stored in the `scratch/` directory, which is inside the directory of the repository.
-They will not be committed to git-annex due to being ignored in `scratch/.gitignore`, however this might go beyond the available space on the respective partition, crashing the workflow and possibly outer programs.
+This might go beyond the available space on the respective partition, crashing the workflow and possibly other programs.
 It is advisable to check space availability on your partition before full reexecution, and if sufficient space is unavailable specify a `SCRATCH_PATH` on a partition with more available space.*
 
 There are 2 distinct phases of re-running this study, which differ strongly in both time and space requirements.
