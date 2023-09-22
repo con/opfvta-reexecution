@@ -60,10 +60,10 @@ make article
 ```
 
 A finer point here is that the dynamic elements of this article can be cached.
-If you are not merely trying to get a PDF to read or working on the human-readable text — but instead working on the figure-generating code — it is advisable to always deep-clean the dynamic elements in between re-making the article.
+If you are not merely trying to get a PDF to read or working on the human-readable text — but instead working on the figure-generating code — it is advisable to always clean the dynamic elements in between re-making the article via the dedicated target.
 
 ```console
-make deep-clean && make article
+make article-clean && make article
 ```
 
 ## Internal
