@@ -296,6 +296,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{siunitx}
 \RequirePackage{cleveref}
+\RequirePackage{pdfpages}
 
 % --- Bibliography ------------------------------------------------------------
 \RequirePackage[
