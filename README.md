@@ -21,12 +21,12 @@ cd opfvta-replication-2023
 This might go beyond the available space on the respective partition, crashing the workflow and possibly other programs.
 It is advisable to check space availability on your partition before full reexecution, and if sufficient space is unavailable specify a `SCRATCH_PATH` on a partition with more available space.*
 
-There are 2 distinct phases of re-running this study, which differ strongly in both time and space requirements.
-while they are hierarchically related, the results of the first step are version tracked, meaning that you can choose to only run the latter.
+There are 2 distinct phases of executing this study, which differ strongly in both time and space requirements.
+While they are hierarchically related, the results of the first step are version tracked, meaning that you can choose to only run the latter.
 
 ### I. Reexecuting the OPFVTA Article
 
-This is by far the most time consuming and resource-intensive step as it re-computes all work that was required to generate the original article, starting from the bare raw data.
+This is by far the most time consuming and resource-intensive step as it re-computes all work that was required to generate the original OPFVTA article, starting from the bare raw data.
 The requirements of this step are therefore the raw data (study data and mouse brain templates), and the article code, which are included in this repository as submodules and whose content can be fetched via a dedicated `make` target:
 
 ```console
