@@ -43,7 +43,6 @@ jobs:
           datalad get outputs/*/article.pdf
 
       - name: Build container article
-        working-directory: paper/source
         run: make container-article
 
       - name: Upload PDF artifact
