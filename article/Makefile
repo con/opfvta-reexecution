@@ -75,6 +75,7 @@ container-article:
 
 .PHONY: article
 article: $(COMMON) $(TEX) $(STYLE) $(DATA)
+	datalad get ../outputs/*/*.pdf
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
 
 # Target to specifically remove LaTeX traces.
