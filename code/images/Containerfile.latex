@@ -18,8 +18,8 @@ RUN apt-get update -q \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN tlmgr install \
-	sourceserifpro
+#RUN tlmgr install \
+#	sourceserifpro
 
 ENV HOME /data
 WORKDIR /data
