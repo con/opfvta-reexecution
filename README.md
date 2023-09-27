@@ -17,41 +17,22 @@ cd opfvta-replication-2023
 
 ## How to re-run
 
-<<<<<<< HEAD
-**Note:** *If the `SCRATCH_PATH` variable is not defined for the `make` invocation, all intermediary results (approx. 400GB) will be stored in the `scratch/` directory, which is inside the directory of the repository.
-This might go beyond the available space on the respective partition, crashing the workflow and possibly other programs.
-It is advisable to check space availability on your partition before full reexecution, and if sufficient space is unavailable specify a `SCRATCH_PATH` on a partition with more available space.*
-
-There are 2 distinct phases of executing this study, which differ strongly in both time and space requirements.
-While they are hierarchically related, the results of the first step are version tracked, meaning that you can choose to only run the latter.
-
-### I. Reexecuting the OPFVTA Article
-
-This is by far the most time consuming and resource-intensive step as it re-computes all work that was required to generate the original OPFVTA article, starting from the bare raw data.
-The requirements of this step are therefore the raw data (study data and mouse brain templates), and the article code, which are included in this repository as submodules and whose content can be fetched via a dedicated `make` target:
-=======
-### Prerequisites
-
-1. We estimate that the analysis required more than 500GB, 400GB of which will be stored in a scratch directory, which is `./scratch/` by default and can be configured with the `SCRATCH_PATH` variable.
-1. The analysis self-limits RAM to run on less powerful systems
-
 ### I. Reexecuting the OPFVTA Article
 
 ::: warning
-Reexecuting the computation as well as the article is time consuming and resource-intensive.
-It is recommended to use a tool such as `tmux` or `screen` to preserve
-long running processes.
+Warnings: 
+1. We estimate that the analysis required more than 500GB, 400GB of which will be stored in a scratch directory, which is `./scratch/` by default and can be configured with the `SCRATCH_PATH` variable.
+1. The analysis self-limits RAM to run on less powerful systems
+1. Reexecuting the computation as well as the article is time consuming and resource-intensive, it is recommended to use a tool such as `tmux` or `screen` to preserve long running processes.
 :::
 
-
 First, retrieve the data and other large files:
->>>>>>> 1434c85 (Clarify and simplify README)
 
 ```console
 make submodule-data
 ```
 
-Once the required content is fetched, you can reexecute the OPFVTA article via `singularity` or `oci` containers.
+Once the required content has been fetched, you can reexecute the OPFVTA article via `singularity` or `oci` containers.
 This step generates intermediate results in the scratch directory and are not preserved by default, as configured in `scratch/.gitignore`.
 The final result is a PDF article and its associated elements (mainly volumetric binary data, `.nii.gz` files) which will be stored in a datestamped and annotated directory under `outputs/`.
 Most large files, including the results are stored and versioned via `git-annex` and therefore present in this repository, and your output can also be saved and recorded.
@@ -63,7 +44,7 @@ make analysis-singularity
 ```
 _or_
 
-For OCI containers you can run with docker (default) or podman by setting the environment variable `OCI_BINARY=podman`
+With docker or podman, you can execute the analysis inside an OCI container.
 
 ```console
 make analysis-oci
@@ -101,15 +82,14 @@ If you prefer to run the generation outside of a container, you will need to ins
 	- datalad
 	- diff-pdf
 	- graphviz
-	- python3-matplotlib
-	- python3-pandas
-	- python3-seaborn
-	- python3-sklearn
-	- python3-statsmodels
-	- python3-yaml
+	- matplotlib
+	- pandas
+	- seaborn
+	- sklearn
+	- statsmodels
+	- yaml
 
 You will also need to install sourceserifpro font using the tlmgr.
-TODO(chymera): audit
 
 ```console
 make container-article
