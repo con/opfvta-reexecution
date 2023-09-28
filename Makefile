@@ -19,8 +19,8 @@ ifeq ($(SCRATCH_PATH),)
 	SCRATCH_PATH = $(PWD)/scratch
 endif
 
-OCI_BINARY=docker
-SING_BINARY=singularity
+OCI_BINARY?=docker
+SING_BINARY?=singularity
 
 DISTFILE_CACHE_CMD :=
 
