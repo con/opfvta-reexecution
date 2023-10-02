@@ -15,7 +15,6 @@ digraph graphname {
     pap_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
     inputs_[label="inputs_", style=invis]
     outputs_[label="outputs_", style=invis]
-    paper_[label="paper_", style=invis]
     outputs_[label="outputs_", style=invis]
     subgraph cluster0 {
         margin=10;
@@ -26,7 +25,7 @@ digraph graphname {
         Mak -> pro [style=invis];
         Mak -> opb_ [style=invis];
         Mak -> inputs_ [style=invis];
-        Mak -> paper_ [style=invis];
+        Mak -> Makp [style=invis];
         Mak -> outputs_ [style=invis];
 
         subgraph cluster1 {
@@ -97,9 +96,9 @@ digraph graphname {
             fontcolor = "#00a3cc";
             color = "#00a3cc";
 
-            paper_ -> Makp [style=invis];
-            Makp -> pap_ [style=invis];
-            pap_ -> artp [style=invis];
+            Makp;
+            Makp -> artp [style=invis];
+            artp -> pap_ [style=invis];
 
             }
         }
