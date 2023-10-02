@@ -50,13 +50,21 @@ In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Te
 
 \subsection{Best Practice Guidelines}
 
+
+As part of this work we have contributed substantial changes to the original OPFVTA repository, based on which we formulate a number of best practice guidelines, highly relevant in the production of reexecutable research outputs.
 \texttt{set -eu} is an invaluable
 
 
-\section{Reproduction}
+\subsection{Reproduction Quality}
 
 % TODO - make proper latex etc:
 %  Additional aspects which were not foreseeing in the original execution making it impossible to reexecute to the identical result - no randomization seed was provided or recorded.
+
+As a top-level view of reexecution results we have produced a simple infrastructure to analyze reproduction quality.
+This provides both quality control for successful reexecution as well as a showcase of how automatic article reexecutability can be leveraged to evaluate \texit{reproducibility} at a glance.
+
+For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results of the Novel Workflow.
+Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF difference (\ref{fig:diff_pages}).
 
 
 \begin{figure}
@@ -70,22 +78,22 @@ In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Te
 	\label{fig:diff_pages}
 \end{figure}
 
-We compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and the Novel Workflow Reexecution.
-Reproduction differences between the article versions can best be inspected at a glance by evaluating the page-wise PDF difference (\ref{fig:diff_pages}).
-This overview shows a consistent minimum baseline of differences, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 9.
+
+This overview shows a consistent minimum baseline of differences, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
 When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the Novel Workflow Reexecution (2023-..).
 While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
-The perceptually uniform linear colour map of \cref{fig:diff_pages} further indicates a natural categorization of pages by difference — orange as opposed to purple ranges.
-Upon inspection these categories reveal themselves as corresponding to text differences (orange, e.g. the aforementioned \cref{fig:diff_date} and \cref{fig:diff_text}) and image differences (purple, e.g. \cref{fig:diff_fig}).
+Throughout other pages we see difference percentages which are broadly consistent across reexecutions, but vary from page to page over almost 2 degrees of magnitude.
+Upon inspection, more variable but comparatively lower-percentage differences (pages 4 and 5, detail depicted in \cref{fig:diff_text}) are revealed as text differences, arising from the original article generating dynamic inline statistic summaries.
+Higher-percentage differences (detail depicted in \cref{fig:diff_fig}) correspond to dynamically generated data figures, in which high variability of nondeterministic preprocessing results in changes of the majority of figure pixels.
 
-We individually examined the highest-difference pages in both categories, 4 and 14, and showcase excerpts of article elements driving the difference in \cref{fig:diff_text} and \cref{fig:diff_fig}, respectively.
-Notably, we find that text differences are well localized, as a function of fixed decimal rounding for statistical outputs, whereby changes in the value do not significantly impact text length and do not get recorded as false positives on subsequent lines.
-In particular, this is also true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements, as long as magnitude notation is used.
-
-
-Overall, inspecting the differences reveals a strong coherence at the qualitative but not at the quantitative level.
+%TODO chr discuss this more in discussions.
+Notably, inspecting these differences reveals a strong coherence at the qualitative evaluation level in spite of high quantitative variability.
 This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
-Quantitative incoherence is in the form of numerical variability of automatically generated metrics in the article text (\ref{fig:diff_text}), variability of sample distributions (\ref{fig:diff_fig}), as well as expected and predictable metadata changes (\ref{fig:diff_date}).
+This is particularly true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements, as long as magnitude notation is used.
+
+%TODO chr discuss this more in discussions.
+Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs.
+This, changes in the numerical value do not impact text length and do not generally propagate to subsequent lines, where they would be recorded as false positives.
 
 
 \begin{figure}
