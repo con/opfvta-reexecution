@@ -9,7 +9,12 @@ This framework leverages Git submodules for resource referencing, and datalad \c
 
 These resources include the original article, the raw data it operates on, and a reference mouse brain templates package, as submodules.
 Additionally, it directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of \emph{this} article.
-This code consists of container image generation and container execution instructions, a \texttt{Make} system for process initiation, scripts which dynamically generate the graphical elements of this article based on the OPFVTA reexecution results, and this document's human-readable text in \TeX{} format.
+The code unique to the reexecution framework consists of container image generation and container execution instructions, and a Make system for process coordination (\cref{fig:topology}).
+
+The Make system is structured into a top-level Makefile, which can be used for container image regeneration and upload, article reexecution in a containerized environment, and meta-article production.
+Two article regeneration Make targets exist, for both the Open Container Initiative standard, and Singularity.
+Both article reexecution targets wrap the \texttt{produce\_analysis.sh} script, which is a thing compatibility layer accessing the Make system of the original article.
+The meta-article targets redirect to a Makefile in the \texttt{article/} child directory, which contains this document's human-readable text in \TeX format, alongside scripts for generating dynamical elements based on the reexecution results seen in the \texttt{outputs/} directory.
 
 % Can we get a DOI/ISBN for the following YODA reference? https://handbook.datalad.org/en/latest/basics/101-127-yoda.html
 The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis”).
@@ -18,11 +23,13 @@ The layout constructed for this study thus provides robust provenance tracking a
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
 	\caption{
-		Directory tree topology of the repository coordinating OPFVTA re-execution.
+		\textbf{The directory topology of the reexecution framework nests all requirements and includes a Make system for process coordination.}
+		Depicted is a directory tree topology of the repository coordinating OPFVTA re-execution.
+		Nested directories are represented by nested boxes, and Git submodules are highlighted with orange borders.
+		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
 	}
 	\label{fig:topology}
 \end{figure}
-%TODO: add colors to showcase what's actually a git submodule from somewhere else.
 
 Notably, this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
 Within the context of container usage, this affords the advantage of keeping the data packages separate and not adding their disk space requirements to those of the container image.
