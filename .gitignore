@@ -16,3 +16,5 @@ __pycache__
 article.bbl
 article.blg
 article.run.xml
+
+article/metadata.tex
