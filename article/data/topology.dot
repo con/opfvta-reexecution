@@ -10,11 +10,11 @@ digraph graphname {
     opf_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93, fontcolor="#999998"];
     mbt_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
     opb_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
-    todo1[label="TODO1", shape=note, color="#BBBBBB", fillcolor=grey93];
     Makp[label="  Makefile  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+    artp[label="  article.pdf  ", shape=note, color="#BBBBBB", fillcolor="#bbeeff"];
     pap_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
-    todo2[label="TODO2", shape=note, color="#BBBBBB", fillcolor=grey93];
     inputs_[label="inputs_", style=invis]
+    outputs_[label="outputs_", style=invis]
     paper_[label="paper_", style=invis]
     outputs_[label="outputs_", style=invis]
     subgraph cluster0 {
@@ -24,8 +24,6 @@ digraph graphname {
         color = "#42e3dc";
 
         Mak -> pro [style=invis];
-        Mak -> todo1 [style=invis];
-        Mak -> todo2 [style=invis];
         Mak -> opb_ [style=invis];
         Mak -> inputs_ [style=invis];
         Mak -> paper_ [style=invis];
@@ -47,8 +45,8 @@ digraph graphname {
             }
             subgraph cluster12 {
                 label = "opfvta/";
-                fontcolor = "#00a3cc";
-                color = "#00a3cc";
+                fontcolor = "#ff7b00";
+                color = "#ff7b00";
                 opf_;
             }
         }
@@ -60,14 +58,14 @@ digraph graphname {
             inputs_ -> opb_ [style=invis];
             subgraph cluster21 {
                 label = "mouse-brain-templates/";
-                fontcolor = "#00a3cc";
-                color = "#00a3cc";
+                fontcolor = "#ff7b00";
+                color = "#ff7b00";
                 mbt_;
             }
             subgraph cluster22 {
                 label = "opfvta_bidsdata/";
-                fontcolor = "#00a3cc";
-                color = "#00a3cc";
+                fontcolor = "#ff7b00";
+                color = "#ff7b00";
                 opb_;
             }
         }
@@ -75,31 +73,34 @@ digraph graphname {
             label = "outputs/";
             fontcolor = "#00a3cc";
             color = "#00a3cc";
-            outputs_ -> todo1 [style=invis];
-            todo1;
+            outputs_ -> oria [style=invis];
+            outputs_ -> repa [style=invis];
+            subgraph cluster32 {
+                label = "original/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+                oria[label="  article.pdf  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+                ori_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+                oria -> ori_ [style=invis];
+            }
+            subgraph cluster33 {
+                label = "<env>_<date>/";
+                fontcolor = "#00a3cc";
+                color = "#00a3cc";
+                repa[label="  article.pdf  ", shape=note, color="#BBBBBB", fillcolor="#bbffdd"];
+                rep_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+                repa -> rep_ [style=invis];
+            }
         }
         subgraph cluster4 {
-            label = "paper/";
+            label = "article/";
             fontcolor = "#00a3cc";
             color = "#00a3cc";
 
             paper_ -> Makp [style=invis];
-            paper_ -> todo2 [style=invis];
+            Makp -> pap_ [style=invis];
+            pap_ -> artp [style=invis];
 
-            subgraph cluster42 {
-                label = "source/";
-                fontcolor = "#00a3cc";
-                color = "#00a3cc";
-
-                Makp;
-                pap_;
-            }
-            subgraph cluster41 {
-                label = "generated/";
-                fontcolor = "#00a3cc";
-                color = "#00a3cc";
-
-                todo2;
             }
         }
         //{rank=same; opf_; Con}
