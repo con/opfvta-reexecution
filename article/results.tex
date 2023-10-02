@@ -48,12 +48,6 @@ This refinement affords both the possibility to cherry-pick only required data f
 In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05} Make system.
 In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Templates now publishes tarballs, as well as DataLad-accessible unarchived individual template files.
 
-\subsection{Best Practice Guidelines}
-
-
-As part of this work we have contributed substantial changes to the original OPFVTA repository, based on which we formulate a number of best practice guidelines, highly relevant in the production of reexecutable research outputs.
-\texttt{set -eu} is an invaluable
-
 
 \subsection{Reproduction Quality}
 
@@ -139,3 +133,19 @@ This, changes in the numerical value do not impact text length and do not genera
 \end{figure}
 
 
+\subsection{Best Practice Guidelines}
+
+As part of this work we have contributed substantial changes to the original OPFVTA repository, based on which we formulate a number of best practice guidelines, highly relevant in the production of reexecutable research outputs.
+
+\subsubsection{Errors should be fatal more often than not.}
+The high complexity of a full analysis workflow makes missing output data intractable, as there are many steps at which data may have been dropped.
+Manually setting individual invocations propagate exit codes throughout the Make system is cumbersome, and thus an easy global invocation should be relied on so that errors become fatal and immediately visible.
+This is bes accomplished by prepending all scripts for which this concern is relevant with a \texttt{set -eu} line.
+
+\subsubsection{Hierarchical granularity greatly benefits efficiency.}
+The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
+Ideally it should not be necessary to re-execute the entire workflow once an error is potentially resolved.
+For this it is beneficial to segment the workflow into as many hierarchical steps as feasible.
+This is not always possible, and is particularly not feasible for higher-level statistical analysis, where hierarchical contingency can easily be lost.
+However, particularly for such steps as preprocessing, and first-level general linear modelling, this is commonly feasible, and should be done.
+An easy implementation of this is having the workflow coordination system check for the presence of each hierarchical result, and, if present, proceed to the next hierarchical step.

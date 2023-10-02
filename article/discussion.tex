@@ -34,8 +34,6 @@ were expensive.
 % mention decimal rounding for localized text diff-ing
 
 \begin{itemize}
-\item Bash: scripts should fail upon first error -- ``set -eu`` or otherwise (approach taken here) ``|| exit 1``.
-  We switched because e.g. with ``|| exit 1`` you would not exit upon undefined variable etc.
   \item Optimize the development cycle time.
     \begin{lstlisting}
     (bugfix -> rebuild container image -> push -> pull from compute -> run)
@@ -90,15 +88,6 @@ were expensive.
 
         and may be `-u` `-g` if used with ``docker''.
     \end{itemize}
-  
-  \item Separate jobs by participant where possible.
-    \begin{itemize}
-      \item Instead of deploying 1 job to analyze all participants, deploy many jobs to each analyze 1 participant.
-      \item Use scheduler like SLURM to manage resources rather than internal code.
-    \end{itemize}
-  
-  \item Automate the orchestration of data.
-  
   \item With singularity, automate the build from OCI push to datald repo, and then pull + datalad get from compute resource.
 \end{itemize}
 
