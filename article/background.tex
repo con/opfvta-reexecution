@@ -84,4 +84,7 @@ Given the complexity of scientific computing environments, such virtualization i
 A prominent instantiation of virtualization is container technology, which focuses on portability of operating system images (the eponymous “containers”) across parent operating systems contingent only on the presence of a container running service.
 Their relevance to open science consists in providing end-users with an accessible environment, which can be ascertained to provide the requirements of a certain top-level workflow, and which does not interfere with their parent environment.
 
+Two of the most prominent container standards are offered by the Open Container Initiative (OCI) and Singularity.
+The former is used by applications such as Docker and Podman, and the latter by the eponymous Singularity application, which differentiates itself from OCI by not requiring root access, and thus being arguably better suited for scientific computing in high-performance computing environments.
+
 While the reference OPFVTA article does not leverage this technology, containers can improve its portability, as well as provide a snapshot of its functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
