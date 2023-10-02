@@ -5,7 +5,7 @@
 
 \subsection{Repository Structure}
 In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which leverages Git to link all reexecution requirements.
-This framework leverages Git submodules for resource referencing, and datalad \cite{datalad} in order to permit Git integration with data resources.
+This framework leverages Git submodules for resource referencing, and DataLad \cite{datalad} in order to permit Git integration with data resources.
 
 These resources include the original article, the raw data it operates on, and a reference mouse brain templates package, as submodules.
 Additionally, it directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of \emph{this} article.
@@ -16,8 +16,15 @@ Two article regeneration Make targets exist, for both the Open Container Initiat
 Both article reexecution targets wrap the \texttt{produce\_analysis.sh} script, which is a thing compatibility layer accessing the Make system of the original article.
 The meta-article targets redirect to a Makefile in the \texttt{article/} child directory, which contains this document's human-readable text in \TeX format, alongside scripts for generating dynamical elements based on the reexecution results seen in the \texttt{outputs/} directory.
 
-% Can we get a DOI/ISBN for the following YODA reference? https://handbook.datalad.org/en/latest/basics/101-127-yoda.html
+%TODO yoh Can we get a DOI/ISBN for the following YODA reference? https://handbook.datalad.org/en/latest/basics/101-127-yoda.html
 The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis”).
+
+This repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via a package manager.
+%TODO chr Maybe add caveats to this in discussion
+This leverages Git to provide basic dependency resolution, which adds portability across operating system choices as well as finer-grained version control.
+Within the context of container usage, this also affords the advantage of keeping the data packages outside of container image generation logic, and not adding their disk space requirements to container images.
+
+Notably, the article source code itself is not duplicated or further edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repository.
 
 \begin{figure}
 	\centering
@@ -31,20 +38,14 @@ The layout constructed for this study thus provides robust provenance tracking a
 	\label{fig:topology}
 \end{figure}
 
-Notably, this repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via the package manager.
-Within the context of container usage, this affords the advantage of keeping the data packages separate and not adding their disk space requirements to those of the container image.
-
-
-In this novel repository structure, external components of the reexecution study are managed as Git submodules, with data sumbodules being handled by git-annex, a versioning technology suitable for binary files, and made accessible via DataLad.
-Notably, the article source code itself is not duplicated or furhter edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repostitory.
 
 %TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
 
 \subsection{Resource Refinement}
 
-As a notable step in our automated full article reproduction effort, we have updated resources previously only available as tarballs (i.e. compressed \texttt{tar} archives), to DataLad.
-This refinement permits both easier integration with the parent article reproduction repository for version tracking purposes.
-In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05}  `Make` system.
+As a notable step in our article reproduction effort, we have updated resources previously only available as tarballs (i.e. compressed \texttt{tar} archives), to DataLad.
+This refinement affords both the possibility to cherry-pick only required data files from the data archive (as opposed to requiring a full archive download), as well as more fine-grained version tracking capabilities.
+In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05} Make system.
 In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Templates now publishes tarballs, as well as DataLad-accessible unarchived individual template files.
 
 \subsection{Best Practice Guidelines}
