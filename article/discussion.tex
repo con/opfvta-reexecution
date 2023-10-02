@@ -34,34 +34,6 @@ were expensive.
 % mention decimal rounding for localized text diff-ing
 
 \begin{itemize}
-  \item Optimize the development cycle time.
-    \begin{lstlisting}
-    (bugfix -> rebuild container image -> push -> pull from compute -> run)
-    \end{lstlisting}
-    If this takes a long time, very little work will get done.
-
-    \begin{itemize}
-      \item Automate the build, push.
-      \item Keep container images small:
-        \begin{itemize}
-          \item Keep data out of the images.
-          \item Use a small base image like alpine for your own containers.
-        \end{itemize}
-      \item Establish your reproducible base container environment.
-        In case of Gentoo: Pin the Gentoo repo as soon as dependencies are working; this will allow some use of the cache.
-        In case of Debian-based: use NeuroDebian tool nd\_freeze and call it early in the recipe~\cite{TODO}.
-        NeuroDocker~\cite{TODO} could be used to streamline creation of 
-      \item Copy as little into the image as possible - bind mount what is needed
-        \begin{itemize}
-        \item Each unnecessary thing copied in may force a rebuild if it changes.
-        \item Bind-mount any software/scripts/data which might remain a subject to change
-        \end{itemize}
-    \end{itemize}
-
-  \item Modularize the workflow into isolated components to make the reuse most efficient.
-
-    The efficiency estimation might differ between developers and users.
-    The tricks with ``bind mounting'' might provide some remedy for the developers while reusing the same container compartmentalization as destined for a user.
     \begin{itemize}
     \item
       Separate containers for major steps of data analysis, e.g., pre-processing and evaluation containers.
@@ -70,30 +42,26 @@ were expensive.
       Standardize container ``interfaces'' to an existing standard like Boutiques or BIDS-App.
       BIDS-App interfaces also facilitate enabling ``per-participant'' processing, which then allows for mass-parallelization on HPC across subjects.
     \item
-      Use a series of container ``steps'' rather than a ``monolithic container'' (analogy to microservices).
-      In the enterprise world, the push to modernize has often started with "shoving what we have into containers," and this approach frequently is a headache and does not have the "cloud-native" benefits. Is it even worth doing this step?
-      Instead, what is recommended for enterprise apps is to break the monolith into microservices that can all be deployed, scaled, and upgraded independently.
-      In science, it is obviously not as important to scale and upgrade without downtime, but the concept may still hold.
       The way opfvta is organized makes it challenging to modularize because it was designed for reproducibility and that was accomplished by abstracting the internal workings from a single top-level "black box" interface.
-      In this paper, we have created the monolith, which suffers from slow builds, large sizes, and, therefore, a slow development cycle.
       \item What does a "chain" of BIDS apps look like?  Answer: mriqc, fmriprep, fitlins... The glue between -- data standards, but the software on how to invoke -- WiP, no unified way. WiP on formalizing BIDS-App interfaces more (https://bids.neuroimaging.io/bep027) which ATM assumes use of Boutique descriptors.
-      \item Easier and faster to debug and iterate.
       \item Ideally, use images created by the projects with no modifications, i.e., for fmriprep use fmriprep container.
       \item Each container should have a well-defined "input" and "output" so it can be easily spotted which steps have failed.
-      \item Pay attention to user used for invocation of container
-
-        docker -- by default might be root, resultant files would be owned by root, not be able to move etc.
-
-        -e "UID=$(id -u)" -e "GID=$(id -g)"
-
-        and may be `-u` `-g` if used with ``docker''.
-    \end{itemize}
   \item With singularity, automate the build from OCI push to datald repo, and then pull + datalad get from compute resource.
 \end{itemize}
 
 %TODO 
 % Analogy with a "backup" -- there is no idea if a backup is any good until it is attempted to restore ffrom the backup. The same with studies claiming to be reproducible.
 
+
+% TODO yoh : I do not understand this (chr) could you please expand this so I can write something more sensible about it?
+%      \item Pay attention to user used for invocation of container
+%
+%        docker -- by default might be root, resultant files would be owned by root, not be able to move etc.
+%
+%        -e "UID=$(id -u)" -e "GID=$(id -g)"
+%
+%        and may be `-u` `-g` if used with ``docker''.
+%    \end{itemize}
 
 \subsection{Outlook}
 
