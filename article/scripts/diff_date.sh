@@ -2,6 +2,7 @@
 
 cd "$(dirname "$0")"
 
+# gs will succeed even if pointed to an empty file.
 set -eu
 
 # Cropbox is:
