@@ -16,5 +16,5 @@ gs \
   -sDEVICE=pdfwrite \
   -c "[/CropBox [45 621 560 825]" \
   -c " /PAGES pdfmark" \
-  -f ../data/paperdiff_podman_20230906053037.pdf
+  -f ../data/paperdiff_singularity_20230908122618.pdf
 

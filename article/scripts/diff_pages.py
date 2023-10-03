@@ -45,6 +45,7 @@ sns.pointplot(data=df,
 	y='Differing Pixels Proportion',
 	hue='Environment',
 	dodge=.2,
+	errorbar=('ci',95),
 	)
 plt.yscale('log')
 

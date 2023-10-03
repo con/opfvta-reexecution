@@ -2,6 +2,7 @@
 
 cd "$(dirname "$0")"
 
+# gs will succeed even if pointed to an empty file.
 set -eu
 
 # Cropbox is:
@@ -16,5 +17,5 @@ gs \
   -sDEVICE=pdfwrite \
   -c "[/CropBox [290 540 560 870]" \
   -c " /PAGES pdfmark" \
-  -f ../data/paperdiff_podman_20230906053037.pdf
+  -f ../data/paperdiff_singularity_20230908122618.pdf
 
