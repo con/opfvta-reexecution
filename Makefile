@@ -109,6 +109,10 @@ article:
 article-clean:
 	$(MAKE) article-clean -C article/
 
+.PHONY: article-upload
+article-upload:
+	$(MAKE) upload -C article/
+
 
 #
 # Containers management. oci- for Open Container Initiative
