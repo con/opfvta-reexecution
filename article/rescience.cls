@@ -297,6 +297,7 @@
 \RequirePackage{siunitx}
 \RequirePackage{cleveref}
 \RequirePackage{pdfpages}
+\RequirePackage{nth}
 
 % --- Bibliography ------------------------------------------------------------
 \RequirePackage[
