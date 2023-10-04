@@ -14,10 +14,10 @@ Reexecution is a prerequisite for the reproduction of any research analysis proc
 Further, reexecution constitutes a capability in and of itself, with ample utility in education, training, rapid-feedback development, and resource reuse for novel research purposes (colloquially, “hacking”) — which may accrue even in the absence of accurate result reproduction.
 
 %TODO yoh Is there a review of people sharing their code? If not we can cite a bunch of people who brag about putting their stuff on GH
-Free and Open Source Software \cite{foss} has permeated the world of research to a significant extent, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results \cite{TODO} under free and open licenses.
+Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results \cite{TODO} under free and open licenses.
 However, such analysis instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
 This precludes automatic reexecution of the full research output, and limits their potential for re-use.
-Additionally, this means that, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
+Additionally, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
 
 In order to optimally leverage extant efforts pertaining to full article reexecution and in order to test reexecutability in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA based on author naming conventions \cite{opfvta}.
 Due to the high task complexity of integrating all data analysis into a coherent and reliable workflow, extant efforts pertaining to full article reexecution are scant and not suitably stress-tested at a larger scale.
@@ -37,6 +37,8 @@ The OPFVTA article, which this study uses as an example, primarily studies effec
 Stimulus-evoked neuroimaging analysis is one of the more widespread applications, and thus the data analysis workflow (both in terms of \emph{data processing} and \emph{data evaluation}) provides significant analogy to numerous neuroimaging studies.
 The data evaluation step for this sort of study is subdivided into “level one” (i.e., within-subject) analysis, and “level two” (i.e., across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \cite{Friston1995}.
 In the simplest terms, these modeling steps represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
+
+% Insert and reference example workflow figure
 
 Computationally, in the case of the OPFVTA article as well as the general case, the various data analysis workflow steps are sharply distinguished by their time cost.
 By far the most expensive element is a substage of data preprocessing known as registration.
@@ -61,12 +63,12 @@ Complexity in this sense also refers to the fact that individual software depend
 The resulting network of prerequisites is known as a “dependency graph”, and its resolution is commonly handled by a package manager.
 
 The OPFVTA article in its original form relies on Portage \cite{portage} — a package manager characterized by providing integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \cite{ng}.
-As such, the dependencies of the workflow are summarized in a standardized format, which is called an Ebuild.
+As such, the dependencies of the workflow are summarized in a standardized format, which is called an ebuild.
 This format is analogous to the format used to specify dependencies at all further hierarchical levels in the dependency tree.
 This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}.
 Additionally, the reference article contextualizes its raw data resource as a dependency, integrating data provision in the same network as software provision.
 
-While the top-level Ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the Ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
+While the top-level ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
 These repositories are version controlled, meaning that their state at any time point is documented, and they can thus be restored to represent the environment as it would have been generated at any point in the past.
 
 

@@ -4,7 +4,7 @@
 % Should, could, might, etc. sparingly and ideally not here but in discussion.
 
 \subsection{Repository Structure}
-In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which leverages Git to link all reexecution requirements.
+In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which leverages Git and DataLad to link all reexecution requirements.
 This framework leverages Git submodules for resource referencing, and DataLad \cite{datalad} in order to permit Git integration with data resources.
 
 These resources include the original article, the raw data it operates on, and a reference mouse brain templates package, as submodules.
@@ -140,7 +140,7 @@ As part of this work we have contributed substantial changes to the original OPF
 \subsubsection{Errors should be fatal more often than not.}
 The high complexity of a full analysis workflow makes missing output data intractable, as there are many steps at which data may have been dropped.
 Manually setting individual invocations propagate exit codes throughout the Make system is cumbersome, and thus an easy global invocation should be relied on so that errors become fatal and immediately visible.
-This is bes accomplished by prepending all scripts for which this concern is relevant with a \texttt{set -eu} line.
+This is best accomplished by prepending all Bash scripts for which this concern is relevant with a \texttt{set -eu} line.
 
 \subsubsection{Hierarchical granularity greatly benefits efficiency.}
 The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.

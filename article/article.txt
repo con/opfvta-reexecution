@@ -148,13 +148,13 @@ The OPFVTA article in its original form relies on Portageportage , a package man
 acterized by providing integration across programming languages, source‐based pack‐
 age installation, and wide‐ranging support for neuroscience softwareng . As such, the
 dependencies of the workflow are summarized in a standardized format, which is called
-an Ebuild. This format is analogous to the format used to specify dependencies at all
+an ebuild. This format is analogous to the format used to specify dependencies at all
 further hierarchical levels in the dependency tree. This affords a homogeneous envi‐
 ronment for dependency resolution, as specified by the Package Manager Standardpms .
 Additionally, the reference article contextualizes its raw data origin point as a depen‐
 dency, providing provenance tracking in the same fashion as for software.
-While the top‐level Ebuild (i.e. the software dependency requirements of the workflow)
-is included in the article repository and distributed alongside it, the Ebuilds tracking
+While the top‐level ebuild (i.e. the software dependency requirements of the workflow)
+is included in the article repository and distributed alongside it, the ebuilds tracking
 dependencies further down the tree are all distributed via separate repositories. These
 repositories are version controlled, meaning that their state at any time point is docu‐
 mented, and they can thus be restored to represent the environment as it would have
