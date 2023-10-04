@@ -13,11 +13,11 @@ authors:
  - name: Horea-Ioan Ioanas
    orcid: 0000-0001-7037-2449
    email: uni@chymera.eu
-   affiliations: 1,*
+   affiliations: 1,2,*
  - name: Austin Macdonald
    orcid: 0000-0002-8124-807X
    email: austin@dartmouth.edu
-   affiliations: 1,*
+   affiliations: 1,2
  - name: Yaroslav O. Halchenko
    orcid: 0000-0003-3456-2493
    email: yoh@dartmouth.edu
@@ -30,6 +30,8 @@ affiliations:
  - code: 1
    name: Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College
    address: Hanover, NH, USA
+ - code: 2
+   name: These authors have contributed equally to the article.
 
 # List of keywords (adding the programming language might be a good idea)
 keywords: rescience c, rescience x
