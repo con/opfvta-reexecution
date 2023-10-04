@@ -94,6 +94,19 @@ analysis-oci:
 		${FQDN_IMAGE} \
 		./produce-analysis.sh ${OCI_BINARY}
 
+analysis-oci-interactive:
+	$(OCI_BINARY) run \
+		-it \
+		--rm \
+		-v ${PWD}:/opt \
+		-v ${PWD}/inputs/opfvta_bidsdata:/usr/share/opfvta_bidsdata \
+		-v ${PWD}/inputs/mouse-brain-templates/mouse-brain-templates:/usr/share/mouse_brain_atlases \
+		-v ${SCRATCH_PATH}:/root/.scratch \
+		-v ${PWD}/code/empty:/opfvta/ \
+		--workdir /opt/code \
+		${FQDN_IMAGE} \
+		/bin/bash
+
 #
 # Paper build
 #
