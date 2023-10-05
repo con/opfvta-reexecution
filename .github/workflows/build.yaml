@@ -30,6 +30,11 @@ jobs:
 
       - name: Install Make
         run: sudo apt-get -y install make
+     
+      # Since we use regular actions/checkout@v4 it does not trigger
+      # auto-enabling of the gin remote 
+      - name: Enable gin remote
+        run: git annex enableremote gin.g-node.org
 
       - name: Build container article
         run: make container-article
