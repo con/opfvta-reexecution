@@ -14,6 +14,7 @@ Reexecution is a prerequisite for the reproduction of any research analysis proc
 Further, reexecution constitutes a capability in and of itself, with ample utility in education, training, rapid-feedback development, and resource reuse for novel research purposes (colloquially, “hacking”) — which may accrue even in the absence of accurate result reproduction.
 
 %TODO yoh Is there a review of people sharing their code? If not we can cite a bunch of people who brag about putting their stuff on GH
+%TODO asmacdo +1 cool
 Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results \cite{TODO} under free and open licenses.
 However, such analysis instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
 This precludes automatic reexecution of the full research output, and limits their potential for re-use.
@@ -80,13 +81,29 @@ Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \c
 
 \subsection{Containers}
 
-Operating system virtualization is a process whereby an operating system can be installed inside another operating system, without being subject to the environment constraints of its parent, and without potentially polluting the parent environment.
-Given the complexity of scientific computing environments, such virtualization is attractive on multi-user systems, on systems lacking adequate package management capabilities, or in instances where the tasks to be executed are fragile and may require bespoke constraints.
+Operating system virtualization is a process whereby an operating system can be emulated inside another running system, the "host", and thus a "guest" environment can be shared with any software and dependencies already installed.
+Virtual machines (VMs) are attractive solutions to enable reproducibility first and foremost because the reproducer does can skip the installation of the environment, which is frequently time consuming and requires project-specific knowledge.
+Once running, guest machines are self-contained and isolated from the host, which then eliminates the posibility of polluting the host environment.
+Perhaps the most important benefit of virtual isolation is significantly improved security that allow modern system adminstrators to safely allow relatively unrestricted usage from semi-trusted users.
+Lastly, distributing code in virtual machine images allows the original authors to solve dependency problems that arise from imperfect package managers, imperfect repositories, and constant package updates; instead the authors distribute a locked snapshot of a working system.
 
-A prominent instantiation of virtualization is container technology, which focuses on portability of operating system images (the eponymous “containers”) across parent operating systems contingent only on the presence of a container running service.
-Their relevance to open science consists in providing end-users with an accessible environment, which can be ascertained to provide the requirements of a certain top-level workflow, and which does not interfere with their parent environment.
+System virtualization offers a way to portably freeze and preserve environments, but are limited due to the size of the "full disk images".
+Additionally VM's must be be "booted" which can be costly if many instances are needed.
+Modern advances in container technology have allowed similar benefits but strip redundancy by making limited use of the host machine, specifically the hypervisor.
+Containers enable a complete working environment as small as a few Megabytes, and can be started as quickly as a normal process.
+Many container images are publicly available via public image repositories.
 
-Two of the most prominent container standards are offered by the Open Container Initiative (OCI) and Singularity.
-The former is used by applications such as Docker and Podman, and the latter by the eponymous Singularity application, which differentiates itself from OCI by not requiring root access, and thus being arguably better suited for scientific computing in high-performance computing environments.
+Containers technology is not a recent invention, but the term "container" gained popularity alongside the Docker toolset.
+Over time Docker and other organizations have come together under a Linux Foundation project, the "Open Container Initiative" (OCI).
+The OCI governing body has produced an open specification for containers, which can be used by various container runtimes and toolsets.
+OCI complient container images in most cases can be executed identically with Docker, Podman, or other OCI compliant tools.
 
-While the reference OPFVTA article does not leverage this technology, containers can improve its portability, as well as provide a snapshot of its functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
+While OCI images are nearly ubiquitous in the industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing.
+Singularity has support for converting OCI images into singularity images, and recent versions of Apptainer have also added support to natively run OCI containers.
+Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
+
+One of the most significant downsides to using Docker in HPC environments was that it required root privilages.
+However, recent advances in container technology have made this unnecessary, and it is now considered best practice to run containers without root privilages when reasonable.
+
+While the original reference OPFVTA article did not leverage this technology, containers can be used improve to improve the reliability and portability of the OPFVTA project.
+In this article, the authors will provide a snapshot of OPFVTA functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
