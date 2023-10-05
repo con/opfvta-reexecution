@@ -82,12 +82,10 @@ Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \c
 \subsection{Containers}
 
 Operating system virtualization is a process whereby an operating system can be emulated inside another running system, the "host", and thus a "guest" environment can be shared with any software and dependencies already installed.
-Virtual machines (VMs) are attractive solutions to enable reproducibility for several reasons:
-
-1. VMs skip the most difficult step: Installation and coordinating dependencies is often challenging, time consuming, and requires domain knowledge reproducers and reviewers are likely to lack.
-1. Guests are self-contained and isolated from the host, which eliminates the posibility of polluting the host environment.
-1. Admins are able to safely allow mostly unrestricted usage from semi-trusted users.
-1. Package managers are imperfect, and none can be relied upon to continue to offer all legacy releases, but VMs preserve a working copy.
+Virtual machines (VMs) are attractive solutions to enable reproducibility first and foremost because the reproducer does can skip the installation of the environment, which is frequently time consuming and requires project-specific knowledge.
+Once running, guest machines are self-contained and isolated from the host, which then eliminates the posibility of polluting the host environment.
+Perhaps the most important benefit of virtual isolation is significantly improved security that allow modern system adminstrators to safely allow relatively unrestricted usage from semi-trusted users.
+Lastly, distributing code in virtual machine images allows the original authors to solve dependency problems that arise from imperfect package managers, imperfect repositories, and constant package updates; instead the authors distribute a locked snapshot of a working system.
 
 System virtualization offers a way to portably freeze and preserve environments, but are limited due to the size of the "full disk images".
 Additionally VM's must be be "booted" which can be costly if many instances are needed.
