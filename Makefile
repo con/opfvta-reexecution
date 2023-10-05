@@ -57,16 +57,7 @@ analysis-reproman:
 		--jp walltime=120:00:00 \
 		make analysis-singularity
 
-# These don't work:
-#SCRATCH_PATH?=/dartfs-hpc/scratch/$(USER)
-#$(eval if [[ -z "$SCRATCH_PATH" ]]; then SCRATCH_PATH="/home/user/$(USER)/.scratch"; fi)
-#$(eval SCRATCH_PATH?="/home/user/$(USER)/.scratch")
-#$(eval SCRATCH_PATH ?= "/home/user/$(USER)/.scratch")
-#SCRATCH_PATH ?= "/home/user/$(USER)/.scratch"
-#SCRATCH_PATH = $(if $(SCRATCH_PATH),$(SCRATCH_PATH),"/home/user/$(USER)/.scratch")
-
 analysis-singularity:
-	set -eu
 	$(if $(USER),,$(error USER is not defined and currently required for the SCRATCH_PATH variable))
 	@echo "Selected \`SCRATCH_PATH\` $(SCRATCH_PATH). You may want to customize this by setting it on the command line, after the make command, i.e. \`make SCRATCH_PATH=... target\`."
 	mkdir -p $(SCRATCH_PATH)
