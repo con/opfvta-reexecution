@@ -298,6 +298,7 @@
 \RequirePackage{cleveref}
 \RequirePackage{pdfpages}
 \RequirePackage{nth}
+\RequirePackage{float}
 
 % --- Bibliography ------------------------------------------------------------
 \RequirePackage[

@@ -3,7 +3,9 @@
 % Descriptive, opinions either absent, or as objective-ish comments when facts are stated.
 % Should, could, might, etc. sparingly and ideally not here but in discussion.
 
+
 \subsection{Repository Structure}
+
 In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which leverages Git and DataLad to link all reexecution requirements.
 This framework leverages Git submodules for resource referencing, and DataLad \cite{datalad} in order to permit Git integration with data resources.
 
@@ -41,12 +43,64 @@ Notably, the article source code itself is not duplicated or further edited here
 
 %TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
 
+
 \subsection{Resource Refinement}
 
 As a notable step in our article reproduction effort, we have updated resources previously only available as tarballs (i.e. compressed \texttt{tar} archives), to DataLad.
 This refinement affords both the possibility to cherry-pick only required data files from the data archive (as opposed to requiring a full archive download), as well as more fine-grained version tracking capabilities.
 In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05} Make system.
 In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Templates now publishes tarballs, as well as DataLad-accessible unarchived individual template files.
+
+
+\subsection{Best Practice Guidelines}
+
+As part of this work we have contributed substantial changes to the original OPFVTA repository, based on which we formulate a number of best practice guidelines, highly relevant in the production of reexecutable research outputs.
+
+\subsubsection{Errors should be fatal more often than not.}
+The high complexity of a full analysis workflow makes missing output data intractable, as there are many steps at which data may have been dropped.
+Manually setting individual invocations propagate exit codes throughout the Make system is cumbersome, and thus an easy global invocation should be relied on so that errors become fatal and immediately visible.
+This is best accomplished by prepending all Bash scripts for which this concern is relevant with a \texttt{set -eu} line.
+
+\subsubsection{Avoid assuming or hard-coding paths to resources.}
+Updating the 
+
+\subsubsection{Hierarchical granularity greatly benefits efficiency.}
+The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
+Ideally it should not be necessary to re-execute the entire workflow once an error is potentially resolved.
+For this it is beneficial to segment the workflow into as many hierarchical steps as feasible.
+This is not always possible, and is particularly not feasible for higher-level statistical analysis, where hierarchical contingency can easily be lost.
+However, particularly for such steps as preprocessing, and first-level general linear modelling, this is commonly feasible, and should be done.
+An easy implementation of this is having the workflow coordination system check for the presence of each hierarchical result, and, if present, proceed to the next hierarchical step.
+
+\subsubsection{Container image size should be kept small.}
+Due to a lack of persistency, addressing issues in container image contents requires rebuilding, which can be a time-consuming process.
+The smaller the container image, the easier it is.
+In particular, when using containers, it is thus advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
+A suitable alternative is to assure provision of these resources outside of the container image, e.g. by bind-mounting Git (and DataLad) directories present on the host machine.
+
+\subsubsection{Containers should fit the scope of the underlying workflow steps.}
+In order to not artificially extend the workload of rebuilding a container image, it is further advisable to not create a bundled container image if separate containers can be used for separate hierarchical steps of the workflow.
+Container image granularity is of course capped by article workflow granularity, but it is paramount to not compromise the former at the container level.
+At a minimum, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
+
+\subsubsection{Do not write debug-relevant data inside the container.}
+Debug-relevant data, such as intermediary data processing steps or debugging logs should not be deleted by the workflow, and further, should be written to persistent storage.
+When using containers, if this data is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
+This data is vital for debugging, and thus should not be lost.
+This can be avoided by making sure that the paths used for intermediary and debugging outputs are bind-mounted to real directories on the parent system, from which they can be freely inspected.
+
+\subsubsection{Parameterize scratch directories.}
+Complex workflows commonly generate large amounts of scratch data — intermediary data processing steps, with no other utility than being read by subsequent steps.
+If these data are written to a hard-coded path, multiple executions will lead to race conditions, compromising one or multiple execution attempts.
+This is avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamps).
+When using containers, this should be done at the container initiation level, as the relevant path is the path on the parent system, and not the path inside the container.
+
+\subsubsection{Dependency versions inside container environments should be frozen as soon as feasible.}
+The need for image rebuilding also means that assuring functionality in view of frequent updates is a more difficult inside containers than on a persistent system.
+This is compounded by the frequent and API-breaking update schedules of many scientific software packages.
+While dependency version freezing is not without cost in terms of assuring continued real-life functionality for an article, it is paramount that this be done as soon as all required processing capabilities are provided.
+How this is accomplished differs greatly based on the package manager used inside the container.
+For the present example, using Gentoo's Portage package manager, versions can be frozen by checking out a specific commit of the dependency tree, in view of which the package manager will automatically resolve the same versions.
 
 
 \subsection{Reproduction Quality}
@@ -60,7 +114,6 @@ This provides both quality control for successful reexecution as well as a showc
 For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results of the Novel Workflow.
 Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF difference (\ref{fig:diff_pages}).
 
-
 \begin{figure}
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
@@ -71,7 +124,6 @@ Reproduction differences between the article versions are extracted by evaluatin
 	}
 	\label{fig:diff_pages}
 \end{figure}
-
 
 This overview shows a consistent minimum baseline of differences, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
 When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the Novel Workflow Reexecution (2023-..).
@@ -86,11 +138,10 @@ This coherence manifests in the statements from the original article remaining v
 This is particularly true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements, as long as magnitude notation is used.
 
 %TODO chr discuss this more in discussions.
-Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs.
+Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs (\cref{fig:diff}).
 This, changes in the numerical value do not impact text length and do not generally propagate to subsequent lines, where they would be recorded as false positives.
 
-
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}{0.99\textwidth}
 		\centering
@@ -131,52 +182,4 @@ This, changes in the numerical value do not impact text length and do not genera
 	}
 	\label{fig:diff}
 \end{figure}
-
-
-\subsection{Best Practice Guidelines}
-
-As part of this work we have contributed substantial changes to the original OPFVTA repository, based on which we formulate a number of best practice guidelines, highly relevant in the production of reexecutable research outputs.
-
-\subsubsection{Errors should be fatal more often than not.}
-The high complexity of a full analysis workflow makes missing output data intractable, as there are many steps at which data may have been dropped.
-Manually setting individual invocations propagate exit codes throughout the Make system is cumbersome, and thus an easy global invocation should be relied on so that errors become fatal and immediately visible.
-This is best accomplished by prepending all Bash scripts for which this concern is relevant with a \texttt{set -eu} line.
-
-\subsubsection{Hierarchical granularity greatly benefits efficiency.}
-The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
-Ideally it should not be necessary to re-execute the entire workflow once an error is potentially resolved.
-For this it is beneficial to segment the workflow into as many hierarchical steps as feasible.
-This is not always possible, and is particularly not feasible for higher-level statistical analysis, where hierarchical contingency can easily be lost.
-However, particularly for such steps as preprocessing, and first-level general linear modelling, this is commonly feasible, and should be done.
-An easy implementation of this is having the workflow coordination system check for the presence of each hierarchical result, and, if present, proceed to the next hierarchical step.
-
-\subsubsection{Container image size should be kept small.}
-Due to a lack of persistency, addressing issues in container image contents requires rebuilding, which can be a time-consuming process.
-The smaller the container image, the easier it is.
-In particular, when using containers, it is thus advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
-A suitable alternative is to assure provision of these resources outside of the container image, e.g. by bind-mounting Git (and DataLad) directories present on the host machine.
-
-\subsubsection{Containers should fit the scope of the underlying workflow steps.}
-In order to not artificially extend the workload of rebuilding a container image, it is further advisable to not create a bundled container image if separate containers can be used for separate hierarchical steps of the workflow.
-Container image granularity is of course capped by article workflow granularity, but it is paramount to not compromise the former at the container level.
-At a minimum, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
-
-\subsubsection{Do not write debug-relevant data inside the container.}
-Debug-relevant data, such as intermediary data processing steps or debugging logs should not be deleted by the workflow, and further, should be written to persistent storage.
-When using containers, if this data is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
-This data is vital for debugging, and thus should not be lost.
-This can be avoided by making sure that the paths used for intermediary and debugging outputs are bind-mounted to real directories on the parent system, from which they can be freely inspected.
-
-\subsubsection{Parameterize scratch directories.}
-Complex workflows commonly generate large amounts of scratch data — intermediary data processing steps, with no other utility than being read by subsequent steps.
-If these data are written to a hard-coded path, multiple executions will lead to race conditions, compromising one or multiple execution attempts.
-This is avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamps).
-When using containers, this should be done at the container initiation level, as the relevant path is the path on the parent system, and not the path inside the container.
-
-\subsubsection{Dependency versions inside container environments should be frozen as soon as feasible.}
-The need for image rebuilding also means that assuring functionality in view of frequent updates is a more difficult inside containers than on a persistent system.
-This is compounded by the frequent and API-breaking update schedules of many scientific software packages.
-While dependency version freezing is not without cost in terms of assuring continued real-life functionality for an article, it is paramount that this be done as soon as all required processing capabilities are provided.
-How this is accomplished differs greatly based on the package manager used inside the container.
-For the present example, using Gentoo's Portage package manager, versions can be frozen by checking out a specific commit of the dependency tree, in view of which the package manager will automatically resolve the same versions.
 
