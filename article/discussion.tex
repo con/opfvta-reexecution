@@ -75,16 +75,14 @@ Even in light of this uncommon advantage, ensuring reexecutability has proven an
 Difficulties arose primarily due to the software stack instability.
 It is common for scientific software — and more and more common as one moves towards the cutting edge — to receive frequent interface changes, and to drop support for older dependencies.
 
+In this article we propose container technology as a mitigation method for such instability, however, these are not without draw-backs, as they can make introspection more challenging.
+In view of this, we distribute interactive container targets, whereby the user may enter the container dedicated to automatic reexecution manually, in order to be able to inspect and test changes in the environment.
+Even so, on account of these containers being dedicated to automatic execution, features such as an advanced text processor are missing, and the inclusion of such features may not be ultimately desired.
 
-Installation was challenging primarily because the process of installing
-software on Gentoo is very slow. Building the container image took
-about five hours, which lead to a slow development cycle where mistakes
-were expensive.
+%\subsection{Caveats}
+% Do we want this to be different from challenges?
 
-\subsection{Caveats}
-
-\subsection{Lessons Learned}
-% mention decimal rounding for localized text diff-ing
+\subsection{Outlook}
 
 \begin{itemize}
     \item
