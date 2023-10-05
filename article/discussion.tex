@@ -84,20 +84,28 @@ Even so, on account of these containers being dedicated to automatic execution, 
 
 \subsection{Outlook}
 
-\begin{itemize}
-    \item
-      Separate containers for major steps of data analysis, e.g., pre-processing and evaluation containers.
-      In this study we had a single container for both steps and it added additional burden since to fix one of the stages we were affecting container for the both of them. 
-    \item
-      Standardize container ``interfaces'' to an existing standard like Boutiques or BIDS-App.
-      BIDS-App interfaces also facilitate enabling ``per-participant'' processing, which then allows for mass-parallelization on HPC across subjects.
-    \item
-      The way opfvta is organized makes it challenging to modularize because it was designed for reproducibility and that was accomplished by abstracting the internal workings from a single top-level "black box" interface.
-      \item What does a "chain" of BIDS apps look like?  Answer: mriqc, fmriprep, fitlins... The glue between -- data standards, but the software on how to invoke -- WiP, no unified way. WiP on formalizing BIDS-App interfaces more (https://bids.neuroimaging.io/bep027) which ATM assumes use of Boutique descriptors.
-      \item Ideally, use images created by the projects with no modifications, i.e., for fmriprep use fmriprep container.
-      \item Each container should have a well-defined "input" and "output" so it can be easily spotted which steps have failed.
-  \item With singularity, automate the build from OCI push to datald repo, and then pull + datalad get from compute resource.
-\end{itemize}
+We propose a few key considerations for the further development of the present technology, albeit also noting that practical reuse might better identify promising enhancements better than theoretical considerations.
+
+In particular, we find that reexecutable article debugging in a containerized environment is a significant challenge, and one which will only be more severe if such an environment is already implemented in an incipient state of the article, when analysis processes are not fully fleshed out.
+To alleviate this we consider two possible solutions.
+Firstly, high hierarchical granularity, with dedicated containers for individual substeps, as well as with proper logging of outputs at each step, may provide for better debugging capabilities from outside of the container environment.
+The strength of this solution is that it implements containers in a coherent fashion to their design and prevalent use in industrial applications, thus minimizing their size and potentially increasing their reusability.
+The caveat of this solution is that there is a hard limit to how much debugging can be done from outside of a container environment.
+To illustrate, it will always be easier and faster to interactively apply patches or switch dependency versions from inside an environment than from outside of it.
+Alternatively, containers could be used as pure virtualization for whatever development environment accompanies the article, cobmined with internal provision of debugging tools.
+The strength of this solution is that it seamlessly integrates with development on a fully interactive system and can more easily accommodate novel and exotic workflows.
+The drawback of this solution is that it would lead to more bloated and potentially less reusable containers, and it would also require a separate container image re-build once issues have been identified and fixed interactively.
+
+In light of this we would recommend a combination of the above.
+Firstly, granular workflow steps using granular container images should be used for all analysis steps which can feasibly be separated and resolved by a general-purpose top-level interface.
+Secondly, top-level workflows for which only a bespoke environment should be considered, should be accessible via an interactive target and include basic word processing tools.
+An interface of sequential processing steps is available e.g. via the BIDS-App ecosystem, and many tools have containers provided via their authors.
+We strongly encourage the use of standard formats such as BIDS for all intermediary steps for which they are applicable, as is done for the interface between preprocessing and subsequent data analysis steps in this study.
+
+Lastly, we highlight the relevance of automated workflows — including both the current reexecution environment workflow and the internal workflow of the original article — for reuse and adaptation.
+A key strength of reexecutability is that workflows can easily be derived, with a reliable starting point with respect to successful process execution.
+In view of this we recommend a practical approach to the work described herein, whereby the tools can all be considered to be immediately and freely available for inspection and personal use of the reader.
+
 
 %TODO 
 % Analogy with a "backup" -- there is no idea if a backup is any good until it is attempted to restore ffrom the backup. The same with studies claiming to be reproducible.
@@ -113,8 +121,3 @@ Even so, on account of these containers being dedicated to automatic execution, 
 %        and may be `-u` `-g` if used with ``docker''.
 %    \end{itemize}
 
-\subsection{Outlook}
-- Adding debugging tools in the images (as a concession to the inavitability of issues in cutting-edge scientific spaghetti software)
-- The linking of the data might make re-use/hacking of the article for variant purposes more feasible
-- Automation of reference results
-- Separation of components for re-use
