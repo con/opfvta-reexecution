@@ -1,27 +1,87 @@
 \section{Discussion}
 
-%  For the future efforts solutions such as https://github.com/ReproNim/reproseed/ could be used to either inform on the ways to seed specific applications or just to seed them via environment variables.
+% For the future efforts solutions such as https://github.com/ReproNim/reproseed/ could be used to either inform on the ways to seed specific applications or just to seed them via environment variables.
+% This is a bit corny since I am the author of the original article, best not praise it at all or only if it's relevant to another point.
 
-\subsection{Strengths of the original article as a reexecution target}
-% this should be the shortest
-The original paper made a significant effort to encapsulate all
-components of the analysis as code, including the generation of images
-and the rendering of the final pdf. The idea was that once properly installed, the
-replication required little knowledge of the implementation details.
-As with a data backup, which is not guaranteed to be good enough to recover
-data until attempted, the reexecution of the original analysis was not guaranteed
-until attempted.
-This paper is a result of such reexecution attempt, and strives to present various
-aspects, approaches, tips and tricks which could be useful for others who either are
-planing to make their ongoing study reexecutable, or are attempting to reexecute
-some prior study.
+%\subsection{Strengths of the original article as a reexecution target}
+%% this should be the shortest
+%The original paper made a significant effort to encapsulate all
+%components of the analysis as code, including the generation of images
+%and the rendering of the final pdf. The idea was that once properly installed, the
+%replication required little knowledge of the implementation details.
+%As with a data backup, which is not guaranteed to be good enough to recover
+%data until attempted, the reexecution of the original analysis was not guaranteed
+%until attempted.
+%This paper is a result of such reexecution attempt, and strives to present various
+%aspects, approaches, tips and tricks which could be useful for others who either are
+%planing to make their ongoing study reexecutable, or are attempting to reexecute
+%some prior study.
+
+In this article we present an automated workflow for full article reexecution.
+This first effort of its kind not only substantiates the fundamental relevance of reexecution as a process, but also provides a reference implementation of technologies required to provide this capability.
+Further, we detail important and transferable principles, and document the manifold intricacies of creating a reexecution workflow.
+
+\subsection{Reexecutability}
+We argue that if qualitative statements cannot be underpinned by statistical summaries re-generated from the self-same same data, concerns such as reproducibility in view of novel data are rendered immaterial.
+Further, we argue that if qualitative statements are generated manually, they are subject to the same potential confounds as any original resource, and even perhaps biased by it.
+In effect, automatic reexecutability is a prerequisite for any claims on broader reproducibility.
+
+We demonstrate the feasibility of full research output reexecution given cutting-edge technologies, and publish all resources for open access, adaptation, inspection, and re-use.
+The resource topology which we produce isolates data and original resources, and does not make assumptions about the internal structure of a reexecutable article, and is of course, not domain-specific.
+In particular, the code of the original article, is managed as a sumbodule, and triggered via a freely configurable and lightweight Bash script.
+
+Our topology also provides full support for version tracking all required resources, thus offering perfect transparency into what instructions and which external data is used in article reexecution.
+In particular, we rely heavily on DataLad, a technology which renders the versioning capabilities of Git usable in the context of large binary data.
+
+We also provide a template for evaluating reproduction attempts, based on the usage of page-wise difference plotting, and presenting excerpts with a high density of differences for visual inspection.
+In light of this comparison, make an argument for the value of \textit{article} reexecutability.
+As it is the article which is the accepted research output format, any external subset of values which would be earmarked as outputs-of-choice for reexecution risk both overestimation as well as underestimation of relevant differences.
+For example, if large differences in top-level statistical data are observed, but bear no relevance to the statements made in the article, these differences have little bearing on any analysis of the reexecution quality.
+By contrast, cherry-picking all of the commonly very numerous inline statistical summaries (F- or p-values) and correctly linking them to the respective statements they underpin in an extraneous format can be anywhere from error-prone to infeasible.
+Thus, very relevant differences may go undetected, or be difficult to assign a context to.
+
+However, we concede that more advanced output formats may emerge as research reexecutability becomes a more widespread capability and concern, and that top-level output data reexecution may then offer considerable advantages.
+We speculate that these may lie in the field of not just determining whether statements made are unreliable, but further, if valuable statements remained untapped by the original researchers due to simple computational unreliability.
+For this purpose our workflow also produces and records all of the top-level data (statistical maps, data tables, etc.) from which the article extracts elements relevant to its statements.
+
+\subsection{Reproducibility}
+
+We sharply distinguish between reexecutability, and reproducibility.
+The former refers to the capability of an analogue research output (with any or even no consistency) to be regenerated exclusively from the earliest feasible data provenance and from automatically executable instructions used to generate the original output.
+The latter refers to the quality of the reexecution with respect to supporting the original research output claims.
+We further distinguish reproducibility — which may be good or poor based on the expected coherence standard — from numerically identical reproduction of statistical metrics, which we deem as a distinct quality, termed replicability.
+
+Reexecutability is an indispensable prerequisite for reproducibility assessment in any computational context.
+We supplement the reexecution workflow description of this article with a brief demonstration of how it can be used to provide a reproducibility assesment.
+For this purpose we use a difference computation tool (in computational contexts known simply as “diff”) which summarizes and visually displays mismatches between a historical manuscript record and multiple reexecutions over various environments.
+Such a process makes mismatches visible at-a-glance throughout the article text, rendering them them easy to locate and interpret via human inspection.
+
+Based on these results we lay out a few key findings for further reproducibility assessment given the level of stringency which full-article comparison introduces.
+In particular, we notice that figures which map output data directly are highly — and to a consistent extent — variable across multiple reexecution attempts.
+However, in as far as such figures are accompanied by statistical evaluations, we find these to be highly consistent.
+What is and is not consistent is of course contingent on the reexecuted article itself, but we find this phenomenon of notable relevance.
+It indicates that reproduction quality is not only reliant on whether or not data processing is deterministic, but also on which aspects of the top-level data the authors seek to highlight.
+
+In neuroimaging workflows, the most notorious source for non-determinacy in data analysis is the registration, which operates via a random starting point — specified by a seed value — and iterates according to a gradient descent algorithm from there.
+While the toolkit used by the article reexecuted here allows the specification of a particular seed, this is not a feature commonly used by operators.
+In light of our results the question emerges whether or not this is indeed a good practice.
+It stands to reason that a specific seed — whether by coincidence or \textit{ex post facto} selection — may result in an anomalous conclusion.
+It may then be that a stronger finding is one which is robust with respect to the preprocessing variability, even if this comes at the cost of compromising bit-identical replicability.
+Conversely, it could be argued that reproduction analysis can be better targeted and more concise, if seed values were fixed to universally accepted numbers (analogous to the usage of nothing-up-my-sleeve numbers in cryptography).
 
 \subsection{Challenges}
+For this meta-article we have selected an original neuroimaging article which already strove to encapsulate all of the instructions needed to reproduce itself in its entirety simply from raw data and automatically executable instructions.
+Even in light of this uncommon advantage, ensuring reexecutability has proven an effort-intensive process.
+Difficulties arose primarily due to the software stack instability.
+It is common for scientific software — and more and more common as one moves towards the cutting edge — to receive frequent interface changes, and to drop support for older dependencies.
+
+
 Installation was challenging primarily because the process of installing
 software on Gentoo is very slow. Building the container image took
 about five hours, which lead to a slow development cycle where mistakes
 were expensive.
 
+\subsection{Caveats}
 
 %TODO avoiding duplication of paths
 %TODO never hardcode abs paths (not that we did herE)
@@ -63,7 +123,7 @@ were expensive.
 %    \end{itemize}
 
 \subsection{Outlook}
-
+- Adding debugging tools in the images (as a concession to the inavitability of issues in cutting-edge scientific spaghetti software)
 - The linking of the data might make re-use/hacking of the article for variant purposes more feasible
 - Automation of reference results
 - Separation of components for re-use
