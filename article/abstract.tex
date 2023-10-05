@@ -6,11 +6,11 @@ The inability to re-use procedures due to instability thus endangers their value
 It is therefore of crucial importance for all constituent instructions to be not only recorded and accessible, but also to represent the encapsulated domain and operational knowledge as automatically executable code, in order to reliably support re-execution.
 In this study, we examine a peer-reviewed neuroimaging experiment, which already publishes automated data analysis instructions, in light of its reexecution reliability.
 We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
-To compensate for these difficulties, we formulate a novel reexecution standard which leverages mutable-state dependency management, environment isolation, as well as emerging technologies for provenance tracking.
+To compensate for these difficulties, we formulate a novel reexecution model which leverages mutable-state dependency management, environment isolation, as well as emerging technologies for provenance tracking.
 This novel standard consists in a general purpose resource topology with well-defined entry points, and is illustrated by a reference implementation which can fully regenerate the original article.
 We further leverage this technological advancement to produce a summary reproducibility assessment at the article level.
 This assessment encompasses inline statistical summaries (e.g. F and p values), figures, as well as the relationship between these values and the qualitative statements they underpin.
-The reproducibility analysis of article reexecution in our novel standard showcases notable differences, as are expected due to nondeterministic preprocessing, but overall reproduction accuracy, manifesting in coherence of statistical summaries between our regenerated article and the original article reexecution process.
+The reproducibility analysis of article reexecution in our reexecution model showcases notable differences, as are expected due to nondeterministic preprocessing, but overall reproduction accuracy, manifesting in coherence of statistical summaries between our regenerated article and the original article reexecution process.
 % I don't think we can quite make the following statement with the reproduction sample size at hand.
 %and very high reproduction precision (coherence in statistical summaries between multiple de novo reproductions).
 
