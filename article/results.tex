@@ -61,8 +61,17 @@ The high complexity of a full analysis workflow makes missing output data intrac
 Manually setting individual invocations propagate exit codes throughout the Make system is cumbersome, and thus an easy global invocation should be relied on so that errors become fatal and immediately visible.
 This is best accomplished by prepending all Bash scripts for which this concern is relevant with a \texttt{set -eu} line.
 
-\subsubsection{Avoid assuming or hard-coding paths to resources.}
-Updating the 
+\subsubsection{Avoid assuming or hard-coding absolute paths to resources.}
+Ensuring layout compatibility in different article execution environments is contingent on executable resources being able to find code or data required for execution.
+This would require changes to executable files contingent on higher-level process coordination, which would make article code less portable.
+This problem is best avoided by parameterizing paths to external resources in article code, and allowing it to be specified dynamically or via an environment variable during execution.
+
+\subsubsection{Avoid assuming a directory context for execution.}
+Within the article code, resources may be linked via relative paths, these are paths resolved based on their hierarchical location with the execution base path as the reference point.
+However, if the execution base is variable, as it may be if the environment is modified, these relative paths will become fragile.
+Further, relative paths may also become fragile during debugging, where individual execution from their base directory might be preferable to emulating the otherwise more common base.
+A good way of making scripts utilising relative paths more robust is ensuring that they always set their base execution directory to their parent directory.
+This can be accomplished in Bash via prepending \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl} to the script content.
 
 \subsubsection{Hierarchical granularity greatly benefits efficiency.}
 The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
