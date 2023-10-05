@@ -15,11 +15,10 @@ The code unique to the reexecution framework consists of container image generat
 
 The Make system is structured into a top-level Makefile, which can be used for container image regeneration and upload, article reexecution in a containerized environment, and meta-article production.
 Two article regeneration Make targets exist, for both the Open Container Initiative standard, and Singularity.
-Both article reexecution targets wrap the \texttt{produce\_analysis.sh} script, which is a thing compatibility layer accessing the Make system of the original article.
+Both article reexecution targets wrap the \texttt{produce\_analysis.sh} script, which is a thin compatibility layer accessing the Make system of the original article.
 The meta-article targets redirect to a Makefile in the \texttt{article/} child directory, which contains this document's human-readable text in \TeX format, alongside scripts for generating dynamical elements based on the reexecution results seen in the \texttt{outputs/} directory.
 
-%TODO yoh Can we get a DOI/ISBN for the following YODA reference? https://handbook.datalad.org/en/latest/basics/101-127-yoda.html
-The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis”).
+The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis”\cite{yoda}).
 
 This repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via a package manager.
 %TODO chr Maybe add caveats to this in discussion
