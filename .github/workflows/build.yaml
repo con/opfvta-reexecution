@@ -28,19 +28,13 @@ jobs:
           sudo apt-get -y upgrade
           sudo apt-get -y install podman
 
-      - name: Install Make
-        run: sudo apt-get -y install make
+      - name: Install make and git-annex
+        run: sudo apt-get -y install make git-annex
 
-      - name: Install Datalad
-        uses: datalad/datalad-action/install@main
-
-      - name: Set gin remote for data access
-        run: git remote add gin https://gin.g-node.org/TheChymera/opfvta-replication-2023.git
-
-      - name: Get data from datalad
-        run: |
-          git fetch gin
-          datalad get outputs/*/article.pdf
+      # Since we use regular actions/checkout@v4 it does not trigger
+      # auto-enabling of the gin remote 
+      - name: Enable gin remote
+        run: git annex enableremote gin.g-node.org
 
       - name: Build container article
         run: make container-article

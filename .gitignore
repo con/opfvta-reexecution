@@ -7,10 +7,13 @@
 *.log
 *.out
 __pycache__
+.cache
 
 # By default no PDF. List explicitly the ones we like to see committed below
 *.pdf
 !article.pdf
+# but we don't want to commit the freshly produced one in that location
+article/article.pdf
 
 .nfs*
 article.bbl

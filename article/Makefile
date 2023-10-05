@@ -73,7 +73,7 @@ container-article-interactive: live
 container-article:
 	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article-clean
-	podman run --net=none $(PODMAN_ARGS) \
+	podman run $(PODMAN_ARGS) \
 		$(MAKE) article
 
 .PHONY: article
