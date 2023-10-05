@@ -31,17 +31,6 @@ jobs:
       - name: Install Make
         run: sudo apt-get -y install make
 
-      - name: Install Datalad
-        uses: datalad/datalad-action/install@main
-
-      - name: Set gin remote for data access
-        run: git remote add gin https://gin.g-node.org/TheChymera/opfvta-replication-2023.git
-
-      - name: Get data from datalad
-        run: |
-          git fetch gin
-          datalad get outputs/*/article.pdf
-
       - name: Build container article
         run: make container-article
 
