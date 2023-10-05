@@ -1,27 +1,11 @@
 \section{Discussion}
 
-% For the future efforts solutions such as https://github.com/ReproNim/reproseed/ could be used to either inform on the ways to seed specific applications or just to seed them via environment variables.
-% This is a bit corny since I am the author of the original article, best not praise it at all or only if it's relevant to another point.
-
-%\subsection{Strengths of the original article as a reexecution target}
-%% this should be the shortest
-%The original paper made a significant effort to encapsulate all
-%components of the analysis as code, including the generation of images
-%and the rendering of the final pdf. The idea was that once properly installed, the
-%replication required little knowledge of the implementation details.
-%As with a data backup, which is not guaranteed to be good enough to recover
-%data until attempted, the reexecution of the original analysis was not guaranteed
-%until attempted.
-%This paper is a result of such reexecution attempt, and strives to present various
-%aspects, approaches, tips and tricks which could be useful for others who either are
-%planing to make their ongoing study reexecutable, or are attempting to reexecute
-%some prior study.
-
 In this article we present an automated workflow for full article reexecution.
 This first effort of its kind not only substantiates the fundamental relevance of reexecution as a process, but also provides a reference implementation of technologies required to provide this capability.
 Further, we detail important and transferable principles, and document the manifold intricacies of creating a reexecution workflow.
 
 \subsection{Reexecutability}
+% this should be softened up.
 We argue that if qualitative statements cannot be underpinned by statistical summaries re-generated from the self-same same data, concerns such as reproducibility in view of novel data are rendered immaterial.
 Further, we argue that if qualitative statements are generated manually, they are subject to the same potential confounds as any original resource, and even perhaps biased by it.
 In effect, automatic reexecutability is a prerequisite for any claims on broader reproducibility.
@@ -106,6 +90,7 @@ Lastly, we highlight the relevance of automated workflows — including both the
 A key strength of reexecutability is that workflows can easily be derived, with a reliable starting point with respect to successful process execution.
 In view of this we recommend a practical approach to the work described herein, whereby the tools can all be considered to be immediately and freely available for inspection and personal use of the reader.
 
+% Mention Gentoo in the context of provenance
 
 %TODO 
 % Analogy with a "backup" -- there is no idea if a backup is any good until it is attempted to restore ffrom the backup. The same with studies claiming to be reproducible.
