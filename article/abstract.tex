@@ -4,14 +4,12 @@ The value of experimental research articles is inextricably contingent on data a
 However, the intricacy of data analysis procedures and their high reliance on extrinsic tools makes the computation component notoriously fragile.
 The inability to re-use procedures due to instability thus endangers their value as a repository of procedural knowledge.
 
-It is therefore of crucial importance to approach a higher standard of what constitutes "complete analysis instructions"
+It is therefore of crucial importance to approach a higher standard of what constitutes \textit{complete analysis instructions}.
 
-In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including YODA principals for data management, containers for preservation, Gentoo for long term flexibility.
-We have automated the execution pipeline from end-to-end, dynamically retrieving raw data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file. 
+In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including YODA principles for data management, containers for preservation, Gentoo for long term flexibility.
+We have automated the execution pipeline from end-to-end, dynamically retrieving raw data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file.
 
 We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
 To compensate for these difficulties, we use established best practices to provide mutable-state dependency management to preserve the ability to rebuild containers, environment isolation for safety and resource hygiene, as well as established version control technologies for data management and provenance tracking.
 We produce a reproducibility assessment at the article level with meta-analysis that hints at ways of automatically evaluating re-executability.
-% I don't think we can quite make the following statement with the reproduction sample size at hand.
-%and very high reproduction precision (coherence in statistical summaries between multiple de novo reproductions).
 
