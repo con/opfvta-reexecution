@@ -1,16 +1,17 @@
 \section{Abstract}
 
 The value of experimental research articles is inextricably contingent on data analysis results which substantiate their claims.
-However, the intricacy of data analysis procedures, alongside their high reliance on extrinsic tools, makes them fragile.
+However, the intricacy of data analysis procedures and their high reliance on extrinsic tools makes the computation component notoriously fragile.[CITATION NEEDED]
 The inability to re-use procedures due to instability thus endangers their value as a repository of procedural knowledge.
-It is therefore of crucial importance for all constituent instructions to be not only recorded and accessible, but also to represent the encapsulated domain and operational knowledge as automatically executable code, in order to reliably support re-execution.
-In this study, we examine a peer-reviewed neuroimaging experiment, which already publishes automated data analysis instructions, in light of its reexecution reliability.
+
+It is therefore of crucial importance to approach a higher standard of what constitutes "complete analysis instructions"
+
+In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including YODA principals for data management, containers for preservation, Gentoo for long term flexibility.
+We have automated the execution pipeline from end-to-end, dynamically retrieving raw data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file. 
+
 We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
-To compensate for these difficulties, we formulate a novel reexecution model which leverages mutable-state dependency management, environment isolation, as well as emerging technologies for provenance tracking.
-This novel standard consists in a general purpose resource topology with well-defined entry points, and is illustrated by a reference implementation which can fully regenerate the original article.
-We further leverage this technological advancement to produce a summary reproducibility assessment at the article level.
-This assessment encompasses inline statistical summaries (e.g. F and p values), figures, as well as the relationship between these values and the qualitative statements they underpin.
-The reproducibility analysis of article reexecution in our reexecution model showcases notable differences, as are expected due to nondeterministic preprocessing, but overall reproduction accuracy, manifesting in coherence of statistical summaries between our regenerated article and the original article reexecution process.
+To compensate for these difficulties, we use established best practices to provide mutable-state dependency management to preserve the ability to rebuild containers, environment isolation for safety and resource hygiene, as well as established version control technologies for data management and provenance tracking.
+We produce a reproducibility assessment at the article level with meta-analysis that hints at ways of automatically evaluating re-executability.
 % I don't think we can quite make the following statement with the reproduction sample size at hand.
 %and very high reproduction precision (coherence in statistical summaries between multiple de novo reproductions).
 
