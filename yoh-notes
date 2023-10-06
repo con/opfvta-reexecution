@@ -42,8 +42,6 @@ necessary to be done to original paper "setup".
 
  - Best practices -- I think would benefit from concentrating on what matters and may be giving an example?
 
- - re no abs paths
-
  also comes from YODA. Also allows to minimize number of bind mounts needed for container runtime specification
 
  - Re Containers ... small -- mention hint on bind mounting "adjusted content"
