@@ -1,6 +1,7 @@
 \section{Abstract}
 
 The value of experimental research articles is inextricably contingent on data analysis results which substantiate their claims.
+
 However, the intricacy of data analysis procedures and their high reliance on extrinsic tools makes the computation component notoriously fragile.
 The inability to re-use procedures due to instability thus endangers their value as a repository of procedural knowledge.
 
@@ -9,7 +10,19 @@ It is therefore of crucial importance to approach a higher standard of what cons
 In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including YODA principles for data management, containers for preservation, Gentoo for long term flexibility.
 We have automated the execution pipeline from end-to-end, retrieving raw data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file.
 
+
+However, it is well-established that the intricacy of data analysis procedures and their high reliance on extrinsic tools makes the computation component fragile.
+The inability to re-use code due to instability thus limits the lasting value of the work as a repository of procedural knowledge.
+
+It is therefore of crucial importance to promote continued reexecutablity and portability of empirical research scholar works, such as scientific articles.
+
+In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including containers for encapsulation of execution environments, YODA principles for composition, and DataLad for data management and preservation.
+In this work we have automated the generation of two articles.
+We first ensured that the target article is regenerated end-to-end by dynamically retrieving source data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file.
+We then automated production of this meta-article which includes the comparison between the published version of the target article and the regenerated instance of article.
+
+
 We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
-To compensate for these difficulties, we use established best practices to provide mutable-state dependency management to preserve the ability to rebuild containers, environment isolation for safety and resource hygiene, as well as established version control technologies for data management and provenance tracking.
+To mitigate these difficulties, we use established best practices to use software distributions to preserve the ability to rebuild computational environments, environment isolation for safety and resource hygiene, as well as established version control technologies for data management and provenance tracking.
 We produce a reproducibility assessment at the article level with meta-analysis that hints at ways of automatically evaluating re-executability.
 
