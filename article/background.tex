@@ -63,10 +63,11 @@ This refers to the computational tools called by the workflow — which, given t
 Complexity in this sense also refers to the fact that individual software dependencies commonly come with their own software dependencies, which may in turn have further dependencies, and so on.
 The resulting network of prerequisites is known as a “dependency graph”, and its resolution is commonly handled by a package manager.
 
-The OPFVTA article in its original form relies on Portage \cite{portage} — a package manager characterized by providing integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \cite{ng}.
-As such, the dependencies of the workflow are summarized in a standardized format, which is called an ebuild.
+The OPFVTA article in its original form relies on Portage \cite{portage}, the package manager of the Gentoo Linux distribution.
+This package manager offers integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \cite{ng}.
+As such, the dependencies of the target article itself are summarized in a standardized format, which is called an ebuild — as if it were any other piece of software.
 This format is analogous to the format used to specify dependencies at all further hierarchical levels in the dependency tree.
-This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}.
+This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}, which constitutes the authoritative reference for the ebuild format and the behaviour of the package manager given an ebuild.
 Additionally, the reference article contextualizes its raw data resource as a dependency, integrating data provision in the same network as software provision.
 
 While the top-level ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the ebuilds tracking dependencies further down the tree are all distributed via separate repositories.

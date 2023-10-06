@@ -38,7 +38,6 @@ necessary to be done to original paper "setup".
 - when introducing OPFVTA article doesn't provide succinct summary , e.g. at least to mentioned that it was mouse whole-brain opto-fMRI study
 - when mentioning Portage -- say that it is the package distribution of Gentoo GNU/Linux.
   people would know about Gentoo but not Portage
-- "Package Manager Standard" here refers to ebuild ! should be made explicit
 - "Errors should be fatal more often than not." -- it is just about default behavior of shell scripts... has little to do with make or anything else!
 
  also IIRC we had a case where it was some try/except  swallowing some errors... or am I dreaming?
