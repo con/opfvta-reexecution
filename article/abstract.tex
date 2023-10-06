@@ -7,7 +7,7 @@ The inability to re-use procedures due to instability thus endangers their value
 It is therefore of crucial importance to approach a higher standard of what constitutes \textit{complete analysis instructions}.
 
 In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including YODA principles for data management, containers for preservation, Gentoo for long term flexibility.
-We have automated the execution pipeline from end-to-end, dynamically retrieving raw data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file.
+We have automated the execution pipeline from end-to-end, retrieving raw data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file.
 
 We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
 To compensate for these difficulties, we use established best practices to provide mutable-state dependency management to preserve the ability to rebuild containers, environment isolation for safety and resource hygiene, as well as established version control technologies for data management and provenance tracking.
