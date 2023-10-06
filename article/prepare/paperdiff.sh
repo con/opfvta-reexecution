@@ -21,13 +21,17 @@ IFS=" " read -r -a SINGULARITY_LAST_REEXECUTIONS <<< "$(tr ' ' '\n' <<< "${SINGU
 for i in "${PODMAN_LAST_REEXECUTIONS[@]}"; do
 	echo "GENERATING DIFF FOR EXECUTION in ${i}:"
 	this_execution=$(echo ${i} | grep -Po '.*outputs/\K[^/]*')
-	diff-pdf --output-diff="${DATA_PATH}/paperdiff_${this_execution}.pdf" -v ${OUTPUT_PATH}/original/article.pdf "${i}" > "${DATA_PATH}/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
+	# Grayscale, somewhat less informative, but required to avoid the following bug:
+	# https://github.com/con/opfvta-replication-2023/issues/42#issuecomment-1750703995
+	diff-pdf --output-diff="${DATA_PATH}/paperdiff_${this_execution}.pdf" -g -v ${OUTPUT_PATH}/original/article.pdf "${i}" > "${DATA_PATH}/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
 done
 
 for i in "${SINGULARITY_LAST_REEXECUTIONS[@]}"; do
 	echo "GENERATING DIFF FOR EXECUTION in ${i}:"
 	this_execution=$(echo ${i} | grep -Po '.*outputs/\K[^/]*')
-	diff-pdf --output-diff="${DATA_PATH}/paperdiff_${this_execution}.pdf" -v ${OUTPUT_PATH}/original/article.pdf "${i}" > "${DATA_PATH}/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
+	# Grayscale, somewhat less informative, but required to avoid the following bug:
+	# https://github.com/con/opfvta-replication-2023/issues/42#issuecomment-1750703995
+	diff-pdf --output-diff="${DATA_PATH}/paperdiff_${this_execution}.pdf" -g -v ${OUTPUT_PATH}/original/article.pdf "${i}" > "${DATA_PATH}/paperdiff_${this_execution}.log" || { echo "Handling non-zero exit code (${?}) for differing documents."; }
 
 done
 
