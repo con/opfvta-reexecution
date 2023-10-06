@@ -1,15 +1,7 @@
 preparing an image-- running out of space
- - gentoo troubles
- - create container
  - podman vs docker
  - approaches we didnt take 
     - piptimemachine
-    - docker
- - data was installed as packages/dependencies
- - so we dataladified
- - adhere to yoda principals 
-  - wanted it modular
-  - which is why containers 
  problems
   - no cleanup
   remaining problems with the current approach
