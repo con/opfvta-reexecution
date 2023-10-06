@@ -26,7 +26,7 @@ IMHO this should be the main theme for the paper, not just a side note:  We
 have tried to reexecute claimed to be a reexecutable publication, it was
 supposed to be a quick easy task. We ended up discovering many nuisances which
 we think worth telling people about.  We also tried to minimize changes
-necessary to be done to original paper "setup".
+ecessary to be done to original paper "setup".
 
 
 - when talking about your own work, it should be made more clear and not to make superficial claims such as 
@@ -38,7 +38,11 @@ necessary to be done to original paper "setup".
 - when introducing OPFVTA article doesn't provide succinct summary , e.g. at least to mentioned that it was mouse whole-brain opto-fMRI study
 - "Errors should be fatal more often than not." -- it is just about default behavior of shell scripts... has little to do with make or anything else!
 
- also IIRC we had a case where it was some try/except  swallowing some errors... or am I dreaming?
+also IIRC we had a case where it was some try/except  swallowing some errors... or am I dreaming?
+	Chr:
+	There was a case of `|| exit 0` to mitigate pdfdiff exit codes for differing documents, we now simply have an echo statement.
+	Very niche concern which I don't think any broader lessons can be based on.
+
 
  - Best practices -- I think would benefit from concentrating on what matters and may be giving an example?
 
