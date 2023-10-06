@@ -19,12 +19,10 @@ cd opfvta-replication-2023
 
 ### I. Reexecuting the OPFVTA Article
 
-::: warning
-Warnings: 
+**Warnings:**
 1. We estimate that the analysis required more than 500GB, 400GB of which will be stored in a scratch directory, which is `./scratch/` by default and can be configured with the `SCRATCH_PATH` variable.
 1. The analysis self-limits RAM to run on less powerful systems
 1. Reexecuting the computation as well as the article is time consuming and resource-intensive, it is recommended to use a tool such as `tmux` or `screen` to preserve long running processes.
-:::
 
 First, retrieve the data and other large files:
 
@@ -119,8 +117,8 @@ cat >> ~/.ssh/config<< EOF
 Host smaug
 	Hostname smaug.dartmouth.edu
 	AddKeysToAgent yes
-	port 11110
-	user <your_username_for_which_smaug_has_your_SSH_public_key>
+	Port <secret_port>
+	User <your_username_for_which_smaug_has_your_SSH_public_key>
 EOF
 ```
 
