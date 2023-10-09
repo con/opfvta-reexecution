@@ -6,11 +6,47 @@
 
 \subsection{Reexecutable Research}
 
-%TODO yoh cite hurr-durr reproduction crisis article
-The reproducibility of research findings — i.e. independently verifying a published result — is an issue of considerable scientific interest \cite{TODO}.
-Reexecutability — i.e. the basic feasibility of \textit{de novo} research output generation from the earliest recorded provenance — has remained largely unexplored as a discrete phenomenon.
+Independent verification of published results is a crucial step in the establishment and modification of shared scientific understanding. \cite{TODO Kuhn?}.
+Verification research has become more common due in part to dramatic results \cite{Salmon}, dedicated communities \cite{something wholesome}, and increased interest and following large-scale reproducibility meta-analyses \cite{RPP}.
+Unfortunately, in Neuroimaging, verifications remain relatively uncommon \cite{
+	TODO: I made this up, can we back this up?} due to persistent obsticles, including the Impact Factor driven preference for strictly novel research. \cite{TODO nosek
+} due in part to the severe technical complexity of the componenents, integrations, and of the computational environments. \cite{TODO can I cite myself at pycon? I think theres a proceeding somewhere}
+
+In Neuroimaging, there are at least hundreds \cite{ theres a website for all opensource Neuroprojects, in the con/catenate?} of powerful open-source tools that significantly inrease the speed at which researches can develop their analysis software.  \cite{TODO I made this up}
+Because researchers must use many seperate tools in concert, the installation, configuration, and execution of those tools is not trivial.
+Worse, the construction and resultant execution of computational environments is often not repeatable due to dependence on third party upstream repositories.
+
+A proposed set of principles, "Yodas Organigram for Data Analysis" (YODA Principles), suggests linking external repositories via git submodules. \cite{TODO YODA}
+%TODO @yoh, do we need to explain git?
+
+By distributing a set of separately versioned component parts, YODA "compliant" data analysis helps us to make use of modularity to improve portability, reusability, and maintainability of the research execution stack.
+
+\subsection{Requirements for Reexecution}
+
+Reexecution is an irreplacible component reproduction, and frequently requires significant time and expertise to attempt. 
+What makes reexecution particularly challenging is that it requires integration of many components, and even small differences in software environments can cause the entire system to fail.
+Therefore, the authors consider all code that is executed TODO:(not neccesarily OS,etc tone it down) to be part of the requisite analysis instructions, including exact version information.
+This includes code that is installed as dependencies, which may come from many repositories that do not contain compatible versions.
+For this reason it is benefitial to preserve the software environment for postarity.
+
+
+#################################mess
+the basic feasibility of \textit{de novo} research output generation from the earliest recorded provenance
+
+
+Add Datalad
+Add YODA
+
+j
+To reexecute the generation of the results 
+While the goal is the replication of all components, 
+Similar to the ecosystem of open-source security related 
+Most notably, verification builds trust in results 
+
+
+as a result of increased awareness of reproducibility of research findings such as independently verifying a published result — is an issue of considerable scientific interest 
 While the scope of \textit{reexecution} is narrower than that of \textit{reproduction}, it constitutes a more well-defined and therefore tractable issue in improving the quality and sustainability of research.
-Reexecution is a prerequisite for the reproduction of any research analysis process, and therefore in its absence reproducibility research itself is a matter open to variability in results.
+
 Further, reexecution constitutes a capability in and of itself, with ample utility in education, training, rapid-feedback development, and resource reuse for novel research purposes (colloquially, “hacking”) — which may accrue even in the absence of accurate result reproduction.
 
 %TODO yoh Is there a review of people sharing their code? If not we can cite a bunch of people who brag about putting their stuff on GH
@@ -92,6 +128,7 @@ System virtualization offers a way to portably freeze and preserve environments,
 Additionally VM's must be be "booted" which can be costly if many instances are needed.
 Modern advances in container technology have allowed similar benefits but strip redundancy by making limited use of the host machine, specifically the hypervisor.
 Containers enable a complete working environment as small as a few Megabytes, and can be started as quickly as a normal process.
+#################################mess
 Many container images are publicly available via public image repositories.
 
 Containers technology is not a recent invention, but the term "container" gained popularity alongside the Docker toolset.
