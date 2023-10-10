@@ -4,31 +4,82 @@
 % Long commentary on methods actually goes here.
 % Explain stuff like Gentoo or containers here.
 
-\subsection{Reexecutable Research}
+Independent verification of published results is a crucial step in the establishment and modification of shared scientific understanding. \cite{TODO Too corny to cite Kuhn?}.
+Verification research has become more common due in part to dramatic results \cite{Salmon}, dedicated communities \cite{TODO: something wholesome}, and widely publicized large-scale reproducibility meta-analyses \cite{RPP}.
+Unfortunately, in Neuroimaging, the execution of data analysis code often remains non-trivial and time consuming. \cite{TODO: I made this up} 
+The execution of data analysis often requires significant knowledge of their software dependencies, which should be considered out-of-scope for the expected requirements of a researcher to reexecute.
+Because the installation, configuration, and execution software environments frequently requires in-depth knowledge of the internal workings, reexecution results remain underrepresented in scientific literature \cite{TODO my opinion, is that ok?}
 
-Independent verification of published results is a crucial step in the establishment and modification of shared scientific understanding. \cite{TODO Kuhn?}.
-Verification research has become more common due in part to dramatic results \cite{Salmon}, dedicated communities \cite{something wholesome}, and increased interest and following large-scale reproducibility meta-analyses \cite{RPP}.
-Unfortunately, in Neuroimaging, verifications remain relatively uncommon \cite{
-	TODO: I made this up, can we back this up?} due to persistent obsticles, including the Impact Factor driven preference for strictly novel research. \cite{TODO nosek
-} due in part to the severe technical complexity of the componenents, integrations, and of the computational environments. \cite{TODO can I cite myself at pycon? I think theres a proceeding somewhere}
+\subsection{Complexity in Reexecution}
 
-In Neuroimaging, there are at least hundreds \cite{ theres a website for all opensource Neuroprojects, in the con/catenate?} of powerful open-source tools that significantly inrease the speed at which researches can develop their analysis software.  \cite{TODO I made this up}
-Because researchers must use many seperate tools in concert, the installation, configuration, and execution of those tools is not trivial.
+Reexecution is an irreplacible component of research reproduction, but it frequently requires significant time and uncommon expertise to attempt.
+What makes reexecution particularly challenging is that it requires integration of many components, and even small differences in software environments can cause the entire system to fail.
+Therefore, the authors consider all code that is executed TODO:(not neccesarily OS,etc tone it down) to be part of the requisite analysis instructions.
+This includes code that is installed as dependencies, which may come from many repositories that cannot be relied upon to host all legacy versions.
+Reexecution either requires updating the software to modern dependencies, or the creation of a similar computational environment.
+Environment construction becomes harder to reproduce with time as upstream repositories update, as the experienced with this project.
+
+\subsection{Software Dependency Management}
+
+Beyond the hierarchically chained data dependencies, which can be considered internal to the workflow, any data analysis workflow has additional dependencies in the form of software.
+This refers to the computational tools called by the workflow — which, given the diversity of research applications, may encompass numerous and complex pieces of software.
+Complexity in this sense also refers to the fact that individual software dependencies commonly come with their own software dependencies, which may in turn have further dependencies, and so on.
+The resulting network of prerequisites is known as a “dependency graph”, and its resolution is commonly handled by a package manager.
+
+The OPFVTA article in its original form relies on Portage \cite{portage}, the package manager of the Gentoo Linux distribution.
+This package manager offers integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \cite{ng}.
+As such, the dependencies of the target article itself are summarized in a standardized format, which is called an ebuild — as if it were any other piece of software.
+This format is analogous to the format used to specify dependencies at all further hierarchical levels in the dependency tree.
+This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}, which constitutes the authoritative reference for the ebuild format and the behaviour of the package manager given an ebuild.
+Additionally, the reference article contextualizes its raw data resource as a dependency, integrating data provision in the same network as software provision.
+
+While the top-level ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
+These repositories are version controlled, meaning that their state at any time point is documented, and they can thus be restored to represent the environment as it would have been generated at any point in the past.
+
+
+\subsection{Containers}
+
+Operating system virtualization is a process whereby an operating system can be emulated inside another running system, the "host", and thus a "guest" environment can be shared with any software and dependencies already installed.
+Virtual machines (VMs) are attractive solutions to enable reproducibility first and foremost because the reproducer does can skip the installation of the environment, which is frequently time consuming and requires project-specific knowledge.
+Once running, guest machines are self-contained and isolated from the host, which then eliminates the posibility of polluting the host environment.
+Perhaps the most important benefit of virtual isolation is significantly improved security that allow modern system adminstrators to safely allow relatively unrestricted usage from semi-trusted users.
+Lastly, distributing code in virtual machine images allows the original authors to solve dependency problems that arise from imperfect package managers, imperfect repositories, and constant package updates; instead the authors distribute a locked snapshot of a working system.
+
+System virtualization offers a way to portably freeze and preserve environments, but are limited due to the size of the "full disk images".
+Additionally VM's must be be "booted" which can be costly if many instances are needed.
+Modern advances in container technology have allowed similar benefits but strip redundancy by making limited use of the host machine, specifically the hypervisor.
+Containers enable a complete working environment as small as a few Megabytes, and can be started as quickly as a normal process.
+#################################mess
+Many container images are publicly available via public image repositories.
+
+Containers technology is not a recent invention, but the term "container" gained popularity alongside the Docker toolset.
+Over time Docker and other organizations have come together under a Linux Foundation project, the "Open Container Initiative" (OCI).
+The OCI governing body has produced an open specification for containers, which can be used by various container runtimes and toolsets.
+OCI complient container images in most cases can be executed identically with Docker, Podman, or other OCI compliant tools.
+
+While OCI images are nearly ubiquitous in the industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing.
+Singularity has support for converting OCI images into singularity images, and recent versions of Apptainer have also added support to natively run OCI containers.
+Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
+
+One of the most significant downsides to using Docker in HPC environments was that it required root privilages.
+However, recent advances in container technology have made this unnecessary, and it is now considered best practice to run containers without root privilages when reasonable.
+
+While the original reference OPFVTA article did not leverage this technology, containers can be used improve to improve the reliability and portability of the OPFVTA project.
+In this article, the authors will provide a snapshot of OPFVTA functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
+
+\subsection{One Pattern for Reexecution}
+
+Snapshots of software environments 
+
+into a smal software development. modern engintechnical complexity of the componenents, integrations, and of the computational environments. \cite{TODO can I cite myself at pycon? I think theres a proceeding somewhere}
+
+Therefore, the authors believe \cite{help me out here?} that a preserved, functional snapshots of the software environments are useful to maintain trust in the results over time, and as sharable starting points for continued research.
 Worse, the construction and resultant execution of computational environments is often not repeatable due to dependence on third party upstream repositories.
 
 A proposed set of principles, "Yodas Organigram for Data Analysis" (YODA Principles), suggests linking external repositories via git submodules. \cite{TODO YODA}
 %TODO @yoh, do we need to explain git?
 
 By distributing a set of separately versioned component parts, YODA "compliant" data analysis helps us to make use of modularity to improve portability, reusability, and maintainability of the research execution stack.
-
-\subsection{Requirements for Reexecution}
-
-Reexecution is an irreplacible component reproduction, and frequently requires significant time and expertise to attempt. 
-What makes reexecution particularly challenging is that it requires integration of many components, and even small differences in software environments can cause the entire system to fail.
-Therefore, the authors consider all code that is executed TODO:(not neccesarily OS,etc tone it down) to be part of the requisite analysis instructions, including exact version information.
-This includes code that is installed as dependencies, which may come from many repositories that do not contain compatible versions.
-For this reason it is benefitial to preserve the software environment for postarity.
-
 
 #################################mess
 the basic feasibility of \textit{de novo} research output generation from the earliest recorded provenance
@@ -92,56 +143,9 @@ The nomenclature to distinguish these two phases introduced by the authors is �
 Analysis dependency tracking, which is to say monitoring whether files required for the next hierarchical step have changed — and thus whether that step needs to be re-executed — is handled for the high-iteration analysis script via the RepSeP infrastructure, but not for the low-iteration script.
 
 
-\subsection{Software Dependency Management}
-
-Beyond the hierarchically chained data dependencies, which can be considered internal to the workflow, any data analysis workflow has additional dependencies in the form of software.
-This refers to the computational tools called by the workflow — which, given the diversity of research applications, may encompass numerous and complex pieces of software.
-Complexity in this sense also refers to the fact that individual software dependencies commonly come with their own software dependencies, which may in turn have further dependencies, and so on.
-The resulting network of prerequisites is known as a “dependency graph”, and its resolution is commonly handled by a package manager.
-
-The OPFVTA article in its original form relies on Portage \cite{portage}, the package manager of the Gentoo Linux distribution.
-This package manager offers integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \cite{ng}.
-As such, the dependencies of the target article itself are summarized in a standardized format, which is called an ebuild — as if it were any other piece of software.
-This format is analogous to the format used to specify dependencies at all further hierarchical levels in the dependency tree.
-This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}, which constitutes the authoritative reference for the ebuild format and the behaviour of the package manager given an ebuild.
-Additionally, the reference article contextualizes its raw data resource as a dependency, integrating data provision in the same network as software provision.
-
-While the top-level ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
-These repositories are version controlled, meaning that their state at any time point is documented, and they can thus be restored to represent the environment as it would have been generated at any point in the past.
-
-
 \subsection{Software Dependencies}
 
 The aforementioned infrastructure is relied upon to provide a full set of widely adopted neuroimaging tools, including but not limited to ANTs \cite{ants}, nipype \cite{nipype}, FSL \cite{fsl}, AFNI \cite{afni}, and nilearn \cite{nilearn}.
 Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \cite{samri,irsabi}, which provides workflows optimized for the preprocessing and evaluation of animal neuroimaging data.
 
 
-\subsection{Containers}
-
-Operating system virtualization is a process whereby an operating system can be emulated inside another running system, the "host", and thus a "guest" environment can be shared with any software and dependencies already installed.
-Virtual machines (VMs) are attractive solutions to enable reproducibility first and foremost because the reproducer does can skip the installation of the environment, which is frequently time consuming and requires project-specific knowledge.
-Once running, guest machines are self-contained and isolated from the host, which then eliminates the posibility of polluting the host environment.
-Perhaps the most important benefit of virtual isolation is significantly improved security that allow modern system adminstrators to safely allow relatively unrestricted usage from semi-trusted users.
-Lastly, distributing code in virtual machine images allows the original authors to solve dependency problems that arise from imperfect package managers, imperfect repositories, and constant package updates; instead the authors distribute a locked snapshot of a working system.
-
-System virtualization offers a way to portably freeze and preserve environments, but are limited due to the size of the "full disk images".
-Additionally VM's must be be "booted" which can be costly if many instances are needed.
-Modern advances in container technology have allowed similar benefits but strip redundancy by making limited use of the host machine, specifically the hypervisor.
-Containers enable a complete working environment as small as a few Megabytes, and can be started as quickly as a normal process.
-#################################mess
-Many container images are publicly available via public image repositories.
-
-Containers technology is not a recent invention, but the term "container" gained popularity alongside the Docker toolset.
-Over time Docker and other organizations have come together under a Linux Foundation project, the "Open Container Initiative" (OCI).
-The OCI governing body has produced an open specification for containers, which can be used by various container runtimes and toolsets.
-OCI complient container images in most cases can be executed identically with Docker, Podman, or other OCI compliant tools.
-
-While OCI images are nearly ubiquitous in the industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing.
-Singularity has support for converting OCI images into singularity images, and recent versions of Apptainer have also added support to natively run OCI containers.
-Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
-
-One of the most significant downsides to using Docker in HPC environments was that it required root privilages.
-However, recent advances in container technology have made this unnecessary, and it is now considered best practice to run containers without root privilages when reasonable.
-
-While the original reference OPFVTA article did not leverage this technology, containers can be used improve to improve the reliability and portability of the OPFVTA project.
-In this article, the authors will provide a snapshot of OPFVTA functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
