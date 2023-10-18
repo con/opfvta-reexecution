@@ -17,7 +17,6 @@ We demonstrate the feasibility of full research output reexecution by integratin
 The article reexecution model which we produced isolates data and original resources, and does not make assumptions about the internal structure of a reexecutable article, and is of course, not domain-specific.
 In particular, the code of the original article is managed as a sumbodule, and triggered via a freely configurable and lightweight Bash script.
 This means that given any Bash entry point, any article could be substituted for the present article in our topology.
-
 Our model also supports version tracking for all required resources, thus offering perfect transparency into what instructions and which external data is used in article reexecution.
 In particular, we rely heavily on DataLad, a technology which renders the versioning capabilities of Git usable in the context of large binary data.
 
@@ -102,9 +101,15 @@ In view of this we recommend a practical approach to the work described herein, 
 
 
 
+% chr: not really, data acquisition will always depend on external hardware... even if you think of e.g. speed tests on computers. Data aquisition is basically the interface between the digital and outside world, so the dichotomy will always remain in some shape.
+% chr: also, pretty long and tangential discussion IMHO
+%As a long-term outlook, we highlight that the dichotomy commonly drawn between data acquisition and data analysis (the latter being uniquely suited for reproduction) need not remain in place indefinitely.
+%Data acquisition may, given a suitable context, benefit from the same sort of automation as data analysis.
+
 
 %TODO 
 % Analogy with a "backup" -- there is no idea if a backup is any good until it is attempted to restore ffrom the backup. The same with studies claiming to be reproducible.
+% chr: it's a good analogy, but I'm unsure where to put it, or whether it adds anything to any particular section...
 
 
 % TODO yoh : I do not understand this (chr) could you please expand this so I can write something more sensible about it?
