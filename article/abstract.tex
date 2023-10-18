@@ -1,19 +1,18 @@
 \section{Abstract}
 
-The value of experimental research articles is inextricably contingent on data analysis results which substantiate their claims.
-However, the intricacy of data analysis procedures and their high reliance on extrinsic tools makes the computation component notoriously fragile.
-The inability to re-use procedures due to instability thus endangers their value as a repository of procedural knowledge.
-It is therefore of crucial importance to approach a higher standard of what constitutes \textit{complete analysis instructions}.
-In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including YODA principles for data management, containers for preservation, Gentoo for long term flexibility.
-We have automated the execution pipeline from end-to-end, retrieving raw data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file.
-However, it is well-established that the intricacy of data analysis procedures and their high reliance on extrinsic tools makes the computation component fragile.
-The inability to re-use code due to instability thus limits the lasting value of the work as a repository of procedural knowledge.
-It is therefore of crucial importance to promote continued reexecutablity and portability of empirical research scholar works, such as scientific articles.
-In this study, we examine a peer-reviewed neuroimaging experiment that uses automated data analysis instructions and extend it using a collection of best practices, including containers for encapsulation of execution environments, YODA principles for composition, and DataLad for data management and preservation.
-In this work we have automated the generation of two articles.
-We first ensured that the target article is regenerated end-to-end by dynamically retrieving source data, performing the analysis, dynamically generating the statistics in the text, figures, and rendering the final article file.
-We then automated production of this meta-article which includes the comparison between the published version of the target article and the regenerated instance of article.
-We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
-To mitigate these difficulties, we use established best practices to use software distributions to preserve the ability to rebuild computational environments, environment isolation for safety and resource hygiene, as well as established version control technologies for data management and provenance tracking.
-We produce a reproducibility assessment at the article level with meta-analysis that hints at ways of automatically evaluating re-executability.
+The value of increasingly many research articles is inextricably contingent on data analysis results which substantiate their claims.
+Unlike data production steps, data analysis steps lend themselves to a higher standard of both transparency and repeated operator-free execution.
+This is accomplished via fully reexecutable research outputs, which contain the entire instruction set for end-to-end generation of an entire article solely from the earliest feasible provenance point, in a programatically executable format.
+In this study, we make use of a peer-reviewed neuroimaging article, which provides rudimentary capabilities, in order to formulate a new reexecution model.
+We detail the issues with rendering reexecution accessible, and specify a number of best practices which permitted us to generate a new reexecution model mitigating most of the encountered issues.
+This new model improves the reliability and portability of reexecution, and permits the production and tracking of numerous reexecution outputs.
+We further show how these capabilities can subsequently be used in order to provide reproducibility assesments, both via simple statistical metrics, and by visually highlighting divergent elements for human inspection.
+We argue that reexecutable articles are thus a feasible best practice, the usage of which can greatly enhance the understanding of data analysis variability.
+We encourage re-use and derivation of the model produced herein, which is rendered modular as a matter of design, and in which reexecutable article code, data, and environment specifications can be easily substituted or adapted.
+
+% Maybe also mention, though ideally somewhere else:
+% * The comparison article we thus produce, i.e. this article, is similarly reexecutable.
+% * ... a collection of best practices, including YODA principles for data management, containers for preservation, Gentoo for long term flexibility.
+% * This is a very good point, though again, maybe not for the abstract “The inability to re-use code due to instability thus limits the lasting value of the work as a repository of procedural knowledge”.
+% *We document a number of prominent difficulties with de novo article generation, arising from the rapid evolution of extrinsic tools, and from nondeterministic data analysis procedures.
 
