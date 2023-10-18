@@ -31,7 +31,6 @@ ecessary to be done to original paper "setup".
 - "silo'ed introduction": introduction tries to guide between degrees of reproducibility/reexecutability but makes not a single reference to existing overviews and provides no pointers to existing other efforts.
   - e.g. there is https://elifesciences.org/for-the-press/eb096af1/elife-launches-executable-research-articles-for-publishing-computationally-reproducible-results , https://neurolibre.org/ and so on -- many other efforts and formalizations
 
-- inconsistent -- "e.g." but "i.e.," but not always.
 - when introducing OPFVTA article doesn't provide succinct summary , e.g. at least to mentioned that it was mouse whole-brain opto-fMRI study
 - "Errors should be fatal more often than not." -- it is just about default behavior of shell scripts... has little to do with make or anything else!
 

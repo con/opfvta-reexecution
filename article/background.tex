@@ -36,7 +36,7 @@ Data evaluation consists of various types of statistical modeling, commonly appl
 
 The OPFVTA article, which this study uses as an example, primarily studies effective connectivity, which is resolved via stimulus-evoked neuroimaging analysis.
 Stimulus-evoked neuroimaging analysis is one of the more widespread applications, and thus the data analysis workflow (both in terms of \emph{data processing} and \emph{data evaluation}) provides significant analogy to numerous neuroimaging studies.
-The data evaluation step for this sort of study is subdivided into “level one” (i.e., within-subject) analysis, and “level two” (i.e., across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \cite{Friston1995}.
+The data evaluation step for this sort of study is subdivided into “level one” (i.e. within-subject) analysis, and “level two” (i.e. across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \cite{Friston1995}.
 In the simplest terms, these modeling steps represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
 
 % Insert and reference example workflow figure
@@ -70,7 +70,7 @@ This format is analogous to the format used to specify dependencies at all furth
 This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}, which constitutes the authoritative reference for the ebuild format and the behaviour of the package manager given an ebuild.
 Additionally, the reference article contextualizes its raw data resource as a dependency, integrating data provision in the same network as software provision.
 
-While the top-level ebuild (i.e., the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
+While the top-level ebuild (i.e. the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
 These repositories are version controlled, meaning that their state at any time point is documented, and they can thus be restored to represent the environment as it would have been generated at any point in the past.
 
 
