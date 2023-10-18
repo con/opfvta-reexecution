@@ -119,14 +119,14 @@ For the present example, using Gentoo's Portage package manager, versions can be
 As a top-level view of reexecution results we have produced a simple infrastructure to analyze reproduction quality.
 This provides both quality control for successful reexecution as well as a showcase of how automatic article reexecutability can be leveraged to evaluate \textit{reproducibility} at a glance.
 
-For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results of the Novel Workflow.
+For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results generated via the New Reexecution Model.
 Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF difference (\ref{fig:diff_pages}).
 
 \begin{figure}
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
 	\caption{
-		\textbf{Page-wise visual differences between the Historical Manuscript Record and the Novel Workflow Reexecution help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
+		\textbf{Page-wise visual differences between the Historical Manuscript Record and New Reexecution Model results help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
 		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
 		Error bars represent the \nth{95} percentile confidence interval.
 	}
@@ -134,7 +134,7 @@ Reproduction differences between the article versions are extracted by evaluatin
 \end{figure}
 
 This overview shows a consistent minimum baseline of differing pixels between reexecutions, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
-When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the Novel Workflow Reexecution (2023-..).
+When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the New Reexecution Model results (2023-..).
 While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
 Throughout other pages we see difference percentages which are broadly consistent across reexecutions, but vary from page to page over almost 2 degrees of magnitude.
 Upon inspection, more variable but comparatively lower-percentage differences (pages 4 and 5, detail depicted in \cref{fig:diff_text}) are revealed as text differences, arising from the original article generating dynamic inline statistic summaries.
@@ -186,7 +186,7 @@ This, changes in the numerical value do not impact text length and do not genera
 	\end{subfigure}
 	\caption{
 		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
-		The figures are extracted from a full article \texttt{diff}, with hue-shifted highlighting (blue for the Historical Manuscript Record, and orange for the Novel Workflow Reexecution).
+		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the New Reexecution Model result).
 	}
 	\label{fig:diff}
 \end{figure}
