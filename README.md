@@ -30,12 +30,13 @@ First, retrieve the data and other large files:
 make submodule-data
 ```
 Note that the `outputs/` directory will have some content from other
-executions for comparison.
+executions (organized by datetime) for comparison.
 
 Once the required content has been fetched, you can reexecute the OPFVTA article via `singularity` or `oci` containers.
 This step generates intermediate results in the scratch directory which are not preserved in this repository by default, as configured in `scratch/.gitignore`.
 The final result is a PDF article and its associated elements (mainly volumetric binary data, `.nii.gz` files) which will be stored in a datestamped and annotated directory under `outputs/`.
-Most large files, including the results are stored and versioned via `git-annex` and therefore present in this repository, and your output can also be saved and recorded.
+Most large files, including the results are stored and versioned via `git-annex` and therefore present in this repository. 
+After executing the analysis the output will have a new entry for the data produced, which can be saved and recorded with [`datalad save`](http://docs.datalad.org/en/stable/generated/man/datalad-save.html).
 
 For apptainer/singularity:
 
