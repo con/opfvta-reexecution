@@ -29,9 +29,11 @@ First, retrieve the data and other large files:
 ```console
 make submodule-data
 ```
+Note that the `outputs/` directory will have some content from other
+executions for comparison.
 
 Once the required content has been fetched, you can reexecute the OPFVTA article via `singularity` or `oci` containers.
-This step generates intermediate results in the scratch directory and are not preserved by default, as configured in `scratch/.gitignore`.
+This step generates intermediate results in the scratch directory which are not preserved in this repository by default, as configured in `scratch/.gitignore`.
 The final result is a PDF article and its associated elements (mainly volumetric binary data, `.nii.gz` files) which will be stored in a datestamped and annotated directory under `outputs/`.
 Most large files, including the results are stored and versioned via `git-annex` and therefore present in this repository, and your output can also be saved and recorded.
 
