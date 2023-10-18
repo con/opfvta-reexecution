@@ -53,8 +53,6 @@ also IIRC we had a case where it was some try/except  swallowing some errors... 
    APT snapshots and nd_freeze here, can even reference  that neurodocker has
    an option for it.
 
- - for 10^-4 -- describe what it is!  (proportion of pixels having any difference between two PDFs)
-
  - what is "self-same same data"?
 
 - " In effect, automatic reexecutability is a prerequisite for any claims on broader reproducibility." -- nope
