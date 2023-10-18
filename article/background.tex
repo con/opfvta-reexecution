@@ -4,54 +4,43 @@
 % Long commentary on methods actually goes here.
 % Explain stuff like Gentoo or containers here.
 
-Independent verification of published results is a crucial step in the establishment and maintanence of trust in shared scientific understanding. \cite{TODO Too corny to cite Kuhn?}.
-Verification research has become more common due in part to dramatic results \cite{TODO: Salmon}, dedicated communities \cite{TODO: something wholesome}, and widely publicized large-scale reproducibility meta-analyses \cite{RPP}.
-Unfortunately, in Neuroimaging, the execution of data analysis code often remains non-trivial and time consuming. \cite{TODO: I made this up} 
-The execution of data analysis often requires significant knowledge of their software dependencies, which should be considered out-of-scope for the expected requirements of a researcher to reexecute.
-Because the installation, configuration, and execution software environments frequently requires in-depth knowledge of the internal workings, reexecution results remain underrepresented in scientific literature \cite{TODO my opinion, is that ok?}
+Independent verification of published results is a crucial step in the establishment and maintanence of trust in shared scientific understanding.
+Interest in research replication and reexecution has become more common due in part to dramatic results \cite{TODO: Salmon}, dedicated communities \cite{TODO: Cite Neurodebian}, and widely publicized large-scale reproducibility meta-analyses \cite{RPP}.
+The execution of data analysis code requires a software environment, which is often non-trival and time consuming for other researchers to recreate.
 
-\subsection{Complexity in Reexecution}
+\subsection{Target Article 2022, Original Execution}
 
-Reexecution is an irreplacible component of research reproduction, but it frequently requires significant time and uncommon expertise to attempt.
-What makes reexecution particularly challenging is that it requires integration of many components, and even small differences in software environments can cause the entire system to fail.
-Therefore, the authors consider all code that is executed TODO:(not neccesarily OS,etc tone it down) to be part of the requisite analysis instructions.
-This includes code that is installed as dependencies, which may come from many repositories that cannot be relied upon to host all legacy versions.
-Reexecution either requires updating the software to modern dependencies, or the creation of a similar computational environment.
-Environment construction becomes harder to reproduce with time as upstream repositories update, as the experienced with this project.
+In order to optimally leverage extant technologies and best-practices pertaining to reexecution in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA. \cite{opfvta}.
+The OPFVTA target article, which this study uses as an example, primarily maps the dopaminurgic projects of the Ventral Tegement, which is resolved via stimulus-evoked neuroimaging analysis.
+The target article was designed to be fully reexecutable on Gentoo Linux with the assumption that some software updates and resultant bug fixes will be necessary.
+OPFVTA analysis is executed using several high level steps, data retrieval, data processesing and registration, statistical evaluation, and a re-rendering of the final artifact with dynamically updated graphics and inline statistics.
 
-\subsection{Software Dependency Problem and Containers}
+TODO: add from data analysis
 
-A fundamental challenge of software dependency management is that dependencies can be nested arbitrarily deeply, which increases in complexity (TODO: O^n? does that even make sense to say?)
-As soon as one version of one dependency eventually becomes unavailable, the first step of executability is manually solving a computationally difficult problem.
-One way of solving the issue of rebuilding environments with integrated dependencies is distributing an entire operating system image with the environment installed and configured, which can be emulated as a "guest" environment within the "host" machine.
-Virtual machines (colloquially "VMs") are attractive solutions to the software dependency problem, because the artifact that is distributed is in working order and should be executable with almost no knowledge of the internal workings.
-Once running, guest machines are self-contained and isolated from the host, which then eliminates the posibility of polluting the host environment and allows system administrators to safely allow relatively unrestricted usage from semi-trusted users.
-The weakness of VMs for solving this problem is primarily that they are expensive; VMs are inefficient with resource allocation in general. \cite{TODO: asmacdo} \footnote{Hard drive usage(and bandwidth), memory allocation, CPU allocation, start/restart time}
 
-Modern advances in "container technology" have allowed similar benefits but strip redundancy by making limited use of the host machine, specifically the hypervisor.
-Containers enable a complete working environment often as small as a few Megabytes, and can it be started as quickly as a normal local process.
-Over time Docker and other organizations have established a governing body under the Linux Foundation project, the "Open Container Initiative" (OCI).
-OCI produced an specification for containers, which can be used by various container runtimes and toolsets including Docker, Podman, and Apptainer \cite{TODO: apptainer something}
-While OCI images are nearly ubiquitous in the cloud industry, Singularity (recently renamed to Apptainer) is a toolset that was developed for High Performance Computing, and has its own native specification.
+\subsection{Preserving Software Environments with Container Images}
 
-\subsection{Preserving Version Collection of Modular Components}
+One way of sidestepping the challenge of rebuilding a software environment is to distribute a snapshot of the entire environment, refered to as an "image".
+An increasingly common modern approach to creating, distributing, and executing images makes use of the container ecosystem.
+Using containers, host systems can provision guest machines that are self-contained and isolated from the host, and most importantly for our purposes, it preserves a working software environment.
+"Open Container Initiative" (OCI) standard container images can be used by Docker, Podman, and Apptainer.
+Singularity (recently renamed to Apptainer) has a different image format and toolset optimized for While OCI images are nearly ubiquitous in the cloud industry, Singularity (recently renamed to Apptainer) is a toolset that was developed for High Performance Computing, and has its own native specification.
+
+\subsection{Other Methods of Preserving Software Environments}
+
+pip-timemachine
+e-life
+https://github.com/datalad-handbook/repro-paper-sketch/
+https://www.nature.com/articles/s42005-020-00403-4
+
+
+\subsection{Preserving Versioned Collection of Components}
 
 TODO: weak needs a lot more
 A proposed set of principles, "Yodas Organigram for Data Analysis" (YODA Principles), suggests linking external repositories via git submodules. \cite{TODO YODA}
 By distributing a set of separately versioned component parts, YODA "compliant" data analysis helps us to make use of modularity to improve portability, reusability, and maintainability of the research execution stack.
 the basic feasibility of \textit{de novo} research output generation from the earliest recorded provenance
 TODO: needs a little datalad but not too much
-
-
-\subsection{Target Article 2022, Original Execution}
-
-In order to optimally leverage extant technologies and best-practices pertaining to reexecution in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA. \cite{opfvta}.
-The OPFVTA article, which this study uses as an example, primarily maps the dopaminurgic projects of the Ventral Tegement, which is resolved via stimulus-evoked neuroimaging analysis.
-Neuroimaging time-series analysis is often a resource intensive operation; OPFVTA and many other fMRI-related analysis computation may even require time on powerful systems.
-
-The target article was designed to be fully reexecutable on Gentoo Linux with the assumption that some software updates and resultant bug fixes will be necessary.
-OPFVTA analysis is executed using several high level steps, data retrieval, data processesing and registration, statistical evaluation, and a re-rendering of the final artifact with dynamically updated graphics and inline statistics.
-
 
 % \whatwewilldo-methods-results-dumping area
 %
