@@ -96,14 +96,16 @@ In particular, when using containers, it is thus advisable to \textit{not} provi
 A suitable alternative is to assure provision of these resources outside of the container image, e.g. by bind-mounting Git (and DataLad) directories present on the host machine or even combining them all via Git submodules mechanism as promoted by YODA principles~\cite{yoda}.
 
 \subsubsection{Containers should fit the scope of the underlying workflow steps}
-In order to not artificially extend the workload of rebuilding a container image, it is further advisable to not create a bundled container image if separate containers can be used for separate hierarchical steps of the workflow.
-Container image granularity is of course capped by article workflow granularity, but it is paramount to not compromise the former at the container level.
-At a minimum, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
+In order to not artificially extend the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently distinct separate steps of the workflow.
+For an example, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
+Complimentary, and initially possibly appearing contradictory, to the aforementioned advise we recommend to avoid building separate containers for related steps, in particular if supported by the same toolkits, and rather define and use different \emph{entry points} to the same container.
+E.g., a single container with AFNI could be used to access various tools from AFNI.
+Similar approach is adopted by NeuroDesk~\cite{neurodesk} which provides a large collection of entry points for various tools from a smaller set of containers.
 
 \subsubsection{Do not write debug-relevant data inside the container}
 Debug-relevant data, such as intermediary data processing steps or debugging logs should not be deleted by the workflow, and further, should be written to persistent storage.
-When using containers, if this data is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
-This data is vital for debugging, and thus should not be lost.
+When using some containerization implementations, such as Docker, if file is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
+Such file might be vital for debugging, and thus should not be lost.
 This can be avoided by making sure that the paths used for intermediary and debugging outputs are bind-mounted to real directories on the parent system, from which they can be freely inspected.
 
 \subsubsection{Parameterize scratch directories}
