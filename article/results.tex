@@ -61,52 +61,11 @@ By default any Python script or a compiled C or C++ program just errors out and 
 Shell scripts behave differently.
 By default they continue with execution of the next scripted command, and only when the list of commands is exhausted or explicit `exit` command is called, it finally exits with a non-0 error code.
 As a result, even if not causing some detrimental actions, an execution of the script could continue for hours before it fails, and original error message might be lost in the flood of output making it hard or impossible to localize original problem to be fixed.
-To mitigate that, it is expected that the shell script would perform analysis of every execution via \texttt{if ! COMMAND} or \texttt{||} conditioning or the analysis of \texttt{\$?} exit codes to provide treatment of failed executions.
-Such scripts are cumbersome to write and maintain without missing a possible location of possibly failing execution.
-
-It is much easier and more robust to change default behavior of execution by adding \texttt{set -e}, which changes default behavior to exit upon the first unhandled explicitly command.
-For instance execution of the script
-
-\begin{verbatim}
-#!/bin/sh
-
-# set -e
-
-PREFIX=/tmp/mystudy
-
-mkdir "$PREFIX/outputs"
-echo "Created output folder"
-
-touch "$PREFIX/outputs/result"
-echo "Produced results"
-\end{verbatim}
-
-in case of absent \texttt{/tmp/mystudy} would result in
-
-\begin{verbatim}
-mkdir: cannot create directory ‘/tmp/mystudy/outputs’: No such file or directory
-Created output folder
-touch: cannot touch '/tmp/mystudy/outputs/result': No such file or directory
-Produced results
-\end{verbatim}
-
-and un-commenting (removing leading \texttt{\# } from the \texttt{set -e} line) and reexecuting would result just in
-
-\begin{verbatim}
-mkdir: cannot create directory ‘/tmp/mystudy/outputs’: No such file or directory
-\end{verbatim}
-
 Analogously, shell scripts treat undefined variables as a variable having an empty value, and thus not causing any error at all.
-As a result a command in a script like
-
-\begin{verbatim}
-rm -rf "${PREFIX}/"
-\end{verbatim}
-
-would do its best to try to remove everything on your harddrive in case \texttt{PREFIX} variable is not defined.
-To overcome that, we recommend to add \texttt{set -u} to cause shell to error out and stop execution as soon as undefined variable is attempted to be used.
-
-To summarize, we advocate to include \texttt{set -eu} in the top of every shell script to guarantee it to error out as soon as any command fails or an undefined variable is attempted to be used.
+As a result a command in a script like \texttt{rm -rf "\${PREFIX}/"} would do its best to try to remove everything on your harddrive in case \texttt{PREFIX} variable is not defined.
+\texttt{set -u} would change the default behavior to error out and stop execution as soon as undefined variable is attempted to be used.
+To summarize, we advocate to include \texttt{set -eu} at the top of every shell script to guarantee it to error out as soon as any command fails or an undefined variable is attempted to be used.
+Read more in the section on \href{https://www.repronim.org/module-reproducible-basics/01-shell-basics/\#fail-early}{``Command line/shell: Fail early''} subsection of the ``ReproNim Reproducible Basics Module''~\cite{repronim:reprobasics}.
 
 \subsubsection{Avoid assuming or hard-coding absolute paths to resources}
 Ensuring layout compatibility in different article execution environments is contingent on executable resources being able to find code or data required for execution.
