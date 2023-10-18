@@ -52,10 +52,3 @@ also IIRC we had a case where it was some try/except  swallowing some errors... 
  - for freezing environment, mention other possible solutions such as use of
    APT snapshots and nd_freeze here, can even reference  that neurodocker has
    an option for it.
-
- - what is "self-same same data"?
-
-- " In effect, automatic reexecutability is a prerequisite for any claims on broader reproducibility." -- nope
-   too bold and simply not true. need to be removed
-
-- "given cutting edge"
