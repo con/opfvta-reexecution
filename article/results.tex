@@ -93,7 +93,7 @@ In this article we rely on simple GNU Make rules to provide very basic workflow 
 Due to a lack of persistency, addressing issues in container image contents requires rebuilding, which can be a time-consuming process.
 The smaller the container image, the easier it is.
 In particular, when using containers, it is thus advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
-A suitable alternative is to assure provision of these resources outside of the container image, e.g. by bind-mounting Git (and DataLad) directories present on the host machine.
+A suitable alternative is to assure provision of these resources outside of the container image, e.g. by bind-mounting Git (and DataLad) directories present on the host machine or even combining them all via Git submodules mechanism as promoted by YODA principles~\cite{yoda}.
 
 \subsubsection{Containers should fit the scope of the underlying workflow steps}
 In order to not artificially extend the workload of rebuilding a container image, it is further advisable to not create a bundled container image if separate containers can be used for separate hierarchical steps of the workflow.
