@@ -15,7 +15,7 @@ gs \
   -o ../figs/diff_text.pdf \
   -dFirstPage=4 -dLastPage=4 \
   -sDEVICE=pdfwrite \
-  -c "[/CropBox [290 540 560 870]" \
+  -c "[/CropBox [290 540 560 860]" \
   -c " /PAGES pdfmark" \
   -f ../data/paperdiff_singularity_20230908122618.pdf
 
