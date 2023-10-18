@@ -133,3 +133,4 @@ git remote add smaug smaug:/mnt/btrfs/datasets/incoming/con/opfvta-replication-2
 datalad get . -s smaug
 ```
 
+3. Optionally, and only if you are an internal contributor looking to push t, it makes sense to  to automatically keep our three remotes (gin, smaug, GitHub) in sync, you should make use
