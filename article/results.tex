@@ -80,13 +80,14 @@ However, the scripts could be executed from various locations and not necessaril
 A good way of making a script utilizing relative paths more robust is ensuring that the script using relative path sets the base execution directory to its parent directory.
 This can be accomplished in POSIX shell script via using \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl} at the beginning of the script.
 
-\subsubsection{Hierarchical granularity greatly benefits efficiency}
+\subsubsection{Workflow granularity greatly benefits efficiency}
 The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
 Ideally it should not be necessary to re-execute the entire workflow once an error is potentially resolved.
-For this it is beneficial to segment the workflow into as many hierarchical steps as feasible.
-This is not always possible, and is particularly not feasible for higher-level statistical analysis, where hierarchical contingency can easily be lost.
-However, particularly for such steps as preprocessing, and first-level general linear modelling, this is commonly feasible, and should be done.
-An easy implementation of this is having the workflow coordination system check for the presence of each hierarchical result, and, if present, proceed to the next hierarchical step.
+For this it is beneficial to formulate the workflow as many separate steps, where steps could be troubleshooted independently.
+It is worth to separate out at least such large steps as preprocessing, individual levels of analysis (e.g. per-subject vs whole-population), and article generation.
+YODA principles~\cite{yoda} again demonstrate one way how to organize digital artifacts across such stages for maximal re-usability.
+An good feature is to use a workflow platform which automatically checks for the presence of results from prior stages, and, if present, proceed to the next stage without triggering re-computation of prior stages.
+In this article we rely on simple GNU Make rules to provide very basic workflow across computational stages, but there exist hundreds of workflow engines and we refer reader to a recent call for FAIR workflows to discover more~\cite{fair-workflows}.
 
 \subsubsection{Container image size should be kept small}
 Due to a lack of persistency, addressing issues in container image contents requires rebuilding, which can be a time-consuming process.
