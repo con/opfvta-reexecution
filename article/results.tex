@@ -69,15 +69,16 @@ Read more in the section on \href{https://www.repronim.org/module-reproducible-b
 
 \subsubsection{Avoid assuming or hard-coding absolute paths to resources}
 Ensuring layout compatibility in different article execution environments is contingent on executable resources being able to find code or data required for execution.
-This would require changes to executable files contingent on higher-level process coordination, which would make article code less portable.
-This problem is best avoided by parameterizing paths to external resources in article code, and allowing it to be specified dynamically or via an environment variable during execution.
+Explicitly hardcoded in the scripts absolute paths are likely to not exist anywhere but the original execution environment, and hence scripts guaranteed to fail.
+This problem is best avoided by adhering to YODA principles~\cite{yoda} of being able to reference all needed resources (data, scripts, container images, etc.) \emph{under} the study folder.
+Use of relative paths within the study scripts then improve their portability.
+Paths to external resources (scratch folders, reusable resources such as atlases etc. if not present within study folder) should be allowed to be specified dynamically via command line options or via an environment variable during execution.
 
 \subsubsection{Avoid assuming a directory context for execution}
-Within the article code, resources may be linked via relative paths, these are paths resolved based on their hierarchical location with the execution base path as the reference point.
-However, if the execution base is variable, as it may be if the environment is modified, these relative paths will become fragile.
-Further, relative paths may also become fragile during debugging, where individual execution from their base directory might be preferable to emulating the otherwise more common base.
-A good way of making scripts utilising relative paths more robust is ensuring that they always set their base execution directory to their parent directory.
-This can be accomplished in Bash via prepending \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl} to the script content.
+Per previous recommendation, resources may be linked via relative paths, these are paths resolved based on their hierarchical location with the execution base path as the reference point.
+However, the scripts could be executed from various locations and not necessarily from the location of the script, thus making relative paths in scripts incorrect.
+A good way of making a script utilizing relative paths more robust is ensuring that the script using relative path sets the base execution directory to its parent directory.
+This can be accomplished in POSIX shell script via using \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl} at the beginning of the script.
 
 \subsubsection{Hierarchical granularity greatly benefits efficiency}
 The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
