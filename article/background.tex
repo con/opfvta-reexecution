@@ -86,29 +86,26 @@ Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \c
 
 \subsection{Containers}
 
-Operating system virtualization is a process whereby an operating system can be emulated inside another running system, the "host", and thus a "guest" environment can be shared with any software and dependencies already installed.
-Virtual machines (VMs) are attractive solutions to enable reproducibility first and foremost because the reproducer does can skip the installation of the environment, which is frequently time consuming and requires project-specific knowledge.
-Once running, guest machines are self-contained and isolated from the host, which then eliminates the posibility of polluting the host environment.
-Perhaps the most important benefit of virtual isolation is significantly improved security that allow modern system adminstrators to safely allow relatively unrestricted usage from semi-trusted users.
-Lastly, distributing code in virtual machine images allows the original authors to solve dependency problems that arise from imperfect package managers, imperfect repositories, and constant package updates; instead the authors distribute a locked snapshot of a working system.
+Operating system virtualization is a process whereby an ephemeral “guest” environment may be started in and reused between persistent "host" system.
+Virtual machines (VMs), as these “guest” environments are called, can thus provide users with environments tailored to a workflow, while eschewing the need to otherwise (e.g. manually or via a package manager) provide the tools it requires.
+Once running, VMs are self-contained and isolated from the host, also eliminating the risk of unwanted persistent changes being made to the host environment.
+Perhaps the most important benefit of virtual isolation is significantly improved security, allowing system administrators to safely grant users relatively unrestricted access to large-scale computational capabilities.
+Lastly, VMs can help mitigate issues arising from package updates by locking a specific dependency resolution state which is known to work as required by a workflow, and distributing that instead of a top-level dependency specification which might resolve differently across time.
 
-System virtualization offers a way to portably freeze and preserve environments, but are limited due to the size of the "full disk images".
-Additionally VM's must be be "booted" which can be costly if many instances are needed.
-Modern advances in container technology have allowed similar benefits but strip redundancy by making limited use of the host machine, specifically the hypervisor.
-Containers enable a complete working environment as small as a few Megabytes, and can be started as quickly as a normal process.
-Many container images are publicly available via public image repositories.
-
-Containers technology is not a recent invention, but the term "container" gained popularity alongside the Docker toolset.
-Over time Docker and other organizations have come together under a Linux Foundation project, the "Open Container Initiative" (OCI).
+Modern advances in container technology allow the provision of the core benefits of system virtualization, but lighten the associated overhead by making limited use of the host system, specifically the hypervisor.
+Container technology is widespread in industry applications, and many container images are made available via public image repositories.
+While container technology has gained significant popularity specifically via the Docker toolset, it refers to an overarching effort by numerous organizations, now best represented via a Linux Foundation project, the "Open Container Initiative" (OCI).
 The OCI governing body has produced an open specification for containers, which can be used by various container runtimes and toolsets.
-OCI complient container images in most cases can be executed identically with Docker, Podman, or other OCI compliant tools.
+Generally, OCI-compliant container images can be executed identically with Docker, Podman, or other OCI compliant tools.
 
-While OCI images are nearly ubiquitous in the industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing.
-Singularity has support for converting OCI images into singularity images, and recent versions of Apptainer have also added support to natively run OCI containers.
-Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
+While OCI images are nearly ubiquitous in the software industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing and tailored to research environments.
+A significant adaptation of Singularity to HPC environments is its capability to run without root privileges.
+However, recent advances in container technology have provided similar capabilities.
+Further, Singularity permits the conversion of OCI images into Singularity images, and recent versions of Apptainer have also added support for natively run OCI containers — thus making reuse of images between the two technologies increasingly convenient.
 
-One of the most significant downsides to using Docker in HPC environments was that it required root privilages.
-However, recent advances in container technology have made this unnecessary, and it is now considered best practice to run containers without root privilages when reasonable.
+%   Do we really want to get into this? appears... to whom? still... do we predict the future? Also, ultimately we provide solutions for both.
+%   The core thing if we pick favourites would be the actual capabilities, which we detail in the next sentences.
+% Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
 
-While the original reference OPFVTA article did not leverage this technology, containers can be used improve to improve the reliability and portability of the OPFVTA project.
-In this article, the authors will provide a snapshot of OPFVTA functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
+Container technology thus represents a solution to providing stable reusable environments for complex processes, such as the automatic generation of research articles.
+In particular it is attractive in view of the shortcomings of some extant reexecutable research solutions — such as the one used by the OPFVTA article — which assume environment management capabilities which may not always be present on a host system.
