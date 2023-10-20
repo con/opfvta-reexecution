@@ -98,7 +98,7 @@ A suitable alternative is to assure provision of these resources outside of the 
 \subsubsection{Containers should fit the scope of the underlying workflow steps}
 In order to not artificially extend the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently distinct separate steps of the workflow.
 For an example, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
-Complimentary, and initially possibly appearing contradictory, to the aforementioned advise we recommend to avoid building separate containers for related steps, in particular if supported by the same toolkits, and rather define and use different \emph{entry points} to the same container.
+Complementary, and initially possibly appearing contradictory, to the aforementioned advise we recommend to avoid building separate containers for related steps, in particular if supported by the same toolkits, and rather define and use different \emph{entry points} to the same container.
 E.g., a single container with AFNI could be used to access various tools from AFNI.
 Similar approach is adopted by NeuroDesk~\cite{neurodesk} which provides a large collection of entry points for various tools from a smaller set of containers.
 
