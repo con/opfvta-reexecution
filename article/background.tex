@@ -7,7 +7,7 @@
 \subsection{Reexecutable Research}
 
 %TODO yoh cite hurr-durr reproduction crisis article
-Independent verification of published results is a crucial step in the establishing and maintaining trust in shared scientific understanding \cite{rpp}.
+Independent verification of published results is a crucial step for establishing and maintaining trust in shared scientific understanding \cite{rpp}.
 The basic feasibility of \textit{de novo} research output generation from the earliest recorded data provenance is known as reexecutability, and  has remained largely unexplored as distinct phenomenon in the broader sphere of research “reproducibility”.
 While the scope of \textit{reexecution} is narrower than that of \textit{reproduction}, it constitutes a more well-defined and therefore tractable issue in improving the quality and sustainability of research.
 Reexecution is a prerequisite for the reproduction of any complex analysis process, and therefore in its absence reproduction quality assesments become largely intractable.
@@ -17,14 +17,15 @@ Further, reexecution constitutes a capability in and of itself, with ample utili
 %TODO asmacdo +1 cool
 Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results \cite{TODO} under free and open licenses.
 However, such analysis instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
-This precludes automatic reexecution of the full research output, and limits their potential for re-use.
-Additionally, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
+Notably, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
 
-“Use cases” annex of the DataLad handbook
-
+Reexecutability is an emergent topic in research, with a few extant efforts attempting to provide solutions and tackle associated challenges.
+Such efforts stem both from journals and independent researchers interested in the capabilities which reproducible outputs offer to the ongoing development of their projects.
+A jounal-based effort \cite{eliferep} provides dynamic article figures based on the last data processing input and executable code conforming to journal standards.
+Independent researcher efforts offer more comprehensive and flexible solutions, yet provide reference implementations which are either applied to comparatively simple analysis processes \cite{datalad} or tackle complex processes, but assume environment management capabilities which may not be widespread \cite{repsep}.
+% not sure how to cite the “Use cases” annex of the DataLad handbook specifically
 
 In order to optimally leverage extant efforts pertaining to full article reexecution and in order to test reexecutability in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA based on author naming conventions \cite{opfvta}.
-Due to the high task complexity of integrating all data analysis into a coherent and reliable workflow, extant efforts pertaining to full article reexecution are scant and not suitably stress-tested at a larger scale.
 One example is a novel neuroimaging study, identified as “OPFVTA” \cite{opfvta} based on author resource naming.
 The 2022 article is accompanied by a programmatic workflow via which it can be fully regenerated — based solely on raw data, data analysis instructions, and the natural-language manuscript text — and which is initiated via a simple executable script in the ubiquitous GNU Bash \cite{bash} command language.
 The reexecution process in this effort relies on an emerging infrastructure standard, RepSeP \cite{repsep}, which is used by additional other articles, thus providing a larger scope for conclusions that can be drawn from its study.
