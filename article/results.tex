@@ -115,7 +115,7 @@ This can be avoided by parameterizing the path and/or setting a default value ba
 When using containers, this should be done at the container initiation level, as the relevant path is the path on the parent system, and not the path inside the container.
 
 \subsubsection{Dependency versions inside container environments should be frozen as soon as feasible}
-The need for an entire image rebuilding also means that assuring consistent functionality in view of frequent updates is more difficult inside containers than in an ad-hoc environment.
+The need for an entire image rebuilding also means that assuring consistent functionality across rebuilds in view of frequent updates is more difficult inside containers than in interactively managed environments.
 This is compounded by the frequent and often API-breaking releases of many scientific software packages.
 While dependency version freezing is not without cost in terms of assuring continued real-life functionality for an article, it is paramount that this be done as soon as all required processing capabilities are provided.
 How this is accomplished differs greatly based on the package manager used inside the container.
