@@ -5,9 +5,7 @@ cd "$(dirname "$0")"
 # We can't have `set -eu` since `diff-pdf` returns a non-zero output code for differing PDFs
 set -eu -o pipefail
 
-SHOWCASE_PDF=${1}
-# Pretty fragile... might be better to just pipe the <env>_<data> part, but we don't do that.
-SHOWCASE_PDF=$(echo "${SHOWCASE_PDF}" | sed -e "s:^data/paperdiff_::g")
+SHOWCASE_PDF="${1}.pdf"
 
 OUTPUT_PATH="../../outputs"
 DATA_PATH="../data"
