@@ -57,13 +57,14 @@ As part of this work we have contributed substantial changes to the original OPF
 
 \subsubsection{Errors should be fatal more often than not}
 
-By default any Python script or a compiled C or C++ program just errors out and exits immediately when running into some unexpected operation.
+By default programs written in the majority of languages (including e.g. Python and C) will just error out and exit immediately when running into an unexpected operation.
 POSIX shell and other similar or derived ones, such as bash and zsh,  behave differently.
 By default they continue with execution of the next scripted command, and only when the list of commands is exhausted or explicit `exit` command is called, it finally exits with a non-0 error code.
 As a result, even if not causing some detrimental actions, an execution of the script could continue for hours before it fails, and original error message might be lost in the flood of output making it hard or impossible to localize original problem to be fixed.
-Analogously, shell scripts treat undefined variables as a variable having an empty value, and thus not causing any error at all.
-As a result a command in a script like \texttt{rm -rf "\${PREFIX}/"} would do its best to try to remove everything on your harddrive in case \texttt{PREFIX} variable is not defined.
-\texttt{set -u} would change the default behavior to error out and stop execution as soon as undefined variable is attempted to be used.
+This can be addressed by prepending \texttt{set -e} to the respective shell script, which changes the default behavior so that it will error out and stop execution as command exits with an error code.
+Additionally, shell scripts treat undefined variables as a variable having an empty value, with empty values causing any error at all.
+This can lead to numerous ill-defined behaviours, including a command such as \texttt{rm -rf "\${PREFIX}/"} removing all files on the system if \texttt{PREFIX} is not defined.
+This can be addressed by prepending \texttt{set -u} so that an error is raised and execution is stopped as soon as undefined variable is attempted to be used.
 To summarize, we advocate to include \texttt{set -eu} at the top of every shell script to guarantee it to error out as soon as any command fails or an undefined variable is attempted to be used.
 Read more in the section on \href{https://www.repronim.org/module-reproducible-basics/01-shell-basics/\#fail-early}{``Command line/shell: Fail early''} subsection of the ``ReproNim Reproducible Basics Module''~\cite{repronim:reprobasics}.
 
@@ -93,7 +94,12 @@ In this article we rely on simple GNU Make rules to provide very basic workflow 
 Due to a lack of persistency, addressing issues in container image contents requires rebuilding, which can be a time-consuming process.
 The smaller the container image, the easier it is.
 In particular, when using containers, it is thus advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
-A suitable alternative is to assure provision of these resources outside of the container image, e.g. by bind-mounting Git (and DataLad) directories present on the host machine or even combining them all via Git submodules mechanism as promoted by YODA principles~\cite{yoda}.
+A suitable solution is to assure provision of these resources outside of the container image and bind-mounting data thus downloaded to the host machine.
+
+\subsubsection{Resources should be bundled into a DataLad superdataset}
+As external resources might change or disappear, it is beneficial to use data version control system, such as git-annex and DataLad.
+The git submodule mechanism allows to bundle multiple repositories together with clear versioning information, thus following the modularity principle promoted by YODA~\cite{yoda}.
+Moreover, git-annex allows for multiple data sources and data integrity verification.
 
 \subsubsection{Containers should fit the scope of the underlying workflow steps}
 In order to not artificially extend the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently distinct separate steps of the workflow.
