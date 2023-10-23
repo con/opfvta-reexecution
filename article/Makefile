@@ -84,7 +84,7 @@ article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
 .PHONY: clean
 clean:
 	@latexmk -CA
-	@rm -f *.bbl
+	@rm -rf __pycache__
 	@rm -f *.run.xml
 	@rm -f data/paperdiff_*.{log,csv,pdf}
 	@rm -f data/topology.log
