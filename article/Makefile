@@ -81,8 +81,8 @@ article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
 
 # Target to specifically remove LaTeX traces.
-.PHONY: article-clean
-article-clean:
+.PHONY: clean
+clean:
 	@latexmk -CA
 	@rm -f *.bbl
 	@rm -f *.run.xml

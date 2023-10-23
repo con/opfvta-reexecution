@@ -111,7 +111,7 @@ article:
 
 .PHONY: article-clean
 article-clean:
-	$(MAKE) article-clean -C article/
+	$(MAKE) clean -C article/
 
 .PHONY: article-upload
 article-upload:
