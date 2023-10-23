@@ -58,7 +58,7 @@ As part of this work we have contributed substantial changes to the original OPF
 \subsubsection{Errors should be fatal more often than not}
 
 By default any Python script or a compiled C or C++ program just errors out and exits immediately when running into some unexpected operation.
-Shell scripts behave differently.
+POSIX shell and other similar or derived ones, such as bash and zsh,  behave differently.
 By default they continue with execution of the next scripted command, and only when the list of commands is exhausted or explicit `exit` command is called, it finally exits with a non-0 error code.
 As a result, even if not causing some detrimental actions, an execution of the script could continue for hours before it fails, and original error message might be lost in the flood of output making it hard or impossible to localize original problem to be fixed.
 Analogously, shell scripts treat undefined variables as a variable having an empty value, and thus not causing any error at all.
