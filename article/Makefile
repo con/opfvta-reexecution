@@ -32,7 +32,7 @@ all: article
 # CUSTOM BUILD RULES
 # -----------------------------------------------------------------------------
 metadata.tex: metadata.yaml
-	./yaml-to-latex.py -i $< -o $@
+	./classes/yaml-to-latex.py -i $< -o $@
 
 #
 # FIGURES GENERATION RULES
