@@ -93,7 +93,7 @@ If you prefer to run the generation outside of a container, you will need to ins
 You will also need to install sourceserifpro font using the tlmgr.
 
 ```console
-make container-article
+make article
 ```
 
 #### Cleaning up between runs
