@@ -51,6 +51,8 @@ With docker or podman, you can execute the analysis inside an OCI container.
 make analysis-oci
 ```
 
+TODO: describe where to find the results and original article regenerated.
+
 
 ### II. Reexecuting the Meta-Article
 
@@ -95,6 +97,8 @@ You will also need to install sourceserifpro font using the tlmgr.
 ```console
 make article
 ```
+
+In either of those cases you can then view the produced meta-article at TODO.
 
 #### Cleaning up between runs
 
