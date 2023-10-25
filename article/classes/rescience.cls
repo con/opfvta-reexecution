@@ -4,7 +4,7 @@
 %% Released under a Creative Commons Attribution 4.0 International license.
 %% ----------------------------------------------------------------------------
 %% Dependencies:
-%%  * metadata.tex 
+%%  * metadata.tex
 %%  * header.tex
 %%  * content.tex
 %% ----------------------------------------------------------------------------
@@ -57,43 +57,43 @@
 \RequirePackage{fontspec}
 \defaultfontfeatures{Ligatures=TeX}
 \setmainfont{Source Serif Pro}[
-  Path = ./source-serif-pro/SourceSerifPro-, Extension = .otf,
+  Path = ./fonts/source-serif-pro/SourceSerifPro-, Extension = .otf,
   UprightFont= Light,
   ItalicFont = LightIt,
   BoldFont   = Regular,
   BoldItalicFont = It,
 ]
 \setsansfont{Roboto Condensed}[
-  Path = ./roboto/RobotoCondensed-, Extension = .ttf,
+  Path = ./fonts/roboto/RobotoCondensed-, Extension = .ttf,
   UprightFont = Light,
   BoldFont = Regular
 ]
 
 \setmonofont{Source Code Pro}[
-  Path = ./source-code-pro/SourceCodePro-, Extension = .otf,
+  Path = ./fonts/source-code-pro/SourceCodePro-, Extension = .otf,
   UprightFont = Light,
   BoldFont = Regular
 ]
 
 \newfontfamily\RobotoCon{Roboto Condensed}[
-  Path = ./roboto/RobotoCondensed-, Extension = .ttf,
+  Path = ./fonts/roboto/RobotoCondensed-, Extension = .ttf,
   UprightFont = Regular,
   BoldFont = Bold
-]  
+]
 
 \newfontfamily\Roboto{Roboto}[
-  Path = ./roboto/Roboto-, Extension = .ttf,
+  Path = ./fonts/roboto/Roboto-, Extension = .ttf,
   UprightFont = Regular,
   BoldFont = Black
-]  
+]
 
 \newfontfamily\SpaceRoboto{Roboto}[
-  Path = ./roboto/Roboto-, Extension = .ttf,
+  Path = ./fonts/roboto/Roboto-, Extension = .ttf,
   UprightFont = Regular,
   BoldFont = Medium,
   UprightFeatures={LetterSpace=35},
   BoldFeatures={LetterSpace=35}
-]  
+]
 
 
 \RequirePackage{microtype}

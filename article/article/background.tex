@@ -7,7 +7,7 @@
 \subsection{Reexecutable Research}
 
 %TODO yoh cite hurr-durr reproduction crisis article
-Independent verification of published results is a crucial step in the establishing and maintaining trust in shared scientific understanding \cite{rpp}.
+Independent verification of published results is a crucial step for establishing and maintaining trust in shared scientific understanding \cite{rpp}.
 The basic feasibility of \textit{de novo} research output generation from the earliest recorded data provenance is known as reexecutability, and  has remained largely unexplored as distinct phenomenon in the broader sphere of research “reproducibility”.
 While the scope of \textit{reexecution} is narrower than that of \textit{reproduction}, it constitutes a more well-defined and therefore tractable issue in improving the quality and sustainability of research.
 Reexecution is a prerequisite for the reproduction of any complex analysis process, and therefore in its absence reproduction quality assesments become largely intractable.
@@ -17,14 +17,14 @@ Further, reexecution constitutes a capability in and of itself, with ample utili
 %TODO asmacdo +1 cool
 Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results \cite{TODO} under free and open licenses.
 However, such analysis instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
-This precludes automatic reexecution of the full research output, and limits their potential for re-use.
-Additionally, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
+Notably, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
 
-“Use cases” annex of the DataLad handbook
-
+Reexecutability is an emergent topic in research, with a few extant efforts attempting to provide solutions and tackle associated challenges.
+Such efforts stem both from journals and independent researchers interested in the capabilities which reproducible outputs offer to the ongoing development of their projects.
+A jounal-based effort \cite{eliferep} provides dynamic article figures based on the last data processing input and executable code conforming to journal standards.
+Independent researcher efforts offer more comprehensive and flexible solutions, yet provide reference implementations which are either applied to comparatively simple analysis processes \cite{Dar2019} or tackle complex processes, but assume environment management capabilities which may not be widespread \cite{repsep}.
 
 In order to optimally leverage extant efforts pertaining to full article reexecution and in order to test reexecutability in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA based on author naming conventions \cite{opfvta}.
-Due to the high task complexity of integrating all data analysis into a coherent and reliable workflow, extant efforts pertaining to full article reexecution are scant and not suitably stress-tested at a larger scale.
 One example is a novel neuroimaging study, identified as “OPFVTA” \cite{opfvta} based on author resource naming.
 The 2022 article is accompanied by a programmatic workflow via which it can be fully regenerated — based solely on raw data, data analysis instructions, and the natural-language manuscript text — and which is initiated via a simple executable script in the ubiquitous GNU Bash \cite{bash} command language.
 The reexecution process in this effort relies on an emerging infrastructure standard, RepSeP \cite{repsep}, which is used by additional other articles, thus providing a larger scope for conclusions that can be drawn from its study.
@@ -85,29 +85,26 @@ Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \c
 
 \subsection{Containers}
 
-Operating system virtualization is a process whereby an operating system can be emulated inside another running system, the "host", and thus a "guest" environment can be shared with any software and dependencies already installed.
-Virtual machines (VMs) are attractive solutions to enable reproducibility first and foremost because the reproducer does can skip the installation of the environment, which is frequently time consuming and requires project-specific knowledge.
-Once running, guest machines are self-contained and isolated from the host, which then eliminates the posibility of polluting the host environment.
-Perhaps the most important benefit of virtual isolation is significantly improved security that allow modern system adminstrators to safely allow relatively unrestricted usage from semi-trusted users.
-Lastly, distributing code in virtual machine images allows the original authors to solve dependency problems that arise from imperfect package managers, imperfect repositories, and constant package updates; instead the authors distribute a locked snapshot of a working system.
+Operating system virtualization is a process whereby an ephemeral “guest” environment may be started in and reused between persistent "host" system.
+Virtual machines (VMs), as these “guest” environments are called, can thus provide users with environments tailored to a workflow, while eschewing the need to otherwise (e.g. manually or via a package manager) provide the tools it requires.
+Once running, VMs are self-contained and isolated from the host, also eliminating the risk of unwanted persistent changes being made to the host environment.
+Perhaps the most important benefit of virtual isolation is significantly improved security, allowing system administrators to safely grant users relatively unrestricted access to large-scale computational capabilities.
+Lastly, VMs can help mitigate issues arising from package updates by locking a specific dependency resolution state which is known to work as required by a workflow, and distributing that instead of a top-level dependency specification which might resolve differently across time.
 
-System virtualization offers a way to portably freeze and preserve environments, but are limited due to the size of the "full disk images".
-Additionally VM's must be be "booted" which can be costly if many instances are needed.
-Modern advances in container technology have allowed similar benefits but strip redundancy by making limited use of the host machine, specifically the hypervisor.
-Containers enable a complete working environment as small as a few Megabytes, and can be started as quickly as a normal process.
-Many container images are publicly available via public image repositories.
-
-Containers technology is not a recent invention, but the term "container" gained popularity alongside the Docker toolset.
-Over time Docker and other organizations have come together under a Linux Foundation project, the "Open Container Initiative" (OCI).
+Modern advances in container technology allow the provision of the core benefits of system virtualization, but lighten the associated overhead by making limited use of the host system, specifically the hypervisor.
+Container technology is widespread in industry applications, and many container images are made available via public image repositories.
+While container technology has gained significant popularity specifically via the Docker toolset, it refers to an overarching effort by numerous organizations, now best represented via a Linux Foundation project, the "Open Container Initiative" (OCI).
 The OCI governing body has produced an open specification for containers, which can be used by various container runtimes and toolsets.
-OCI complient container images in most cases can be executed identically with Docker, Podman, or other OCI compliant tools.
+Generally, OCI-compliant container images can be executed identically with Docker, Podman, or other OCI compliant tools.
 
-While OCI images are nearly ubiquitous in the industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing.
-Singularity has support for converting OCI images into singularity images, and recent versions of Apptainer have also added support to natively run OCI containers.
-Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
+While OCI images are nearly ubiquitous in the software industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing and tailored to research environments.
+A significant adaptation of Singularity to HPC environments is its capability to run without root privileges.
+However, recent advances in container technology have provided similar capabilities.
+Further, Singularity permits the conversion of OCI images into Singularity images, and recent versions of Apptainer have also added support for natively run OCI containers — thus making reuse of images between the two technologies increasingly convenient.
 
-One of the most significant downsides to using Docker in HPC environments was that it required root privilages.
-However, recent advances in container technology have made this unnecessary, and it is now considered best practice to run containers without root privilages when reasonable.
+%   Do we really want to get into this? appears... to whom? still... do we predict the future? Also, ultimately we provide solutions for both.
+%   The core thing if we pick favourites would be the actual capabilities, which we detail in the next sentences.
+% Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
 
-While the original reference OPFVTA article did not leverage this technology, containers can be used improve to improve the reliability and portability of the OPFVTA project.
-In this article, the authors will provide a snapshot of OPFVTA functioning at a certain point in time — mitigating process fragility in view of incrementing software dependency versions.
+Container technology thus represents a solution to providing stable reusable environments for complex processes, such as the automatic generation of research articles.
+In particular it is attractive in view of the shortcomings of some extant reexecutable research solutions — such as the one used by the OPFVTA article — which assume environment management capabilities which may not always be present on a host system.

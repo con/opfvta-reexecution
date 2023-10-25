@@ -56,59 +56,81 @@ In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Te
 As part of this work we have contributed substantial changes to the original OPFVTA repository, based on which we formulate a number of best practice guidelines, highly relevant in the production of reexecutable research outputs.
 
 \subsubsection{Errors should be fatal more often than not}
-The high complexity of a full analysis workflow makes missing output data intractable, as there are many steps at which data may have been dropped.
-Manually setting individual invocations propagate exit codes throughout the Make system is cumbersome, and thus an easy global invocation should be relied on so that errors become fatal and immediately visible.
-This is best accomplished by prepending all Bash scripts for which this concern is relevant with a \texttt{set -eu} line.
+
+By default programs written in the majority of languages (including e.g. Python and C) will just error out and exit immediately when running into an unexpected operation.
+POSIX shell and other similar or derived ones, such as bash and zsh,  behave differently.
+By default they continue with execution of the next scripted command, and only when the list of commands is exhausted or explicit `exit` command is called, it finally exits with a non-0 error code.
+As a result, even if not causing some detrimental actions, an execution of the script could continue for hours before it fails, and original error message might be lost in the flood of output making it hard or impossible to localize original problem to be fixed.
+This can be addressed by prepending \texttt{set -e} to the respective shell script, which changes the default behavior so that it will error out and stop execution as command exits with an error code.
+Additionally, shell scripts treat undefined variables as a variable having an empty value, with empty values causing any error at all.
+This can lead to numerous ill-defined behaviours, including a command such as \texttt{rm -rf "\${PREFIX}/"} removing all files on the system if \texttt{PREFIX} is not defined.
+This can be addressed by prepending \texttt{set -u} so that an error is raised and execution is stopped as soon as undefined variable is attempted to be used.
+To summarize, we advocate to include \texttt{set -eu} at the top of every shell script to guarantee it to error out as soon as any command fails or an undefined variable is attempted to be used.
+Read more in the section on \href{https://www.repronim.org/module-reproducible-basics/01-shell-basics/\#fail-early}{``Command line/shell: Fail early''} subsection of the ``ReproNim Reproducible Basics Module''~\cite{repronim:reprobasics}.
 
 \subsubsection{Avoid assuming or hard-coding absolute paths to resources}
 Ensuring layout compatibility in different article execution environments is contingent on executable resources being able to find code or data required for execution.
-This would require changes to executable files contingent on higher-level process coordination, which would make article code less portable.
-This problem is best avoided by parameterizing paths to external resources in article code, and allowing it to be specified dynamically or via an environment variable during execution.
+Explicitly hardcoded in the scripts absolute paths are likely to not exist anywhere but the original execution environment, and hence scripts can very easily fail.
+This problem is best avoided by adhering to YODA principles~\cite{yoda} of being able to reference all needed resources (data, scripts, container images, etc.) \emph{under} the study folder.
+Use of relative paths within the study scripts then improve their portability.
+Paths to external resources (scratch folders, reusable resources such as atlases etc. if not present within study folder) should be allowed to be specified dynamically via command line options or via an environment variable during execution.
 
 \subsubsection{Avoid assuming a directory context for execution}
-Within the article code, resources may be linked via relative paths, these are paths resolved based on their hierarchical location with the execution base path as the reference point.
-However, if the execution base is variable, as it may be if the environment is modified, these relative paths will become fragile.
-Further, relative paths may also become fragile during debugging, where individual execution from their base directory might be preferable to emulating the otherwise more common base.
-A good way of making scripts utilising relative paths more robust is ensuring that they always set their base execution directory to their parent directory.
-This can be accomplished in Bash via prepending \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl} to the script content.
+Per previous recommendation, resources may be linked via relative paths, these are paths resolved based on their hierarchical location with the execution base path as the reference point.
+However, the scripts could be executed from various locations and not necessarily from the location of the script, thus making relative paths in scripts incorrect.
+A good way of making a script utilizing relative paths more robust is ensuring that the script using relative path sets the base execution directory to its parent directory.
+This can be accomplished in POSIX shell script via using \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl} at the beginning of the script.
 
-\subsubsection{Hierarchical granularity greatly benefits efficiency}
+\subsubsection{Workflow granularity greatly benefits efficiency}
 The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
 Ideally it should not be necessary to re-execute the entire workflow once an error is potentially resolved.
-For this it is beneficial to segment the workflow into as many hierarchical steps as feasible.
-This is not always possible, and is particularly not feasible for higher-level statistical analysis, where hierarchical contingency can easily be lost.
-However, particularly for such steps as preprocessing, and first-level general linear modelling, this is commonly feasible, and should be done.
-An easy implementation of this is having the workflow coordination system check for the presence of each hierarchical result, and, if present, proceed to the next hierarchical step.
+For this it is beneficial to formulate the workflow as many separate steps, where steps could be troubleshooted independently.
+It is worth to separate out at least such large steps as preprocessing, individual levels of analysis (e.g. per-subject vs whole-population), and article generation.
+YODA principles~\cite{yoda} again demonstrate one way how to organize digital artifacts across such stages for maximal re-usability.
+An good feature is to use a workflow platform which automatically checks for the presence of results from prior stages, and, if present, proceed to the next stage without triggering re-computation of prior stages.
+In this article we rely on simple GNU Make rules to provide very basic workflow across computational stages, but there exist hundreds of workflow engines and we refer reader to a recent call for FAIR workflows to discover more~\cite{fair-workflows}.
 
 \subsubsection{Container image size should be kept small}
 Due to a lack of persistency, addressing issues in container image contents requires rebuilding, which can be a time-consuming process.
 The smaller the container image, the easier it is.
 In particular, when using containers, it is thus advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
-A suitable alternative is to assure provision of these resources outside of the container image, e.g. by bind-mounting Git (and DataLad) directories present on the host machine.
+A suitable solution is to assure provision of these resources outside of the container image and bind-mounting data thus downloaded to the host machine.
+
+\subsubsection{Resources should be bundled into a DataLad superdataset}
+As external resources might change or disappear, it is beneficial to use data version control system, such as git-annex and DataLad.
+The git submodule mechanism allows to bundle multiple repositories together with clear versioning information, thus following the modularity principle promoted by YODA~\cite{yoda}.
+Moreover, git-annex allows for multiple data sources and data integrity verification.
 
 \subsubsection{Containers should fit the scope of the underlying workflow steps}
-In order to not artificially extend the workload of rebuilding a container image, it is further advisable to not create a bundled container image if separate containers can be used for separate hierarchical steps of the workflow.
-Container image granularity is of course capped by article workflow granularity, but it is paramount to not compromise the former at the container level.
-At a minimum, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
+In order to not artificially extend the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently distinct separate steps of the workflow.
+For an example, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
+Complementary, and initially possibly appearing contradictory, to the aforementioned advise we recommend to avoid building separate containers for related steps, in particular if supported by the same toolkits, and rather define and use different \emph{entry points} to the same container.
+E.g., a single container with AFNI could be used to access various tools from AFNI.
+Similar approach is adopted by NeuroDesk~\cite{neurodesk} which provides a large collection of entry points for various tools from a smaller set of containers.
 
 \subsubsection{Do not write debug-relevant data inside the container}
 Debug-relevant data, such as intermediary data processing steps or debugging logs should not be deleted by the workflow, and further, should be written to persistent storage.
-When using containers, if this data is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
-This data is vital for debugging, and thus should not be lost.
+When using some containerization implementations, such as Docker, if file is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
+Such file might be vital for debugging, and thus should not be lost.
 This can be avoided by making sure that the paths used for intermediary and debugging outputs are bind-mounted to real directories on the parent system, from which they can be freely inspected.
 
 \subsubsection{Parameterize scratch directories}
 Complex workflows commonly generate large amounts of scratch data — intermediary data processing steps, with no other utility than being read by subsequent steps.
 If these data are written to a hard-coded path, multiple executions will lead to race conditions, compromising one or multiple execution attempts.
-This is avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamps).
+This can be avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamps).
 When using containers, this should be done at the container initiation level, as the relevant path is the path on the parent system, and not the path inside the container.
 
 \subsubsection{Dependency versions inside container environments should be frozen as soon as feasible}
-The need for image rebuilding also means that assuring functionality in view of frequent updates is a more difficult inside containers than on a persistent system.
-This is compounded by the frequent and API-breaking update schedules of many scientific software packages.
+The need for an entire image rebuilding also means that assuring consistent functionality across rebuilds in view of frequent updates is more difficult inside containers than in interactively managed environments.
+This is compounded by the frequent and often API-breaking releases of many scientific software packages.
 While dependency version freezing is not without cost in terms of assuring continued real-life functionality for an article, it is paramount that this be done as soon as all required processing capabilities are provided.
 How this is accomplished differs greatly based on the package manager used inside the container.
-For the present example, using Gentoo's Portage package manager, versions can be frozen by checking out a specific commit of the dependency tree, in view of which the package manager will automatically resolve the same versions.
+For example, PyPI, conda and other distributions allow to dump an exact list of versioned packages present in the environment and reinstall using that list.
+Gentoo's Portage package manager allows to freeze versions by checking out a specific commit of the dependency tree, in view of which the package manager will automatically resolve the same versions.
+Such an approach was used to ``reconstruct'' through freezing to prior point the computational environment used in the original paper.
+% TODO: add href to point to the location in the repository where it freezes
+On Debian, NeuroDebian-enhanced systems, and to a limited degree on Ubuntu systems, it is possible to use \texttt{nd\_freeze} utility from \texttt{neurodebian-freeze} package to make use of \href{https://snapshot.debian.org}{snapshot.debian.org} and \href{http://snapshot-neuro.debian.net}{snapshot-neuro.debian.net} and use frozen to specific timestamp state of the APT repositories, thus guaranteeing access to the same versions of packages.
+NeuroDocker utility~\cite{neurodocker} provides further assistance in generating container recipes and has support for \texttt{nd\_freeze} to generate containers following the best practices.
 
 
 \subsection{Reproduction Quality}
