@@ -94,6 +94,7 @@ clean:
 	@rm -f figs/diff_text.pdf
 	@rm -f figs/topology.pdf
 	@rm -f metadata.tex
+	@rm -f article.bbl
 
 # Upload target
 .PHONY: upload
