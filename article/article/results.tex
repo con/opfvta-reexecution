@@ -27,7 +27,7 @@ Within the context of container usage, this also affords the advantage of keepin
 
 Notably, the article source code itself is not duplicated or further edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repository.
 
-\begin{figure}
+\begin{figure*}
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
 	\caption{
@@ -37,7 +37,7 @@ Notably, the article source code itself is not duplicated or further edited here
 		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
 	}
 	\label{fig:topology}
-\end{figure}
+\end{figure*}
 
 
 %TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
@@ -144,7 +144,7 @@ This provides both quality control for successful reexecution as well as a showc
 For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results generated via the New Reexecution Model.
 Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF difference (\ref{fig:diff_pages}).
 
-\begin{figure}
+\begin{figure*}
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
 	\caption{
@@ -153,7 +153,7 @@ Reproduction differences between the article versions are extracted by evaluatin
 		Error bars represent the \nth{95} percentile confidence interval.
 	}
 	\label{fig:diff_pages}
-\end{figure}
+\end{figure*}
 
 This overview shows a consistent minimum baseline of differing pixels between reexecutions, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
 When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the New Reexecution Model results (2023-..).
@@ -171,7 +171,7 @@ This is particularly true for p-values, the magnitude of which can vary substant
 Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs (\cref{fig:diff}).
 This, changes in the numerical value do not impact text length and do not generally propagate to subsequent lines, where they would be recorded as false positives.
 
-\begin{figure}[H]
+\begin{figure*}[H]
 	\centering
 	\begin{subfigure}{0.99\textwidth}
 		\centering
@@ -211,5 +211,5 @@ This, changes in the numerical value do not impact text length and do not genera
 		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the New Reexecution Model result).
 	}
 	\label{fig:diff}
-\end{figure}
+\end{figure*}
 
