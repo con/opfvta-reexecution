@@ -28,6 +28,9 @@ DATA := $(wildcard data/*.dot)
 .PHONY: all
 all: article
 
+# Article formats:
+FORMAT?=rescience
+
 #
 # CUSTOM BUILD RULES
 # -----------------------------------------------------------------------------
@@ -74,18 +77,18 @@ container-article:
 	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article-clean
 	podman run $(PODMAN_ARGS) \
-		$(MAKE) article
+		$(MAKE) article $(FORMAT)
 
 .PHONY: article
 article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
-	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article.tex
+	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article-$(FORMAT).tex
 
 # Target to specifically remove LaTeX traces.
 .PHONY: clean
 clean:
 	@latexmk -CA
 	@rm -rf __pycache__
-	@rm -f *.run.xml
+	@rm -f *.{run.xml,bbl}
 	@rm -f data/paperdiff_*.{log,csv,pdf}
 	@rm -f data/topology.log
 	@rm -f figs/diff_date.pdf
@@ -94,9 +97,8 @@ clean:
 	@rm -f figs/diff_text.pdf
 	@rm -f figs/topology.pdf
 	@rm -f metadata.tex
-	@rm -f article.bbl
 
 # Upload target
 .PHONY: upload
 upload: article
-	rsync -avP article.pdf dreamarticles:articles.chymera.eu/fraaef.pdf
+	rsync -avP article_$(FORMAT).pdf dreamarticles:articles.chymera.eu/fraaef.pdf

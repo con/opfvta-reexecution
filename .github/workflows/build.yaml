@@ -37,7 +37,7 @@ jobs:
         run: git annex enableremote gin.g-node.org
 
       - name: Build container article
-        run: make container-article
+        run: make container-article FORMAT=rescience
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v2

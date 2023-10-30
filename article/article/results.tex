@@ -27,17 +27,17 @@ Within the context of container usage, this also affords the advantage of keepin
 
 Notably, the article source code itself is not duplicated or further edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repository.
 
-\begin{figure*}
-	\centering
-	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
-	\caption{
-		\textbf{The directory topology of the reexecution framework nests all requirements and includes a Make system for process coordination.}
-		Depicted is a directory tree topology of the repository coordinating OPFVTA re-execution.
-		Nested directories are represented by nested boxes, and Git submodules are highlighted with orange borders.
-		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
-	}
-	\label{fig:topology}
-\end{figure*}
+%\begin{figure*}
+%	\centering
+%	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
+%	\caption{
+%		\textbf{The directory topology of the reexecution framework nests all requirements and includes a Make system for process coordination.}
+%		Depicted is a directory tree topology of the repository coordinating OPFVTA re-execution.
+%		Nested directories are represented by nested boxes, and Git submodules are highlighted with orange borders.
+%		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
+%	}
+%	\label{fig:topology}
+%\end{figure*}
 
 
 %TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
@@ -144,16 +144,16 @@ This provides both quality control for successful reexecution as well as a showc
 For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results generated via the New Reexecution Model.
 Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF difference (\ref{fig:diff_pages}).
 
-\begin{figure*}
-	\centering
-	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
-	\caption{
-		\textbf{Page-wise visual differences between the Historical Manuscript Record and New Reexecution Model results help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
-		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
-		Error bars represent the \nth{95} percentile confidence interval.
-	}
-	\label{fig:diff_pages}
-\end{figure*}
+%\begin{figure*}
+%	\centering
+%	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
+%	\caption{
+%		\textbf{Page-wise visual differences between the Historical Manuscript Record and New Reexecution Model results help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
+%		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
+%		Error bars represent the \nth{95} percentile confidence interval.
+%	}
+%	\label{fig:diff_pages}
+%\end{figure*}
 
 This overview shows a consistent minimum baseline of differing pixels between reexecutions, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
 When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the New Reexecution Model results (2023-..).
@@ -171,45 +171,45 @@ This is particularly true for p-values, the magnitude of which can vary substant
 Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs (\cref{fig:diff}).
 This, changes in the numerical value do not impact text length and do not generally propagate to subsequent lines, where they would be recorded as false positives.
 
-\begin{figure*}[H]
-	\centering
-	\begin{subfigure}{0.99\textwidth}
-		\centering
-		\tcbox{
-			\includegraphics[width=0.48\textwidth]{figs/diff_date.pdf}
-			}
-		\caption{
-			The date change is correctly identified throughout the document, as seen in this example from page 1 of the article.
-		}
-		\label{fig:diff_date}
-	\end{subfigure}
-	\\
-	\begin{subfigure}{0.99\textwidth}
-		\centering
-		\tcbox{
-			\includegraphics[width=0.48\textwidth]{figs/diff_text.pdf}
-			}
-		\caption{
-			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds, as seen in this example from page 4 of the article.
-		}
-		\label{fig:diff_text}
-	\end{subfigure}
-	\\
-	\vspace{1em}
-	\begin{subfigure}{0.99\textwidth}
-		\centering
-		\tcbox{
-			\includegraphics[width=0.8\textwidth]{figs/diff_fig.pdf}
-			}
-		\caption{
-			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance, as seen in this example from page 14 of the article.
-		}
-		\label{fig:diff_fig}
-	\end{subfigure}
-	\caption{
-		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
-		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the New Reexecution Model result).
-	}
-	\label{fig:diff}
-\end{figure*}
+%\begin{figure*}[H]
+%	\centering
+%	\begin{subfigure}{0.99\textwidth}
+%		\centering
+%		\tcbox{
+%			\includegraphics[width=0.48\textwidth]{figs/diff_date.pdf}
+%			}
+%		\caption{
+%			The date change is correctly identified throughout the document, as seen in this example from page 1 of the article.
+%		}
+%		\label{fig:diff_date}
+%	\end{subfigure}
+%	\\
+%	\begin{subfigure}{0.99\textwidth}
+%		\centering
+%		\tcbox{
+%			\includegraphics[width=0.48\textwidth]{figs/diff_text.pdf}
+%			}
+%		\caption{
+%			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds, as seen in this example from page 4 of the article.
+%		}
+%		\label{fig:diff_text}
+%	\end{subfigure}
+%	\\
+%	\vspace{1em}
+%	\begin{subfigure}{0.99\textwidth}
+%		\centering
+%		\tcbox{
+%			\includegraphics[width=0.8\textwidth]{figs/diff_fig.pdf}
+%			}
+%		\caption{
+%			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance, as seen in this example from page 14 of the article.
+%		}
+%		\label{fig:diff_fig}
+%	\end{subfigure}
+%	\caption{
+%		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
+%		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the New Reexecution Model result).
+%	}
+%	\label{fig:diff}
+%\end{figure*}
 
