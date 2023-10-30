@@ -77,7 +77,7 @@ container-article:
 	podman run --net=none $(PODMAN_ARGS) \
 		$(MAKE) article-clean
 	podman run $(PODMAN_ARGS) \
-		$(MAKE) article $(FORMAT)
+		$(MAKE) article FORMAT=$(FORMAT)
 
 .PHONY: article
 article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
