@@ -29,7 +29,7 @@ DATA := $(wildcard data/*.dot)
 all: article
 
 # Article formats:
-FORMAT?=rescience
+FORMAT?=frontiers
 
 #
 # CUSTOM BUILD RULES
@@ -101,4 +101,4 @@ clean:
 # Upload target
 .PHONY: upload
 upload: article
-	rsync -avP article_$(FORMAT).pdf dreamarticles:articles.chymera.eu/fraaef.pdf
+	rsync -avP article-$(FORMAT).pdf dreamarticles:articles.chymera.eu/fraaef-$(FORMAT).pdf
