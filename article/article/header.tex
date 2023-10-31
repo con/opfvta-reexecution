@@ -36,7 +36,7 @@
 %VARIABLES
 %set up a more stable buffers (the normal ones gets blanked after the titlepage is invoked)
 \makeatletter
-\let\mytitle\@title
+%\let\mytitle\@title
 \let\myauthor\@author
 \let\mydate\@date
 \makeatother
@@ -49,7 +49,9 @@
 	\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
 
 	\lhead{}
-	\chead{\small\textsf{\textcolor{Gray}{\mytitle}}}
+	%\chead{\small\textsf{\textcolor{Gray}{\mytitle}}}
+	%\chead{\small\textsf{\textcolor{Gray}{LALA}}}
+	\chead{\small\textsf{\textcolor{Gray}{\thetitle}}}
 	\rhead{}
 
 	\lfoot{}
@@ -119,5 +121,8 @@
 \newcommand{\niceus}{\texttt{\_}}
 
 %BIBLIOGRAPHY
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
+\usepackage[backend=biber,style=authoryear,natbib=true]{biblatex}
+\usepackage{bibentry}
 \addbibresource{bibliography.bib}
+
+
