@@ -20,15 +20,13 @@
             bookmarks=true,
             breaklinks=true,
             pdfborder={0 0 0},
-            citecolor=citecolor,
-            linkcolor=linkcolor,
-            urlcolor=urlcolor,
-            colorlinks=true,
             linktocpage=false,
             hyperindex=true,
             colorlinks=true,
             linktocpage=false,
-            linkbordercolor=white]{hyperref}
+            linkbordercolor=white,
+	    hidelinks,
+	    ]{hyperref}
 \hypersetup{linkcolor=black,urlcolor=darkgray}
 
 \input{common/header.tex}
@@ -121,7 +119,7 @@
 \newcommand{\niceus}{\texttt{\_}}
 
 %BIBLIOGRAPHY
-\usepackage[backend=biber,style=authoryear,natbib=true]{biblatex}
+\usepackage[backend=biber,style=numeric-comp,natbib=true]{biblatex}
 \usepackage{bibentry}
 \addbibresource{bibliography.bib}
 
