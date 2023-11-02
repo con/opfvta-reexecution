@@ -15,21 +15,24 @@
 \usepackage{nameref}
 \usepackage{makecell}
 \usepackage[all]{nowidow}
-%\usepackage[hidelinks]{hyperref}
-\usepackage[pdfusetitle,
-            bookmarks=true,
-            breaklinks=true,
-            pdfborder={0 0 0},
-            linktocpage=false,
-            hyperindex=true,
-            colorlinks=true,
-            linktocpage=false,
-            linkbordercolor=white,
-	    hidelinks,
-	    ]{hyperref}
-\hypersetup{linkcolor=black,urlcolor=darkgray}
 
 \input{common/header.tex}
+
+\usepackage[hidelinks]{hyperref}
+%\usepackage[pdfusetitle,
+%            bookmarks=true,
+%            breaklinks=true,
+%            pdfborder={0 0 0},
+%            linktocpage=false,
+%            hyperindex=true,
+%            colorlinks=true,
+%            linktocpage=false,
+%            linkbordercolor=white,
+%	    hidelinks,
+%	    ]{hyperref}
+%\hypersetup{linkcolor=black,urlcolor=darkgray}
+
+\input{common/header_tail.tex}
 
 %VARIABLES
 %set up a more stable buffers (the normal ones gets blanked after the titlepage is invoked)

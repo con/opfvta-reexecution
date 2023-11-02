@@ -167,11 +167,53 @@ Notably, inspecting these differences reveals a strong coherence at the qualitat
 This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
 This is particularly true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements, as long as magnitude notation is used.
 
+\begin{figure*}
+	\centering
+	\begin{subfigure}{0.99\textwidth}
+		\centering
+		\tcbox{
+			\includegraphics[width=0.48\textwidth]{figs/diff_date.pdf}
+			}
+		\caption{
+			The date change is correctly identified throughout the document, as seen in this example from page 1 of the article.
+		}
+		\label{fig:diff_date}
+	\end{subfigure}
+	\\
+	\begin{subfigure}{0.99\textwidth}
+		\centering
+		\tcbox{
+			\includegraphics[width=0.48\textwidth]{figs/diff_text.pdf}
+			}
+		\caption{
+			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds, as seen in this example from page 4 of the article.
+		}
+		\label{fig:diff_text}
+	\end{subfigure}
+	\\
+	\vspace{1em}
+	\begin{subfigure}{0.99\textwidth}
+		\centering
+		\tcbox{
+			\includegraphics[width=0.8\textwidth]{figs/diff_fig.pdf}
+			}
+		\caption{
+			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance, as seen in this example from page 14 of the article.
+		}
+		\label{fig:diff_fig}
+	\end{subfigure}
+	\caption{
+		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
+		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the New Reexecution Model result).
+	}
+	\label{fig:diff}
+\end{figure*}
+
 %TODO chr discuss this more in discussions.
 Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs (\cref{fig:diff}).
 This, changes in the numerical value do not impact text length and do not generally propagate to subsequent lines, where they would be recorded as false positives.
 
-\begin{figure*}[H]
+\begin{figure*}
 	\centering
 	\begin{subfigure}{0.99\textwidth}
 		\centering
