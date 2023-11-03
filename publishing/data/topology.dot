@@ -92,7 +92,7 @@ digraph graphname {
             }
         }
         subgraph cluster4 {
-            label = "article/";
+            label = "publishing/";
             fontcolor = "#00a3cc";
             color = "#00a3cc";
 
