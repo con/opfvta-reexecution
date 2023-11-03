@@ -103,19 +103,19 @@ analysis-oci-interactive:
 #
 .PHONY: container-article
 container-article:
-	$(MAKE) container-article -C article/
+	$(MAKE) container-article -C publishing/
 
 .PHONY: article
 article:
-	$(MAKE) -C article/
+	$(MAKE) -C publishing/
 
 .PHONY: article-clean
 article-clean:
-	$(MAKE) clean -C article/
+	$(MAKE) clean -C publishing/
 
 .PHONY: article-upload
 article-upload:
-	$(MAKE) upload -C article/
+	$(MAKE) upload -C publishing/
 
 
 #

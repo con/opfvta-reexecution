@@ -15,9 +15,9 @@ __pycache__
 # but we don't want to commit the freshly produced one in that location
 article/article.pdf
 
-.nfs*
-article.bbl
-article.blg
-article.run.xml
+*.nfs*
+*.bbl
+*.blg
+*.run.xml
 
-article/metadata.tex
+publishing/metadata.tex
