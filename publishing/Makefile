@@ -75,7 +75,7 @@ container-article-interactive: live
 .PHONY: container-article
 container-article:
 	podman run --net=none $(PODMAN_ARGS) \
-		$(MAKE) article-clean
+		$(MAKE) clean-publishing
 	podman run $(PODMAN_ARGS) \
 		$(MAKE) article FORMAT=$(FORMAT)
 
@@ -86,6 +86,13 @@ article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
 .PHONY: poster
 poster: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make poster.tex
+
+.PHONY: container-poster
+container-poster: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
+	podman run --net=none $(PODMAN_ARGS) \
+		$(MAKE) clean-publishing
+	podman run $(PODMAN_ARGS) \
+		$(MAKE) poster
 
 # Target to specifically remove LaTeX traces.
 .PHONY: clean
@@ -101,6 +108,8 @@ clean:
 	@rm -f figs/diff_text.pdf
 	@rm -f figs/topology.pdf
 	@rm -f metadata.tex
+	@rm -f *.nav
+	@rm -f *.snm
 
 # Upload target
 .PHONY: upload

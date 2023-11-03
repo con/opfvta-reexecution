@@ -99,7 +99,7 @@ analysis-oci-interactive:
 		/bin/bash
 
 #
-# Paper build
+# Publishing builds
 #
 .PHONY: container-article
 container-article:
@@ -109,13 +109,21 @@ container-article:
 article:
 	$(MAKE) -C publishing/
 
-.PHONY: article-clean
-article-clean:
-	$(MAKE) clean -C publishing/
+.PHONY: container-poster
+container-poster:
+	$(MAKE) container-poster -C publishing/
+
+.PHONY: poster
+poster:
+	$(MAKE) poster -C publishing/
 
 .PHONY: article-upload
 article-upload:
 	$(MAKE) upload -C publishing/
+
+.PHONY: clean-publishing
+article-upload:
+	$(MAKE) clean -C publishing/
 
 
 #
