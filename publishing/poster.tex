@@ -1,0 +1,98 @@
+\input{poster/header.tex}
+
+\title{\href{https://github.com/TheChymera/RepSeP}{\Large github.com/TheChymera/RepSeP}\\\vspace{.15em}Reproducible Publishing --- Reference Poster Implementation}
+% \title{Longitudinal opto-pharmaco-fMRI of Selective\\ Serotonin Reuptake Inhibition}
+\author{Horea-Ioan Ioanas$^{1}$, Markus Rudin$^{1}$}
+\institute[ETH]{$^{1}$Institute for Biomedical Engineering, ETH and University of Zurich}
+\date{\today}
+
+\newlength{\columnheight}
+\setlength{\columnheight}{0.881\textheight}
+
+\begin{document}
+
+\begin{myverbbox}[\small]{\tabcode}
+\begin{table}[]
+      \py{
+	    pytex_tab(
+		  script='scripts/stim_table.py', label='sp',
+		  caption='BIDS \cite{bids} event file table, from \cite{irsabi}',
+		  options_pre='\\centering \\resizebox{0.9\\textwidth}{!}{',
+		  data='data/JogB.tsv', options_post='}',
+		  )
+	  }
+\end{table}
+\end{myverbbox}
+\begin{myverbbox}[\small]{\spcode}
+\py{pytex_fig(
+	'scripts/3dplot.py',
+	conf='poster/3dplot.conf', label='3dplot',
+	caption='A 3D plot. Plot script from matplotlib exampes \cite{matplotlib}.',
+	)}
+\end{myverbbox}
+
+\begin{frame}
+\begin{columns}
+	\begin{column}{.42\textwidth}
+		\begin{beamercolorbox}[center]{postercolumn}
+			\begin{minipage}{.98\textwidth}  % tweaks the width, makes a new \textwidth
+				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+					\begin{myblock}{Abstract}
+						\input{common/abstract.tex}
+					\end{myblock}\vfill
+					\vspace{-0.3em}
+					\begin{myblock}{Lala}
+						\begin{figure}
+							\captionsetup{width=.9\linewidth}
+							\includegraphics[width=0.9\textwidth]{figs/topology.pdf}
+							\vspace{-1.8em}
+							\caption{
+								Mycaption lalalalal
+							}
+							\vspace{1em}
+						\end{figure}
+
+					\end{myblock}\vfill
+					\vspace{-0.3em}
+					\begin{myblock}{Technologies}
+						\vspace{0.75em}
+						\begin{minipage}{.28\textwidth}
+							\begin{figure}
+								\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}
+							\end{figure}
+							\begin{figure}
+								\includegraphics[width=0.9\textwidth]{figs/diff_date.pdf}
+							\end{figure}
+						\end{minipage}
+					\end{myblock}\vfill
+		}\end{minipage}\end{beamercolorbox}
+	\end{column}
+	\begin{column}{.59\textwidth}
+		\begin{beamercolorbox}[center]{postercolumn}
+			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
+				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
+					\begin{myblock}{Technologies}
+						\vspace{0.75em}
+						\begin{minipage}{.28\textwidth}
+							\begin{figure}
+								\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}
+							\end{figure}
+						\end{minipage}~
+						\begin{minipage}{.68\textwidth}
+						\end{minipage}
+					\end{myblock}\vfill
+					\begin{myblock}{Technologies}
+						\vspace{0.75em}
+						\begin{minipage}{.28\textwidth}
+							\begin{figure}
+								\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}
+							\end{figure}
+						\end{minipage}~
+						\begin{minipage}{.68\textwidth}
+						\end{minipage}
+					\end{myblock}\vfill
+		}\end{minipage}\end{beamercolorbox}
+	\end{column}
+\end{columns}
+\end{frame}
+\end{document}

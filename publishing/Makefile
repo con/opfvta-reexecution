@@ -83,6 +83,10 @@ container-article:
 article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article-$(FORMAT).tex
 
+.PHONY: poster
+poster: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
+	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make poster.tex
+
 # Target to specifically remove LaTeX traces.
 .PHONY: clean
 clean:
