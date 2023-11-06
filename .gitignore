@@ -9,11 +9,9 @@
 __pycache__
 .cache
 
-# By default no PDF. List explicitly the ones we like to see committed below
-*.pdf
-!article.pdf
-# but we don't want to commit the freshly produced one in that location
-article/article.pdf
+# By default no binaries for publishing documents:
+publishing/*.pdf
+publishing/figs/*.{pdf,png}
 
 *.nfs*
 *.bbl
