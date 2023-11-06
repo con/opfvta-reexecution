@@ -3,3 +3,4 @@
 * annex.largefiles=((mimeencoding=binary)and(largerthan=0))
 # let fonts to got into git
 *.[ot]tf annex.largefiles=nothing
+publishing/figs/workflow.png annex.largefiles=nothing
