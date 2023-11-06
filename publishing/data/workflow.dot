@@ -1,0 +1,86 @@
+digraph graphname {
+    size="14,8";
+    graph [fontname = "sans", margin=0, splines=line];
+    rankdir="LR";
+    node [fontname = "sans", style=filled];
+    edge [fontname = "sans", color=gray50];
+    subgraph cluster0 {
+        margin=10;
+        label = "Target";
+        fontcolor = "#00a3cc";
+        color = "#42e3dc";
+
+        oa[label="Original Article", shape=box, color="#BBBBBB", fillcolor=grey93];
+        blank00[style=invis];
+        blank01[style=invis];
+        blank02[style=invis];
+        ma[label="Meta-Article", shape=box, color="#BBBBBB", fillcolor=grey93];
+        }
+        //{rank=same; opf_; Con}
+
+    oa -> si;
+    blank00 -> rd [style=invis];
+    blank01 -> ac [style=invis];
+    blank02 -> blank10 [style=invis];
+    oa -> rd [constraint=false];
+    oa -> ac [constraint=false];
+    ma -> ras;
+
+    subgraph cluster1 {
+        margin=10;
+        label = "Fetching";
+        fontcolor = "#00a3cc";
+        color = "#42e3dc";
+
+        si[label="System Image", shape=box, color="#BBBBBB", fillcolor=grey93];
+        rd[label="Raw Data", shape=box, color="#BBBBBB", fillcolor=grey93];
+        ac[label="Article Code", shape=box, color="#BBBBBB", fillcolor=grey93];
+        blank10[style=invis];
+        ras[label="Article Reexecution Library", shape=box, color="#BBBBBB", fillcolor=grey93];
+        }
+
+    si -> ae [weight=9];
+    rd -> blank21 [style=invis];
+    ac -> mac [style=invis];
+    ras -> mpc;
+    ac -> blank22[style=invis];
+    rd -> ae [constraint=false];
+    ac -> ae [constraint=false];
+    ras -> mac [constraint=false];
+
+    subgraph cluster2 {
+        margin=10;
+        label = "Execution";
+        fontcolor = "#00a3cc";
+        color = "#42e3dc";
+
+        ae[label="Article Execution", shape=box, color="#BBBBBB", fillcolor=grey93];
+        blank21[style=invis];
+        blank22[style=invis];
+        mac[label="Meta-Article Code", shape=box, color="#BBBBBB", fillcolor=grey93];
+        mpc[label="Meta-Poster Code", shape=box, color="#BBBBBB", fillcolor=grey93];
+        }
+
+    ae -> ra;
+    blank21 -> blank30 [style=invis];
+    blank22 -> blank31 [style=invis];
+    mac -> map [constraint=false];
+    mpc -> mpp;
+
+    subgraph cluster3 {
+        margin=10;
+        label = "Result";
+        fontcolor = "#00a3cc";
+        color = "#42e3dc";
+
+        ra[label="Reexecuted Article (PDF)", shape=box, color="#BBBBBB", fillcolor=grey93, fontcolor="#999998"];
+        blank30[style=invis];
+        blank31[style=invis];
+        map[label="Meta-Article (PDF)", shape=box, color="#BBBBBB", fillcolor=grey93];
+        mpp[label="Meta-Poster (PDF)", shape=box, color="#BBBBBB", fillcolor=grey93];
+        }
+    ra -> ras:n [constraint=false];
+    ra -> ras:n [constraint=false];
+    ra -> ras:n [constraint=false];
+
+}
