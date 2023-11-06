@@ -5,13 +5,13 @@ digraph graphname {
     edge [fontname = "sans", color=gray50];
     Mak[label="  Makefile  ", shape=note, color="#BBBBBB", fillcolor=grey93];
     pro[label="produce-analysis.sh", shape=note, color="#BBBBBB", fillcolor=grey93];
-    Con[label="Containerfile", shape=note, color="#BBBBBB", fillcolor=grey93];
+    Con[label="    Containerfile     ", shape=note, color="#BBBBBB", fillcolor=grey93];
     ConL[label="Containerflie.latex", shape=note, color="#BBBBBB", fillcolor=grey93];
     opf_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93, fontcolor="#999998"];
     mbt_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
     opb_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
     Makp[label="  Makefile  ", shape=note, color="#BBBBBB", fillcolor=grey93];
-    artp[label="  article.pdf  ", shape=note, color="#BBBBBB", fillcolor="#bbeeff"];
+    artp[label=" article.pdf ", shape=note, color="#BBBBBB", fillcolor="#bbeeff"];
     pap_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
     inputs_[label="inputs_", style=invis]
     outputs_[label="outputs_", style=invis]
@@ -78,7 +78,7 @@ digraph graphname {
                 label = "original/";
                 fontcolor = "#00a3cc";
                 color = "#00a3cc";
-                oria[label="  article.pdf  ", shape=note, color="#BBBBBB", fillcolor=grey93];
+                oria[label=" article.pdf ", shape=note, color="#BBBBBB", fillcolor=grey93];
                 ori_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
                 oria -> ori_ [style=invis];
             }
@@ -86,7 +86,7 @@ digraph graphname {
                 label = "<env>_<date>/";
                 fontcolor = "#00a3cc";
                 color = "#00a3cc";
-                repa[label="  article.pdf  ", shape=note, color="#BBBBBB", fillcolor="#bbffdd"];
+                repa[label=" article.pdf ", shape=note, color="#BBBBBB", fillcolor="#bbffdd"];
                 rep_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
                 repa -> rep_ [style=invis];
             }
@@ -95,13 +95,16 @@ digraph graphname {
             label = "publishing/";
             fontcolor = "#00a3cc";
             color = "#00a3cc";
-
-            Makp;
             Makp -> artp [style=invis];
-            artp -> pap_ [style=invis];
 
+            subgraph cluster4 {
+            label = "";
+            style=invis
+
+            artp -> pap_ [style=invis];
+            }
             }
         }
         //{rank=same; opf_; Con}
-    }
+}
 }
