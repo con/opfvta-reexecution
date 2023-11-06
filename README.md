@@ -18,6 +18,13 @@ cd opfvta-replication-2023
 
 ## How to re-run
 
+This reexecution system contains two targets, the original article, and publishing documents for the “meta-article”.
+The latter can be executed in absence of the former, as it draws on the cummulative reexecution record found in the `outputs/` directory.
+Executing the former will produce your own reexecution file, which you can contribute to the record, and which all publishing documents created on your system will take into account.
+For a graphical break-down, see the following workflow figure:
+
+![workflow](./publishing/figs/workflow.png)
+
 ### I. Reexecuting the OPFVTA Article
 
 **Warnings:**
