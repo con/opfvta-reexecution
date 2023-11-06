@@ -1,35 +1,23 @@
 \input{poster/header.tex}
 
-\title{\href{https://github.com/TheChymera/RepSeP}{\Large github.com/TheChymera/RepSeP}\\\vspace{.15em}Reproducible Publishing --- Reference Poster Implementation}
-% \title{Longitudinal opto-pharmaco-fMRI of Selective\\ Serotonin Reuptake Inhibition}
-\author{Horea-Ioan Ioanas$^{1}$, Markus Rudin$^{1}$}
-\institute[ETH]{$^{1}$Institute for Biomedical Engineering, ETH and University of Zurich}
+\title{
+	\href{https://github.com/con/opfvta-reexecution}{
+		\Large github.com/con/opfvta-reexecution
+	}\\\vspace{.15em}
+	Neuroimaging Article Reexecution and Reproduction Assesment System
+}
+\author{
+	Horea-Ioan Ioanas$^{1}$,
+	Austin Macdonald$^{1}$,
+	Yaroslav O. Halchenko$^{1}$
+}
+\institute[CON]{$^{1}$Center for Open Neuroscience, Department of Psychological and Brain Sciences, Dartmouth College}
 \date{\today}
 
 \newlength{\columnheight}
 \setlength{\columnheight}{0.881\textheight}
 
 \begin{document}
-
-\begin{myverbbox}[\small]{\tabcode}
-\begin{table}[]
-      \py{
-	    pytex_tab(
-		  script='scripts/stim_table.py', label='sp',
-		  caption='BIDS \cite{bids} event file table, from \cite{irsabi}',
-		  options_pre='\\centering \\resizebox{0.9\\textwidth}{!}{',
-		  data='data/JogB.tsv', options_post='}',
-		  )
-	  }
-\end{table}
-\end{myverbbox}
-\begin{myverbbox}[\small]{\spcode}
-\py{pytex_fig(
-	'scripts/3dplot.py',
-	conf='poster/3dplot.conf', label='3dplot',
-	caption='A 3D plot. Plot script from matplotlib exampes \cite{matplotlib}.',
-	)}
-\end{myverbbox}
 
 \begin{frame}
 \begin{columns}
@@ -41,29 +29,41 @@
 						\input{common/abstract.tex}
 					\end{myblock}\vfill
 					\vspace{-0.3em}
-					\begin{myblock}{Lala}
+					\begin{myblock}{Workflow}
+						\vspace{0.5em}
+						\begin{figure}
+							\includegraphics[width=0.99\textwidth]{figs/workflow.pdf}
+							\caption{
+								Schematic representation of the workflow, encompassing both the reexecutable article system and the meta-article generation, which takes a collection of article reexecutions as an input for its reproduction assessment showcase.
+							}
+						\end{figure}
+					\end{myblock}\vfill
+					\vspace{-0.3em}
+					\begin{myblock}{Topoplogy}
+						\vspace{0.5em}
 						\begin{figure}
 							\captionsetup{width=.9\linewidth}
-							\includegraphics[width=0.9\textwidth]{figs/topology.pdf}
-							\vspace{-1.8em}
+							\includegraphics[width=0.99\textwidth]{figs/topology.pdf}
 							\caption{
 								Mycaption lalalalal
 							}
-							\vspace{1em}
 						\end{figure}
-
 					\end{myblock}\vfill
-					\vspace{-0.3em}
-					\begin{myblock}{Technologies}
-						\vspace{0.75em}
-						\begin{minipage}{.28\textwidth}
-							\begin{figure}
-								\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}
-							\end{figure}
-							\begin{figure}
-								\includegraphics[width=0.9\textwidth]{figs/diff_date.pdf}
-							\end{figure}
-						\end{minipage}
+					\begin{myblock}{Best Practice Guidelines}
+						\vspace{0.5em}
+						\Large
+						\begin{itemize}
+							\item Errors should be fatal more often than not
+							\item Avoid assuming or hard-coding absolute paths to resources
+							\item Avoid assuming a directory context for execution
+							\item Workflow granularity greatly benefits efficienc
+							\item Container image size should be kept small
+							\item Resources should be bundled into a DataLad superdataset
+							\item Containers should fit the scope of the underlying workflow steps
+							\item Do not write debug-relevant data inside the container
+							\item Parameterize scratch directories
+							\item Dependency versions inside container environments should be frozen as soon as feasible
+						\end{itemize}
 					\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
@@ -71,25 +71,51 @@
 		\begin{beamercolorbox}[center]{postercolumn}
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
-					\begin{myblock}{Technologies}
+					\begin{myblock}{Reproduction Assessment Showcase}
 						\vspace{0.75em}
-						\begin{minipage}{.28\textwidth}
-							\begin{figure}
-								\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}
-							\end{figure}
+						\begin{minipage}{.58\textwidth}
+						\begin{figure}
+							\includegraphics[width=0.95\textwidth]{figs/diff_pages.pdf}
+							\vspace{0.2em}
+							\caption{
+								Mycaption lalalalal
+							}
+						\end{figure}
+						\begin{figure}
+							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}}
+							\vspace{0.2em}
+							\caption{
+								Mycaption lalalalal
+							}
+						\end{figure}
 						\end{minipage}~
-						\begin{minipage}{.68\textwidth}
+						\begin{minipage}{.38\textwidth}
+						\begin{figure}
+							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_text.pdf}}
+							\vspace{0.2em}
+							\caption{
+								Mycaption lalalalal
+							}
+						\end{figure}
+						\begin{figure}
+							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_date.pdf}}
+							\vspace{0.2em}
+							\caption{
+								Mycaption lalalalal
+							}
+						\end{figure}
+						Evaluating the coherence of reexecution results across the manuscript ... text commentary, basically the same thing we'll be telling people if they ask for an audio version.
 						\end{minipage}
 					\end{myblock}\vfill
-					\begin{myblock}{Technologies}
+					\begin{myblock}{Full Document comparison}
 						\vspace{0.75em}
-						\begin{minipage}{.28\textwidth}
-							\begin{figure}
-								\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}
-							\end{figure}
-						\end{minipage}~
-						\begin{minipage}{.68\textwidth}
-						\end{minipage}
+							%\includepdf[pages=-,frame,scale=.1,pagecommand={}]{data/paperdiff_singularity_20230908122618.pdf}
+						\fbox{\includegraphics[page=4,scale=1.04]{data/paperdiff_singularity_20230908122618.pdf}}
+						\fbox{\includegraphics[page=5,scale=1.04]{data/paperdiff_singularity_20230908122618.pdf}}
+						\\
+						\vspace{.3em}
+						\fbox{\includegraphics[page=13,scale=1.04]{data/paperdiff_singularity_20230908122618.pdf}}
+						\fbox{\includegraphics[page=14,scale=1.04]{data/paperdiff_singularity_20230908122618.pdf}}
 					\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}

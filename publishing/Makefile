@@ -63,6 +63,9 @@ figs/diff_pages.pdf: data/paperdiff.csv
 figs/topology.pdf: data/topology.dot
 	cd data; dot -Tpdf topology.dot -o ../figs/topology.pdf 2>| topology.log
 
+figs/workflow.pdf: data/workflow.dot
+	cd data; dot -Tpdf workflow.dot -o ../figs/workflow.pdf 2>| workflow.log
+
 
 #
 # Article build rules

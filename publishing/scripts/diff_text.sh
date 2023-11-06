@@ -17,7 +17,7 @@ gs \
   -o ../figs/diff_text.pdf \
   -dFirstPage=4 -dLastPage=4 \
   -sDEVICE=pdfwrite \
-  -c "[/CropBox [290 540 560 860]" \
+  -c "[/CropBox [290 540 560 820]" \
   -c " /PAGES pdfmark" \
   -f ../${SHOWCASE_PDF}
 

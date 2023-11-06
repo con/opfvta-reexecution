@@ -12,8 +12,13 @@
 
 \mode<presentation>
 
-\definecolor{DartmouthBG}{RGB}{0,105,62}
-\definecolor{Dartmouth1}{RGB}{18,49,43}
+\definecolor{DartmouthPineGreen}{RGB}{0,105,62}
+\definecolor{DartmouthForestGreen}{RGB}{18,49,43}
+\definecolor{DartmouthRiverBlue}{RGB}{155,200,235}
+\definecolor{DartmouthRiverNavy}{RGB}{0,60,115}
+\definecolor{DartmouthSpringGreen}{RGB}{165,215,95}
+\definecolor{DartmouthSummerYellow}{RGB}{245,220,105}
+\definecolor{DartmouthBonfireOrange}{RGB}{255,160,15}
 
 \definecolor{ETH1}{RGB}{31,64,122}
 \definecolor{ETH3}{RGB}{0,105,180}
@@ -27,7 +32,7 @@
 %It seems many of the following entries do not control any visible Behaviour. All such entries are
 %set to red, so that they are easy to spot if they ever become visible
 
-\setbeamercolor{headline}{fg=red,bg=DartmouthBG}
+\setbeamercolor{headline}{fg=red,bg=DartmouthPineGreen}
 \setbeamercolor{footline}{fg=red, bg=red}
 \setbeamerfont{footline}{size=\large,series=\bf}
 \setbeamercolor{separation line}{bg=ETH3}
@@ -36,12 +41,12 @@
 \setbeamercolor{institute in headline}{fg=white}
 
 \setbeamercolor{framesubtitle}{fg=red, bg=ta2gray}
-\setbeamercolor{author in head/foot}{fg=white, bg=DartmouthBG}
+\setbeamercolor{author in head/foot}{fg=white, bg=DartmouthPineGreen}
 \setbeamercolor{title in head/foot}{fg=red, bg=red}
 
 \setbeamercolor*{normal text}{fg=ETH6, bg=tlg}
 \setbeamercolor*{block body}{fg=black, bg=white}
-\setbeamercolor*{block title}{fg=black,bg=ETH10}
+\setbeamercolor*{block title}{fg=black,bg=DartmouthSpringGreen}
 \setbeamerfont{block title}{size=\large,series=\bf}
 \setbeamercolor{upper separation line head}{fg=red}
 
@@ -71,7 +76,7 @@
 	\vskip2ex
 	\begin{beamercolorbox}[ht=2.8ex,dp=2ex, wd=\mylength, center,rounded=false,shadow=false,leftskip=1cm,colsep*=0ex]{block title}%
 		\usebeamerfont*{block title}\centering \insertblocktitle
-	\end{beamercolorbox}\vskip-9pt%
+	\end{beamercolorbox}\vskip-3pt%
 	{\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5ex}}%
 	\usebeamerfont{block body}%
 	\begin{beamercolorbox}[rounded=false,shadow=false,center,wd=\textwidth,]{block body}%
@@ -91,24 +96,24 @@
 		\vspace{3.ex}\\
 		\vspace{1em}
 		\begin{columns}[c]
-			\begin{column}{.06\paperwidth}
+			\begin{column}{.04\paperwidth}
 			\end{column}
-			\begin{column}{.82\paperwidth}
+			\begin{column}{.85\paperwidth}
 				\raggedleft
 				\usebeamercolor{title in headline}{\color{fg}\textbf{\Huge{\inserttitle}}\\[1ex]}
 				\usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
 				\vspace{-.5em}
 				\usebeamercolor{institute in headline}{\color{fg}\normalsize{\insertinstitute}\\[1ex]}
 			\end{column}
-			\begin{column}{.01\paperwidth}
+			\begin{column}{.001\paperwidth}
 			\end{column}
 			\begin{column}{.10\paperwidth}
-				\vspace{-1em}
+				\vspace{-.1em}
                                 \begin{center}
                                         \includegraphics[width=.9\textwidth, height=.77\textwidth, keepaspectratio]{img/dartmouth_shield_inverted_nomargins}
                                 \end{center}
                         \end{column}
-			\begin{column}{.015\paperwidth}
+			\begin{column}{.012\paperwidth}
 			\end{column}
 		\end{columns}
 		\vspace{3.ex}\\
