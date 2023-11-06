@@ -118,3 +118,4 @@ clean:
 .PHONY: upload
 upload: article
 	rsync -avP article-$(FORMAT).pdf dreamarticles:articles.chymera.eu/fraaef-$(FORMAT).pdf
+	rsync -avP poster.pdf dreamarticles:articles.chymera.eu/fraaef-poster.pdf
