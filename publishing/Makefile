@@ -65,6 +65,9 @@ figs/topology.pdf: data/topology.dot
 
 figs/workflow.pdf: data/workflow.dot
 	cd data; dot -Tpdf workflow.dot -o ../figs/workflow.pdf 2>| workflow.log
+	# The following is used in the README, as it does not support PDF:
+	cd data; dot -Tpng workflow.dot -o ../figs/workflow.png 2>| workflow.log
+
 
 
 #
