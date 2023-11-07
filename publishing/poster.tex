@@ -74,36 +74,39 @@
 			\begin{minipage}{.98\textwidth} % tweaks the width, makes a new \textwidth
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 					\begin{myblock}{Reproduction Assessment Showcase}
-						\vspace{0.75em}
-						\begin{minipage}{.58\textwidth}
+						\vspace{-0.45em}
+						\begin{minipage}{.56\textwidth}
 						\begin{figure}
 							\includegraphics[width=0.95\textwidth]{figs/diff_pages.pdf}
 							\vspace{0.2em}
 							\caption{
-								Mycaption lalalalal
+								Page-wise voxel difference comparison across multiple reexecutions in different environments indicates consistency of variability in both extent and location.
 							}
+							\label{fig:ras_s}
 						\end{figure}
 						\begin{figure}
 							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_fig.pdf}}
 							\vspace{0.2em}
 							\caption{
-								Mycaption lalalalal
+								One notable source of variability are data plots, where it can be observed that even as data points vary to an almost full extent, statistical summaries can remain constant.
 							}
 						\end{figure}
-						\end{minipage}~
+						\end{minipage}
+						\hfill
 						\begin{minipage}{.38\textwidth}
+						\vspace{1.1em}
 						\begin{figure}
 							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_text.pdf}}
 							\vspace{0.2em}
 							\caption{
-								Mycaption lalalalal
+								Text differences in statistical summaries account for a small proportion of voxel differences, but can remain well-localized instead of spreading via test shift if statistical summaries are appropriately trimmed down to a constant length.
 							}
 						\end{figure}
 						\begin{figure}
 							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_date.pdf}}
 							\vspace{0.2em}
 							\caption{
-								Mycaption lalalala  l
+								A good litmus test for monitoring differences (accounting for the baseline difference in \cref{fig:ras_s}) is the datestamp of the reexecution, which should always be expected to differ from the manuscript.
 							}
 						\end{figure}
 						\end{minipage}

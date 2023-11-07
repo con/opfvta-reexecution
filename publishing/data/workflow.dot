@@ -33,8 +33,8 @@ digraph graphname {
         color = "#42e3dc";
 
         si[label="System Image", shape=box, color="#BBBBBB", fillcolor=grey93];
-        rd[label="Raw Data", shape=box, color="#BBBBBB", fillcolor=grey93];
-        ac[label="Article Code", shape=box, color="#BBBBBB", fillcolor=grey93];
+        rd[label="    Raw Data    ", shape=box, color="#BBBBBB", fillcolor=grey93];
+        ac[label="  Article Code  ", shape=box, color="#BBBBBB", fillcolor=grey93];
         blank10[style=invis];
         ras[label="Article Reexecution Library", shape=box, color="#BBBBBB", fillcolor=grey93];
         }
