@@ -34,7 +34,7 @@
 						\begin{figure}
 							\includegraphics[width=0.99\textwidth]{figs/workflow.pdf}
 							\caption{
-								The reexecution system encompasses both the original article (first target), and the “meta-article” publishing materials (article manuscript, as well as this poster), the latter of which takes user- and developer-submitted reexecution results as an input for the reproduction quality assessment. 
+								The reexecution system encompasses both the original article (first target), and the “meta-article” publishing materials (article manuscript, as well as this poster), the latter of which takes user- and developer-submitted reexecution results as an input for the reproduction quality assessment.
 							}
 						\end{figure}
 					\end{myblock}\vfill
@@ -49,23 +49,42 @@
 								The figure depicts direcotry trees via nested boxes, with external resources automatically fetched as via the reexecution code being highlighted in orange.
 								The green highlighted article represents a sample reexecution output, and the blue hignlighted article represents the manuscript, an analogous output to this poster generated in the same directory.
 							}
+							\label{fig:workflow}
 						\end{figure}
 					\end{myblock}\vfill
 					\begin{myblock}{Best Practice Guidelines}
 						\vspace{0.5em}
-						\Large
+						As part of setting up an encompassing reexecution system, we formulate a number of best practices, including:
 						\begin{itemize}
-							\item Errors should be fatal more often than not
-							\item Avoid assuming or hard-coding absolute paths to resources
-							\item Avoid assuming a directory context for execution
-							\item Workflow granularity greatly benefits efficienc
-							\item Container image size should be kept small
-							\item Resources should be bundled into a DataLad superdataset
-							\item Containers should fit the scope of the underlying workflow steps
-							\item Do not write debug-relevant data inside the container
-							\item Parameterize scratch directories
-							\item Dependency versions inside container environments should be frozen as soon as feasible
+							\item \textbf{Errors should be fatal more often than not.}\\
+								\colorbox{elg}{\texttt{set -eu}}, prepended to POSIX shell scripts, will ensure that workflows fail when a subcommand does, or when an encountered variable is undefined.
+							%\item \textbf{Avoid assuming or hard-coding absolute paths to resources.}\\
+							\item \textbf{Avoid assuming a directory context for execution.}\\
+								\colorbox{elg}{\texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl}}, prepended to POSIX shell scripts, will ensure that in complex workflows scripts can operate relative to their location directory context and not the execution context.
+							\item \textbf{Workflow granularity greatly benefits efficiency.}\\
+								While the underlying execution system of the target article, RepSeP \cite{repsep} separates data analysis into two distinct (voxel-space “low iteration” and top-level “high iteration”) steps, further granularity can benefit debugging, particularly in container environments.
+							%\item Container image size should be kept small.
+							\item \textbf{Resources should be bundled into a DataLad superdataset.}\\
+								Resource bundling, with usage of submodules for external resources (as seen in \cref{fig:workflow}) allows management of required resources via Git and associated technologies, such as DataLad \cite{datalad} — this is known as the YODA principle \cite{yoda}.
+							%\item Containers should fit the scope of the underlying workflow steps.
+							%\item Do not write debug-relevant data inside the container
+							%\item Parameterize scratch directories
+							\item \textbf{Dependency versions inside container environments should be frozen as soon as feasible.}\\
+								This is best accomplished via a package manager which uses version tracking for its software provision index; in Gentoo Linux, used here on account of broad provision of neuroscience packages \cite{ng}, this can be done via: \colorbox{elg}{\texttt{cd /.../myrepo; git fetch origin \$myhash; git checkout \$myhash}}.
 						\end{itemize}
+					\end{myblock}\vfill
+					\begin{myblock}{References}
+						\vspace{0.5em}
+						\begin{minipage}{.3\textwidth}
+							\begin{figure}
+								\includegraphics[width=0.9\textwidth]{figs/qr.eps}
+							\end{figure}
+						\end{minipage}
+						\begin{minipage}{.69\textwidth}
+							\scriptsize
+                                                        \bibliographystyle{ieeetr}
+                                                        \bibliography{bibliography}
+						\end{minipage}
 					\end{myblock}\vfill
 		}\end{minipage}\end{beamercolorbox}
 	\end{column}
@@ -75,7 +94,7 @@
 				\parbox[t][\columnheight]{\textwidth}{ % must be some better way to set the the height, width and textwidth simultaneously
 					\begin{myblock}{Reproduction Assessment Showcase}
 						\vspace{-0.45em}
-						\begin{minipage}{.56\textwidth}
+						\begin{minipage}{.58\textwidth}
 						\begin{figure}
 							\includegraphics[width=0.95\textwidth]{figs/diff_pages.pdf}
 							\vspace{0.2em}
@@ -94,26 +113,29 @@
 						\end{minipage}
 						\hfill
 						\begin{minipage}{.38\textwidth}
-						\vspace{1.1em}
+						\vspace{1.3em}
 						\begin{figure}
 							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_text.pdf}}
-							\vspace{0.2em}
+							\vspace{0.5em}
 							\caption{
 								Text differences in statistical summaries account for a small proportion of voxel differences, but can remain well-localized instead of spreading via test shift if statistical summaries are appropriately trimmed down to a constant length.
 							}
 						\end{figure}
 						\begin{figure}
 							\fbox{\includegraphics[width=0.9\textwidth]{figs/diff_date.pdf}}
-							\vspace{0.2em}
+							\vspace{0.5em}
 							\caption{
 								A good litmus test for monitoring differences (accounting for the baseline difference in \cref{fig:ras_s}) is the datestamp of the reexecution, which should always be expected to differ from the manuscript.
 							}
 						\end{figure}
 						\end{minipage}
 					\end{myblock}\vfill
-					\begin{myblock}{Full Document comparison}
+					\begin{myblock}{Full Document Comparison}
+						\vspace{0.25em}
+						Reproduction assessment is based on \textit{full} document “diffs“.
+						The following figures are excerpts, with tinted highlighting (blue for the original manuscript, and orange for reexecution result).
+						Below we show pages exemplifying inline statistical differences (first row) and figure differences (second row).\\
 						\vspace{0.75em}
-							%\includepdf[pages=-,frame,scale=.1,pagecommand={}]{data/paperdiff_singularity_20230908122618.pdf}
 						\fbox{\includegraphics[page=4,scale=1.04]{data/paperdiff_singularity_20230908122618.pdf}}
 						\fbox{\includegraphics[page=5,scale=1.04]{data/paperdiff_singularity_20230908122618.pdf}}
 						\\
