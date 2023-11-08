@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Neuroimaging Article Reexecution and Reproduction Assesment System"
+title: "Neuroimaging Article Reexecution and Reproduction Assesment System"
 authors:
   - family-names: Ioanas
     given-names: Horea-Ioan
@@ -10,6 +10,4 @@ authors:
   - family-names: Halchenko
     given-names: Yaroslav O.
     orcid: https://orcid.org/0000-0003-3456-2493
-title: "My Research Software"
-version: 1.0.0
-date-released: 2023-11-08
+license: Apache-2.0
