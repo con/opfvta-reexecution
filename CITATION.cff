@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Ioanas
+    given-names: Horea-Ioan
+    orcid: https://orcid.org/0000-0001-7037-2449
+  - family-names: Macdonald
+    given-names: Austin
+    orcid: https://orcid.org/0000-0002-8124-807X
+  - family-names: Halchenko
+    given-names: Yaroslav O.
+    orcid: https://orcid.org/0000-0003-3456-2493
+title: "My Research Software"
+version: 1.0.0
+date-released: 2023-11-08
