@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 # We can't have `set -eu` since `diff-pdf` returns a non-zero output code for differing PDFs
 set -eu -o pipefail
 
-SHOWCASE_PDF="${1}.pdf"
+SHOWCASE_PDF="${1}/article.pdf"
 
 OUTPUT_PATH="../../outputs"
 DATA_PATH="../data"
@@ -38,3 +38,6 @@ for i in "${SINGULARITY_LAST_REEXECUTIONS[@]}"; do
 
 done
 
+
+# Create marked showcase diff:
+diff-pdf --output-diff="${DATA_PATH}/marked_paperdiff_${1}.pdf" -m -g -v ${OUTPUT_PATH}/original/article.pdf "${OUTPUT_PATH}/${SHOWCASE_PDF}" > /dev/null || { echo "Handling non-zero exit code (${?}) for differing documents."; }
