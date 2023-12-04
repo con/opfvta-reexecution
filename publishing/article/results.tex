@@ -40,6 +40,19 @@ Notably, the article source code itself is not duplicated or further edited here
 \end{figure*}
 
 
+\begin{figure*}
+	\centering
+	\includegraphics[clip,width=0.99\textwidth]{figs/workflow.pdf}
+	\caption{
+		\textbf{The reexecution system encompasses both the original article (first target), and the meta article (i.e. this article) as sequential Make targets.}
+		Depicted is the workflow of the re-execution system, where the entry point for reexecution is “Original Article”, and the entry point for this article (which also generates the reproduction assessment) is “Meta-Article”.
+		Notably, for the generation of the Meta-Article, the Original Article can be executed, or not — the “Meta-Article” will dynamically include all reexecution results which are published, as well as all which are locally produced.
+		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
+	}
+	\label{fig:topology}
+\end{figure*}
+
+
 %TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
 
 
