@@ -87,6 +87,7 @@ container-article:
 
 .PHONY: article
 article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
+	ln -s 
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article-$(FORMAT).tex
 
 .PHONY: poster
