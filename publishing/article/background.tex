@@ -15,20 +15,20 @@ Further, reexecution constitutes a capability in and of itself, with ample utili
 
 %TODO yoh Is there a review of people sharing their code? If not we can cite a bunch of people who brag about putting their stuff on GH
 %TODO asmacdo +1 cool
-Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results \cite{TODO} under free and open licenses.
+%chr I could not find a review showing this, I could manually cite a bunch of papers.... but no idea if that's that helpful or just bloat our bib.
+Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results under free and open licenses.
 However, such analysis instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
-Notably, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which support them.
+Notably, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which generate them.
 
 % Also cite for relevance of topic →  doi:10.52294/001c.85104
 Reexecutability is an emergent topic in research, with a few extant efforts attempting to provide solutions and tackle associated challenges.
 Such efforts stem both from journals and independent researchers interested in the capabilities which reproducible outputs offer to the ongoing development of their projects.
-A jounal-based effort \cite{eliferep} provides dynamic article figures based on the last data processing input and executable code conforming to journal standards.
+A jounal-based effort \cite{eliferep} provides dynamic article figures based on the top-most data processing output and executable code conforming to journal standards.
 Independent researcher efforts offer more comprehensive and flexible solutions, yet provide reference implementations which are either applied to comparatively simple analysis processes \cite{Dar2019} or tackle complex processes, but assume environment management capabilities which may not be widespread \cite{repsep}.
 
 In order to optimally leverage extant efforts pertaining to full article reexecution and in order to test reexecutability in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA based on author naming conventions \cite{opfvta}.
-One example is a novel neuroimaging study, identified as “OPFVTA” \cite{opfvta} based on author resource naming.
 The 2022 article is accompanied by a programmatic workflow via which it can be fully regenerated — based solely on raw data, data analysis instructions, and the natural-language manuscript text — and which is initiated via a simple executable script in the ubiquitous GNU Bash \cite{bash} command language.
-The reexecution process in this effort relies on an emerging infrastructure standard, RepSeP \cite{repsep}, which is used by additional other articles, thus providing a larger scope for conclusions that can be drawn from its study.
+The reexecution process in this effort relies on an emerging infrastructure standard, RepSeP \cite{repsep}, also in use by other articles, thus providing a larger scope for conclusions that can be drawn from its study.
 
 
 \subsection{Data Analysis}
@@ -39,9 +39,9 @@ The former consists of data cleaning, reformatting, standardization, and sundry 
 Data evaluation consists of various types of statistical modeling, commonly applied in sequence at various hierarchical steps.
 
 The OPFVTA article, which this study uses as an example, primarily studies effective connectivity, which is resolved via stimulus-evoked neuroimaging analysis.
-Stimulus-evoked neuroimaging analysis is one of the more widespread applications, and thus the data analysis workflow (both in terms of \emph{data processing} and \emph{data evaluation}) provides significant analogy to numerous neuroimaging studies.
+The stimulus-evoked paradigm is widespread across neuroimaging research, and thus the data analysis workflow (both in terms of \emph{data processing} and \emph{data evaluation}) provides significant analogy to numerous other studies.
 The data evaluation step for this sort of study is subdivided into “level one” (i.e. within-subject) analysis, and “level two” (i.e. across-subject) analysis, with the results of the latter being further reusable for higher-level analyses \cite{Friston1995}.
-In the simplest terms, these modeling steps represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
+In the simplest terms, these steps represent iterative applications of General Linear Modelling (GLM), at increasingly higher orders of abstraction.
 
 % Insert and reference example workflow figure
 
@@ -50,9 +50,9 @@ By far the most expensive element is a substage of data preprocessing known as r
 This commonly relies on iterative gradient descent and can additionally require high-density sampling depending on the feature density of the data.
 The second most costly step is the first-level GLM, the cost of which emerges from to the high number of voxels modeled individually for each subject.
 
-The impact of these time costs on reexecution is that rapid-feedback development and debugging can be compromised if the reexecution is monolithic.
+The impact of these this time cost on reexecution is that rapid-feedback development and debugging can be compromised if the reexecution is monolithic.
 While ascertaining the effect of changes in the registration instructions on the final result unavoidably necessitate the reexecution of the entire pipeline — editing natural-language commentary in the article text, or adapting figure styles, should not.
-To this end the reference article of this study employs a hierarchical Bash-script structure, consisting of two steps.
+To this end the reference article employs a hierarchical Bash-script structure, consisting of two steps.
 The first step, consisting in data preprocessing and all data evaluation steps which operate in voxel space, is handled by one dedicated sub-script.
 The second step handles document-specific element generation, i.e. inline statistics, figure, and TeX-based article generation.
 The nomenclature to distinguish these two phases introduced by the authors is “high-iteration” and “low-iteration” \cite{repsep}.
@@ -62,16 +62,16 @@ Analysis dependency tracking, which is to say monitoring whether files required 
 
 \subsection{Software Dependency Management}
 
-Beyond the hierarchically chained data dependencies, which can be considered internal to the workflow, any data analysis workflow has additional dependencies in the form of software.
-This refers to the computational tools called by the workflow — which, given the diversity of research applications, may encompass numerous and complex pieces of software.
-Complexity in this sense also refers to the fact that individual software dependencies commonly come with their own software dependencies, which may in turn have further dependencies, and so on.
+Beyond the hierarchically chained data dependencies, which can be considered internal to the study workflow, any data analysis workflow has additional dependencies in the form of software.
+This refers to the computational tools leveraged by the workflow — which, given the diversity of research applications, may encompass numerous pieces of software.
+Additionally, individual software dependencies commonly come with their own software dependencies, which may in turn have further dependencies, and so on.
 The resulting network of prerequisites is known as a “dependency graph”, and its resolution is commonly handled by a package manager.
 
 The OPFVTA article in its original form relies on Portage \cite{portage}, the package manager of the Gentoo Linux distribution.
 This package manager offers integration across programming languages, source-based package installation, and wide-ranging support for neuroscience software \cite{ng}.
 As such, the dependencies of the target article itself are summarized in a standardized format, which is called an ebuild — as if it were any other piece of software.
 This format is analogous to the format used to specify dependencies at all further hierarchical levels in the dependency tree.
-This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}, which constitutes the authoritative reference for the ebuild format and the behaviour of the package manager given an ebuild.
+This affords a homogeneous environment for dependency resolution, as specified by the Package Manager Standard \cite{pms}.
 Additionally, the reference article contextualizes its raw data resource as a dependency, integrating data provision in the same network as software provision.
 
 While the top-level ebuild (i.e. the software dependency requirements of the workflow) is included in the article repository and distributed alongside it, the ebuilds tracking dependencies further down the tree are all distributed via separate repositories.
@@ -81,6 +81,7 @@ These repositories are version controlled, meaning that their state at any time 
 \subsection{Software Dependencies}
 
 The aforementioned infrastructure is relied upon to provide a full set of widely adopted neuroimaging tools, including but not limited to ANTs \cite{ants}, nipype \cite{nipype}, FSL \cite{fsl}, AFNI \cite{afni}, and nilearn \cite{nilearn}.
+Nipype in particular, provides workflow management tools, rendering the individual sub-steps of the data analysis process open to introspection and isolated re-execution.
 Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \cite{samri,irsabi}, which provides workflows optimized for the preprocessing and evaluation of animal neuroimaging data.
 
 
@@ -90,7 +91,7 @@ Operating system virtualization is a process whereby an ephemeral “guest” en
 Virtual machines (VMs), as these “guest” environments are called, can thus provide users with environments tailored to a workflow, while eschewing the need to otherwise (e.g. manually or via a package manager) provide the tools it requires.
 Once running, VMs are self-contained and isolated from the host, also eliminating the risk of unwanted persistent changes being made to the host environment.
 Perhaps the most important benefit of virtual isolation is significantly improved security, allowing system administrators to safely grant users relatively unrestricted access to large-scale computational capabilities.
-Lastly, VMs can help mitigate issues arising from package updates by locking a specific dependency resolution state which is known to work as required by a workflow, and distributing that instead of a top-level dependency specification which might resolve differently across time.
+However, VMs can also help mitigate issues arising from package updates by locking a specific dependency resolution state which is known to work as required by a workflow, and distributing that instead of a top-level dependency specification which might resolve differently across time.
 
 Modern advances in container technology allow the provision of the core benefits of system virtualization, but lighten the associated overhead by making limited use of the host system, specifically the hypervisor.
 Container technology is widespread in industry applications, and many container images are made available via public image repositories.
@@ -101,11 +102,11 @@ Generally, OCI-compliant container images can be executed identically with Docke
 While OCI images are nearly ubiquitous in the software industry, Singularity (recently renamed to Apptainer) is a toolset that was developed specifically for High Performance Computing and tailored to research environments.
 A significant adaptation of Singularity to HPC environments is its capability to run without root privileges.
 However, recent advances in container technology have provided similar capabilities.
-Further, Singularity permits the conversion of OCI images into Singularity images, and recent versions of Apptainer have also added support for natively run OCI containers — thus making reuse of images between the two technologies increasingly convenient.
+Further, Singularity permits the conversion of OCI images into Singularity images, and recent versions of Apptainer have also added support for natively running OCI containers — thus making reuse of images between the two technologies increasingly convenient.
 
 %   Do we really want to get into this? appears... to whom? still... do we predict the future? Also, ultimately we provide solutions for both.
 %   The core thing if we pick favourites would be the actual capabilities, which we detail in the next sentences.
 % Podman apears to be gaining traction in the HPC community, but Apptainer is still required on many systems.
 
 Container technology thus represents a solution to providing stable reusable environments for complex processes, such as the automatic generation of research articles.
-In particular it is attractive in view of the shortcomings of some extant reexecutable research solutions — such as the one used by the OPFVTA article — which assume environment management capabilities which may not always be present on a host system.
+In particular it is attractive in view of the reexecutable research solutions constraints — as seen in the original OPFVTA article — which assume environment management capabilities which may not always be present on a host system.
