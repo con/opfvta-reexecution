@@ -86,7 +86,7 @@ digraph graphname {
                 label = "<env>_<date>/";
                 fontcolor = "#00a3cc";
                 color = "#00a3cc";
-                repa[label=" article.pdf ", shape=note, color="#BBBBBB", fillcolor="#bbffdd"];
+            repa[label=" article.pdf ", shape=note, color="#BBBBBB", fillcolor="#bbffdd"];
                 rep_[label="  ...  ", shape=note, color="#BBBBBB", fillcolor=grey93];
                 repa -> rep_ [style=invis];
             }

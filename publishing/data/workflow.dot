@@ -73,10 +73,10 @@ digraph graphname {
         fontcolor = "#00a3cc";
         color = "#42e3dc";
 
-        ra[label="Reexecuted Article (PDF)", shape=box, color="#BBBBBB", fillcolor=grey93];
+        ra[label="Reexecuted Article (PDF)", shape=box, color="#BBBBBB", fillcolor="#bbffdd"];
         blank30[style=invis];
         blank31[style=invis];
-        map[label="Meta-Article (PDF)", shape=box, color="#BBBBBB", fillcolor=grey93];
+        map[label="Meta-Article (PDF)", shape=box, color="#BBBBBB", fillcolor="#bbeeff"];
         mpp[label="Meta-Poster (PDF)", shape=box, color="#BBBBBB", fillcolor=grey93];
         }
     ra -> ras:n [constraint=false, color=grey64];
