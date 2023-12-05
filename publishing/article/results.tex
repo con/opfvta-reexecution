@@ -31,7 +31,7 @@ This alternative is introduced in order to assess feasibility as well as potenti
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
 	\caption{
-		\textbf{The directory topology of the reexecution framework nests all requirements and includes a Make system for process coordination.}
+		\textbf{The directory topology of the new reexecution system nests all resources and includes a Make system for process coordination.}
 		Depicted is a directory tree topology of the repository coordinating OPFVTA re-execution.
 		Nested directories are represented by nested boxes, and Git submodules are highlighted with orange borders.
 		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
@@ -44,7 +44,7 @@ This alternative is introduced in order to assess feasibility as well as potenti
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/workflow.pdf}
 	\caption{
-		\textbf{The reexecution system encompasses both Article Reexecution, and the Meta-Article as sequential Make targets.}
+		\textbf{The reexecution system encompasses both Article Reexecution, and the Meta-Article as separate Make targets.}
 		Depicted is the workflow of the re-execution system, where the entry point for reexecution is “Original Article”, and the entry point for this article (which also generates the reproduction assessment) is “Meta-Article”.
 		Notably, for the generation of the meta-article, the Original Article can be executed, or not — the meta-article will dynamically include all reexecution results which are published, as well as all which are locally produced.
 		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
@@ -65,7 +65,7 @@ In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Te
 
 As part of this work we have contributed substantial changes to the original OPFVTA repository, based on which we formulate a number of best practice guidelines, highly relevant in the production of reexecutable research outputs.
 
-\subsubsection{Errors should be fatal more often than not}
+\subsubsection{Errors should be fatal more often than not.}
 
 By default, programs written in the majority of languages (including e.g. Python and C) will exit immediately when running into an unexpected operation.
 POSIX shell and other similar or derived shells, such as bash and zsh, behave differently.
@@ -78,58 +78,58 @@ This can be addressed by prepending \texttt{set -u} so that an error is raised a
 To summarize, we recommend including \texttt{set -eu} at the top of every shell script to guarantee it exits as soon as any command fails or an undefined variable is encountered.
 This is in line with the “Fail Early” principle advocated in the ReproNim Reproducible Basics Module \cite{repronim:reprobasics}.
 
-\subsubsection{Avoid assuming or hard-coding absolute paths to resources}
+\subsubsection{Avoid assuming or hard-coding absolute paths to resources.}
 Ensuring layout compatibility in different article reexecution environments is contingent on processes being able to find required code or data.
 Absolute paths, which are hard-coded into scripts, are likely to not exist anywhere but the original execution environment, rendering the scripts non-portable.
 This problem is best avoided by adhering to YODA principle~\cite{yoda} of being able to reference all needed resources (data, scripts, container images, etc.) \emph{under} the study directory.
 Use of relative paths within the study scripts consequently improve their portability.
 Paths to external resources (scratch directories or reusable resources such as atlases) should additionally be parameterized so that they can be controlled via command line options or environment variables.
 
-\subsubsection{Avoid assuming a directory context for execution}
+\subsubsection{Avoid assuming a directory context for execution.}
 As previously recommended, resources may be linked via relative paths, which are resolved based on their hierarchical location with the respect to the execution base path.
 However, scripts could be executed from various locations and not necessarily from the location of the script, thus rendering relative paths fragile.
 A good way of making a script utilizing relative paths more robust is ensuring that they set the base execution directory to their respective parent directories.
 This can be accomplished in POSIX shell scripts by prepending \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl}.
 
-\subsubsection{Workflow granularity greatly benefits efficiency}
+\subsubsection{Workflow granularity greatly benefits efficiency.}
 The high time cost of executing a full analysis workflow given contemporary research complexity and technical capabilities makes debugging errors very time-consuming.
 Ideally, it should not be necessary to reexecute the entire workflow for every potentially resolved error.
-It is thus beneficial to formulate the workflow as many separate steps, where steps could be executed and inspected independently.
+It is thus beneficial to segment the workflow into self-contained steps, which can be executed and inspected independently.
 Workflows should as a minimum separate such large steps as preprocessing, individual levels of analysis (e.g. per-subject vs. whole-population), and article generation.
 One way to integrate such steps is to use a workflow platform which automatically checks for the presence of results from prior stages, and, if present, proceeds to the next stage without triggering prior processes.
 This is known as itempotence and is again advocated by the YODA principles, and implemented in this article via both the Make system, as well as internally by the original article's usage of NiPype.
 
-\subsubsection{Container image size should be kept small}
+\subsubsection{Container image size should be kept small.}
 Due to a lack of persistency, addressing issues in container images requires an often time-consuming rebuilding process.
 One way to mitigate this is to make containers as small as possible.
-In particular, when using containers, it is thus advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
+In particular, when using containers, it is advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
 Instead, data provision should be handled outside of the container image and resources should be bind-mounted after download to a persistent location on the host machine.
 
-\subsubsection{Resources should be bundled into a DataLad superdataset}
+\subsubsection{Resources should be bundled into a superdataset.}
 As external resources might change or disappear, it is beneficial to use data version control system, such as git-annex and DataLad.
-The git submodule mechanism allows to bundle multiple repositories together with clear versioning information, thus following the modularity principle promoted by YODA~\cite{yoda}.
-Moreover, git-annex allows for multiple data sources and data integrity verification.
+The git submodule mechanism permits bundling multiple repositories with clear provenance and versioning information, thus following the modularity principle promoted by YODA.
+Moreover, git-annex supports multiple data sources and data integrity verification, thus increasing the reliability of a resource in view of providers potentially removing its availability.
 
-\subsubsection{Containers should fit the scope of the underlying workflow steps}
+\subsubsection{Containers should fit the scope of the underlying workflow steps.}
 In order to not artificially extend the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently distinct separate steps of the workflow.
 For an example, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
 Complementary, and initially possibly appearing contradictory, to the aforementioned advise we recommend to avoid building separate containers for related steps, in particular if supported by the same toolkits, and rather define and use different \emph{entry points} to the same container.
 E.g., a single container with AFNI could be used to access various tools from AFNI.
 Similar approach is adopted by NeuroDesk~\cite{neurodesk} which provides a large collection of entry points for various tools from a smaller set of containers.
 
-\subsubsection{Do not write debug-relevant data inside the container}
+\subsubsection{Do not write debug-relevant data inside the container.}
 Debug-relevant data, such as intermediary data processing steps or debugging logs should not be deleted by the workflow, and further, should be written to persistent storage.
 When using some containerization implementations, such as Docker, if file is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
 Such file might be vital for debugging, and thus should not be lost.
 This can be avoided by making sure that the paths used for intermediary and debugging outputs are bind-mounted to real directories on the parent system, from which they can be freely inspected.
 
-\subsubsection{Parameterize scratch directories}
+\subsubsection{Scratch directories should be parameterized.}
 Complex workflows commonly generate large amounts of scratch data — intermediary data processing steps, with no other utility than being read by subsequent steps.
 If these data are written to a hard-coded path, multiple executions will lead to race conditions, compromising one or multiple execution attempts.
 This can be avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamps).
 When using containers, this should be done at the container initiation level, as the relevant path is the path on the parent system, and not the path inside the container.
 
-\subsubsection{Dependency versions inside container environments should be frozen as soon as feasible}
+\subsubsection{Dependency versions inside container environments should be frozen as soon as feasible.}
 The need for full image rebuilding means that assuring consistent functionality in view of frequent updates is more difficult for containers than interactively managed environments.
 This is compounded by the frequent and often API-breaking releases of many scientific software packages.
 While dependency version freezing is not without cost in terms of assuring continued real-life functionality for an article, it can aid stable re-execution if this is done as soon as all required processing capabilities are provided.
