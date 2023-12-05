@@ -145,13 +145,13 @@ As a top-level view of reexecution results we have produced a simple infrastruct
 This provides both quality control for successful reexecution as well as a showcase of how automatic article reexecutability can be leveraged to evaluate \textit{reproducibility} at a glance.
 
 For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results generated via the new reexecution system.
-Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF difference (\ref{fig:diff_pages}).
+Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF differences (\cref{fig:diff_pages}).
 
 \begin{figure*}
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
 	\caption{
-		\textbf{Page-wise visual differences between the Historical Manuscript Record and new reexecution system results help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
+		\textbf{Page-wise visual differences between the Historical Manuscript Record and new reexecution system outputs help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
 		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
 		Error bars represent the \nth{95} percentile confidence interval.
 	}
@@ -161,19 +161,20 @@ Reproduction differences between the article versions are extracted by evaluatin
 This overview shows a consistent minimum baseline of differing pixels between reexecutions, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
 When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the new reexecution system results (2023-..).
 While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
-Throughout other pages we see difference percentages which are broadly consistent across reexecutions, but vary from page to page over almost 2 degrees of magnitude.
-Upon inspection, more variable but comparatively lower-percentage differences (pages 4 and 5, detail depicted in \cref{fig:diff_text}) are revealed as text differences, arising from the original article generating dynamic inline statistic summaries.
-Higher-percentage differences (detail depicted in \cref{fig:diff_fig}) correspond to dynamically generated data figures, in which high variability of nondeterministic preprocessing results in changes of the majority of figure pixels.
+Throughout other pages we see difference percentages which are broadly consistent across reexecutions and environments, but vary from page to page over almost 2 degrees of magnitude.
+Upon inspection, more variable but comparatively lower-percentage differences (pages 4 and 5, detail depicted in \cref{fig:diff_text}) are revealed as text differences.
+This is caused by the target article being fully reexecuted, including the reexecution of inline statistic summaries (e.g. p and F-values).
+Higher-percentage differences (detail depicted in \cref{fig:diff_fig}) correspond to dynamically generated data figures, in which the high variability of nondeterministic preprocessing results in changes to the majority of figure pixels.
 
 %TODO chr discuss this more in discussions.
 Notably, inspecting these differences reveals a strong coherence at the qualitative evaluation level in spite of high quantitative variability.
 This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
-This is particularly true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements, as long as magnitude notation is used.
+This is particularly true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements.
 
 
 %TODO chr discuss this more in discussions.
-Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs (\cref{fig:diff}).
-This, changes in the numerical value do not impact text length and do not generally propagate to subsequent lines, where they would be recorded as false positives.
+Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs and the use of magnitude notation (\cref{fig:diff}).
+Thus, changes in inline statistic values do not impact text length and do not generally propagate to subsequent lines via word shifts, where they would be recorded as false positives.
 
 \begin{figure*}
 	\centering
@@ -194,7 +195,7 @@ This, changes in the numerical value do not impact text length and do not genera
 			\includegraphics[width=0.48\textwidth]{figs/diff_text.pdf}
 			}
 		\caption{
-			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds, as seen in this example from page 4 of the article.
+			Statistical summary values change, but maintain qualitative evaluation brackets with respect to e.g. p-value thresholds, as seen in this example from page 4 of the article.
 		}
 		\label{fig:diff_text}
 	\end{subfigure}
