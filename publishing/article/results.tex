@@ -69,7 +69,7 @@ As part of this work we have contributed substantial changes to the original OPF
 
 By default, programs written in the majority of languages (including e.g. Python and C) will exit immediately when running into an unexpected operation.
 POSIX shell and other similar or derived shells, such as bash and zsh, behave differently.
-Their default is to continue with execution of the next scripted command, and only with a non-zero code when the list of commands is exhausted or the \texttt{exit} command is called explicitly.
+Their default is to continue with execution of the next scripted command, and only exit with a non-zero code when the list of commands is exhausted or the \texttt{exit} command is called explicitly.
 As a result, an execution of the script could continue for hours before it fails, and the original error message might be lost in the flood of output, making it hard or impossible to localize and address the original problem.
 This behaviour can be mitigated by prepending \texttt{set -e} to the respective shell script, which changes the default behavior so that execution is stopped as soon as a command exits with an error code.
 Additionally, shell scripts treat undefined variables as a variable having an empty value, with empty values causing no errors.
