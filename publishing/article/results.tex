@@ -7,25 +7,25 @@
 \subsection{Repository Structure}
 
 In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which leverages Git and DataLad to link all reexecution requirements.
-This framework leverages Git submodules for resource referencing, and DataLad \cite{datalad} in order to permit Git integration with data resources.
+This framework uses Git submodules for resource referencing, and DataLad \cite{datalad} in order to permit Git integration with data resources.
 
-These resources include the original article, the raw data it operates on, and a reference mouse brain templates package, as submodules.
-Additionally, it directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of \emph{this} article.
-The code unique to the reexecution framework consists of container image generation and container execution instructions, and a Make system for process coordination (\cref{fig:topology}).
+These submodules include the original article, the raw data it operates on, and a reference mouse brain templates package.
+Additionally, the top-level repository directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of \emph{this} article.
+The code unique to the reexecution framework consists of container image generation and container execution instructions, as well as a Make system for process coordination (\cref{fig:topology}).
+This repository structure enhances the original reference article by directly linking the data at the repository level, as opposed to relying on its installation via a package manager.
+Notably, however, the article source code itself is not duplicated or further edited here, but handled as a Git submodule, with all proposed improvements being recorded in the original upstream repository.
+The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis” \cite{yoda}).
 
 The Make system is structured into a top-level Makefile, which can be used for container image regeneration and upload, article reexecution in a containerized environment, and meta-article production.
-Two article regeneration Make targets exist, for both the Open Container Initiative standard, and Singularity.
+There are two entry points for \emph{this}, and the original article, respectively — both of which are reexecutable (\cref{fig:workflow}).
+Versioning of the original article reexecution is done via file names (as seen in the \texttt{outputs/} subdirectories of \cref{fig:topology}) in order to preserve shell accessibility to what are equivalent resources.
+Versioning of the meta-article is handled via Git, so that the most recent version of the work is unambiguously exposed.
+
+The meta-article targets redirect to a Makefile in the \texttt{article/} subdirectory, which contains this document's human-readable text in \TeX{} format, alongside scripts for generating dynamical elements based on the reexecution results seen in the \texttt{outputs/} directory.
+The original article reexecution is provided by two alternative targets, using either the Open Container Initiative standard, or Singularity.
 Both article reexecution targets wrap the \texttt{produce\_analysis.sh} script, which is a thin compatibility layer accessing the Make system of the original article.
-The meta-article targets redirect to a Makefile in the \texttt{article/} child directory, which contains this document's human-readable text in \TeX format, alongside scripts for generating dynamical elements based on the reexecution results seen in the \texttt{outputs/} directory.
+This alternative is introduced in order to assess feasibility as well as potential variability across virtualization infrastructures.
 
-The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis”\cite{yoda}).
-
-This repository structure diverges from the original reference article in directly linking the data at the repository level, as opposed to relying on its installation via a package manager.
-%TODO chr Maybe add caveats to this in discussion
-This leverages Git to provide basic dependency resolution, which adds portability across operating system choices as well as finer-grained version control.
-Within the context of container usage, this also affords the advantage of keeping the data packages outside of container image generation logic, and not adding their disk space requirements to container images.
-
-Notably, the article source code itself is not duplicated or further edited here, but handled as a Git submodule itself, with all proposed improvements being recorded in the original upstream repository.
 
 \begin{figure*}
 	\centering
@@ -44,16 +44,13 @@ Notably, the article source code itself is not duplicated or further edited here
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/workflow.pdf}
 	\caption{
-		\textbf{The reexecution system encompasses both the original article (first target), and the meta article (i.e. this article) as sequential Make targets.}
+		\textbf{The reexecution system encompasses both Article Reexecution, and the Meta-Article as sequential Make targets.}
 		Depicted is the workflow of the re-execution system, where the entry point for reexecution is “Original Article”, and the entry point for this article (which also generates the reproduction assessment) is “Meta-Article”.
-		Notably, for the generation of the Meta-Article, the Original Article can be executed, or not — the “Meta-Article” will dynamically include all reexecution results which are published, as well as all which are locally produced.
+		Notably, for the generation of the meta-article, the Original Article can be executed, or not — the meta-article will dynamically include all reexecution results which are published, as well as all which are locally produced.
 		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
 	}
 	\label{fig:workflow}
 \end{figure*}
-
-
-%TODO: Something *descriptive* about how this new layout allows for more of a plug-in structure.
 
 
 \subsection{Resource Refinement}
@@ -70,44 +67,43 @@ As part of this work we have contributed substantial changes to the original OPF
 
 \subsubsection{Errors should be fatal more often than not}
 
-By default programs written in the majority of languages (including e.g. Python and C) will just error out and exit immediately when running into an unexpected operation.
-POSIX shell and other similar or derived ones, such as bash and zsh,  behave differently.
-By default they continue with execution of the next scripted command, and only when the list of commands is exhausted or explicit `exit` command is called, it finally exits with a non-0 error code.
-As a result, even if not causing some detrimental actions, an execution of the script could continue for hours before it fails, and original error message might be lost in the flood of output making it hard or impossible to localize original problem to be fixed.
-This can be addressed by prepending \texttt{set -e} to the respective shell script, which changes the default behavior so that it will error out and stop execution as command exits with an error code.
-Additionally, shell scripts treat undefined variables as a variable having an empty value, with empty values causing any error at all.
+By default, programs written in the majority of languages (including e.g. Python and C) will exit immediately when running into an unexpected operation.
+POSIX shell and other similar or derived shells, such as bash and zsh, behave differently.
+Their default is to continue with execution of the next scripted command, and only with a non-zero code when the list of commands is exhausted or the \texttt{exit} command is called explicitly.
+As a result, an execution of the script could continue for hours before it fails, and the original error message might be lost in the flood of output, making it hard or impossible to localize and address the original problem.
+This behaviour can be mitigated by prepending \texttt{set -e} to the respective shell script, which changes the default behavior so that execution is stopped as soon as a command exits with an error code.
+Additionally, shell scripts treat undefined variables as a variable having an empty value, with empty values causing no errors.
 This can lead to numerous ill-defined behaviours, including a command such as \texttt{rm -rf "\${PREFIX}/"} removing all files on the system if \texttt{PREFIX} is not defined.
-This can be addressed by prepending \texttt{set -u} so that an error is raised and execution is stopped as soon as undefined variable is attempted to be used.
-To summarize, we advocate to include \texttt{set -eu} at the top of every shell script to guarantee it to error out as soon as any command fails or an undefined variable is attempted to be used.
-Read more in the section on \href{https://www.repronim.org/module-reproducible-basics/01-shell-basics/\#fail-early}{``Command line/shell: Fail early''} subsection of the ``ReproNim Reproducible Basics Module''~\cite{repronim:reprobasics}.
+This can be addressed by prepending \texttt{set -u} so that an error is raised and execution is stopped as soon as an undefined variable is referenced.
+To summarize, we recommend including \texttt{set -eu} at the top of every shell script to guarantee it exits as soon as any command fails or an undefined variable is encountered.
+This is in line with the “Fail Early” principle advocated in the ReproNim Reproducible Basics Module \cite{repronim:reprobasics}.
 
 \subsubsection{Avoid assuming or hard-coding absolute paths to resources}
-Ensuring layout compatibility in different article execution environments is contingent on executable resources being able to find code or data required for execution.
-Explicitly hardcoded in the scripts absolute paths are likely to not exist anywhere but the original execution environment, and hence scripts can very easily fail.
-This problem is best avoided by adhering to YODA principles~\cite{yoda} of being able to reference all needed resources (data, scripts, container images, etc.) \emph{under} the study folder.
-Use of relative paths within the study scripts then improve their portability.
-Paths to external resources (scratch folders, reusable resources such as atlases etc. if not present within study folder) should be allowed to be specified dynamically via command line options or via an environment variable during execution.
+Ensuring layout compatibility in different article reexecution environments is contingent on processes being able to find required code or data.
+Absolute paths, which are hard-coded into scripts, are likely to not exist anywhere but the original execution environment, rendering the scripts non-portable.
+This problem is best avoided by adhering to YODA principle~\cite{yoda} of being able to reference all needed resources (data, scripts, container images, etc.) \emph{under} the study directory.
+Use of relative paths within the study scripts consequently improve their portability.
+Paths to external resources (scratch directories or reusable resources such as atlases) should additionally be parameterized so that they can be controlled via command line options or environment variables.
 
 \subsubsection{Avoid assuming a directory context for execution}
-Per previous recommendation, resources may be linked via relative paths, these are paths resolved based on their hierarchical location with the execution base path as the reference point.
-However, the scripts could be executed from various locations and not necessarily from the location of the script, thus making relative paths in scripts incorrect.
-A good way of making a script utilizing relative paths more robust is ensuring that the script using relative path sets the base execution directory to its parent directory.
-This can be accomplished in POSIX shell script via using \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl} at the beginning of the script.
+As previously recommended, resources may be linked via relative paths, which are resolved based on their hierarchical location with the respect to the execution base path.
+However, scripts could be executed from various locations and not necessarily from the location of the script, thus rendering relative paths fragile.
+A good way of making a script utilizing relative paths more robust is ensuring that they set the base execution directory to their respective parent directories.
+This can be accomplished in POSIX shell scripts by prepending \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl}.
 
 \subsubsection{Workflow granularity greatly benefits efficiency}
-The high time cost of executing the full analysis workflow makes debugging errors very time-consuming.
-Ideally it should not be necessary to re-execute the entire workflow once an error is potentially resolved.
-For this it is beneficial to formulate the workflow as many separate steps, where steps could be troubleshooted independently.
-It is worth to separate out at least such large steps as preprocessing, individual levels of analysis (e.g. per-subject vs whole-population), and article generation.
-YODA principles~\cite{yoda} again demonstrate one way how to organize digital artifacts across such stages for maximal re-usability.
-An good feature is to use a workflow platform which automatically checks for the presence of results from prior stages, and, if present, proceed to the next stage without triggering re-computation of prior stages.
-In this article we rely on simple GNU Make rules to provide very basic workflow across computational stages, but there exist hundreds of workflow engines and we refer reader to a recent call for FAIR workflows to discover more~\cite{fair-workflows}.
+The high time cost of executing a full analysis workflow given contemporary research complexity and technical capabilities makes debugging errors very time-consuming.
+Ideally, it should not be necessary to reexecute the entire workflow for every potentially resolved error.
+It is thus beneficial to formulate the workflow as many separate steps, where steps could be executed and inspected independently.
+Workflows should as a minimum separate such large steps as preprocessing, individual levels of analysis (e.g. per-subject vs. whole-population), and article generation.
+One way to integrate such steps is to use a workflow platform which automatically checks for the presence of results from prior stages, and, if present, proceeds to the next stage without triggering prior processes.
+This is known as itempotence and is again advocated by the YODA principles, and implemented in this article via both the Make system, as well as internally by the original article's usage of NiPype.
 
 \subsubsection{Container image size should be kept small}
-Due to a lack of persistency, addressing issues in container image contents requires rebuilding, which can be a time-consuming process.
-The smaller the container image, the easier it is.
+Due to a lack of persistency, addressing issues in container images requires an often time-consuming rebuilding process.
+One way to mitigate this is to make containers as small as possible.
 In particular, when using containers, it is thus advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
-A suitable solution is to assure provision of these resources outside of the container image and bind-mounting data thus downloaded to the host machine.
+Instead, data provision should be handled outside of the container image and resources should be bind-mounted after download to a persistent location on the host machine.
 
 \subsubsection{Resources should be bundled into a DataLad superdataset}
 As external resources might change or disappear, it is beneficial to use data version control system, such as git-annex and DataLad.
@@ -154,14 +150,14 @@ NeuroDocker utility~\cite{neurodocker} provides further assistance in generating
 As a top-level view of reexecution results we have produced a simple infrastructure to analyze reproduction quality.
 This provides both quality control for successful reexecution as well as a showcase of how automatic article reexecutability can be leveraged to evaluate \textit{reproducibility} at a glance.
 
-For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results generated via the New Reexecution Model.
+For this purpose we compare the difference between the Historical Manuscript Record — a product of the original executable article generation — and multiple results generated via the new reexecution system.
 Reproduction differences between the article versions are extracted by evaluating rasterized page-wise PDF difference (\ref{fig:diff_pages}).
 
 \begin{figure*}
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
 	\caption{
-		\textbf{Page-wise visual differences between the Historical Manuscript Record and New Reexecution Model results help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
+		\textbf{Page-wise visual differences between the Historical Manuscript Record and new reexecution system results help identify overall reproduction fidelity, and identify pages with noteworthy differences.}
 		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
 		Error bars represent the \nth{95} percentile confidence interval.
 	}
@@ -169,7 +165,7 @@ Reproduction differences between the article versions are extracted by evaluatin
 \end{figure*}
 
 This overview shows a consistent minimum baseline of differing pixels between reexecutions, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
-When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the New Reexecution Model results (2023-..).
+When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the new reexecution system results (2023-..).
 While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
 Throughout other pages we see difference percentages which are broadly consistent across reexecutions, but vary from page to page over almost 2 degrees of magnitude.
 Upon inspection, more variable but comparatively lower-percentage differences (pages 4 and 5, detail depicted in \cref{fig:diff_text}) are revealed as text differences, arising from the original article generating dynamic inline statistic summaries.
@@ -180,47 +176,6 @@ Notably, inspecting these differences reveals a strong coherence at the qualitat
 This coherence manifests in the statements from the original article remaining valid with regard to statistical summaries which emerge from  \textit{de novo} data processing (as seen in \ref{fig:diff_text}, \ref{fig:diff_fig}).
 This is particularly true for p-values, the magnitude of which can vary substantially at the lower tail of the distribution without impacting qualitative statements, as long as magnitude notation is used.
 
-\begin{figure*}
-	\centering
-	\begin{subfigure}{0.99\textwidth}
-		\centering
-		\tcbox{
-			\includegraphics[width=0.48\textwidth]{figs/diff_date.pdf}
-			}
-		\caption{
-			The date change is correctly identified throughout the document, as seen in this example from page 1 of the article.
-		}
-		\label{fig:diff_date}
-	\end{subfigure}
-	\\
-	\begin{subfigure}{0.99\textwidth}
-		\centering
-		\tcbox{
-			\includegraphics[width=0.48\textwidth]{figs/diff_text.pdf}
-			}
-		\caption{
-			Statistical summary values change, but maintain qualitative evaluation bracket with respect to e.g. p-value thresholds, as seen in this example from page 4 of the article.
-		}
-		\label{fig:diff_text}
-	\end{subfigure}
-	\\
-	\vspace{1em}
-	\begin{subfigure}{0.99\textwidth}
-		\centering
-		\tcbox{
-			\includegraphics[width=0.8\textwidth]{figs/diff_fig.pdf}
-			}
-		\caption{
-			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance, as seen in this example from page 14 of the article.
-		}
-		\label{fig:diff_fig}
-	\end{subfigure}
-	\caption{
-		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
-		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the New Reexecution Model result).
-	}
-	\label{fig:diff}
-\end{figure*}
 
 %TODO chr discuss this more in discussions.
 Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs (\cref{fig:diff}).
@@ -263,7 +218,7 @@ This, changes in the numerical value do not impact text length and do not genera
 	\end{subfigure}
 	\caption{
 		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
-		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the New Reexecution Model result).
+		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the new reexecution system result).
 	}
 	\label{fig:diff}
 \end{figure*}
