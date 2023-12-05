@@ -36,14 +36,14 @@ jobs:
       - name: Enable gin remote
         run: git annex enableremote gin.g-node.org
 
-      - name: Build frontiers article
-        run: make container-article FORMAT=frontiers
-
       - name: Build rescience article
         run: make container-article FORMAT=rescience
+
+      - name: Build frontiers article
+        run: make container-article FORMAT=frontiers
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v2
         with:
           name: article-frontiers
-          path: article/article-frontiers.pdf
+          path: article/article.pdf
