@@ -7,14 +7,14 @@ digraph graphname {
     subgraph cluster0 {
         margin=10;
         label = "Target";
-        fontcolor = "#00a3cc";
-        color = "#42e3dc";
+        fontcolor = "#07aa22";
+        color = "#11bb66";
 
         oa[label="Original Article", shape=box, color="#BBBBBB", fillcolor=grey93];
         blank00[style=invis];
         blank01[style=invis];
         blank02[style=invis];
-        ma[label="Meta-Article", shape=box, color="#BBBBBB", fillcolor=grey93];
+        ma[label="  Meta-Article  ", shape=box, color="#BBBBBB", fillcolor=grey93];
         }
         //{rank=same; opf_; Con}
 
@@ -29,12 +29,12 @@ digraph graphname {
     subgraph cluster1 {
         margin=10;
         label = "Fetching";
-        fontcolor = "#00a3cc";
-        color = "#42e3dc";
+        fontcolor = "#07aa22";
+        color = "#11bb66";
 
         si[label="System Image", shape=box, color="#BBBBBB", fillcolor=grey93];
         rd[label="    Raw Data    ", shape=box, color="#BBBBBB", fillcolor=grey93];
-        ac[label="  Article Code  ", shape=box, color="#BBBBBB", fillcolor=grey93];
+        ac[label="   Article Code  ", shape=box, color="#BBBBBB", fillcolor=grey93];
         blank10[style=invis];
         ras[label="Article Reexecution Library", shape=box, color="#BBBBBB", fillcolor=grey93];
         }
@@ -51,8 +51,8 @@ digraph graphname {
     subgraph cluster2 {
         margin=10;
         label = "Execution";
-        fontcolor = "#00a3cc";
-        color = "#42e3dc";
+        fontcolor = "#07aa22";
+        color = "#11bb66";
 
         ae[label="Article Execution", shape=box, color="#BBBBBB", fillcolor=grey93];
         blank21[style=invis];
@@ -70,14 +70,14 @@ digraph graphname {
     subgraph cluster3 {
         margin=10;
         label = "Result";
-        fontcolor = "#00a3cc";
-        color = "#42e3dc";
+        fontcolor = "#07aa22";
+        color = "#11bb66";
 
         ra[label="Reexecuted Article (PDF)", shape=box, color="#BBBBBB", fillcolor="#bbffdd"];
         blank30[style=invis];
         blank31[style=invis];
-        map[label="Meta-Article (PDF)", shape=box, color="#BBBBBB", fillcolor="#bbeeff"];
-        mpp[label="Meta-Poster (PDF)", shape=box, color="#BBBBBB", fillcolor=grey93];
+        map[label="    Meta-Article (PDF)     ", shape=box, color="#BBBBBB", fillcolor="#bbeeff"];
+        mpp[label="    Meta-Poster (PDF)     ", shape=box, color="#BBBBBB", fillcolor=grey93];
         }
     ra -> ras:n [constraint=false, color=grey64];
     ra -> ras:n [constraint=false, color=grey52];
