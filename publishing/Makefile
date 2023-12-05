@@ -114,6 +114,7 @@ clean:
 	@rm -f figs/diff_pages.pdf
 	@rm -f figs/diff_text.pdf
 	@rm -f figs/topology.pdf
+	@rm -f figs/workflow.pdf
 	@rm -f metadata.tex
 	@rm -f *.nav
 	@rm -f *.snm
