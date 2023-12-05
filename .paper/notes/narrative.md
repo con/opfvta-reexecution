@@ -96,7 +96,7 @@ restricted to fixing ~1 issue per day maximum.
 
 ### Yoda
 
-Datalad allows arbitrary nesting of datasets, which allows a more
+DataLad allows arbitrary nesting of datasets, which allows a more
 modular approach. Following "Yoda principles" we can separate all of the
 independent components, while keeping all code, data, documentation, and
 results in a single top-level repository, and all can be retrieved in a
