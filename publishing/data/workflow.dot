@@ -36,7 +36,7 @@ digraph graphname {
         rd[label="    Raw Data    ", shape=box, color="#BBBBBB", fillcolor=grey93];
         ac[label="   Article Code  ", shape=box, color="#BBBBBB", fillcolor=grey93];
         blank10[style=invis];
-        ras[label="Article Reexecution Library", shape=box, color="#BBBBBB", fillcolor=grey93];
+        ras[label="Article Reexecution Library", shape=box, color="#BBBBBB", fillcolor="#bbffdd"];
         }
 
     si -> ae [weight=9];
