@@ -90,6 +90,12 @@ A key strength of reexecutability is that workflows can easily be derived, with 
 This refers not only to reuse for novel or derived studies, but also reuse for the inspection of specific parameter modifications.
 In view of this we recommend a practical approach to the work described herein, whereby the tools can all be considered to be immediately and freely available for inspection and personal use of the reader.
 
+%For example, PyPI, conda and other distributions can create an exact list of versioned packages present in the environment support package reinstall using that list.
+%On Debian, NeuroDebian-enhanced systems, and to a limited degree on Ubuntu systems, it is possible to use \texttt{nd\_freeze} utility from \texttt{neurodebian-freeze} package to make use of \href{https://snapshot.debian.org}{snapshot.debian.org} and \href{http://snapshot-neuro.debian.net}{snapshot-neuro.debian.net} and use frozen to specific timestamp state of the APT repositories, thus guaranteeing access to the same versions of packages.
+%NeuroDocker utility~\cite{neurodocker} provides further assistance in generating container recipes and has support for \texttt{nd\_freeze} to generate containers following the best practices.
+
+
+
 %Lastly we note the value of reexecutability for rendering a resource re-usable.
 %In effect, a reexecutable workflow allows the precise inspection of specific parameter modifications, hence helping to study key decision points in workflow design.
 

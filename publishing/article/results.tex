@@ -111,35 +111,29 @@ The git submodule mechanism permits bundling multiple repositories with clear pr
 Moreover, git-annex supports multiple data sources and data integrity verification, thus increasing the reliability of a resource in view of providers potentially removing its availability.
 
 \subsubsection{Containers should fit the scope of the underlying workflow steps.}
-In order to not artificially extend the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently distinct separate steps of the workflow.
-For an example, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
-Complementary, and initially possibly appearing contradictory, to the aforementioned advise we recommend to avoid building separate containers for related steps, in particular if supported by the same toolkits, and rather define and use different \emph{entry points} to the same container.
-E.g., a single container with AFNI could be used to access various tools from AFNI.
-Similar approach is adopted by NeuroDesk~\cite{neurodesk} which provides a large collection of entry points for various tools from a smaller set of containers.
+In order to constrain the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently self-contained substeps of the workflow.
+For example, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
+Additionally, if sub-steps share toolkit requirements, containers can be re-used between different steps by leveraging different \emph{entry points} to the same target.
 
 \subsubsection{Do not write debug-relevant data inside the container.}
-Debug-relevant data, such as intermediary data processing steps or debugging logs should not be deleted by the workflow, and further, should be written to persistent storage.
-When using some containerization implementations, such as Docker, if file is written to a hard-coded path, as they would be on a persistent operating system, it will disappear once the container is removed.
-Such file might be vital for debugging, and thus should not be lost.
-This can be avoided by making sure that the paths used for intermediary and debugging outputs are bind-mounted to real directories on the parent system, from which they can be freely inspected.
+Debug-relevant data, such as intermediary data processing steps and debugging logs should not be deleted by the workflow or written to an ephemeral location inside the container, but should instead be written to persistent storage.
+When using some container technologies, such as Docker, files written to hard-coded paths will disappear once the container is removed.
+As numerous workflow files beyond the main data output may be relevant for debugging, they should not be lost.
+In order to achieve this, intermediary and debugging outputs should be written to paths which are bind-mounted to persistent directories on the parent system, from which they can be freely inspected.
 
 \subsubsection{Scratch directories should be parameterized.}
-Complex workflows commonly generate large amounts of scratch data — intermediary data processing steps, with no other utility than being read by subsequent steps.
-If these data are written to a hard-coded path, multiple executions will lead to race conditions, compromising one or multiple execution attempts.
-This can be avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamps).
-When using containers, this should be done at the container initiation level, as the relevant path is the path on the parent system, and not the path inside the container.
+Complex workflows commonly generate large amounts of scratch data — intermediary data processing steps, whose main utility is being read by subsequent steps or consulted for debugging.
+If these data are written to the same hard-coded path on the host system, multiple reexecutions will lead to race conditions, compromising one or multiple instances of the process.
+This can be avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamp).
+When using containers, this should be done at the container instantiation level, as the relevant path is the path on the parent system, and not the path inside the container.
 
 \subsubsection{Dependency versions inside container environments should be frozen as soon as feasible.}
 The need for full image rebuilding means that assuring consistent functionality in view of frequent updates is more difficult for containers than interactively managed environments.
 This is compounded by the frequent and often API-breaking releases of many scientific software packages.
 While dependency version freezing is not without cost in terms of assuring continued real-life functionality for an article, it can aid stable re-execution if this is done as soon as all required processing capabilities are provided.
 How this is accomplished differs greatly based on the package manager used inside the container.
-For example, PyPI, conda and other distributions can create an exact list of versioned packages present in the environment support package reinstall using that list.
-Gentoo's Portage package manager allows to freeze versions by checking out a specific commit of the dependency tree, in view of which the package manager will automatically resolve the same versions.
-Such an approach was used to ``reconstruct'' through freezing to prior point the computational environment used in the original paper.
-% TODO: add href to point to the location in the repository where it freezes
-On Debian, NeuroDebian-enhanced systems, and to a limited degree on Ubuntu systems, it is possible to use \texttt{nd\_freeze} utility from \texttt{neurodebian-freeze} package to make use of \href{https://snapshot.debian.org}{snapshot.debian.org} and \href{http://snapshot-neuro.debian.net}{snapshot-neuro.debian.net} and use frozen to specific timestamp state of the APT repositories, thus guaranteeing access to the same versions of packages.
-NeuroDocker utility~\cite{neurodocker} provides further assistance in generating container recipes and has support for \texttt{nd\_freeze} to generate containers following the best practices.
+Gentoo's Portage package manager allows freezing versions both explicitly, or — as done in this study — by checking out a specific commit of the dependency tree, in view of which the package manager will resolve the same versions.
+Other distributions (such as Debian and Neurodebian), or language-specific package managers (such as Python's pip), provide analogous functionality, via e.g. \texttt{nd\_freeze} or \texttt{pip freeze}, respectively.
 
 
 \subsection{Reproduction Quality}
