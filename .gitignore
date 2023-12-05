@@ -11,7 +11,9 @@ __pycache__
 
 # By default no binaries for publishing documents:
 publishing/*.pdf
-publishing/figs/*.{pdf,png}
+publishing/data/*paperdiff*.pdf
+publishing/figs/*.png
+publishing/figs/*.pdf
 
 *.nfs*
 *.bbl
