@@ -38,28 +38,28 @@ However, in as far as such figures are accompanied by statistical evaluations, w
 This indicates that reproduction quality is not only reliant on whether or not data processing is deterministic, but also on which aspects of the top-level data the authors seek to highlight.
 While the above observations describe the current article specifically, we suspect that they may reflect a phenomenon of broader relevance.
 
-In neuroimaging workflows, the most notorious source for non-deterministic data analysis behaviour is the registration.
+In neuroimaging workflows, the most notorious source for non-deterministic data analysis behavior is the registration.
 This process commonly operates via a random starting point — specified by a seed value — and iterates according to a gradient descent algorithm.
 While the toolkit used by the article reexecuted here allows the specification of a particular seed, this was not done for the Historical Manuscript Record, nor is it a feature commonly used by operators.
-In light of our results the question emerges whether or not seed pecification should be introduced as a best practice.
+In light of our results the question emerges whether or not seed specification should be introduced as a best practice.
 While a fixed seed would aid in numerical reproducibility, it is possible that a specific seed — whether by coincidence or \textit{ex post facto} selection — may result in anomalous conclusions.
 It may then be that a stronger finding is one which is statistically robust with respect to preprocessing variability, even if this comes at the cost of compromising numerical replicability.
 Conversely, it could be argued that reproduction analysis can be better targeted and more concise, if seed values were fixed to universally accepted numbers (analogous to the usage of nothing-up-my-sleeve numbers in cryptography).
 
 \subsection{Challenges}
-For this meta-article we have selected an original neuroimaging article which already published all of the instructions needed to reproduce it in its entirety simply from raw data and automatically executable instructions.
+For this meta-article we have selected an original neuroimaging article which already published all of the instructions needed to reproduce it in its entirety from raw data and automatically executable instructions.
 Even in light of this uncommon advantage, setting up a portable reexecution system has proven to be an ample effort.
 Difficulties arose primarily due to the instability of the software stack.
-It is common for scientific software — and more and more common as researchers become involved in software development — to be subject to frequent interface changes, and loss of support for older dependencies.
+It is common for scientific software — and more and more common as researchers become involved in software development — to be subjected to frequent interface changes, and loss of support for older dependencies.
 
-In this article we propose container technology as a mitigation method for such instability
+In this article we propose container technology as a mitigation method for such fragility.
 However, this is not without draw-backs, as it can make introspection more challenging.
-In view of this, we distribute interactive container targets, whereby the user may enter the container dedicated to automatic reexecution to inspect and test changes in the environment.
+In view of this, we defined interactive container entry points (\texttt{make} targets), whereby the user may enter the container dedicated to automatic reexecution to inspect and test changes in the environment.
 Even so, on account of these containers being dedicated to automatic execution, features such as an advanced text processor are missing, and the inclusion of such features may not be ultimately desired.
 
 A more easily surmountable challenge was data management.
 Whereas the original article strove to integrate all provision of computational requirements with the package manager, the usage of containers made the cost of this one-stop solution prohibitive.
-As such, Git submodules were used, providing enhanced functionality for e.g. data version specification, but at the cost of spreading requirements provision over different technologies.
+As such, Git submodules and DataLad were used, providing enhanced functionality for e.g. data version specification, but at the cost of spreading requirements provision over different technologies.
 
 Lastly, an unavoidable challenge consisted in execution time-cost.
 While not prohibitive, this time cost not only slows iterative development work, but presages a potential decrease in the feasibility of reexecution given the trend towards larger and larger data.
@@ -69,14 +69,20 @@ This means that process complexity and experimental data size may need to be eva
 
 We propose a few key considerations for the further development of article reexecution — though we note that practical reuse of this system might better identify promising enhancements better than theoretical analysis.
 
-In particular, we find that reexecutable article debugging in a container environment is a significant challenge, and one which will only be more severe if such an environment is already implemented in an incipient state of the article, when analysis processes are not fully fleshed out.
+% concerns on this paragraph on what actually to leave in... may be it is just a matter of provisioning easy entry points (as was hinted on in Challenges)
+In particular, we find that reexecutable article debugging in a container environment can be a significant challenge, and one which will only be more severe if such an environment is already implemented in an incipient state of the article, when analysis processes are not fully fleshed out.
 To alleviate this we consider two possible solutions.
-The first, high granularity, prescribes dedicated containers for individual substeps, and persistent logging of outputs at each step.
+The first, high granularity, prescribes dedicated execution entry-points for individual substeps, and persistent logging of outputs at each step.
 The second, pure virtualization, consists in usage of containers simply to provide access to the software management capabilities required by the target article.
-High granularity maximises container image reuse, but constrains the extent to which researchers can manipulate software tools during development.
+High granularity maximizes container image reuse, but constrains the extent to which researchers can manipulate software tools during development.
 Pure virtualization seamlessly integrates with development on a fully interactive system, but leads to bloated containers less suited to rebuilding.
 In light of this we propose a combination of the above, consisting in a Make system which breaks processes down to granular steps, which may be executed by using applications either directly, or as provided via a container image.
 
+% let's try to go across different levels how results should be provided for maximum re-interpretability and reuse:
+%  e.g. a full paper text, and differences, might be needed or desired for decision making about validity of statements over the results presented in the paper
+% Accompanying paper with the results in digital/machine-readable form opens further opportunities not only for statistical reassesment of results in the context of that paper , but also for reuse across various papers/studies.
+% E.g. NIDM (cite it)is the effort to provide semantic annotation of various results and procedures in neuroimaging.
+% That is also  an approach which lead neurosynth to inspire development and promotion of neurovault to collect exact instances of the resultant statistical maps.
 The reproduction quality assessment methods provided in this study serve as a starting point for evaluating full article reexecution, and purposefully deal with the article as a whole.
 As it is the article which is the primary research output format, any other set of values which would be earmarked as outputs-of-choice for reexecution concomitantly risk overestimation and underestimation of relevant differences.
 For example, if large differences in top-level data plots are observed, and are divorced from the bearing they may have on statements made in the article, this may lead to an overestimation of relevant differences.
