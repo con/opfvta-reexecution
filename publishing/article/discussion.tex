@@ -1,83 +1,85 @@
 \section{Discussion}
 
-In this article we present an automated workflow for full article reexecution.
-Notably, this encompasses end-to-end article reexecution, generating the full output (including inline statistics and figures) from solely the raw data and automatically running code.
-This effort substantiates both the feasibility and fundamental relevance of reexecution as a process, based on a real-life peer-reviewed study.
-Additionally, our effort provides a reference implementation of technologies required to provide this capability and increase the adoption reexecutable research outputs.
-To this end, we also detail important and transferable principles, and document the manifold intricacies of creating a reexecution workflow.
+In this article we present an automated workflow for full, end-to-end article reexecution.
+We generate the full research communication output (including inline statistics, figures, and brain maps) from solely the raw data and automatically executable code.
+This effort substantiates the feasibility of article reexecution as a process, based on a real-life peer-reviewed study example.
+Additionally, our effort provides a sample implementation of technologies required to provide this capability and increase the adoption of reexecutable research outputs.
+To this end, we also detail important and transferable principles, and document common pitfalls in creating a reexecution workflow.
 
 \subsection{Reexecutability}
 % gneneral description of the property.
 We argue that reexecutability is a core aspect of reliable research output creation.
 Reexecutability implies that instructions are formulated in such a way that they can be automatically deployed without human operator bias.
-In contrast to arbitrary reporting standards, the property of reexecutability implicitly guarantees that instructions for workflow execution are documented fully.
-Further, reexecutability is a far more scalable process, allowing the reliable estimation of the intrinsic variability of a research workflow.
+In contrast to arbitrary reporting standards, the property of reexecutability implicitly guarantees that instructions for all pertinent instructions are documented fully.
+%Further, reexecutability is a far more scalable process, allowing the reliable estimation of the intrinsic variability of a research workflow.
 
-We demonstrate the feasibility of full research output reexecution by integrating cutting-edge technological capabilities, and publish all resources for open access, adaptation, inspection, and re-use.
+We demonstrate the feasibility of full research output reexecution by integrating cutting-edge technological capabilities, and publish all resources for open access, re-use, adaptation, and inspection.
 The article reexecution system which we produced isolates data and original resources, and does not make assumptions about the internal structure of a reexecutable article, and is of course, not domain-specific.
-In particular, the code of the original article is managed as a sumbodule, and triggered via a freely configurable and lightweight Bash script.
-This means that given any Bash entry point, any article could be substituted for the present article in our topology.
-Our system also supports version tracking for all required resources, thus offering perfect transparency into what instructions and which external data is used in article reexecution.
-In particular, we rely heavily on DataLad, a technology which renders the versioning capabilities of Git usable in the context of large binary data.
+Our system addresses artcle execution via a Bash entry point, and dependency resolution via an ebuild-style specification present in the target article.
+Given these two attributes, our system can conceivably be adapted to additional target articles.
+
+We sharply distinguish between reexecutability and reproducibility.
+The former refers to the capability of an analogue research output (with any or even no consistency) to be regenerated exclusively from the earliest feasible data provenance and from automatically executable instructions used to generate the original output.
+The latter refers to the quality of an analogue research output (whether automatically reexecuted or manually recreated) with respect to supporting the claims of the original research output.
+We further distinguish reproducibility — which may be good or poor based on the expected coherence standard — from numerically identical reproduction of statistical metrics, which we deem as a distinct quality, replicability.
 
 \subsection{Reproducibility}
 
 % maybe move to background under “terminology” section.
-We sharply distinguish between reexecutability, and reproducibility.
-The former refers to the capability of an analogue research output (with any or even no consistency) to be regenerated exclusively from the earliest feasible data provenance and from automatically executable instructions used to generate the original output.
-The latter refers to the quality of an analogue research output (whether automatically reexecuted or manually recreated) with respect to supporting the claims of the original research output.
-We further distinguish reproducibility — which may be good or poor based on the expected coherence standard — from numerically identical reproduction of statistical metrics, which we deem as a distinct quality, replicability.
 %Reexecutability makes reproduction assesments scalable a and insulated from human operator bias, in view of intrinsic workflow variability.
 
 We supplement the reexecution workflow description of this article with a brief demonstration of how it can be used to provide a reproducibility assesment.
 For this purpose we use a difference computation tool (in computational contexts known simply as “diff”) which summarizes and visually displays mismatches between a historical manuscript record and multiple reexecutions over various environments.
 Such a process makes mismatches visible at-a-glance throughout the article figures and text, rendering them them easy to locate and interpret via human inspection.
 
-Based on these results we lay out a few key findings for further reproducibility assessment given the level of stringency which full-article comparison introduces.
-In particular, we notice that figures which map output data directly are highly — and to a consistent extent — variable across multiple reexecution attempts.
-However, in as far as such figures are accompanied by statistical evaluations, we find these to be highly consistent.
+Based on these results we lay out a few key findings for further reproducibility assessments.
+In particular, we notice that figures which directly map output data are highly — and to a consistent extent — variable across multiple reexecution attempts.
+However, in as far as such figures are accompanied by statistical evaluations, we find these to be qualitatively consistent.
 This indicates that reproduction quality is not only reliant on whether or not data processing is deterministic, but also on which aspects of the top-level data the authors seek to highlight.
 While the above observations describe the current article specifically, we suspect that they may reflect a phenomenon of broader relevance.
 
-In neuroimaging workflows, the most notorious source for non-determinacy in data analysis is the registration, which operates via a random starting point — specified by a seed value — and iterates according to a gradient descent algorithm.
-While the toolkit used by the article reexecuted here allows the specification of a particular seed, this is not a feature commonly used by operators.
-In light of our results the question emerges whether or not this is indeed a good practice.
-Notably in this context, it is possible that a specific seed — whether by coincidence or \textit{ex post facto} selection — may result in an anomalous conclusion.
-It may then be that a stronger finding is one which is robust with respect to the preprocessing variability, even if this comes at the cost of compromising bit-identical replicability.
+In neuroimaging workflows, the most notorious source for non-deterministic data analysis behaviour is the registration.
+This process commonly operates via a random starting point — specified by a seed value — and iterates according to a gradient descent algorithm.
+While the toolkit used by the article reexecuted here allows the specification of a particular seed, this was not done for the Historical Manuscript Record, nor is it a feature commonly used by operators.
+In light of our results the question emerges whether or not seed pecification should be introduced as a best practice.
+While a fixed seed would aid in numerical reproducibility, it is possible that a specific seed — whether by coincidence or \textit{ex post facto} selection — may result in anomalous conclusions.
+It may then be that a stronger finding is one which is statistically robust with respect to preprocessing variability, even if this comes at the cost of compromising numerical replicability.
 Conversely, it could be argued that reproduction analysis can be better targeted and more concise, if seed values were fixed to universally accepted numbers (analogous to the usage of nothing-up-my-sleeve numbers in cryptography).
 
 \subsection{Challenges}
 For this meta-article we have selected an original neuroimaging article which already published all of the instructions needed to reproduce it in its entirety simply from raw data and automatically executable instructions.
-Even in light of this uncommon advantage, ensuring reexecutability has proven an effort-intensive process.
+Even in light of this uncommon advantage, setting up a portable reexecution system has proven to be an ample effort.
 Difficulties arose primarily due to the instability of the software stack.
-It is common for scientific software — and more and more common as one moves towards the cutting edge — to receive frequent interface changes, and to drop support for older dependencies.
+It is common for scientific software — and more and more common as researchers become involved in software development — to be subject to frequent interface changes, and loss of support for older dependencies.
 
 In this article we propose container technology as a mitigation method for such instability
 However, this is not without draw-backs, as it can make introspection more challenging.
-In view of this, we distribute interactive container targets, whereby the user may enter the container dedicated to automatic reexecution, in order to be able to inspect and test changes in the environment.
+In view of this, we distribute interactive container targets, whereby the user may enter the container dedicated to automatic reexecution to inspect and test changes in the environment.
 Even so, on account of these containers being dedicated to automatic execution, features such as an advanced text processor are missing, and the inclusion of such features may not be ultimately desired.
+
+A more easily surmountable challenge was data management.
+Whereas the original article strove to integrate all provision of computational requirements with the package manager, the usage of containers made the cost of this one-stop solution prohibitive.
+As such, Git submodules were used, providing enhanced functionality for e.g. data version specification, but at the cost of spreading requirements provision over different technologies.
+
+Lastly, an unavoidable challenge consisted in execution time-cost.
+While not prohibitive, this time cost not only slows iterative development work, but presages a potential decrease in the feasibility of reexecution given the trend towards larger and larger data.
+This means that process complexity and experimental data size may need to be evaluated in light of the diminished accessibility to such processes as reexecution.
 
 \subsection{Outlook}
 
-We propose a few key considerations for the further development of the present technology.
-However, we note that practical reuse of our new system might better identify promising enhancements better than theoretical analysis.
+We propose a few key considerations for the further development of article reexecution — though we note that practical reuse of this system might better identify promising enhancements better than theoretical analysis.
 
 In particular, we find that reexecutable article debugging in a container environment is a significant challenge, and one which will only be more severe if such an environment is already implemented in an incipient state of the article, when analysis processes are not fully fleshed out.
 To alleviate this we consider two possible solutions.
-Firstly, high hierarchical granularity, with dedicated containers for individual substeps, as well as with proper logging of outputs at each step, may provide for better debugging capabilities from outside of the container environment.
-The strength of this solution is that it implements containers in a coherent fashion to their design and prevalent use in industry applications, thus minimizing their size and potentially increasing their reusability.
-The caveat of this solution is that there is a hard limit to how much debugging can be done from outside of a container environment.
-To illustrate, it will always be easier and faster to interactively apply patches or switch dependency versions from inside an environment than from outside of it.
-Alternatively, containers could be used as pure virtualization for whatever development environment accompanies the article, combined with internal provision of debugging tools.
-The strength of this solution is that it seamlessly integrates with development on a fully interactive system and can more easily accommodate novel and exotic workflows.
-The drawback of this solution is that it would lead to more bloated and potentially less reusable containers, and it would also require a separate container image re-build once issues have been identified and fixed interactively.
-In light of this we would recommend a combination of the above, consisting in a Make system which breaks processes down to granular steps, which may be executed by using an application directly, or as provided via a container image.
-This approach would allow development in an interactively managed, as well as provide process separation for which small and highly reusable container images can be leveraged.
-In furthering this approach we recommend standards which allow the intermediate data steps to be easily inspected and processed with a variety of tools, such as e.g. the BIDS-App ecosystem.
+The first, high granularity, prescribes dedicated containers for individual substeps, and persistent logging of outputs at each step.
+The second, pure virtualization, consists in usage of containers simply to provide access to the software management capabilities required by the target article.
+High granularity maximises container image reuse, but constrains the extent to which researchers can manipulate software tools during development.
+Pure virtualization seamlessly integrates with development on a fully interactive system, but leads to bloated containers less suited to rebuilding.
+In light of this we propose a combination of the above, consisting in a Make system which breaks processes down to granular steps, which may be executed by using applications either directly, or as provided via a container image.
 
-The reproduction quality assessment example methods provided in this study serve as a starting point for evaluating full article reexecution, and purposefully deal with the article as a whole.
-As it is the article which is the primary research output format, any external subset of values which would be earmarked as outputs-of-choice for reexecution risk both overestimation as well as underestimation of relevant differences.
-For example, if large differences in top-level data plots are observed, and are divorced from the bearing they may have the statements made in the article, this may lead to an overestimation of relevant differences.
+The reproduction quality assessment methods provided in this study serve as a starting point for evaluating full article reexecution, and purposefully deal with the article as a whole.
+As it is the article which is the primary research output format, any other set of values which would be earmarked as outputs-of-choice for reexecution concomitantly risk overestimation and underestimation of relevant differences.
+For example, if large differences in top-level data plots are observed, and are divorced from the bearing they may have on statements made in the article, this may lead to an overestimation of relevant differences.
 By contrast, if inline statistical summaries are not rendered dynamic and evaluated, strong differences in statistical metrics (e.g. F- and p-values) may remain unreported and thus lead to an underestimation of relevant differences.
 It is for this reason that we recommend the self-same output (article) which is intended for human consumption as the focus for reproduction quality assessments.
 However, we concede that more advanced output formats may emerge as research reexecutability becomes a more widespread capability and concern, and that top-level output data reexecution may then offer considerable advantages.
@@ -85,10 +87,10 @@ We speculate that such advantages may help not only in determining whether state
 For this purpose our workflow also produces and records all of the top-level data (statistical maps, data tables, etc.) from which the article extracts elements relevant to its statements.
 
 Lastly, we highlight the relevance of automated workflows for reuse and adaptation.
-This includes both the reexecution system published herein, and the internal workflow of the original article
+This includes both the reexecution system published herein, and the internal workflow of the original article.
 A key strength of reexecutability is that workflows can easily be derived, with a reliable starting point with respect to successful process execution.
 This refers not only to reuse for novel or derived studies, but also reuse for the inspection of specific parameter modifications.
-In view of this we recommend a practical approach to the work described herein, whereby the tools can all be considered to be immediately and freely available for inspection and personal use of the reader.
+In view of this we recommend a practical approach to the work described herein, whereby the parent reexecution system repository can be considered immediately and freely available for inspection and personal exploration and re-use of the reader.
 
 %For example, PyPI, conda and other distributions can create an exact list of versioned packages present in the environment support package reinstall using that list.
 %On Debian, NeuroDebian-enhanced systems, and to a limited degree on Ubuntu systems, it is possible to use \texttt{nd\_freeze} utility from \texttt{neurodebian-freeze} package to make use of \href{https://snapshot.debian.org}{snapshot.debian.org} and \href{http://snapshot-neuro.debian.net}{snapshot-neuro.debian.net} and use frozen to specific timestamp state of the APT repositories, thus guaranteeing access to the same versions of packages.
