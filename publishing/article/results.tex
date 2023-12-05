@@ -106,7 +106,7 @@ In particular, when using containers, it is advisable to \textit{not} provide da
 Instead, data provisioning should be handled outside of the container image and resources should be bind-mounted after download to a persistent location on the host machine.
 
 \subsubsection{Resources should be bundled into a superdataset.}
-As external resources might change or disappear, it is beneficial to use data version control system, such as git-annex and DataLad.
+As external resources might change, it is beneficial to use data version control system, such as git-annex and DataLad.
 The git submodule mechanism permits bundling multiple repositories with clear provenance and versioning information, thus following the modularity principle promoted by YODA.
 Moreover, git-annex supports multiple data sources and data integrity verification, thus increasing the reliability of a resource in view of providers potentially removing its availability.
 
