@@ -14,7 +14,7 @@ Additionally, the top-level repository directly tracks the code required to coor
 The code unique to the reexecution framework consists of container image generation and container execution instructions, as well as a Make system for process coordination (\cref{fig:topology}).
 This repository structure enhances the original reference article by directly linking the data at the repository level, as opposed to relying on its installation via a package manager.
 Notably, however, the article source code itself is not duplicated or further edited here, but handled as a Git submodule, with all proposed improvements being recorded in the original upstream repository.
-The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principle (a recursive acronym for “YODAs Organigram on Data Analysis” \cite{yoda}).
+The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principles (a recursive acronym for “YODAs Organigram on Data Analysis” \cite{yoda}).
 
 The Make system is structured into a top-level Makefile, which can be used for container image regeneration and upload, article reexecution in a containerized environment, and meta-article production.
 There are two entry points for \emph{this}, and the original article, respectively — both of which are reexecutable (\cref{fig:workflow}).
@@ -57,7 +57,7 @@ This alternative is introduced in order to assess feasibility as well as potenti
 
 As a notable step in our article reproduction effort, we have updated resources previously only available as tarballs (i.e. compressed \texttt{tar} archives), to DataLad.
 This refinement affords both the possibility to cherry-pick only required data files from the data archive (as opposed to requiring a full archive download), as well as more fine-grained version tracking capabilities.
-In particular, our work encompassed the re-write of the Mouse Brain Templates package \cite{mbt05} Make system.
+In particular, our work encompassed a re-write of the Mouse Brain Templates package \cite{mbt05} Make system.
 In its new release \cite{mbt10}, developed as part of this study, Mouse Brain Templates now publishes tarballs, as well as DataLad-accessible unarchived individual template files.
 
 
@@ -103,7 +103,7 @@ This is known as itempotence and is again advocated by the YODA principles, and 
 Due to a lack of persistency, addressing issues in container images requires an often time-consuming rebuilding process.
 One way to mitigate this is to make containers as small as possible.
 In particular, when using containers, it is advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
-Instead, data provision should be handled outside of the container image and resources should be bind-mounted after download to a persistent location on the host machine.
+Instead, data provisioning should be handled outside of the container image and resources should be bind-mounted after download to a persistent location on the host machine.
 
 \subsubsection{Resources should be bundled into a superdataset.}
 As external resources might change or disappear, it is beneficial to use data version control system, such as git-annex and DataLad.
