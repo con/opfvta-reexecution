@@ -88,7 +88,7 @@ container-article:
 .PHONY: article
 article: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
 	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article-$(FORMAT).tex
-	mv article-$(FORMAT).pdf article.pdf
+	cp article-$(FORMAT).pdf article.pdf
 
 .PHONY: poster
 poster: $(COMMON) $(TEX) $(STYLE) $(DATA) $(SHOWCASE_PAPERDIFF_PDF)
@@ -121,6 +121,6 @@ clean:
 
 # Upload target
 .PHONY: upload
-upload: article
+upload: article poster
 	rsync -avP article-$(FORMAT).pdf dreamarticles:articles.chymera.eu/fraaef-$(FORMAT).pdf
 	rsync -avP poster.pdf dreamarticles:articles.chymera.eu/fraaef-poster.pdf
