@@ -87,7 +87,7 @@ Additionally, the OPFVTA study employs a higher-level workflow package, SAMRI \c
 
 \subsection{Containers}
 
-Operating system virtualization is a process whereby an ephemeral “guest” environment may be started in and reused between persistent "host" system.
+Operating system virtualization is a process whereby an ephemeral “guest” environment is started in and may be reused between persistent “host” systems.
 Virtual machines (VMs), as these “guest” environments are called, can thus provide users with environments tailored to a workflow, while eschewing the need to otherwise (e.g. manually or via a package manager) provide the tools it requires.
 Once running, VMs are self-contained and isolated from the host, also eliminating the risk of unwanted persistent changes being made to the host environment.
 Perhaps the most important benefit of virtual isolation is significantly improved security, allowing system administrators to safely grant users relatively unrestricted access to large-scale computational capabilities.
@@ -95,7 +95,7 @@ However, VMs can also help mitigate issues arising from package updates by locki
 
 Modern advances in container technology allow the provision of the core benefits of system virtualization, but lighten the associated overhead by making limited use of the host system, specifically the hypervisor.
 Container technology is widespread in industry applications, and many container images are made available via public image repositories.
-While container technology has gained significant popularity specifically via the Docker toolset, it refers to an overarching effort by numerous organizations, now best represented via a Linux Foundation project, the "Open Container Initiative" (OCI).
+While container technology has gained significant popularity specifically via the Docker toolset, it refers to an overarching effort by numerous organizations, now best represented via a Linux Foundation project, the “Open Container Initiative” (OCI).
 The OCI governing body has produced an open specification for containers, which can be used by various container runtimes and toolsets.
 Generally, OCI-compliant container images can be executed identically with Docker, Podman, or other OCI compliant tools.
 
