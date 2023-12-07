@@ -73,19 +73,17 @@ In particular, we find that reexecutable article debugging in a container enviro
 In order to provide seamless integration of both flexible development and portable reexecution, we envision a workflow system which, for each analysis step, permits either usage of locally present executables, or entry points to a container.
 We implement a version of this concept for the meta-article generation, where the \texttt{make article} target which generates this article will use the local environment, and the \texttt{make container-article} executes the same code via an entry point to a \TeX{} container.
 
-% let's try to go across different levels how results should be provided for maximum re-interpretability and reuse:
-%  e.g. a full paper text, and differences, might be needed or desired for decision making about validity of statements over the results presented in the paper
-% Accompanying paper with the results in digital/machine-readable form opens further opportunities not only for statistical reassesment of results in the context of that paper , but also for reuse across various papers/studies.
-% E.g. NIDM (cite it)is the effort to provide semantic annotation of various results and procedures in neuroimaging.
-% That is also  an approach which lead neurosynth to inspire development and promotion of neurovault to collect exact instances of the resultant statistical maps.
 The reproduction quality assessment methods provided in this study serve as a starting point for evaluating full article reexecution, and purposefully deal with the article as a whole.
 As it is the article which is the primary research output format, any other set of values which would be earmarked as outputs-of-choice for reexecution concomitantly risk overestimation and underestimation of relevant differences.
-For example, if large differences in top-level data plots are observed, and are divorced from the bearing they may have on statements made in the article, this may lead to an overestimation of relevant differences.
-By contrast, if inline statistical summaries are not rendered dynamic and evaluated, strong differences in statistical metrics (e.g. F- and p-values) may remain unreported and thus lead to an underestimation of relevant differences.
-It is for this reason that we recommend the self-same output (article) which is intended for human consumption as the focus for reproduction quality assessments.
-However, we concede that more advanced output formats may emerge as research reexecutability becomes a more widespread capability and concern, and that top-level output data reexecution may then offer considerable advantages.
-We speculate that such advantages may help not only in determining whether statements made are unreliable, but further, whether valuable statements remained untapped by the original researchers.
-For this purpose our workflow also produces and records all of the top-level data (statistical maps, data tables, etc.) from which the article extracts elements relevant to its statements.
+We argue that for the derivation, reuse, or reproducibility assessment of a specific article, there is no substitute for the human-readable article as the foremost output element, as it most accurately documents all variable elements in the context the statements they underpin.
+Separate machine-readable summaries can at best be an approximation of the text, and barring revolutionary technological developments remain infeasible to implement at scale.
+However, it should be noted that pixel-diff comparison, as showcased here, cannot provide automatic evaluation of the differences (i.e. drawing inferences on whether or not statistical thresholds have been crossed) — so machine-readable summaries certainly have advantages.
+Furthermore, there are \emph{supplementary} outputs which may provide additional capabilities, not in lieu of, but in addition to the article text.
+The foremost among these — specifically pertaining to neuroimaging — are top-level statistical brain maps.
+Such supplementary capabilities would not only let studies generate reusable outputs (e.g. as masks or correlation analysis targets for other studies), but would also aid the inspection of the original article.
+While comparison of reexecutable articles only permits the evaluation of statements made, whole-brain maps may also reveal valuable statements which may have been untapped by the original researchers.
+There already exist efforts to integrate such outputs \cite{nidm}, and our workflow also produces and records all of the top-level data (statistical maps, data tables, etc.) from which the article extracts elements relevant to its statements.
+Integration between the present reexecutable article system and statistical map libraries it thus a promising endeavour for further development.
 
 Lastly, we highlight the relevance of automated workflows for reuse and adaptation.
 This includes both the reexecution system published herein, and the internal workflow of the original article.
