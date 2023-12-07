@@ -69,14 +69,9 @@ This means that process complexity and experimental data size may need to be eva
 
 We propose a few key considerations for the further development of article reexecution — though we note that practical reuse of this system might better identify promising enhancements better than theoretical analysis.
 
-% concerns on this paragraph on what actually to leave in... may be it is just a matter of provisioning easy entry points (as was hinted on in Challenges)
-In particular, we find that reexecutable article debugging in a container environment can be a significant challenge, and one which will only be more severe if such an environment is already implemented in an incipient state of the article, when analysis processes are not fully fleshed out.
-To alleviate this we consider two possible solutions.
-The first, high granularity, prescribes dedicated execution entry-points for individual substeps, and persistent logging of outputs at each step.
-The second, pure virtualization, consists in usage of containers simply to provide access to the software management capabilities required by the target article.
-High granularity maximizes container image reuse, but constrains the extent to which researchers can manipulate software tools during development.
-Pure virtualization seamlessly integrates with development on a fully interactive system, but leads to bloated containers less suited to rebuilding.
-In light of this we propose a combination of the above, consisting in a Make system which breaks processes down to granular steps, which may be executed by using applications either directly, or as provided via a container image.
+In particular, we find that reexecutable article debugging in a container environment can be a significant challenge, and one which will only be more severe if such an environment is already implemented in the development stage of an article.
+In order to provide seamless integration of both flexible development and portable reexecution, we envision a workflow system which, for each analysis step, permits either usage of locally present executables, or entry points to a container.
+We implement a version of this concept for the meta-article generation, where the \texttt{make article} target which generates this article will use the local environment, and the \texttt{make container-article} executes the same code via an entry point to a \TeX{} container.
 
 % let's try to go across different levels how results should be provided for maximum re-interpretability and reuse:
 %  e.g. a full paper text, and differences, might be needed or desired for decision making about validity of statements over the results presented in the paper
