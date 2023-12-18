@@ -39,8 +39,8 @@ digraph graphname {
         rd[label="          Raw Data         ", shape=box, color="#BBBBBB", fillcolor=grey93];
         ac[label="        Article Code        ", shape=box, color="#BBBBBB", fillcolor=grey93];
         blank12 [style=invis];
-        arl[label="Article Reexecution Library", shape=box, color="#BBBBBB", fillcolor="#bbffdd"];
-        mss[label="   Meta-System Image  ", shape=box, color="#CCCCCC", fillcolor=grey97, fontcolor="#999999"]
+        arl[label="Article Reexecution Library ", shape=box, color="#BBBBBB", fillcolor="#bbffdd"];
+        mss[label="Meta-Article System Image", shape=box, color="#CCCCCC", fillcolor=grey97, fontcolor="#999999"]
         }
 
     si -> ae [weight=9];
