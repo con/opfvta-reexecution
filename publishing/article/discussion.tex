@@ -1,27 +1,28 @@
 \section{Discussion}
 
-In this article we present an automated workflow for full, end-to-end article reexecution and quantification of results divergence at the level of the reproduced article manuscript.
+In this article we present an automated workflow for full, end-to-end article reexecution.
 We generate the full research communication output (including inline statistics, figures, and brain maps) from solely the raw data and automatically executable code.
-This effort substantiates the feasibility of article reexecution as a process, based on a real-life peer-reviewed study example.
-Additionally, our effort provides a sample implementation of technologies required to provide this capability and increase the adoption of reexecutable research outputs.
+This work substantiates the feasibility of article reexecution as a process, based on a real-life peer-reviewed study example.
 To this end, we also detail important and transferable principles, and document common pitfalls in creating a reexecution workflow.
+Lastly, we leverage the capabilities of this reexecution system in order to provide a simple reproducibility assessment, showcasing the relevance of reexecutable research outputs for investigating reproducibility.
 
 \subsection{Reexecutability}
-% gneneral description of the property.
 We argue that reexecutability is a core aspect of reliable research output creation.
 Reexecutability implies that instructions are formulated in such a way that they can be automatically deployed without human operator bias.
-In contrast to arbitrary reporting standards, the property of reexecutability implicitly guarantees that instructions for all pertinent instructions are documented fully.
+In contrast to arbitrary reporting standards, the property of reexecutability implicitly guarantees that required instructions are fully recorded.
 %Further, reexecutability is a far more scalable process, allowing the reliable estimation of the intrinsic variability of a research workflow.
 
 We demonstrate the feasibility of full research output reexecution by integrating cutting-edge technological capabilities, and publish all resources for open access, inspection, re-use, and adaptation.
 The article reexecution system which we produced isolates data and original resources, and does not make assumptions about the internal structure of a reexecutable article, and is of course, not domain-specific.
-Our system addresses artcle execution via a Bash entry point, and dependency resolution via an ebuild-style specification present in the target article.
-Given these two attributes, our system can conceivably be adapted to additional target articles.
+Our system initiates article execution via a Bash entry point, meaning it itself is programmatically accessible for integration into higher-order reexecutable research.
+We demonstrate the feasibility of this by integrating the original article reexecution with the reexecution of the meta-article.
+Dependency resolution for the original article is provided via an ebuild-style specification present in the original article code.
+This means that its dependencies are resolved seamlessly with all lower-level dependencies, and could be resolved seamlessly with higher-order dependencies making use of the reexecutable article as a piece of software.
 
 We sharply distinguish between reexecutability and reproducibility.
-The former refers to the capability of achieving an analogue research output from the same data through automatic execution of data analysis.
-The latter refers to the assessment of the coherence between the analogue research output (whether automatically reexecuted or manually recreated) and the original research finding.
-We further distinguish those two from replicability which encompasses an identical reproduction of the finding.
+The former refers to the capability of producing an analogue research output from the same data through automatic execution of data analysis.
+The latter refers to the coherence between an analogue research output (whether automatically reexecuted or manually recreated) and an original research finding.
+We further distinguish those two terms from replicability, which describes an identical reproduction of a finding.
 
 \subsection{Reproducibility}
 
@@ -30,7 +31,7 @@ We further distinguish those two from replicability which encompasses an identic
 
 We supplement the reexecution workflow description of this article with a brief demonstration of how it can be used to provide a reproducibility assesment.
 For this purpose we use a difference computation tool (in computational contexts known simply as “diff”) which summarizes and visually displays mismatches between a historical manuscript record and multiple reexecutions over various environments.
-Such a process makes mismatches visible at-a-glance throughout the article figures and text, rendering them them easy to locate and interpret via human inspection.
+Such a process makes mismatches visible at-a-glance throughout the article figures and text, rendering them easy to locate and interpret via human inspection.
 
 Based on these results we lay out a few key findings for further reproducibility assessments.
 In particular, we notice that figures which directly map output data are highly — and to a consistent extent — variable across multiple reexecution attempts.
@@ -41,7 +42,7 @@ While the above observations describe the current article specifically, we suspe
 In neuroimaging workflows, the most notorious source for non-deterministic data analysis behavior is the registration.
 This process commonly operates via a random starting point — specified by a seed value — and iterates according to a gradient descent algorithm.
 While the toolkit used by the article reexecuted here allows the specification of a particular seed, this was not done for the Historical Manuscript Record, nor is it a feature commonly used by operators.
-In light of our results the question emerges whether or not seed specification should be introduced as a best practice.
+In light of our results, the question emerges whether or not seed specification should be introduced as a best practice.
 While a fixed seed would aid in numerical reproducibility, it is possible that a specific seed — whether by coincidence or \textit{ex post facto} selection — may result in anomalous conclusions.
 It may then be that a stronger finding is one which is statistically robust with respect to preprocessing variability, even if this comes at the cost of compromising numerical replicability.
 Conversely, it could be argued that reproduction analysis can be better targeted and more concise, if seed values were fixed to universally accepted numbers (analogous to the usage of nothing-up-my-sleeve numbers in cryptography).
@@ -49,83 +50,45 @@ Conversely, it could be argued that reproduction analysis can be better targeted
 \subsection{Challenges}
 For this meta-article we have selected an original neuroimaging article which already published all of the instructions needed to reproduce it in its entirety from raw data and automatically executable instructions.
 Even in light of this uncommon advantage, setting up a portable reexecution system has proven to be an ample effort.
-Difficulties arose primarily due to the instability of the software stack.
-It is common for scientific software — and more and more common as researchers become involved in software development — to be subjected to frequent interface changes, and loss of support for older dependencies.
 
-In this article we propose container technology as a mitigation method for such fragility.
+Difficulties arose primarily due to the instability of the software stack.
+It is common (and increasingly so as researchers become involved in software development) for scientific software to be subjected to frequent interface changes and loss of support for older dependency versions.
+In this article we propose version-frozen container technology as a mitigation method for such fragility.
 However, this is not without draw-backs, as it can make introspection more challenging.
 In view of this, we defined interactive container entry points (\texttt{make} targets), whereby the user may enter the container dedicated to automatic reexecution to inspect and test changes in the environment.
 Even so, on account of these containers being dedicated to automatic execution, features such as an advanced text processor are missing, and the inclusion of such features may not be ultimately desired.
 
 A more easily surmountable challenge was data management.
-Whereas the original article strove to integrate all provision of computational requirements with the package manager, the usage of containers made the cost of this one-stop solution prohibitive.
+Whereas the original article strove to integrate all provision of computational requirements with the package manager, the usage of containers made the cost of this all-encompassing solution prohibitive.
 As such, Git submodules and DataLad were used, providing enhanced functionality for e.g. data version specification, but at the cost of spreading requirements provision over different technologies.
 
 Lastly, an unavoidable challenge consisted in execution time-cost.
-While not prohibitive, this time cost not only slows iterative development work, but presages a potential decrease in the feasibility of reexecution given the trend towards larger and larger data.
+While not prohibitive, the time cost not only slows iterative development work, but presages a potential decrease in the feasibility of reexecution given the trend towards larger and larger data.
 This means that process complexity and experimental data size may need to be evaluated in light of the diminished accessibility to such processes as reexecution.
 
 \subsection{Outlook}
 
-We propose a few key considerations for the further development of article reexecution — though we note that practical reuse of this system might better identify promising enhancements better than theoretical analysis.
+We propose a few key considerations for the further development of article reexecution — though we note that practical reuse of this system might identify promising enhancements better than theoretical analysis.
 
-In particular, we find that reexecutable article debugging in a container environment can be a significant challenge, and one which will only be more severe if such an environment is already implemented in the development stage of an article.
-In order to provide seamless integration of both flexible development and portable reexecution, we envision a workflow system which, for each analysis step, permits either usage of locally present executables, or entry points to a container, or bind-mount overloading of the components within the container with the local counterparts.
-We implement a version of this concept for the meta-article generation, where the \texttt{make article} target which generates this article will use the local environment, and the \texttt{make container-article} executes the same code via an entry point to a \TeX{} container.
+In particular, we find that reexecutable article debugging in a container environment can be a significant challenge, and one which will only be more severe if such an environment is already implemented in the development phase of an article.
+In order to provide seamless integration of both flexible development and portable reexecution, we envision a workflow system which, for each analysis step, permits either usage of locally present executables, or entry points to a container.
+These two approaches may also be integrated by bind-mount overloading of container components with their local counterparts.
+We implement a version of this concept for the meta-article generation, where the \texttt{make article} target which generates this article will use the local environment, and the \texttt{make container-article} target executes the same code via an entry point to a \TeX{} container.
 
 The reproduction quality assessment methods provided in this study serve as a starting point for assessing full article reexecution.
-We argue that for the derivation, reuse, or reproducibility assessment of a specific article, there is currently no substitute for the human-readable article as the foremost output element, as it most accurately documents all variable elements in the context the statements they underpin.
-However, it should be noted that crude pixel-diff comparison, as showcased here, cannot provide automatic evaluation of the differences (i.e. drawing inferences on whether or not statistical thresholds have been crossed) — so machine-readable outputs are necessary for numerical comparisons.
-There are ongoing efforts, such as NIDM~\cite{NIDM}, to establish the framework and the language for description of numerical results in neuroimaging.
-To embrace creating NIDM descriptors, pragmatically it requires tooling to support export of the results descriptors using NIDM, which was not yet implemented in our analysis workflow.
-In addition to high level results, there are \emph{supplementary} outputs which may provide additional capabilities, not in lieu of, but in addition to the article text.
+We argue that for the reproducibility assessment of a specific article, there is currently no substitute for the human-readable article as the foremost output element, as it most accurately documents all variable elements in the context of the statements they underpin.
+However, it should be noted that crude pixel-diff comparison, as showcased here, cannot provide automatic evaluation of differences (i.e. determining whether or not statistical thresholds have been crossed) — so machine-readable outputs are necessary for numerical comparisons.
+There are ongoing efforts, such as NIDM~\cite{NIDM}, to establish a framework and language for describing numerical results in neuroimaging.
+This requires custom tooling to export result descriptors in a language aiming to approximate — but distinct from — human readable commentary, and was not yet implemented in our analysis workflow.
+There are also \emph{supplementary} outputs which may provide additional capabilities, not in lieu of, but in addition to the article text.
 The foremost among these — specifically pertaining to neuroimaging — are statistical brain maps.
 Such supplementary data would not only let studies generate reusable outputs, but would also aid the inspection of the original article.
-Our workflow also produces and records all of the top-level data (statistical maps, data tables, etc.) from which the article extracts elements relevant to its statements.
-We have uploaded main statistical map of reexecution results to NeuroVault, and are working to provide corresponding template for the mouse brain data.
+Our workflow produces and records all of the top-level data (statistical maps, data tables, etc.) from which the article extracts elements relevant to its statements.
+We have uploaded the main statistical map of reexecution results to NeuroVault, and are working to provide a corresponding template for our mouse brain data.
 Integration between the present reexecutable article system and statistical map libraries is thus a promising endeavor for further development.
 
-Lastly, we highlight the relevance of automated workflows for reuse and adaptation.
-This includes both the reexecution system published herein, and the internal workflow of the original article.
-A key strength of reexecutability is that workflows can easily be derived, with a reliable starting point with respect to successful process execution.
-This refers not only to reuse for novel or derived studies, but also reuse for the inspection of specific parameter modifications.
-In view of this we recommend a practical approach to the work described herein, whereby the parent reexecution system repository can be considered immediately and freely available for inspection and personal exploration and re-use of the reader.
-
-%For example, PyPI, conda and other distributions can create an exact list of versioned packages present in the environment support package reinstall using that list.
-%On Debian, NeuroDebian-enhanced systems, and to a limited degree on Ubuntu systems, it is possible to use \texttt{nd\_freeze} utility from \texttt{neurodebian-freeze} package to make use of \href{https://snapshot.debian.org}{snapshot.debian.org} and \href{http://snapshot-neuro.debian.net}{snapshot-neuro.debian.net} and use frozen to specific timestamp state of the APT repositories, thus guaranteeing access to the same versions of packages.
-%NeuroDocker utility~\cite{neurodocker} provides further assistance in generating container recipes and has support for \texttt{nd\_freeze} to generate containers following the best practices.
-
-
-
-%Lastly we note the value of reexecutability for rendering a resource re-usable.
-%In effect, a reexecutable workflow allows the precise inspection of specific parameter modifications, hence helping to study key decision points in workflow design.
-
-
-
-
-
-% Mention Gentoo in the context of provenance
-
-
-
-% chr: not really, data acquisition will always depend on external hardware... even if you think of e.g. speed tests on computers. Data aquisition is basically the interface between the digital and outside world, so the dichotomy will always remain in some shape.
-% chr: also, pretty long and tangential discussion IMHO
-%As a long-term outlook, we highlight that the dichotomy commonly drawn between data acquisition and data analysis (the latter being uniquely suited for reproduction) need not remain in place indefinitely.
-%Data acquisition may, given a suitable context, benefit from the same sort of automation as data analysis.
-
-
-%TODO 
-% Analogy with a "backup" -- there is no idea if a backup is any good until it is attempted to restore ffrom the backup. The same with studies claiming to be reproducible.
-% chr: it's a good analogy, but I'm unsure where to put it, or whether it adds anything to any particular section...
-
-
-% TODO yoh : I do not understand this (chr) could you please expand this so I can write something more sensible about it?
-%      \item Pay attention to user used for invocation of container
-%
-%        docker -- by default might be root, resultant files would be owned by root, not be able to move etc.
-%
-%        -e "UID=$(id -u)" -e "GID=$(id -g)"
-%
-%        and may be `-u` `-g` if used with ``docker''.
-%    \end{itemize}
+Lastly, we highlight the relevance of reexecutable articles for reuse and adaptation.
+Their key strength is that they can easily be derived based on a reliable starting point with respect to successful process execution.
+This pertains not only to reuse of reexecutable article code for novel or derived studies, but also reuse for the inspection of specific parameter or data modifications.
+In view of this we recommend a practical approach to the work described herein, whereby the parent reexecution system repository can be considered immediately and freely available for inspection, personal exploration, and re-use by the reader.
 

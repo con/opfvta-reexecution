@@ -14,16 +14,16 @@ Additionally, the top-level repository directly tracks the code required to coor
 The code unique to the reexecution framework consists of container image generation and container execution instructions, as well as a Make system for process coordination (\cref{fig:topology}).
 This repository structure enhances the original reference article by directly linking the data at the repository level, as opposed to relying on its installation via a package manager.
 Notably, however, the article source code itself is not duplicated or further edited here, but handled as a Git submodule, with all proposed improvements being recorded in the original upstream repository.
-The layout constructed for this study thus provides robust provenance tracking and constitutes an instantiation of the YODA principles (a recursive acronym for “YODAs Organigram on Data Analysis” \cite{yoda}).
+The layout constructed for this study thus provides robust provenance tracking and constitutes an implementation of the YODA principles (a recursive acronym for “YODAs Organigram on Data Analysis” \cite{yoda}).
 
 The Make system is structured into a top-level Makefile, which can be used for container image regeneration and upload, article reexecution in a containerized environment, and meta-article production.
-There are two entry points for \emph{this}, and the original article, respectively — both of which are reexecutable (\cref{fig:workflow}).
+There are independent entry points for both \emph{this} and the original article — making both articles reexecutable (\cref{fig:workflow}).
 Versioning of the original article reexecution is done via file names (as seen in the \texttt{outputs/} subdirectories of \cref{fig:topology}) in order to preserve shell accessibility to what are equivalent resources.
 Versioning of the meta-article is handled via Git, so that the most recent version of the work is unambiguously exposed.
 
 The meta-article targets redirect to a Makefile in the \texttt{article/} subdirectory, which contains this document's human-readable text in \TeX{} format, alongside scripts for generating dynamical elements based on the reexecution results seen in the \texttt{outputs/} directory.
 The original article reexecution is provided by two alternative targets, using either the Open Container Initiative standard, or Singularity.
-Both article reexecution targets wrap the \texttt{produce\_analysis.sh} script, which is a thin compatibility layer accessing the Make system of the original article.
+Both original article reexecution targets wrap the \texttt{produce\_analysis.sh} script, which is a thin compatibility layer accessing the Make system of the original article.
 This alternative is introduced in order to assess feasibility as well as potential variability across virtualization infrastructures.
 
 
@@ -32,8 +32,8 @@ This alternative is introduced in order to assess feasibility as well as potenti
 	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
 	\caption{
 		\textbf{The directory topology of the new reexecution system nests all resources and includes a Make system for process coordination.}
-		Depicted is a directory tree topology of the repository coordinating OPFVTA re-execution.
-		Nested directories are represented by nested boxes, and Git submodules are highlighted with orange borders.
+		Depicted is the directory tree topology of the repository coordinating OPFVTA reexecution.
+		Nested directories are represented by nested boxes, and Git submodules are highlighted in orange.
 		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
 	}
 	\label{fig:topology}
@@ -44,8 +44,8 @@ This alternative is introduced in order to assess feasibility as well as potenti
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/workflow.pdf}
 	\caption{
-		\textbf{The reexecution system encompasses both the Article and Meta-Article as independent Make targets.}
-		Depicted is the workflow of the re-execution system, with two reexecution entry points, the “Original Article and the “Meta-Article” (i.e. \textit{this} article, which also performs the reproduction assessment).
+		\textbf{The reexecution system encompasses both the Original Article and Meta-Article as independent Make targets.}
+		Depicted is the reexecution system workflow, with two reexecution entry points, the “Original Article and the “Meta-Article” (i.e. \textit{this} article, which also performs the reproduction assessment).
 		Notably, for the generation of the meta-article, the Original Article can be executed, or not — the meta-article will dynamically include all reexecution results which are published, as well as all which are locally produced.
 		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
 		Optional nodes (such as fetching a container image for meta-article reexecution) are faded gray.
@@ -69,7 +69,7 @@ As part of this work we have contributed substantial changes to the original OPF
 \subsubsection{Errors should be fatal more often than not.}
 
 By default, programs written in the majority of languages (including e.g. Python and C) will exit immediately when running into an unexpected operation.
-POSIX shell and other similar or derived shells, such as bash and zsh, behave differently.
+The POSIX shell and other similar or derived shells, such as Bash and Zsh, behave differently.
 Their default is to continue with execution of the next scripted command, and only exit with a non-zero code when the list of commands is exhausted or the \texttt{exit} command is called explicitly.
 As a result, an execution of the script could continue for hours before it fails, and the original error message might be lost in the flood of output, making it hard or impossible to localize and address the original problem.
 This behavior can be mitigated by prepending \texttt{set -e} to the respective shell script, which changes the default behavior so that execution is stopped as soon as a command exits with an error code.
@@ -89,7 +89,7 @@ Paths to external resources (scratch directories or reusable resources such as a
 \subsubsection{Avoid assuming a directory context for execution.}
 As previously recommended, resources may be linked via relative paths, which are resolved based on their hierarchical location with the respect to the execution base path.
 However, scripts could be executed from various locations and not necessarily from the location of the script, thus rendering relative paths fragile.
-A good way of making a script utilizing relative paths more robust is ensuring that they set the base execution directory to their respective parent directories.
+A good way of making script execution more robust is ensuring that they set base execution directories to their respective parent directories.
 This can be accomplished in POSIX shell scripts by prepending \texttt{cd \textquotedbl\$(dirname \textquotedbl\$0\textquotedbl)\textquotedbl}.
 
 \subsubsection{Workflow granularity greatly benefits efficiency.}
@@ -97,13 +97,13 @@ The high time cost of executing a full analysis workflow given contemporary rese
 Ideally, it should not be necessary to reexecute the entire workflow for every potentially resolved error.
 It is thus beneficial to segment the workflow into self-contained steps, which can be executed and inspected independently.
 Workflows should as a minimum separate such large steps as preprocessing, individual levels of analysis (e.g. per-subject vs. whole-population), and article generation.
-One way to integrate such steps is to use a workflow platform which automatically checks for the presence of results from prior stages, and, if present, proceeds to the next stage without triggering prior processes.
-This is known as itempotence and is again advocated by the YODA principles, and implemented in this article via both the Make system, as well as internally by the original article's usage of NiPype.
+One way to integrate such steps is to formulate a workflow which automatically checks for the presence of results from prior stages, and, if present, proceeds to the next stage without triggering prior processes.
+This property is known as itempotence and is again advocated by the YODA principles, and implemented in this article via both the Make system, as well as internally by the original article's usage of NiPype.
 
 \subsubsection{Container image size should be kept small.}
 Due to a lack of persistency, addressing issues in container images requires an often time-consuming rebuilding process.
 One way to mitigate this is to make containers as small as possible.
-In particular, when using containers, it is advisable to \textit{not} provide data via a package manager or via manual download inside the build script.
+In particular, when using containers, it is advisable to \textit{not} provide \textit{data} via a package manager or via manual download inside the build script.
 Instead, data provisioning should be handled outside of the container image and resources should be bind-mounted after download to a persistent location on the host machine.
 
 \subsubsection{Resources should be bundled into a superdataset.}
@@ -114,7 +114,7 @@ Moreover, git-annex supports multiple data sources and data integrity verificati
 \subsubsection{Containers should fit the scope of the underlying workflow steps.}
 In order to constrain the workload of rebuilding a container image, it is advisable to not create a bundled container image for sufficiently self-contained substeps of the workflow.
 For example, as seen in this study, the article reexecution container image should be distinct from container images required for producing a summary meta-article.
-Additionally, if sub-steps share toolkit requirements, containers can be re-used between different steps by leveraging different \emph{entry points} to the same target.
+Conversely, if sub-steps share toolkit requirements, containers can be re-used between different steps by leveraging different \emph{entry points} to the same target.
 
 \subsubsection{Do not write debug-relevant data inside the container.}
 Debug-relevant data, such as intermediary data processing steps and debugging logs should not be deleted by the workflow or written to an ephemeral location inside the container, but should instead be written to persistent storage.
@@ -126,7 +126,7 @@ In order to achieve this, intermediary and debugging outputs should be written t
 Complex workflows commonly generate large amounts of scratch data — intermediary data processing steps, whose main utility is being read by subsequent steps or consulted for debugging.
 If these data are written to the same hard-coded path on the host system, multiple reexecutions will lead to race conditions, compromising one or multiple instances of the process.
 This can be avoided by parameterizing the path and/or setting a default value based on a unique string (e.g. generated from the timestamp).
-When using containers, this should be done at the container instantiation level, as the relevant path is the path on the parent system, and not the path inside the container.
+When using containers, this should be done at the container instantiation level, as the relevant path for such potential conflicts is the path on the parent system, and not the path inside the container.
 
 \subsubsection{Dependency versions inside container environments should be frozen as soon as feasible.}
 The need for full image rebuilding means that assuring consistent functionality in view of frequent updates is more difficult for containers than interactively managed environments.
@@ -160,7 +160,7 @@ Reproduction differences between the article versions are extracted by evaluatin
 \end{figure*}
 
 This overview shows a consistent minimum baseline of differing pixels between reexecutions, around $10^{-4}$ (i.e. \SI{0.01}{\percent}), best seen in pages 6 to 10.
-When examined closely (\ref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the new reexecution system results (2023-..).
+When examined closely (\cref{fig:diff_date}), this difference corresponds to the modified date of the Historical Manuscript Record (2022-07-25) and the new reexecution system results (2023-..).
 While otherwise inconsequential, this difference provides a good litmus test for whether the article was indeed reexecuted or simply preserved, and should be expected throughout all comparisons.
 Throughout other pages we see difference percentages which are broadly consistent across reexecutions and environments, but vary from page to page over almost 2 degrees of magnitude.
 Upon inspection, more variable but comparatively lower-percentage differences (pages 4 and 5, detail depicted in \cref{fig:diff_text}) are revealed as text differences.
@@ -174,7 +174,7 @@ This is particularly true for p-values, the magnitude of which can vary substant
 
 
 %TODO chr discuss this more in discussions.
-Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding for statistical outputs and the use of magnitude notation (\cref{fig:diff}).
+Further, we find that text differences are well localized, as a function of the original article implementing fixed decimal rounding and magnitude notation for statistical outputs (\cref{fig:diff}).
 Thus, changes in inline statistic values do not impact text length and do not generally propagate to subsequent lines via word shifts, where they would be recorded as false positives.
 
 \begin{figure*}
@@ -208,12 +208,12 @@ Thus, changes in inline statistic values do not impact text length and do not ge
 			\includegraphics[width=0.8\textwidth]{figs/diff_fig.pdf}
 			}
 		\caption{
-			In regression analysis, data points are highly variable, yet maintain a consistent slope and significance, as seen in this example from page 14 of the article.
+			In regression analysis, data points are highly variable, the slope and significance remain constant, as seen in this example from page 14 of the article.
 		}
 		\label{fig:diff_fig}
 	\end{subfigure}
 	\caption{
-		\textbf{The article difference showcases expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
+		\textbf{The article differences showcase expected quantitative and metadata variability, while maintaining overall validity of qualitative statements.}
 		The figures are extracted from a full article \texttt{diff}, with tinted highlighting (blue for the Historical Manuscript Record, and orange for the new reexecution system result).
 	}
 	\label{fig:diff}
