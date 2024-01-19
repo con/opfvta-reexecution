@@ -37,7 +37,6 @@
 %VARIABLES
 %set up a more stable buffers (the normal ones gets blanked after the titlepage is invoked)
 \makeatletter
-%\let\mytitle\@title
 \let\myauthor\@author
 \let\mydate\@date
 \makeatother
@@ -52,7 +51,8 @@
 	\lhead{}
 	%\chead{\small\textsf{\textcolor{Gray}{\mytitle}}}
 	%\chead{\small\textsf{\textcolor{Gray}{LALA}}}
-	\chead{\small\textsf{\textcolor{Gray}{\thetitle}}}
+	%\chead{\small\textsf{\textcolor{Gray}{\thetitle}}}
+	\chead{\small\textsf{\textcolor{Gray}{\mytitle}}}
 	\rhead{}
 
 	\lfoot{}
