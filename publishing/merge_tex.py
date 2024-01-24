@@ -9,7 +9,7 @@ def open_and_read(in_file):
 def include_sub_files(in_file, my_text="", exclude_comments=True):
     lines = open_and_read(in_file)
     for line in lines:
-        m = re.match("\\\\input{(?P<sub_file>.+)}",line)
+        m = re.match("^\\\\input{(?P<sub_file>.+)}",line)
         if m:
             sub_file = m.groupdict()['sub_file']
             my_text = include_sub_files(sub_file,
