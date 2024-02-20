@@ -11,7 +11,7 @@ This repository contains code, data, and prose as required to:
 This repository contains submodules/subdatasets, which should be installed alongside the parent repository:
 
 ```console
-datalad install -r https://gin.g-node.org/TheChymera/opfvta-replication-2023.git
+datalad install -r git@gin.g-node.org:/TheChymera/opfvta-reexecution.git
 cd opfvta-replication-2023
 ```
 
