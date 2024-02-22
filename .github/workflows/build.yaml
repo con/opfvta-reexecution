@@ -29,7 +29,10 @@ jobs:
           sudo apt-get -y install podman
 
       - name: Install make and git-annex
-        run: sudo apt-get -y install make git-annex
+        run: |
+          sudo apt-get -y install make git-annex
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
 
       # Since we use regular actions/checkout@v4 it does not trigger
       # auto-enabling of the gin remote 
