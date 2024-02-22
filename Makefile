@@ -122,7 +122,7 @@ article-upload:
 	$(MAKE) upload -C publishing/
 
 .PHONY: clean-publishing
-article-upload:
+clean-publishing:
 	$(MAKE) clean -C publishing/
 
 
