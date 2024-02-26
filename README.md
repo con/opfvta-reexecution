@@ -59,8 +59,7 @@ With docker or podman, you can execute the analysis inside an OCI container.
 make analysis-oci
 ```
 
-TODO: describe where to find the results and original article regenerated.
-
+The results of the analysis will be stored under `outputs/<execution-environment>_<datestamp>`
 
 ### II. Reexecuting the Meta-Article
 
