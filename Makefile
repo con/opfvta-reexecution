@@ -96,7 +96,7 @@ analysis-oci-interactive:
 		-v ${PWD}/code/empty:/opfvta/ \
 		--workdir /opt/code \
 		${FQDN_IMAGE} \
-		/bin/bash
+		/bin/bash -l
 
 #
 # Publishing builds
