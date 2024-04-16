@@ -101,7 +101,7 @@ One way to integrate such steps is to formulate a workflow which automatically c
 This property is known as itempotence and is again advocated by the YODA principles, and implemented in this article via both the Make system, as well as internally by the original article's usage of NiPype.
 
 \subsubsection{Container image size should be kept small.}
-Due to a lack of persistency, addressing issues in container images requires an often time-consuming rebuilding process.
+Due to a lack of persistency, addressing issues in container images requires an often time-consuming rebuild process.
 One way to mitigate this is to make containers as small as possible.
 In particular, when using containers, it is advisable to \textit{not} provide \textit{data} via a package manager or via manual download inside the build script.
 Instead, data provisioning should be handled outside of the container image and resources should be bind-mounted after download to a persistent location on the host machine.
