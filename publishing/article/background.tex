@@ -14,15 +14,17 @@ In all cases, reexecutability increases the feasibility of reproduction assessme
 Further, in the case of complex analysis processes with vast parameter spaces, reexecutability is a prerequisite for detailed reproducibility assessments.
 Lastly, reexecution constitutes a capability in and of itself, with ample utility in education, training, and resource reuse for novel research purposes (colloquially, “hacking”) — which may accrue even in the absence of accurate result reproduction.
 
-Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of the analysis instructions used in generating published results under free and open licenses.
+Free and Open Source Software \cite{foss} has significantly permeated the world of research, and it is presently not uncommon for researchers to publish part of their data analysis instructions under free and open licenses.
 However, such analysis instructions are commonly disconnected from the research output document, which is manually constructed from static inputs.
 Notably, without fully reexecutable instructions, data analysis outputs and the positive claims which they support are not verifiably linked to the methods which generate them.
 
 Reexecutability is an emergent topic in research, with a few extant efforts attempting to provide solutions and tackle associated challenges.
 Such efforts stem both from journals and independent researchers interested in the capabilities which reexecutable research processes offer to the ongoing development of their work.
 Among these, an effort by the eLife journal \cite{eliferep} provides dynamic article figures based on the top-most data processing output and executable code conforming to journal standards.
-NeuroLibre~\cite{neurolibre} provides a Jupyter Notebook based online platform for publishing executable books along with a selection of reexecutability assets, namely code, data, and a reexecution runtime.
-Independent researcher efforts offer more comprehensive and flexible solutions, yet provide reference implementations which are either applied to comparatively simple analysis processes \cite{Dar2019} or tackle complex processes, but assume environment management capabilities which may not be widespread \cite{repsep}.
+NeuroLibre~\cite{neurolibre} provides a Jupyter Notebook based online platform for publishing executable books along with a selection of reexecutabiliety assets, namely code, data, and a reexecution runtime.
+Jupyter Notebooks are also used independently of journal support, yet such usage is indicative of a focus on interactivity for top-most analysis steps rather than full reexecution, commonly not providing either data or software dependency tracking \cite{samuel2024}.
+Independent researcher efforts at crating reexecution systems offer more comprehensive and flexible solutions, yet remain constrained in scope and generalizability.
+For example, they may provide reference implementations which are either applied to comparatively simple analysis processes \cite{Dar2019} or tackle complex processes, but assume environment management capabilities which may not be widespread \cite{repsep}.
 
 In order to optimally leverage extant efforts pertaining to full article reexecution and in order to test reexecutability in the face of high task complexity, we have selected a novel neuroimaging study, identified as OPFVTA (OPtogenetic Functional imaging of Ventral Tegmental Area projections) \cite{opfvta}.
 The 2022 article is accompanied by a programmatic workflow via which it can be fully regenerated — based solely on raw data, data analysis instructions, and the natural-language manuscript text — and which is initiated via a simple executable script in the ubiquitous GNU Bash \cite{bash} command language.
