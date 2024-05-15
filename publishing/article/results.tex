@@ -3,11 +3,17 @@
 % Descriptive, opinions either absent, or as objective-ish comments when facts are stated.
 % Should, could, might, etc. sparingly and ideally not here but in discussion.
 
+\subsection{Repository}
+
+The repository constituting the output of our work is published openly and with version control based on Git \cite{git} via “GitHub”, a social coding platform \cite{me} and via Gin, an academic code and data sharing platform \cite{me-gin}.
+The most up to date instructions for re-executing our work (the original as well as this article) are found in the \texttt{README.md} file on the repository.
+While the key focus on reexecution means that the software internal to the article workflows is provided via containers, requirements remain for fetching the required data remain.
+These include, prominently, Git, DataLad \cite{datalad}, and a container management system (Docker, Podman, or Singularity).
 
 \subsection{Repository Structure}
 
-In order to improve the reexecution reliability of the OPVFTA article we have constructed a parent repository which leverages Git and DataLad to link all reexecution requirements.
-This framework uses Git submodules for resource referencing, and DataLad \cite{datalad} in order to permit Git integration with data resources.
+In order to prevent resource duplication and divergence, and to improve the modularity in view of potential re-use of this system, we have constructed a parent repository which leverages Git and DataLad to link all reexecution requirements.
+This framework uses Git submodules for resource referencing, and DataLad in order to permit Git integration with data resources.
 
 These submodules include the original article, the raw data it operates on, and a reference mouse brain templates package.
 Additionally, the top-level repository directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of \emph{this} article.
