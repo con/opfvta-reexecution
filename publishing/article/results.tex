@@ -5,25 +5,24 @@
 
 \subsection{Repository}
 
-The repository constituting the output of our work is published openly and with version control based on Git \cite{git} via “GitHub”, a social coding platform \cite{me} and via Gin, an academic code and data sharing platform \cite{me-gin}.
-The most up to date instructions for reexecuting our work (the original as well as this article) are found in the \texttt{README.md} file on the repository.
-While the key focus on reexecution means that the software internal to the article workflows is provided via containers, requirements remain for fetching the required data remain.
+The repository constituting the output of our work is published openly and with version control based on Git \cite{git} via GitHub, a social coding platform \cite{me} and via Gin, an academic code and data sharing platform \cite{me-gin}.
+The most up to date instructions for accessing reexecuting our work (the original as well as this article) are found in the \texttt{README.md} file on the repository.
+While the key focus on reexecution means that the software internal to the article workflows is provided via containers, software requirements remain for fetching the software, data, and containers themselves.
 These include, prominently, Git, DataLad \cite{datalad}, and a container management system (Docker, Podman, or Singularity).
 
-\subsection{Repository Structure}
-
-In order to prevent resource duplication and divergence, and to improve the modularity in view of potential re-use of this system, we have constructed a parent repository which leverages Git and DataLad to link all reexecution requirements.
-This framework uses Git submodules for resource referencing, and DataLad in order to permit Git integration with data resources.
+In order to prevent resource duplication and divergence, and to improve the modularity in view of potential re-use of this system, we have bundled access to all elements of our work into a parent repository.
+This structure (\cref{fig:topology}) uses Git submodules for referencing individual elements relevant for the workflow, and DataLad in order to permit Git integration with data resources.
 
 These submodules include the original article, the raw data it operates on, and a reference mouse brain templates package.
 Additionally, the top-level repository directly tracks the code required to coordinate the OPFVTA article reexecution and subsequent generation of \emph{this} article.
-The code unique to the reexecution framework consists of container image generation and container execution instructions, as well as a Make system for process coordination (\cref{fig:topology}).
+The code unique to the reexecution framework consists of container image generation and container execution instructions, as well as a Make file and is tracked directly via Git.
+
 This repository structure enhances the original reference article by directly linking the data at the repository level, as opposed to relying on its installation via a package manager.
-Notably, however, the article source code itself is not duplicated or further edited here, but handled as a Git submodule, with all proposed improvements being recorded in the original upstream repository.
+The OPFVTA article source code itself is not duplicated as part of our work, but handled as a Git submodule, with all proposed improvements being contributed to the original upstream repository.
 The layout constructed for this study thus provides robust provenance tracking and constitutes an implementation of the YODA principles (a recursive acronym for “YODAs Organigram on Data Analysis” \cite{yoda}).
 
-The Make system is structured into a top-level Makefile, which can be used for container image regeneration and upload, article reexecution in a containerized environment, and meta-article production.
-There are independent entry points for both \emph{this} and the original article — making both articles reexecutable (\cref{fig:workflow}).
+The Make system (\cref{fig:workflow}) is structured into a top-level Makefile, which can be used for container image regeneration and upload, article reexecution in a containerized environment, and meta-article production.
+There are independent entry points for both \emph{this} and the original article — making both articles reexecutable.
 Versioning of the original article reexecution is done via file names (as seen in the \texttt{outputs/} subdirectories of \cref{fig:topology}) in order to preserve shell accessibility to what are equivalent resources.
 Versioning of the meta-article is handled via Git, so that the most recent version of the work is unambiguously exposed.
 
@@ -37,7 +36,7 @@ This alternative is introduced in order to assess feasibility as well as potenti
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/topology.pdf}
 	\caption{
-		\textbf{The directory topology of the new reexecution system nests all resources and includes a Make system for process coordination.}
+		\textbf{The directory topology of the reexecution repository \cite{me}, highlighting Git submodules.}
 		Depicted is the directory tree topology of the repository coordinating OPFVTA reexecution.
 		Nested directories are represented by nested boxes, and Git submodules are highlighted in orange.
 		The article reexecution PDF results are highlighted in light green, and the PDF of the resulting meta-article (i.e. this article) is highlighted in light blue.
