@@ -47,7 +47,7 @@ In the simplest terms, these steps represent iterative applications of General L
 Computationally, in the case of the OPFVTA article as well as the general case, the various data analysis workflow steps are sharply distinguished by their time cost.
 By far the most expensive element is a substage of data preprocessing known as registration.
 This process commonly relies on iterative gradient descent and can additionally require high-density sampling depending on the feature density of the data.
-The second most costly step is the first-level GLM, the cost of which emerges from to the high number of voxels modeled individually for each subject and session.
+The second most costly step is the first-level GLM, as it scales linearly with the number of voxels modeled individually for each subject and session — depending on whether or not region of interest masks are used, this number can extend to all voxels in the brain.
 
 The impact of these time costs on reexecution is that rapid-feedback development and debugging can be stifled if the reexecution is monolithic.
 While ascertaining the effect of changes in registration instructions on the final result unavoidably necessitate the reexecution of registration and all subsequent steps — editing natural-language commentary in the article text, or adapting figure styles, should not.
