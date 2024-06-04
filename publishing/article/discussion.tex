@@ -52,7 +52,7 @@ For this meta-article we have selected an original neuroimaging article which al
 Even in light of this uncommon advantage, setting up a portable reexecution system has proven to be an ample effort.
 
 Difficulties arose primarily due to the instability of the software stack.
-It is common (and increasingly so as researchers become involved in software development) for scientific software to be subjected to frequent interface changes and loss of support for older dependency versions.
+As researchers become involved in open source software development, it is becoming increasingly common for scientific software to be subjected to frequent interface changes and loss of support for older dependency versions.
 In this article we propose version-frozen container technology as a mitigation method for such fragility.
 However, this is not without draw-backs, as it can make introspection more challenging.
 In view of this, we defined interactive container entry points (\texttt{make} targets), whereby the user may enter the container dedicated to automatic reexecution to inspect and test changes in the environment.
@@ -62,9 +62,13 @@ A more easily surmountable challenge was data management.
 Whereas the original article strove to integrate all provision of computational requirements with the package manager, the usage of containers made the cost of this all-encompassing solution prohibitive.
 As such, Git submodules and DataLad were used, providing enhanced functionality for e.g. data version specification, but at the cost of spreading requirements provision over different technologies.
 
-Lastly, an unavoidable challenge consisted in execution time-cost.
+A further and unavoidable challenge consisted in the execution time-cost.
 While not prohibitive, the time cost not only slows iterative development work, but presages a potential decrease in the feasibility of reexecution given the trend towards larger and larger data.
 This means that process complexity and experimental data size may need to be evaluated in light of the diminished accessibility to such processes as reexecution.
+
+Lastly, a notable barrier to execution may be produced by hardware requirements.
+While this is not manifest in the current study, increasingly many processes may require Graphical Processing Unit (GPU) access as a hardware requirement which cannot be virtualised.
+The handling of such situations would be a significant concern for making the reproduction of studies with specific hardware requirements more broadly accessible. 
 
 \subsection{Outlook}
 
