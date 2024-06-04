@@ -157,9 +157,10 @@ Reproduction differences between the article versions are extracted by evaluatin
 	\centering
 	\includegraphics[clip,width=0.99\textwidth]{figs/diff_pages.pdf}
 	\caption{
-		\textbf{Page-wise pixel differences between the Historical Manuscript Record and new reexecution system outputs visualize overall reproduction fidelity, and highlight pages with noteworthy differences.}
+		\textbf{Page-wise pixel differences between the Historical Manuscript Record and new reexecution system outputs gauge overall reproduction fidelity, and highlight pages with noteworthy differences.}
 		Depicted are rasterized document differences, weighted 1 for changes in any pixel color channel, and rounded to four decimal points.
 		Error bars represent the \nth{95} percentile confidence interval.
+		Colors indicate the reproduction environment, Singularity, and Podman — the latter being an OCI implementation analogous to Docker.
 	}
 	\label{fig:diff_pages}
 \end{figure*}
