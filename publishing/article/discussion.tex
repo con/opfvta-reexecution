@@ -41,11 +41,13 @@ While the above observations describe the current article specifically, we suspe
 
 In neuroimaging workflows, the most notorious source for non-deterministic data analysis behavior is the registration.
 This process commonly operates via a random starting point — specified by a seed value — and iterates according to a gradient descent algorithm.
-While the toolkit used by the article reexecuted here allows the specification of a particular seed, this was not done for the Historical Manuscript Record, nor is it a feature commonly used by operators.
+While the toolkit used by the OPFVTA article allows the specification of a particular seed, this was not done for the Historical Manuscript Record, nor is it a feature commonly used by operators.
 In light of our results, the question emerges whether or not seed specification should be introduced as a best practice.
 While a fixed seed would aid in numerical reproducibility, it is possible that a specific seed — whether by coincidence or \textit{ex post facto} selection — may result in anomalous conclusions.
 It may then be that a stronger finding is one which is statistically robust with respect to preprocessing variability, even if this comes at the cost of compromising numerical replicability.
 Conversely, it could be argued that reproduction analysis can be better targeted and more concise, if seed values were fixed to universally accepted numbers (analogous to the usage of nothing-up-my-sleeve numbers in cryptography).
+Additionally, fixed seed values might consolidate quality control, as quality control and data exclusion based on post registration data would be consistent across executions.
+This is a significant concern, since incidental data distortion is a well-documented phenomenon with registration workflows \cite{irsabi}.
 
 \subsection{Challenges}
 For this meta-article we have selected an original neuroimaging article which already published all of the instructions needed to reproduce it in its entirety from raw data and automatically executable instructions.
@@ -68,7 +70,7 @@ This means that process complexity and experimental data size may need to be eva
 
 Lastly, a notable barrier to execution may be produced by hardware requirements.
 While this is not manifest in the current study, increasingly many processes may require Graphical Processing Unit (GPU) access as a hardware requirement which cannot be virtualised.
-The handling of such situations would be a significant concern for making the reproduction of studies with specific hardware requirements more broadly accessible. 
+The handling of such situations would be a significant concern for making the reproduction of studies with specific hardware requirements more broadly accessible.
 
 \subsection{Outlook}
 
