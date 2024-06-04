@@ -105,3 +105,10 @@ Further, Singularity permits the conversion of OCI images into Singularity image
 
 Container technology thus represents a solution to providing stable reusable environments for complex processes, such as the automatic generation of research articles.
 In particular, containers provide a convenient way of making advanced package management solutions — as seen in the original OPFVTA article — available to users which may lack them on their host systems.
+
+\subsection{Hardware Requirements}
+
+The reproduction of computational analyses may require specific hardware availability.
+The OPFVTA study uses processing instructions that can be executed on Central Processing Units (CPUs) and do not require access to a Graphical processing unit (GPU).
+Resource usage with respect to CPU cores and Random Access Memory (RAM) are scaled dynamically by the workflow, with a system using an i7-8550U CPU and having \SI{16}{\giga\byte} of RAM being the lower bounds of resources for which usage was documented.
+In cases of lower resource availability the workflow adapts by reducing the parallel processing of individual measurement time series.
