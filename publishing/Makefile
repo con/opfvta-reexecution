@@ -118,9 +118,21 @@ clean:
 	@rm -f metadata.tex
 	@rm -f *.nav
 	@rm -f *.snm
+	@rm -f *-onefile.tex
+	@rm -f textonly.txt
 
 # Upload target
 .PHONY: upload
 upload: article poster
 	rsync -avP article-$(FORMAT).pdf dreamarticles:articles.chymera.eu/fraaef-$(FORMAT).pdf
 	rsync -avP poster.pdf dreamarticles:articles.chymera.eu/fraaef-poster.pdf
+
+article-frontiers-onefile.tex:
+	python scripts/onefile.py
+
+textonly.txt: article-frontiers-onefile.tex
+	cp article-frontiers-onefile.tex article-frontiers-onefile-filtered.tex
+	sed -i '/usepackage\[switch\]{lineno}/d' article-frontiers-onefile-filtered.tex
+	sed -i '/\\linenumbers/d' article-frontiers-onefile-filtered.tex
+	latexmk -pdf -pdflatex="xelatex -interaction=nonstopmode" -use-make article-frontiers-onefile-filtered.tex
+	python scripts/extract_text.py
