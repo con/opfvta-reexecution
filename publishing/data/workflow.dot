@@ -90,8 +90,8 @@ digraph graphname {
         mpp[label="    Meta-Poster (PDF)     ", shape=box, color="#BBBBBB", fillcolor=grey93];
         blank33 [style=invis];
         }
-    ra -> arl:n [constraint=false, color=grey64];
-    ra -> arl:n [constraint=false, color=grey52];
-    ra -> arl:n [constraint=false, color=grey40];
+    ra -> arl:s [constraint=false, color=grey64];
+    ra -> arl:s [constraint=false, color=grey52];
+    ra -> arl:s [constraint=false, color=grey40];
     mac -> map [style=invis];
 }
