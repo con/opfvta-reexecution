@@ -2,6 +2,8 @@
 [![Article](https://badgen.net/badge/Article/Frontiers/green)](https://www.frontiersin.org/journals/neuroinformatics/articles/10.3389/fninf.2024.1376022/full)
 [![Manuscript PDF](https://badgen.net/badge/Manuscript/manual%20record/yellow)](https://articles.chymera.eu/fraaef-frontiers.pdf)
 [![Poster PDF](https://badgen.net/badge/Poster/2023%20SfN/green)](https://articles.chymera.eu/fraaef-poster.pdf)
+[![Mirror](https://badgen.net/badge/Mirror/Gin/green)](https://gin.g-node.org/TheChymera/opfvta-reexecution)
+[![Mirror](https://badgen.net/badge/Mirror/GitHub/green)](https://github.com/con/opfvta-reexecution)
 
 This repository contains code, data, and prose as required to:
 * re-execute analysis and production of the OPFVTA article in a container environment.
